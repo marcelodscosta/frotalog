@@ -33,3 +33,21 @@ model User {
 
   @@map("users")
 }
+
+enum AssetType {
+  VEHICLE
+  EQUIPMENT
+}
+
+model AssetCategory {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  type        AssetType
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  is_Active  Boolean  @default(true)
+
+  @@map("asset_categories")
+}
