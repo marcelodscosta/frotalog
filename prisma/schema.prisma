@@ -51,3 +51,20 @@ model AssetCategory {
 
   @@map("asset_categories")
 }
+
+model Asset {
+  id    String @id @default(uuid())
+  name  String
+  brand String
+  model String
+  year  Int?
+
+  plate         String? @unique
+  serial_number String? @unique
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  is_Active  Boolean  @default(true)
+
+  @@map("assets")
+}
