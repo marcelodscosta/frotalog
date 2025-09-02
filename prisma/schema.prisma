@@ -48,6 +48,7 @@ model AssetCategory {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   is_Active  Boolean  @default(true)
+  Asset      Asset[]
 
   @@map("asset_categories")
 }
@@ -65,6 +66,9 @@ model Asset {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   is_Active  Boolean  @default(true)
+
+  assetCategory   AssetCategory @relation(fields: [assetCategoryId], references: [id])
+  assetCategoryId String
 
   @@map("assets")
 }
