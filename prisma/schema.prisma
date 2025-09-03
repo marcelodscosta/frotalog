@@ -72,3 +72,26 @@ model Asset {
 
   @@map("assets")
 }
+
+model Supplier {
+  id           String  @id @default(uuid())
+  company_name String
+  trading_name String?
+  cnpj         String  @unique
+  email        String
+  phone        String
+  contact      String
+
+  adrdress String?
+  city     String?
+  state    String?
+  zip_code String?
+
+  service_types String[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  is_Active  Boolean  @default(true)
+
+  @@map("suppliers")
+}
