@@ -69,6 +69,7 @@ model Asset {
 
   assetCategory   AssetCategory @relation(fields: [assetCategoryId], references: [id])
   assetCategoryId String
+  Maintenance     Maintenance[]
 
   @@map("assets")
 }
@@ -89,9 +90,70 @@ model Supplier {
 
   service_types String[]
 
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+  is_Active   Boolean       @default(true)
+  Maintenance Maintenance[]
+
+  @@map("suppliers")
+}
+
+enum MaintenanceStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum MaintenanceType {
+  PREVENTIVE
+  CORRECTIVE
+  EMERGENCY
+}
+
+model Maintenance {
+  id String @id @default(uuid())
+
+  asset   Asset  @relation(fields: [assetId], references: [id])
+  assetId String
+
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  supplierId String
+
+  type        MaintenanceType
+  description String
+
+  scheduled_date DateTime
+  started_date   DateTime?
+  completed_date DateTime?
+
+  estimated_cost Decimal? @db.Decimal(10, 2)
+  actual_cost    Decimal? @db.Decimal(10, 2)
+
+  status MaintenanceStatus @default(SCHEDULED)
+  notes  String?
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   is_Active  Boolean  @default(true)
 
-  @@map("suppliers")
+  documents MaintenanceDocument[]
+
+  @@map("maintenances")
+}
+
+model MaintenanceDocument {
+  id            String  @id @default(uuid())
+  filename      String
+  original_name String
+  file_path     String
+  file_size     Int
+  mime_type     String
+  description   String?
+
+  created_at    DateTime     @default(now())
+  Maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id])
+  maintenanceId String?
+
+  @@map("maintenance_documents")
 }
