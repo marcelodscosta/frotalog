@@ -55,7 +55,6 @@ model AssetCategory {
 
 model Asset {
   id    String @id @default(uuid())
-  name  String
   brand String
   model String
   year  Int?
