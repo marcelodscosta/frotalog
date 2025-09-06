@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto'
 import { Prisma, AssetCategory } from '../../generated/prisma'
 import { IAssetCategoryRepository } from '../interfaces/IAssetCategoryRepository'
 
-export class inMemoryAssetCategoryRepository
+export class InMemoryAssetCategoryRepository
   implements IAssetCategoryRepository
 {
   public items: AssetCategory[] = []
@@ -15,7 +15,7 @@ export class inMemoryAssetCategoryRepository
       type: data.type,
       created_at: new Date(),
       updated_at: data.updated_at as Date,
-      is_Active: data.is_Active ?? false,
+      is_Active: data.is_Active ?? true,
     }
     this.items.push(assetCategory)
 
