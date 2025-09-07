@@ -1,12 +1,12 @@
-import { beforeAll, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryAssetCategoryRepository } from '../../repositories/in-memory/in-memory-asset-category-repository'
-import { CreateAssetsCategoryUseCase } from '../create-asset-category'
+import { CreateAssetsCategoryUseCase } from '../asset-category/create-asset-category-use-case'
 
 let assetCategoryRepository: InMemoryAssetCategoryRepository
 let sut: CreateAssetsCategoryUseCase
 
 describe('Create AssetCategory', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     assetCategoryRepository = new InMemoryAssetCategoryRepository()
     sut = new CreateAssetsCategoryUseCase(assetCategoryRepository)
   })
@@ -17,7 +17,6 @@ describe('Create AssetCategory', () => {
       description: '',
       type: 'VEHICLE',
     })
-    console.log(assetCategory)
     expect(assetCategory.id).toEqual(expect.any(String))
   })
 })

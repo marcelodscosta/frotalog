@@ -21,4 +21,8 @@ export class InMemoryAssetCategoryRepository
 
     return assetCategory
   }
+
+  async findById(id: string): Promise<AssetCategory | null> {
+    return this.items.find((item) => item.id === id) ?? null
+  }
 }

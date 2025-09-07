@@ -1,5 +1,5 @@
-import { AssetCategory } from '../generated/prisma'
-import { IAssetCategoryRepository } from '../repositories/interfaces/IAssetCategoryRepository'
+import { AssetCategory } from '../../generated/prisma'
+import { IAssetCategoryRepository } from '../../repositories/interfaces/IAssetCategoryRepository'
 
 interface CreateAssetCategoryRequest {
   name: string
