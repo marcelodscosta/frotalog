@@ -25,4 +25,13 @@ export class InMemoryAssetCategoryRepository
   async findById(id: string): Promise<AssetCategory | null> {
     return this.items.find((item) => item.id === id) ?? null
   }
+
+  async searchAssetCategory(
+    query: string,
+    page: number,
+  ): Promise<AssetCategory[]> {
+    return this.items
+      .filter((item) => item.name.toLowerCase().includes(query.toLowerCase()))
+      .slice((page - 1) * 20, page * 20)
+  }
 }
