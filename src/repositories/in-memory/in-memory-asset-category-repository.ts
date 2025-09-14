@@ -34,4 +34,22 @@ export class InMemoryAssetCategoryRepository
       .filter((item) => item.name.toLowerCase().includes(query.toLowerCase()))
       .slice((page - 1) * 20, page * 20)
   }
+
+  async updateAssetCategory(
+    id: string,
+    data: Prisma.AssetCategoryUpdateInput,
+  ): Promise<AssetCategory> {
+    const index = this.items.findIndex((item) => item.id === id)
+    if (index === -1) {
+      throw new Error('AssetCategory not found')
+    }
+    const existing = this.items[index]
+    const updated = {
+      ...existing,
+      ...data,
+      updated_at: new Date(),
+    }
+    this.items[index] = updated as AssetCategory
+    return this.items[index]
+  }
 }
