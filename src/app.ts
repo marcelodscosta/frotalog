@@ -1,6 +1,6 @@
 import fastify from 'fastify'
-import { PrismaClient } from './generated/prisma'
+import { assetCategoryRoutes } from './http/controllers/assetCategory/routes'
 
 export const app = fastify()
 
-const prisma = new PrismaClient()
+app.register(assetCategoryRoutes)

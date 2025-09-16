@@ -25,12 +25,12 @@
     "tsup": "8.5.0",
     "tsx": "4.20.5",
     "typescript": "5.9.2",
-    "vitest": "3.2.4"
+    "vitest": "3.2.4",
+    "zod": "4.1.8"
   },
   "dependencies": {
     "@prisma/client": "6.15.0",
     "dotenv": "17.2.1",
-    "fastify": "5.5.0",
-    "zod": "4.1.5"
+    "fastify": "5.5.0"
   }
 }
