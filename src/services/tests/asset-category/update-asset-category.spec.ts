@@ -1,42 +1,74 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { Prisma } from '../../../generated/prisma'
 import { InMemoryAssetCategoryRepository } from '../../../repositories/in-memory/in-memory-asset-category-repository'
+import { UpdateAssetCategoryUseCase } from '../../asset-category/update-asset-category-use-case'
+import { AssetCategoryNotFoundError } from '../../errors/asset-category-not-found-error'
 
-describe('InMemoryAssetCategoryRepository', () => {
-  let repository: InMemoryAssetCategoryRepository
+describe('InMemoryAssetCategoryRepository', async () => {
+  let assetCategoryRepository: InMemoryAssetCategoryRepository
+  let sut: UpdateAssetCategoryUseCase
 
   beforeEach(() => {
-    repository = new InMemoryAssetCategoryRepository()
+    assetCategoryRepository = new InMemoryAssetCategoryRepository()
+    sut = new UpdateAssetCategoryUseCase(assetCategoryRepository)
   })
 
   it('should update an existing asset category', async () => {
-    const created = await repository.create({
-      id: '1',
+    await assetCategoryRepository.create({
+      id: 'caminhao-1',
       name: 'Caminhão Munck',
       description: 'Descrição 1',
       type: 'VEHICLE',
       updated_at: new Date(),
     })
 
-    const updateData: Prisma.AssetCategoryUpdateInput = {
-      name: 'Caminhão Guindaste',
-      description: 'Descrição atualizada',
+    await assetCategoryRepository.create({
+      id: 'caminhao-2',
+      name: 'Caminhão Comboio',
+      description: 'Descrição 2',
+      type: 'VEHICLE',
+      updated_at: new Date(),
+    })
+    const updateData = {
+      name: 'Caminhão Sugador',
+      description: 'Sugar degetos',
+      updated_at: new Date(),
     }
 
-    const updated = await repository.updateAssetCategory(created.id, updateData)
+    const { assetCategory } = await sut.execute({
+      id: 'caminhao-2',
+      data: updateData,
+    })
 
-    expect(updated.name).toBe(updateData.name)
-    expect(updated.description).toBe(updateData.description)
-    expect(updated.updated_at).toBeInstanceOf(Date)
-
-    const found = await repository.findById(created.id)
-    expect(found?.name).toBe(updateData.name)
-    expect(found?.description).toBe(updateData.description)
+    expect(assetCategory.name).toEqual('Caminhão Sugador')
   })
 
-  it('should throw if asset category not found', async () => {
+  it('should display an error when updating a non-existent category', async () => {
+    await assetCategoryRepository.create({
+      id: 'caminhao-1',
+      name: 'Caminhão Munck',
+      description: 'Descrição 1',
+      type: 'VEHICLE',
+      updated_at: new Date(),
+    })
+
+    await assetCategoryRepository.create({
+      id: 'caminhao-2',
+      name: 'Caminhão Comboio',
+      description: 'Descrição 2',
+      type: 'VEHICLE',
+      updated_at: new Date(),
+    })
+    const updateData = {
+      name: 'Caminhão Sugador',
+      description: 'Sugar degetos',
+      updated_at: new Date(),
+    }
+
     await expect(
-      repository.updateAssetCategory('non-existent-id', { name: 'Test' }),
-    ).rejects.toThrow('AssetCategory not found')
+      sut.execute({
+        id: '123',
+        data: updateData,
+      }),
+    ).rejects.toBeInstanceOf(AssetCategoryNotFoundError)
   })
 })

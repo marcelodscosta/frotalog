@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
 import { Prisma, AssetCategory } from '../../generated/prisma'
 import { IAssetCategoryRepository } from '../interfaces/IAssetCategoryRepository'
+import { AssetCategoryNotFoundError } from '../../services/errors/asset-category-not-found-error'
 
 export class InMemoryAssetCategoryRepository
   implements IAssetCategoryRepository
@@ -41,7 +42,7 @@ export class InMemoryAssetCategoryRepository
   ): Promise<AssetCategory> {
     const index = this.items.findIndex((item) => item.id === id)
     if (index === -1) {
-      throw new Error('AssetCategory not found')
+      throw new AssetCategoryNotFoundError()
     }
     const existing = this.items[index]
     const updated = {
