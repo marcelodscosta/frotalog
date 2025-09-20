@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, expect } from 'vitest'
-import { InMemoryAssetCategoryRepository } from '../../repositories/in-memory/in-memory-asset-category-repository'
-import { GetAssetCategoryByIdUseCase } from '../asset-category/get-asset-category-by-id-use-case'
+import { InMemoryAssetCategoryRepository } from '../../../repositories/in-memory/in-memory-asset-category-repository'
+import { GetAssetCategoryByIdUseCase } from '../../asset-category/get-asset-category-by-id-use-case'
 
 let assetCategoryRepository: InMemoryAssetCategoryRepository
 let sut: GetAssetCategoryByIdUseCase

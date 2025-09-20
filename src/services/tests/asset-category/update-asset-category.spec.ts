@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { Prisma } from '../../generated/prisma'
-import { InMemoryAssetCategoryRepository } from '../../repositories/in-memory/in-memory-asset-category-repository'
+import { Prisma } from '../../../generated/prisma'
+import { InMemoryAssetCategoryRepository } from '../../../repositories/in-memory/in-memory-asset-category-repository'
 
 describe('InMemoryAssetCategoryRepository', () => {
   let repository: InMemoryAssetCategoryRepository
