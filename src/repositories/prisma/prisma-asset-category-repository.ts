@@ -36,7 +36,6 @@ export class PrismaAssetCategoryRepository implements IAssetCategoryRepository {
     id: string,
     data: Prisma.AssetCategoryUpdateInput,
   ): Promise<AssetCategory> {
-    // TODO: Exception AssetCategoryNotFoundError
     const updatedAssetCategory = await prisma.assetCategory.update({
       where: { id },
       data,
