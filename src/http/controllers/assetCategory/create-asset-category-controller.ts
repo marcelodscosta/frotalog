@@ -15,18 +15,11 @@ export async function createAssetCategory(
 
   const { name, description, type } = createBodySchema.parse(request.body)
 
-  try {
-    const createAssetCategoryUseCase = makeCreateAssetCategory()
-    await createAssetCategoryUseCase.execute({
-      name,
-      description: description ?? '',
-      type,
-    })
-    return reply.status(201).send()
-  } catch (error) {
-    return reply.status(500).send({
-      message: 'Internal server error',
-      error: error instanceof Error ? error.message : error,
-    })
-  }
+  const createAssetCategoryUseCase = makeCreateAssetCategory()
+  const { assetCategory } = await createAssetCategoryUseCase.execute({
+    name,
+    description: description ?? '',
+    type,
+  })
+  return reply.status(201).send({ assetCategory })
 }

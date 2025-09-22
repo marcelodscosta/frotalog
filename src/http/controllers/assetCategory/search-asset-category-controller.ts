@@ -14,20 +14,13 @@ export async function SearchAssetCategory(
   request: FastifyRequest<{ Querystring: QueryParams }>,
   reply: FastifyReply,
 ) {
-  try {
-    const { query, page } = searchAssetCategorySchema.parse(request.query)
+  const { query, page } = searchAssetCategorySchema.parse(request.query)
 
-    const searchAssetCategoryUseCase = makeSearchAssetCategory()
-    const assetCategories = await searchAssetCategoryUseCase.execute({
-      query,
-      page,
-    })
+  const searchAssetCategoryUseCase = makeSearchAssetCategory()
+  const assetCategories = await searchAssetCategoryUseCase.execute({
+    query,
+    page,
+  })
 
-    return reply.status(200).send(assetCategories)
-  } catch (error) {
-    return reply.status(500).send({
-      message: 'Internal server error',
-      error: error instanceof Error ? error.message : error,
-    })
-  }
+  return reply.status(200).send({ assetCategories })
 }

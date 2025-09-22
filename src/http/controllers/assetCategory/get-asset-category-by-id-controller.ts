@@ -1,31 +1,24 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeGetAssetCategoryById } from '../../../services/factories/make-get-asset-category-by-id'
+import { AssetCategoryNotFoundError } from '../../../services/errors/asset-category-not-found-error'
 
 const getAssetCategoryByIdSchema = z.object({
   id: z.string(),
 })
 
-type Params = z.infer<typeof getAssetCategoryByIdSchema>
-
 export async function getAssetCategoryById(
-  request: FastifyRequest<{ Params: Params }>,
+  request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const { id } = getAssetCategoryByIdSchema.parse(request.params)
-  try {
-    const getAssetCategoryUseCase = makeGetAssetCategoryById()
-    const assetCategory = await getAssetCategoryUseCase.execute({ id })
+  const { id } = getAssetCategoryByIdSchema.parse(request.query)
 
-    if (!assetCategory) {
-      return reply.status(404).send({ message: 'Asset category not found' })
-    }
+  const getAssetCategoryUseCase = makeGetAssetCategoryById()
+  const { assetCategory } = await getAssetCategoryUseCase.execute({ id })
 
-    return reply.status(200).send({ assetCategory })
-  } catch (error) {
-    return reply.status(500).send({
-      message: 'Internal server error',
-      error: error instanceof Error ? error.message : error,
-    })
+  if (!assetCategory) {
+    throw new AssetCategoryNotFoundError()
   }
+
+  return reply.status(200).send({ assetCategory })
 }

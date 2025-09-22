@@ -31,7 +31,7 @@ export class PrismaAssetRepository implements IAssetRepository {
     const PAGE_SIZE = 20
 
     const assets = await prisma.asset.findMany({
-      where: { brand },
+      where: { brand: { equals: brand, mode: 'insensitive' } },
       skip: (page - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
     })

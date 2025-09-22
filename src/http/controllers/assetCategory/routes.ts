@@ -6,7 +6,7 @@ import { updateAssetCategory } from './update-asset-category-controller'
 
 export async function assetCategoryRoutes(app: FastifyInstance) {
   app.post('/assetCategories', createAssetCategory)
-  app.get('/assetCategories/:id', getAssetCategoryById)
   app.patch('/assetCategories/:id', updateAssetCategory)
+  app.get('/assetCategories/search/:id', getAssetCategoryById)
   app.get('/assetCategories/search', SearchAssetCategory)
 }
