@@ -53,4 +53,8 @@ export class InMemoryAssetCategoryRepository
     this.items[index] = updated as AssetCategory
     return this.items[index]
   }
+
+  async findAll(page: number): Promise<AssetCategory[]> {
+    return this.items.map((item) => item).slice((page - 1) * 20, page * 20)
+  }
 }

@@ -8,4 +8,6 @@ export interface IAssetCategoryRepository {
     id: string,
     data: Prisma.AssetCategoryUpdateInput,
   ): Promise<AssetCategory>
+
+  findAll(page: number): Promise<AssetCategory[]>
 }

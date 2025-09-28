@@ -16,8 +16,8 @@ export async function findAllAssets(
 
   const findAllAssetUseCase = makeFindAllAsset()
 
-  const findAllAsset = await findAllAssetUseCase.execute({
+  const { assets } = await findAllAssetUseCase.execute({
     page,
   })
-  return reply.status(200).send({ findAllAsset })
+  return reply.status(200).send({ assets })
 }

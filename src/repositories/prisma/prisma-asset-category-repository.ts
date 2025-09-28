@@ -42,4 +42,13 @@ export class PrismaAssetCategoryRepository implements IAssetCategoryRepository {
     })
     return updatedAssetCategory
   }
+
+  async findAll(page: number): Promise<AssetCategory[]> {
+    const PAGE_SIZE = 20
+    const assetRepositories = await prisma.assetCategory.findMany({
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
+    })
+    return assetRepositories
+  }
 }
