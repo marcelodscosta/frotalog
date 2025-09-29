@@ -7,13 +7,23 @@ interface FindAllAssetRequest {
 
 interface FindAllAssetResponse {
   assets: Asset[]
+  currentPage: number
+  pageSize: number
+  totalItems: number
+  totalPages: number
 }
 
 export class FindAllAssetUseCase {
   constructor(private assetRepository: IAssetRepository) {}
 
   async execute({ page }: FindAllAssetRequest): Promise<FindAllAssetResponse> {
-    const assets = await this.assetRepository.findAll(page)
-    return { assets }
+    const result = await this.assetRepository.findAll(page)
+    return {
+      assets: result.items,
+      currentPage: result.currentPage,
+      pageSize: result.pageSize,
+      totalItems: result.totalItems,
+      totalPages: result.totalPages,
+    }
   }
 }

@@ -37,7 +37,11 @@ describe('Find Asset (s)', () => {
     })
 
     const result = await sut.execute({ page: 1 })
+
     expect(result.assets).toHaveLength(3)
-    expect(Array.isArray(result.assets)).toBe(true)
+    expect(result.currentPage).toBe(1)
+    expect(result.pageSize).toBeGreaterThan(0)
+    expect(result.totalItems).toBe(3)
+    expect(result.totalPages).toBe(1)
   })
 })

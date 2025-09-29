@@ -8,6 +8,10 @@ interface GetAssetByBrandRequest {
 
 interface GetAssetByBrandResponse {
   assets: Asset[]
+  currentPage: number
+  pageSize: number
+  totalItems: number
+  totalPages: number
 }
 
 export class GetAssetByBrandUseCase {
@@ -17,7 +21,13 @@ export class GetAssetByBrandUseCase {
     page,
     brand,
   }: GetAssetByBrandRequest): Promise<GetAssetByBrandResponse> {
-    const assets = await this.assetRepository.findByBrand(brand, page)
-    return { assets }
+    const result = await this.assetRepository.findByBrand(brand, page)
+    return {
+      assets: result.items,
+      currentPage: result.currentPage,
+      pageSize: result.pageSize,
+      totalItems: result.totalItems,
+      totalPages: result.totalPages,
+    }
   }
 }

@@ -3,6 +3,8 @@ import { AssetNotFoundError } from '../../services/errors/asset-not-found-error'
 import { IAssetRepository } from '../interfaces/IAssetRepository'
 import { randomUUID } from 'crypto'
 
+import { PaginatedResult } from '../interfaces/IPaginatedResult'
+
 export class InMemoryAssetRepository implements IAssetRepository {
   public items: Asset[] = []
 
@@ -12,14 +14,11 @@ export class InMemoryAssetRepository implements IAssetRepository {
       brand: data.brand,
       model: data.model,
       year: data.year ?? null,
-
       plate: data.plate ?? null,
       serial_number: data.serial_number ?? null,
-
       created_at: new Date(),
       updated_at: new Date(),
       is_Active: data.is_Active ?? true,
-
       assetCategoryId: data.assetCategoryId,
     }
     this.items.push(asset)
@@ -62,19 +61,63 @@ export class InMemoryAssetRepository implements IAssetRepository {
     )
   }
 
-  async findAll(page: number): Promise<Asset[]> {
-    return this.items.map((item) => item).slice((page - 1) * 20, page * 20)
+  async findAll(page: number): Promise<PaginatedResult<Asset>> {
+    const PAGE_SIZE = 20
+    const skip = (page - 1) * PAGE_SIZE
+    const paged = this.items.slice(skip, skip + PAGE_SIZE)
+    const totalItems = this.items.length
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items: paged,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
   }
 
-  async findByBrand(query: string, page: number): Promise<Asset[]> {
-    return this.items
-      .filter((item) => item.brand.toLowerCase().includes(query.toLowerCase()))
-      .slice((page - 1) * 20, page * 20)
+  async findByBrand(
+    query: string,
+    page: number,
+  ): Promise<PaginatedResult<Asset>> {
+    const PAGE_SIZE = 20
+    const filtered = this.items.filter((item) =>
+      item.brand.toLowerCase().includes(query.toLowerCase()),
+    )
+    const skip = (page - 1) * PAGE_SIZE
+    const paged = filtered.slice(skip, skip + PAGE_SIZE)
+    const totalItems = filtered.length
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items: paged,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
   }
 
-  async findByModel(query: string, page: number): Promise<Asset[]> {
-    return this.items
-      .filter((item) => item.model.toLowerCase().includes(query.toLowerCase()))
-      .slice((page - 1) * 20, page * 20)
+  async findByModel(
+    query: string,
+    page: number,
+  ): Promise<PaginatedResult<Asset>> {
+    const PAGE_SIZE = 20
+    const filtered = this.items.filter((item) =>
+      item.model.toLowerCase().includes(query.toLowerCase()),
+    )
+    const skip = (page - 1) * PAGE_SIZE
+    const paged = filtered.slice(skip, skip + PAGE_SIZE)
+    const totalItems = filtered.length
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items: paged,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
   }
 }

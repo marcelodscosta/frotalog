@@ -8,6 +8,10 @@ interface GetAssetByModelRequest {
 
 interface GetAssetByModelResponse {
   assets: Asset[]
+  currentPage: number
+  pageSize: number
+  totalItems: number
+  totalPages: number
 }
 
 export class GetAssetByModelUseCase {
@@ -17,7 +21,13 @@ export class GetAssetByModelUseCase {
     model,
     page,
   }: GetAssetByModelRequest): Promise<GetAssetByModelResponse> {
-    const assets = await this.assetRepository.findByModel(model, page)
-    return { assets }
+    const result = await this.assetRepository.findByModel(model, page)
+    return {
+      assets: result.items,
+      currentPage: result.currentPage,
+      pageSize: result.pageSize,
+      totalItems: result.totalItems,
+      totalPages: result.totalPages,
+    }
   }
 }

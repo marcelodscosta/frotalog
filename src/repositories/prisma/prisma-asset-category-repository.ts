@@ -1,6 +1,7 @@
 import { Prisma, AssetCategory } from '../../generated/prisma'
 import { prisma } from '../../lib/prisma'
 import { IAssetCategoryRepository } from '../interfaces/IAssetCategoryRepository'
+import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
 export class PrismaAssetCategoryRepository implements IAssetCategoryRepository {
   async create(data: Prisma.AssetCategoryCreateInput): Promise<AssetCategory> {
@@ -20,16 +21,36 @@ export class PrismaAssetCategoryRepository implements IAssetCategoryRepository {
   async searchAssetCategory(
     query: string,
     page: number,
-  ): Promise<AssetCategory[]> {
+  ): Promise<PaginatedResult<AssetCategory>> {
     const PAGE_SIZE = 20
-    const assetCategories = await prisma.assetCategory.findMany({
-      where: {
-        name: { contains: query, mode: 'insensitive' },
-      },
-      take: PAGE_SIZE,
-      skip: (page - 1) * PAGE_SIZE,
-    })
-    return assetCategories
+    const skip = (page - 1) * PAGE_SIZE
+
+    const [items, totalItems] = await prisma.$transaction([
+      prisma.assetCategory.findMany({
+        where: {
+          is_Active: true,
+          name: { contains: query, mode: 'insensitive' },
+        },
+        skip,
+        take: PAGE_SIZE,
+      }),
+      prisma.assetCategory.count({
+        where: {
+          is_Active: true,
+          name: { contains: query, mode: 'insensitive' },
+        },
+      }),
+    ])
+
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
   }
 
   async updateAssetCategory(
@@ -43,12 +64,33 @@ export class PrismaAssetCategoryRepository implements IAssetCategoryRepository {
     return updatedAssetCategory
   }
 
-  async findAll(page: number): Promise<AssetCategory[]> {
+  async findAll(page: number): Promise<PaginatedResult<AssetCategory>> {
     const PAGE_SIZE = 20
-    const assetRepositories = await prisma.assetCategory.findMany({
-      skip: (page - 1) * PAGE_SIZE,
-      take: PAGE_SIZE,
-    })
-    return assetRepositories
+    const skip = (page - 1) * PAGE_SIZE
+
+    const [items, totalItems] = await prisma.$transaction([
+      prisma.assetCategory.findMany({
+        where: {
+          is_Active: true,
+        },
+        skip,
+        take: PAGE_SIZE,
+      }),
+      prisma.assetCategory.count({
+        where: {
+          is_Active: true,
+        },
+      }),
+    ])
+
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
   }
 }

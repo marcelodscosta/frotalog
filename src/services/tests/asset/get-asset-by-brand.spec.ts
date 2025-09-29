@@ -31,10 +31,15 @@ describe('Find Asset by brand', () => {
       year: 2001,
     })
 
-    const { assets } = await sut.execute({ page: 1, brand: 'VW' })
+    const result = await sut.execute({ page: 1, brand: 'VW' })
 
-    expect(assets.length).toEqual(2)
+    expect(result.assets.length).toEqual(2)
+    expect(result.currentPage).toBe(1)
+    expect(result.pageSize).toBeGreaterThan(0)
+    expect(result.totalItems).toBe(2)
+    expect(result.totalPages).toBe(1)
   })
+
   it('Should return empty array when no assets found for brand', async () => {
     await assetRepository.create({
       id: 'asset-01',
@@ -45,10 +50,12 @@ describe('Find Asset by brand', () => {
       year: 1995,
     })
 
-    const { assets } = await sut.execute({ page: 1, brand: 'VW' })
+    const result = await sut.execute({ page: 1, brand: 'VW' })
 
-    expect(assets.length).toEqual(0)
-    expect(assets).toEqual([])
+    expect(result.assets.length).toEqual(0)
+    expect(result.assets).toEqual([])
+    expect(result.currentPage).toBe(1)
+    expect(result.totalItems).toBe(0)
   })
 
   it('Should return only assets from specified brand', async () => {
@@ -79,10 +86,11 @@ describe('Find Asset by brand', () => {
       year: 2010,
     })
 
-    const { assets } = await sut.execute({ page: 1, brand: 'VW' })
+    const result = await sut.execute({ page: 1, brand: 'VW' })
 
-    expect(assets.length).toEqual(2)
-    expect(assets.every((asset) => asset.brand === 'VW')).toBe(true)
+    expect(result.assets.length).toEqual(2)
+    expect(result.assets.every((asset) => asset.brand === 'VW')).toBe(true)
+    expect(result.currentPage).toBe(1)
   })
 
   it('Should handle pagination correctly', async () => {
@@ -101,8 +109,14 @@ describe('Find Asset by brand', () => {
     const page2 = await sut.execute({ page: 2, brand: 'VW' })
 
     expect(page1.assets.length).toEqual(20)
+    expect(page1.currentPage).toBe(1)
+    expect(page1.totalPages).toBe(2)
+    expect(page1.totalItems).toBe(25)
+
     expect(page2.assets.length).toEqual(5)
+    expect(page2.currentPage).toBe(2)
   })
+
   it('Should return empty array for invalid page number', async () => {
     await assetRepository.create({
       id: 'asset-01',
@@ -113,8 +127,10 @@ describe('Find Asset by brand', () => {
       year: 1995,
     })
 
-    const { assets } = await sut.execute({ page: 999, brand: 'VW' })
+    const result = await sut.execute({ page: 999, brand: 'VW' })
 
-    expect(assets.length).toEqual(0)
+    expect(result.assets.length).toEqual(0)
+    expect(result.currentPage).toBe(999)
+    expect(result.totalItems).toBe(1) // total items = 1 even if page is empty
   })
 })

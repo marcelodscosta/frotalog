@@ -8,19 +8,29 @@ interface SearchAssetCategoryRequest {
 
 interface SearchAssetCategoryResponse {
   assetCategory: AssetCategory[]
+  currentPage: number
+  pageSize: number
+  totalItems: number
+  totalPages: number
 }
 
 export class SearchAssetCategoryUseCase {
-  constructor(private assetCategory: IAssetCategoryRepository) {}
+  constructor(private assetCategoryRepository: IAssetCategoryRepository) {}
 
   async execute({
     query,
     page,
   }: SearchAssetCategoryRequest): Promise<SearchAssetCategoryResponse> {
-    const assetCategory = await this.assetCategory.searchAssetCategory(
+    const result = await this.assetCategoryRepository.searchAssetCategory(
       query,
       page,
     )
-    return { assetCategory }
+    return {
+      assetCategory: result.items,
+      currentPage: result.currentPage,
+      pageSize: result.pageSize,
+      totalItems: result.totalItems,
+      totalPages: result.totalPages,
+    }
   }
 }

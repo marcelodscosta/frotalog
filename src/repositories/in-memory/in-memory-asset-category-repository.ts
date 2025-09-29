@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto'
 import { Prisma, AssetCategory } from '../../generated/prisma'
 import { IAssetCategoryRepository } from '../interfaces/IAssetCategoryRepository'
 import { AssetCategoryNotFoundError } from '../../services/errors/asset-category-not-found-error'
+import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
 export class InMemoryAssetCategoryRepository
   implements IAssetCategoryRepository
@@ -30,10 +31,23 @@ export class InMemoryAssetCategoryRepository
   async searchAssetCategory(
     query: string,
     page: number,
-  ): Promise<AssetCategory[]> {
-    return this.items
-      .filter((item) => item.name.toLowerCase().includes(query.toLowerCase()))
-      .slice((page - 1) * 20, page * 20)
+  ): Promise<PaginatedResult<AssetCategory>> {
+    const PAGE_SIZE = 20
+    const filtered = this.items.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase()),
+    )
+    const skip = (page - 1) * PAGE_SIZE
+    const paged = filtered.slice(skip, skip + PAGE_SIZE)
+    const totalItems = filtered.length
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items: paged,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
   }
 
   async updateAssetCategory(
@@ -54,7 +68,19 @@ export class InMemoryAssetCategoryRepository
     return this.items[index]
   }
 
-  async findAll(page: number): Promise<AssetCategory[]> {
-    return this.items.map((item) => item).slice((page - 1) * 20, page * 20)
+  async findAll(page: number): Promise<PaginatedResult<AssetCategory>> {
+    const PAGE_SIZE = 20
+    const skip = (page - 1) * PAGE_SIZE
+    const paged = this.items.slice(skip, skip + PAGE_SIZE)
+    const totalItems = this.items.length
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items: paged,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
   }
 }
