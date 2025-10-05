@@ -4,11 +4,13 @@ import { ZodError, z } from 'zod'
 import { env } from './env'
 import { assetRoutes } from './http/controllers/asset/routes'
 import { AppError } from './services/errors/app-error'
+import { supplierRoutes } from './http/controllers/supplier/routes'
 
 export const app = fastify()
 
 app.register(assetCategoryRoutes)
 app.register(assetRoutes)
+app.register(supplierRoutes)
 
 app.setErrorHandler((error, _request, reply) => {
   if (error instanceof ZodError) {
