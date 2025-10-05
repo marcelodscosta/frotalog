@@ -22,29 +22,16 @@ export class CreateAssetUseCase {
     private assetCategoryRepository: IAssetCategoryRepository,
   ) {}
 
-  async execute({
-    brand,
-    model,
-    year,
-    plate,
-    serial_number,
-    assetCategoryId,
-  }: CreateAssetRequest): Promise<CreateAssetResponse> {
-    const assetCategory =
-      await this.assetCategoryRepository.findById(assetCategoryId)
+  async execute(data: CreateAssetRequest): Promise<CreateAssetResponse> {
+    const assetCategory = await this.assetCategoryRepository.findById(
+      data.assetCategoryId,
+    )
 
     if (!assetCategory) {
       throw new AssetCategoryNotFoundError()
     }
 
-    const asset = await this.assetRepository.create({
-      brand,
-      model,
-      year,
-      plate,
-      serial_number,
-      assetCategoryId,
-    })
+    const asset = await this.assetRepository.create(data)
     return { asset }
   }
 }

@@ -14,16 +14,10 @@ interface CreateAssetCategoryResponse {
 export class CreateAssetsCategoryUseCase {
   constructor(private assetCategoryRepository: IAssetCategoryRepository) {}
 
-  async execute({
-    name,
-    description,
-    type,
-  }: CreateAssetCategoryRequest): Promise<CreateAssetCategoryResponse> {
-    const assetCategory = await this.assetCategoryRepository.create({
-      name,
-      description,
-      type,
-    })
+  async execute(
+    data: CreateAssetCategoryRequest,
+  ): Promise<CreateAssetCategoryResponse> {
+    const assetCategory = await this.assetCategoryRepository.create(data)
     return { assetCategory }
   }
 }

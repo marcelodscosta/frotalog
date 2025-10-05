@@ -26,6 +26,5 @@ describe('Create Supplier', () => {
       service_types: ['Locação de equipamentos', 'Locação de mão de obra'],
     })
     expect(supplier.id).toEqual(expect.any(String))
-    console.log(supplier)
   })
 })
