@@ -1,6 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { AssetNotFoundError } from '../../../services/errors/asset-not-found-error'
 import { makeGetAssetBySerialNumber } from '../../../services/factories/make-get-asset-by-serial-number'
 
 const getAssetByIdSchema = z.object({
@@ -18,8 +17,5 @@ export async function getAssetBySerialNumber(
     serialNumber,
   })
 
-  if (!asset) {
-    throw new AssetNotFoundError()
-  }
   return reply.status(200).send({ asset })
 }

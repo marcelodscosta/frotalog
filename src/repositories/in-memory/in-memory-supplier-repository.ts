@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
 import { Prisma, Supplier } from '../../generated/prisma'
 import { ISupplierRepository } from '../interfaces/ISupplierRepository'
+import { SupplierNotFoundError } from '../../services/errors/supplier-not-found-error'
 
 export class InMemorySupplierRepository implements ISupplierRepository {
   public items: Supplier[] = []
@@ -32,5 +33,27 @@ export class InMemorySupplierRepository implements ISupplierRepository {
     this.items.push(supplier)
 
     return supplier
+  }
+
+  async updateSupplier(
+    id: string,
+    data: Prisma.SupplierUpdateInput,
+  ): Promise<Supplier> {
+    const index = this.items.findIndex((item) => item.id === id)
+    if (index === -1) {
+      throw new SupplierNotFoundError()
+    }
+    const existing = this.items[index]
+    const updated = {
+      ...existing,
+      ...data,
+      updated_at: new Date(),
+    }
+    this.items[index] = updated as Supplier
+    return this.items[index]
+  }
+
+  async findById(id: string): Promise<Supplier | null> {
+    return this.items.find((item) => item.id === id) ?? null
   }
 }

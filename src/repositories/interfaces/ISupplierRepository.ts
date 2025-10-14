@@ -3,13 +3,14 @@ import { Prisma, Supplier } from '../../generated/prisma'
 
 export interface ISupplierRepository {
   create(data: Prisma.SupplierCreateInput): Promise<Supplier>
-  // updateSupplier(
-  //   id: string,
-  //   data: Prisma.SupplierUpdateInput,
-  // ): Promise<Supplier>
+  findById(id: string): Promise<Supplier | null>
+
+  updateSupplier(
+    id: string,
+    data: Prisma.SupplierUpdateInput,
+  ): Promise<Supplier>
 
   // findByCompanyName(query: string): Promise<PaginatedResult<Supplier>>
-  // findById(id: string): Promise<Supplier>
   // findAll(page: number): Promise<PaginatedResult<Supplier>>
   // findByServiceType(
   //   serviceType: string,
