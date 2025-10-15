@@ -1,5 +1,5 @@
 import { Prisma, Supplier } from '../../generated/prisma'
-// import { PaginatedResult } from './IPaginatedResult'
+import { PaginatedResult } from './IPaginatedResult'
 
 export interface ISupplierRepository {
   create(data: Prisma.SupplierCreateInput): Promise<Supplier>
@@ -10,7 +10,10 @@ export interface ISupplierRepository {
     data: Prisma.SupplierUpdateInput,
   ): Promise<Supplier>
 
-  // findByCompanyName(query: string): Promise<PaginatedResult<Supplier>>
+  findByCompanyName(
+    page: number,
+    query: string,
+  ): Promise<PaginatedResult<Supplier>>
   // findAll(page: number): Promise<PaginatedResult<Supplier>>
   // findByServiceType(
   //   serviceType: string,

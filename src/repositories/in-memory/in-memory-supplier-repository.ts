@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto'
 import { Prisma, Supplier } from '../../generated/prisma'
 import { ISupplierRepository } from '../interfaces/ISupplierRepository'
 import { SupplierNotFoundError } from '../../services/errors/supplier-not-found-error'
+import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
 export class InMemorySupplierRepository implements ISupplierRepository {
   public items: Supplier[] = []
@@ -55,5 +56,27 @@ export class InMemorySupplierRepository implements ISupplierRepository {
 
   async findById(id: string): Promise<Supplier | null> {
     return this.items.find((item) => item.id === id) ?? null
+  }
+
+  async findByCompanyName(
+    page: number,
+    query: string,
+  ): Promise<PaginatedResult<Supplier>> {
+    const PAGE_SIZE = 20
+    const filtered = this.items.filter((item) =>
+      item.company_name.toLowerCase().includes(query.toLowerCase()),
+    )
+    const skip = (page - 1) * PAGE_SIZE
+    const paged = filtered.slice(skip, skip + PAGE_SIZE)
+    const totalItems = filtered.length
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items: paged,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
   }
 }
