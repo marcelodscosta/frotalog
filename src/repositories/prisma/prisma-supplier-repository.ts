@@ -62,4 +62,29 @@ export class PrismaSupplierRepository implements ISupplierRepository {
       totalPages,
     }
   }
+
+  async findAll(page: number): Promise<PaginatedResult<Supplier>> {
+    const PAGE_SIZE = 20
+    const skip = (page - 1) * PAGE_SIZE
+
+    const [suppliers, totalCount] = await prisma.$transaction([
+      prisma.supplier.findMany({
+        where: { is_Active: true },
+        skip,
+        take: PAGE_SIZE,
+      }),
+      prisma.supplier.count({
+        where: { is_Active: true },
+      }),
+    ])
+    const totalPages = Math.ceil(totalCount / PAGE_SIZE)
+
+    return {
+      items: suppliers,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems: totalCount,
+      totalPages,
+    }
+  }
 }

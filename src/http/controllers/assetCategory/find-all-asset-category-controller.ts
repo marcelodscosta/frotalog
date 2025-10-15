@@ -6,19 +6,17 @@ const findAllAssetCategoriesSchema = z.object({
   page: z.coerce.number().min(1).default(1),
 })
 
-type QueryParams = z.infer<typeof findAllAssetCategoriesSchema>
-
 export async function findAllAllAssetCategories(
-  request: FastifyRequest<{ Querystring: QueryParams }>,
+  request: FastifyRequest,
   reply: FastifyReply,
 ) {
   const { page } = findAllAssetCategoriesSchema.parse(request.query)
 
   const findAllAsseCategoriestUseCase = makeFindAllAssetCategories()
 
-  const { assetCategories } = await findAllAsseCategoriestUseCase.execute({
+  const result = await findAllAsseCategoriestUseCase.execute({
     page,
   })
 
-  return reply.status(200).send({ assetCategories })
+  return reply.status(200).send(result)
 }

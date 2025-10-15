@@ -14,7 +14,7 @@ export interface ISupplierRepository {
     page: number,
     query: string,
   ): Promise<PaginatedResult<Supplier>>
-  // findAll(page: number): Promise<PaginatedResult<Supplier>>
+  findAll(page: number): Promise<PaginatedResult<Supplier>>
   // findByServiceType(
   //   serviceType: string,
   //   page: number,

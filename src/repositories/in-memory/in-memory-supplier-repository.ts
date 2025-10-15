@@ -79,4 +79,20 @@ export class InMemorySupplierRepository implements ISupplierRepository {
       totalPages,
     }
   }
+
+  async findAll(page: number): Promise<PaginatedResult<Supplier>> {
+    const PAGE_SIZE = 20
+    const skip = (page - 1) * PAGE_SIZE
+    const paged = this.items.slice(skip, skip + PAGE_SIZE)
+    const totalItems = this.items.length
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items: paged,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
+  }
 }

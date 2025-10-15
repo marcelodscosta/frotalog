@@ -19,13 +19,14 @@ export class FindAllAssetCategoryUseCase {
   async execute({
     page,
   }: FindAllAssetCategoryRequest): Promise<FindAllAssetCategoryResponse> {
-    const result = await this.assetCategoryRepository.findAll(page)
+    const { currentPage, items, pageSize, totalItems, totalPages } =
+      await this.assetCategoryRepository.findAll(page)
     return {
-      assetCategories: result.items,
-      currentPage: result.currentPage,
-      pageSize: result.pageSize,
-      totalItems: result.totalItems,
-      totalPages: result.totalPages,
+      assetCategories: items,
+      currentPage,
+      pageSize,
+      totalItems,
+      totalPages,
     }
   }
 }
