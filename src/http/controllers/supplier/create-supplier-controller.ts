@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { makeCreateSupplier } from '../../../services/factories/make-create-supplier'
 import { isValidCNPJ } from '../../../utils/cnpjValidate'
 
-const createSupllierSchema = z.object({
+const createSupplierSchema = z.object({
   company_name: z.string().min(3),
   trading_name: z.string().optional(),
   cnpj: z.string().refine(isValidCNPJ, {
@@ -13,7 +13,7 @@ const createSupllierSchema = z.object({
   phone: z.string(),
   contact: z.string().min(5),
 
-  adrdress: z.string().optional(),
+  address: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
   zip_code: z
@@ -26,13 +26,13 @@ const createSupllierSchema = z.object({
 
 export async function createSupplier(
   request: FastifyRequest,
-  replay: FastifyReply,
+  reply: FastifyReply,
 ) {
-  const parseBody = createSupllierSchema.parse(request.body)
+  const parseBody = createSupplierSchema.parse(request.body)
 
   const createSupplier = makeCreateSupplier()
 
   const { supplier } = await createSupplier.execute(parseBody)
 
-  return replay.status(201).send(supplier)
+  return reply.status(201).send(supplier)
 }

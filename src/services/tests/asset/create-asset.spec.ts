@@ -19,7 +19,7 @@ describe('Create Asset', () => {
       assetCategoryRepository,
     )
   })
-  it('Shold to create Asset', async () => {
+  it('Should create Asset', async () => {
     await assetCategoryRepository.create({
       id: 'caminhao-01',
       name: 'Caminhão Munck',

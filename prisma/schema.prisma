@@ -82,7 +82,7 @@ model Supplier {
   phone        String
   contact      String
 
-  adrdress String?
+  address  String?
   city     String?
   state    String?
   zip_code String?

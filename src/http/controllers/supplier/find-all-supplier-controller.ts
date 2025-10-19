@@ -11,7 +11,7 @@ export async function findAllSupplier(
   reply: FastifyReply,
 ) {
   const { page } = findAllSupplierSchema.parse(request.query)
-  console.log(page)
+
   const findAllSupplierUseCase = makeFindAllSupplier()
 
   const result = await findAllSupplierUseCase.execute({ page })

@@ -7,5 +7,15 @@ app
     port: env.PORT,
   })
   .then(() => {
-    console.log('HTTP server running!!!')
+    app.log.info(
+      {
+        port: env.PORT,
+        environment: env.NODE_ENV,
+      },
+      'HTTP server running!',
+    )
+  })
+  .catch((error) => {
+    app.log.fatal({ error }, 'Failed to start server')
+    process.exit(1)
   })
