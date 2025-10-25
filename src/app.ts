@@ -10,7 +10,8 @@ import { maintenanceRoutes } from './http/controllers/maintenance/routes'
 import { maintenanceDocumentRoutes } from './http/controllers/maintenance-document/routes'
 import { authRoutes } from './http/controllers/auth/routes'
 import { reportsRoutes } from './http/controllers/reports/routes'
-import { globalAuthMiddleware } from './http/middleware/global-auth'
+
+import fastifyCors from '@fastify/cors'
 
 export const app = fastify({
   logger: {
@@ -29,7 +30,10 @@ export const app = fastify({
   },
 })
 
-// Middleware global removido - autenticação aplicada individualmente nas rotas
+app.register(fastifyCors, {
+  origin: 'http://localhost:5173',
+  credentials: true,
+})
 
 app.register(authRoutes)
 app.register(assetCategoryRoutes)
