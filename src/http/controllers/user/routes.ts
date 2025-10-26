@@ -13,6 +13,8 @@ export async function userRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de usuários
   app.addHook('preHandler', requireAuth())
 
+  app.get('/me/:id', getUserById)
+
   app.post('/user', createUser)
   app.get('/user/search', findAllUsers)
   app.get('/user/search/:id', getUserById)
