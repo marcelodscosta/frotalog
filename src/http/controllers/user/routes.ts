@@ -12,7 +12,7 @@ import { requireAuth, requireAdmin } from '../../middleware/auth'
 export async function userRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de usuários
   app.addHook('preHandler', requireAuth())
-  
+
   app.post('/user', createUser)
   app.get('/user/search', findAllUsers)
   app.get('/user/search/:id', getUserById)
@@ -20,7 +20,11 @@ export async function userRoutes(app: FastifyInstance) {
   app.get('/user/search/name', searchUserByName)
   app.get('/user/search/role', getUserByRole)
   app.patch('/user/:id', updateUser)
-  
+
   // Rota que requer permissão de admin
-  app.patch('/user/:id/status', { preHandler: requireAdmin() }, toggleUserStatus)
+  app.patch(
+    '/user/:id/status',
+    { preHandler: requireAdmin() },
+    toggleUserStatus,
+  )
 }
