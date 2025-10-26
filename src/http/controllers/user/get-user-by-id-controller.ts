@@ -7,13 +7,16 @@ export async function getUserById(
   reply: FastifyReply,
 ) {
   const paramsSchema = z.object({
-    id: z.string().uuid(),
+    id: z.string(),
   })
 
-  const { id } = paramsSchema.parse(request.params)
+  const { id } = paramsSchema.parse(request.query)
 
   const getUserById = makeGetUserById()
   const { user } = await getUserById.execute({ id })
 
-  return reply.send({ user })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { phone, password_hash, created_at, updated_at, ...safeUser } = user
+
+  return reply.send({ user: safeUser })
 }
