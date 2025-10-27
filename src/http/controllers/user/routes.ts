@@ -8,12 +8,13 @@ import { getUserByRole } from './get-user-by-role-controller'
 import { updateUser } from './update-user-controller'
 import { toggleUserStatus } from './toggle-user-status-controller'
 import { requireAuth, requireAdmin } from '../../middleware/auth'
+import { me } from './me-controller'
 
 export async function userRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de usuários
   app.addHook('preHandler', requireAuth())
 
-  app.get('/me/:id', getUserById)
+  app.get('/me', me)
 
   app.post('/user', createUser)
   app.get('/user/search', findAllUsers)
