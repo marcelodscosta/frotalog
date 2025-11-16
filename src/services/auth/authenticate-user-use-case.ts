@@ -1,9 +1,7 @@
 import { IUserRepository } from '../../repositories/interfaces/IUserRepository'
-import { UserNotFoundError } from '../errors/user-not-found-error'
-import { AppError } from '../errors/app-error'
+import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { env } from '../../env'
 
 interface AuthenticateUserRequest {
   email: string
@@ -23,35 +21,34 @@ interface AuthenticateUserResponse {
 export class AuthenticateUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
-  async execute({ email, password }: AuthenticateUserRequest): Promise<AuthenticateUserResponse> {
+  async execute({
+    email,
+    password,
+  }: AuthenticateUserRequest): Promise<AuthenticateUserResponse> {
     const user = await this.userRepository.findByEmail(email)
 
-    if (!user) {
-      throw new UserNotFoundError()
-    }
-
-    if (!user.is_Active) {
-      throw new AppError('User account is deactivated', 401)
+    if (!user || !user.is_Active) {
+      throw new InvalidCredentialsError()
     }
 
     // Verificar senha
     const passwordMatch = await bcrypt.compare(password, user.password_hash)
 
     if (!passwordMatch) {
-      throw new AppError('Invalid credentials', 401)
+      throw new InvalidCredentialsError()
     }
 
     // Gerar token JWT
     const token = jwt.sign(
-      { 
+      {
         sub: user.id,
         email: user.email,
-        role: user.role 
+        role: user.role,
       },
       process.env.JWT_SECRET || 'default-secret',
-      { 
-        expiresIn: '7d' 
-      }
+      {
+        expiresIn: '7d',
+      },
     )
 
     return {
