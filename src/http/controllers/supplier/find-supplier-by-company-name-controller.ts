@@ -15,10 +15,10 @@ export async function findSupplierByCompanyName(
 
   const findSupplierByCompanyNameUseCase = makeFindSupplierByCompanyName()
 
-  const suppliers = await findSupplierByCompanyNameUseCase.execute({
+  const result = await findSupplierByCompanyNameUseCase.execute({
     query,
     page,
   })
 
-  return replay.status(200).send({ suppliers })
+  return replay.status(200).send(result)
 }

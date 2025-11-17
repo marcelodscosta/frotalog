@@ -7,7 +7,7 @@ interface FindByCompanyNameRequest {
 }
 
 interface FindByCompanyNameResponse {
-  suppliers: Supplier[]
+  supplier: Supplier[]
   currentPage: number
   pageSize: number
   totalItems: number
@@ -25,7 +25,7 @@ export class FindByCompanyNameUseCase {
       await this.supplierRepository.findByCompanyName(page, query)
 
     return {
-      suppliers: items,
+      supplier: items,
       currentPage,
       pageSize,
       totalItems,
