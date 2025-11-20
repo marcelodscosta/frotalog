@@ -107,13 +107,10 @@ export class PrismaSupplierRepository implements ISupplierRepository {
 
     const [suppliers, totalCount] = await prisma.$transaction([
       prisma.supplier.findMany({
-        where: { is_Active: true },
         skip,
         take: PAGE_SIZE,
       }),
-      prisma.supplier.count({
-        where: { is_Active: true },
-      }),
+      prisma.supplier.count(),
     ])
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
