@@ -7,6 +7,31 @@ import { PaginatedResult } from '../interfaces/IPaginatedResult'
 export class InMemorySupplierRepository implements ISupplierRepository {
   public items: Supplier[] = []
 
+  async findByServiceType(
+    serviceType: string,
+    page: number,
+  ): Promise<PaginatedResult<Supplier>> {
+    const PAGE_SIZE = 20
+    const query = serviceType?.toLowerCase() ?? ''
+    const filtered = this.items.filter(
+      (item) =>
+        Array.isArray(item.service_types) &&
+        item.service_types.some((st) => (st ?? '').toLowerCase() === query),
+    )
+    const skip = (page - 1) * PAGE_SIZE
+    const paged = filtered.slice(skip, skip + PAGE_SIZE)
+    const totalItems = filtered.length
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items: paged,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
+  }
+
   async create(data: Prisma.SupplierCreateInput): Promise<Supplier> {
     const supplier: Supplier = {
       id: data.id ?? randomUUID(),

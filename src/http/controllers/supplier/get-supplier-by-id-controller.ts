@@ -15,5 +15,5 @@ export async function getSupplierById(
 
   const { supplier } = await getSuppliertUseCase.execute({ id })
 
-  return reply.status(200).send({ supplier })
+  return reply.status(200).send(supplier)
 }

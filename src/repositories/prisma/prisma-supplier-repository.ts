@@ -63,6 +63,44 @@ export class PrismaSupplierRepository implements ISupplierRepository {
     }
   }
 
+  async findByServiceType(
+    serviceType: string,
+    page: number,
+  ): Promise<PaginatedResult<Supplier>> {
+    const PAGE_SIZE = 20
+    const skip = (page - 1) * PAGE_SIZE
+
+    const [items, totalItems] = await prisma.$transaction([
+      prisma.supplier.findMany({
+        where: {
+          is_Active: true,
+          service_types: {
+            has: serviceType,
+          },
+        },
+        skip,
+        take: PAGE_SIZE,
+      }),
+      prisma.supplier.count({
+        where: {
+          is_Active: true,
+          service_types: {
+            has: serviceType,
+          },
+        },
+      }),
+    ])
+    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+
+    return {
+      items,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems,
+      totalPages,
+    }
+  }
+
   async findAll(page: number): Promise<PaginatedResult<Supplier>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
