@@ -22,4 +22,6 @@ export interface ISupplierRepository {
     serviceType: string,
     page: number,
   ): Promise<PaginatedResult<Supplier>>
+
+  findByCNPJ(cnpj: string): Promise<boolean>
 }

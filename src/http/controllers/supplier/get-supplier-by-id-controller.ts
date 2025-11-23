@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { makeGetSupplierById } from '../../../services/factories/make-get-supplier-by-id copy'
+import { makeGetSupplierById } from '../../../services/factories/make-get-supplier-by-id'
 import { z } from 'zod'
 
 const getSupplierByIdSchema = z.object({

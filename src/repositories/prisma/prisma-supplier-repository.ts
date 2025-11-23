@@ -129,4 +129,13 @@ export class PrismaSupplierRepository implements ISupplierRepository {
       totalPages,
     }
   }
+
+  async findByCNPJ(cnpj: string): Promise<boolean> {
+    const supplier = await prisma.supplier.findFirst({
+      where: {
+        cnpj,
+      },
+    })
+    return supplier !== null
+  }
 }
