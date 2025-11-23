@@ -29,6 +29,17 @@ export class PrismaSupplierRepository implements ISupplierRepository {
     return supplier
   }
 
+  async updateSupplierIsActive(
+    id: string,
+    is_Active: boolean,
+  ): Promise<Supplier> {
+    const supplier = await prisma.supplier.update({
+      where: { id },
+      data: { is_Active },
+    })
+    return supplier
+  }
+
   async findByCompanyName(
     page: number,
     query: string,
@@ -39,7 +50,6 @@ export class PrismaSupplierRepository implements ISupplierRepository {
     const [items, totalItems] = await prisma.$transaction([
       prisma.supplier.findMany({
         where: {
-          is_Active: true,
           company_name: { contains: query, mode: 'insensitive' },
         },
         skip,
@@ -47,7 +57,6 @@ export class PrismaSupplierRepository implements ISupplierRepository {
       }),
       prisma.supplier.count({
         where: {
-          is_Active: true,
           company_name: { contains: query, mode: 'insensitive' },
         },
       }),
@@ -73,7 +82,6 @@ export class PrismaSupplierRepository implements ISupplierRepository {
     const [items, totalItems] = await prisma.$transaction([
       prisma.supplier.findMany({
         where: {
-          is_Active: true,
           service_types: {
             has: serviceType,
           },
@@ -83,7 +91,6 @@ export class PrismaSupplierRepository implements ISupplierRepository {
       }),
       prisma.supplier.count({
         where: {
-          is_Active: true,
           service_types: {
             has: serviceType,
           },

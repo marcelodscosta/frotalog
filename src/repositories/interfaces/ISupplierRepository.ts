@@ -10,6 +10,8 @@ export interface ISupplierRepository {
     data: Prisma.SupplierUpdateInput,
   ): Promise<Supplier>
 
+  updateSupplierIsActive(id: string, data: boolean): Promise<Supplier>
+
   findByCompanyName(
     page: number,
     query: string,
