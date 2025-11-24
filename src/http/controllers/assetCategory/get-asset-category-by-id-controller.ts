@@ -11,7 +11,7 @@ export async function getAssetCategoryById(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const { id } = getAssetCategoryByIdSchema.parse(request.query)
+  const { id } = getAssetCategoryByIdSchema.parse(request.params)
 
   const getAssetCategoryUseCase = makeGetAssetCategoryById()
   const { assetCategory } = await getAssetCategoryUseCase.execute({ id })
@@ -19,6 +19,5 @@ export async function getAssetCategoryById(
   if (!assetCategory) {
     throw new AssetCategoryNotFoundError()
   }
-
-  return reply.status(200).send({ assetCategory })
+  return reply.status(200).send(assetCategory)
 }

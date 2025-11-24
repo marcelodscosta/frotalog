@@ -12,7 +12,7 @@ import { requireAuth } from '../../middleware/auth'
 export async function assetRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de ativos
   app.addHook('preHandler', requireAuth())
-  
+
   app.post('/asset', createAsset)
   app.get('/asset/search', findAllAssets)
   app.get('/asset/search/brand', getAssetByBrand)

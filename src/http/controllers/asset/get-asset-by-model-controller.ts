@@ -13,9 +13,9 @@ export async function getAssetByModel(
 ) {
   const { model, page } = getAssetByModelSchema.parse(request.query)
 
-  const getAssetByBrandUseCase = makeGetAssetByModel()
+  const getAssetByModelUseCase = makeGetAssetByModel()
 
-  const assets = await getAssetByBrandUseCase.execute({ model, page })
+  const result = await getAssetByModelUseCase.execute({ model, page })
 
-  return replay.status(200).send({ assets })
+  return replay.status(200).send(result)
 }

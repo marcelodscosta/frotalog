@@ -9,7 +9,7 @@ import { requireAuth } from '../../middleware/auth'
 export async function assetCategoryRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de categorias
   app.addHook('preHandler', requireAuth())
-  
+
   app.post('/assetCategories', createAssetCategory)
   app.patch('/assetCategories/:id', updateAssetCategory)
   app.get('/assetCategories/search', findAllAllAssetCategories)

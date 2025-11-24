@@ -7,7 +7,7 @@ interface SearchAssetCategoryRequest {
 }
 
 interface SearchAssetCategoryResponse {
-  assetCategory: AssetCategory[]
+  assetCategories: AssetCategory[]
   currentPage: number
   pageSize: number
   totalItems: number
@@ -26,7 +26,7 @@ export class SearchAssetCategoryUseCase {
       page,
     )
     return {
-      assetCategory: result.items,
+      assetCategories: result.items,
       currentPage: result.currentPage,
       pageSize: result.pageSize,
       totalItems: result.totalItems,

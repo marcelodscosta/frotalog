@@ -28,6 +28,9 @@ export class PrismaAssetRepository implements IAssetRepository {
         where: { is_Active: true },
         skip,
         take: PAGE_SIZE,
+        include: {
+          assetCategory: true,
+        },
       }),
       prisma.asset.count({
         where: { is_Active: true },
@@ -60,6 +63,9 @@ export class PrismaAssetRepository implements IAssetRepository {
         },
         skip,
         take: PAGE_SIZE,
+        include: {
+          assetCategory: true,
+        },
       }),
       prisma.asset.count({
         where: {
@@ -95,6 +101,9 @@ export class PrismaAssetRepository implements IAssetRepository {
         },
         skip,
         take: PAGE_SIZE,
+        include: {
+          assetCategory: true,
+        },
       }),
       prisma.asset.count({
         where: {
@@ -126,6 +135,9 @@ export class PrismaAssetRepository implements IAssetRepository {
   async findByPlate(plate: string): Promise<Asset | null> {
     const asset = await prisma.asset.findUnique({
       where: { plate },
+      include: {
+        assetCategory: true,
+      },
     })
     return asset
   }
@@ -133,6 +145,9 @@ export class PrismaAssetRepository implements IAssetRepository {
   async findBySerialNumber(serialNumber: string): Promise<Asset | null> {
     const asset = await prisma.asset.findUnique({
       where: { serial_number: serialNumber },
+      include: {
+        assetCategory: true,
+      },
     })
     return asset
   }

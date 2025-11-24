@@ -1,21 +1,20 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { makeGetAssetBySerialNumber } from '../../../services/factories/make-get-asset-by-serial-number'
+import { makeFindAssetsBySerialNumber } from '../../../services/factories/make-find-assets-by-serial-number'
 
-const getAssetByIdSchema = z.object({
+const getAssetBySerialNumberSchema = z.object({
   serialNumber: z.string(),
+  page: z.coerce.number().min(1).default(1),
 })
 
 export async function getAssetBySerialNumber(
-  request: FastifyRequest,
+  request: FastifyRequest<{ Params: { serialNumber: string }, Querystring: { page?: number } }>,
   reply: FastifyReply,
 ) {
-  const getAssetBySerialNumberUseCase = makeGetAssetBySerialNumber()
-  const { serialNumber } = getAssetByIdSchema.parse(request.query)
+  const serialNumber = request.params.serialNumber
+  const page = request.query.page || 1
+  const findAssetsBySerialNumberUseCase = makeFindAssetsBySerialNumber()
+  const result = await findAssetsBySerialNumberUseCase.execute({ serialNumber, page })
 
-  const { asset } = await getAssetBySerialNumberUseCase.execute({
-    serialNumber,
-  })
-
-  return reply.status(200).send({ asset })
+  return reply.status(200).send(result)
 }

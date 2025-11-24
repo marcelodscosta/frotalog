@@ -15,7 +15,7 @@ export async function getAssetByBrand(
 
   const getAssetByBrandUseCase = makeGetAssetByBrand()
 
-  const assets = await getAssetByBrandUseCase.execute({ brand, page })
+  const result = await getAssetByBrandUseCase.execute({ brand, page })
 
-  return replay.status(200).send({ assets })
+  return replay.status(200).send(result)
 }

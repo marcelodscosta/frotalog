@@ -17,7 +17,7 @@ export async function SearchAssetCategory(
   const { query, page } = searchAssetCategorySchema.parse(request.query)
 
   const searchAssetCategoryUseCase = makeSearchAssetCategory()
-  const assetCategories = await searchAssetCategoryUseCase.execute({
+  const { assetCategories } = await searchAssetCategoryUseCase.execute({
     query,
     page,
   })

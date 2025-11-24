@@ -10,6 +10,7 @@ import { maintenanceRoutes } from './http/controllers/maintenance/routes'
 import { maintenanceDocumentRoutes } from './http/controllers/maintenance-document/routes'
 import { authRoutes } from './http/controllers/auth/routes'
 import { reportsRoutes } from './http/controllers/reports/routes'
+import { dashboardRoutes } from './http/controllers/dashboard/routes'
 
 import fastifyCors from '@fastify/cors'
 
@@ -45,6 +46,7 @@ app.register(userRoutes)
 app.register(maintenanceRoutes)
 app.register(maintenanceDocumentRoutes)
 app.register(reportsRoutes)
+app.register(dashboardRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   const requestId = request.id

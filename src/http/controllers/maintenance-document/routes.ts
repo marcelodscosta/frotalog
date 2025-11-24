@@ -12,7 +12,7 @@ export async function maintenanceDocumentRoutes(app: FastifyInstance) {
   await app.register(require('@fastify/multipart'), {
     limits: {
       fileSize: 10 * 1024 * 1024, // 10MB
-    }
+    },
   })
 
   // Aplicar autenticação em todas as rotas de documentos
@@ -21,7 +21,10 @@ export async function maintenanceDocumentRoutes(app: FastifyInstance) {
   app.post('/maintenance/:maintenanceId/document', createMaintenanceDocument)
   app.get('/maintenance-document/search', findAllMaintenanceDocuments)
   app.get('/maintenance-document/search/:id', getMaintenanceDocumentById)
-  app.get('/maintenance/:maintenanceId/documents', getMaintenanceDocumentsByMaintenance)
+  app.get(
+    '/maintenance/:maintenanceId/documents',
+    getMaintenanceDocumentsByMaintenance,
+  )
   app.get('/maintenance-document/:id/download', downloadMaintenanceDocument)
   app.delete('/maintenance-document/:id', deleteMaintenanceDocument)
 }

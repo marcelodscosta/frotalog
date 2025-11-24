@@ -13,7 +13,7 @@ export async function findAllMaintenances(
   const { page } = querySchema.parse(request.query)
 
   const findAllMaintenances = makeFindAllMaintenance()
-  const { maintenances } = await findAllMaintenances.execute({ page })
+  const result = await findAllMaintenances.execute({ page })
 
-  return reply.send({ maintenances })
+  return reply.status(200).send(result)
 }

@@ -27,7 +27,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const maintenance = await prisma.maintenance.findUnique({
       where: { id },
       include: {
-        asset: true,
+        asset: {
+          include: {
+            assetCategory: true,
+          },
+        },
         supplier: true,
         documents: true,
       },
@@ -49,7 +53,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
         include: {
-          asset: true,
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
           supplier: true,
         },
       }),
@@ -86,7 +94,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
         include: {
-          asset: true,
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
           supplier: true,
         },
       }),
@@ -123,7 +135,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
         include: {
-          asset: true,
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
           supplier: true,
         },
       }),
@@ -160,7 +176,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
         include: {
-          asset: true,
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
           supplier: true,
         },
       }),
@@ -194,7 +214,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
         include: {
-          asset: true,
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
           supplier: true,
         },
       }),
@@ -230,7 +254,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'asc' },
         include: {
-          asset: true,
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
           supplier: true,
         },
       }),
@@ -270,7 +298,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'asc' },
         include: {
-          asset: true,
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
           supplier: true,
         },
       }),
