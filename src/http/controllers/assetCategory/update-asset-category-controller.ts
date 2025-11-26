@@ -18,7 +18,7 @@ export async function updateAssetCategory(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const { id } = updateParamsSchema.parse(request.query)
+  const { id } = updateParamsSchema.parse(request.params)
   const data = updateBodySchema.parse(request.body)
 
   const updateAssetCategoryUseCase = makeUpdateAssetCategory()
