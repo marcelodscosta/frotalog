@@ -70,17 +70,10 @@ export class PrismaAssetCategoryRepository implements IAssetCategoryRepository {
 
     const [items, totalItems] = await prisma.$transaction([
       prisma.assetCategory.findMany({
-        where: {
-          is_Active: true,
-        },
         skip,
         take: PAGE_SIZE,
       }),
-      prisma.assetCategory.count({
-        where: {
-          is_Active: true,
-        },
-      }),
+      prisma.assetCategory.count(),
     ])
 
     const totalPages = Math.ceil(totalItems / PAGE_SIZE)
@@ -92,5 +85,16 @@ export class PrismaAssetCategoryRepository implements IAssetCategoryRepository {
       totalItems,
       totalPages,
     }
+  }
+
+  async updateAssetCategoryIsActive(
+    id: string,
+    is_Active: boolean,
+  ): Promise<AssetCategory> {
+    const assetCategory = await prisma.assetCategory.update({
+      where: { id },
+      data: { is_Active },
+    })
+    return assetCategory
   }
 }

@@ -12,6 +12,7 @@ export interface IAssetCategoryRepository {
     id: string,
     data: Prisma.AssetCategoryUpdateInput,
   ): Promise<AssetCategory>
+  updateAssetCategoryIsActive(id: string, data: boolean): Promise<AssetCategory>
 
   findAll(page: number): Promise<PaginatedResult<AssetCategory>>
 }

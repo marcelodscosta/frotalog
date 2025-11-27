@@ -8,6 +8,7 @@ import { getAssetByPlate } from './get-asset-by-plate-controller'
 import { getAssetBySerialNumber } from './get-asset-by-serial-number-controller'
 import { updateAsset } from './update-asset-controller'
 import { requireAuth } from '../../middleware/auth'
+import { updateAssetActive } from './update-asset-active-status-controller'
 
 export async function assetRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de ativos
@@ -21,4 +22,5 @@ export async function assetRoutes(app: FastifyInstance) {
   app.get('/asset/search/plate/:plate', getAssetByPlate)
   app.get('/asset/search/serialNumber/:serialNumber', getAssetBySerialNumber)
   app.patch('/asset/:id', updateAsset)
+  app.patch('/asset/:id/active', updateAssetActive)
 }

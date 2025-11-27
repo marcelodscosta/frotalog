@@ -5,6 +5,8 @@ export interface IAssetRepository {
   create(data: Prisma.AssetUncheckedCreateInput): Promise<Asset>
   updateAsset(id: string, data: Prisma.AssetUpdateInput): Promise<Asset>
 
+  updateAssetIsActive(id: string, data: boolean): Promise<Asset>
+
   findAll(page: number): Promise<PaginatedResult<Asset>>
 
   findByBrand(brand: string, page: number): Promise<PaginatedResult<Asset>>
