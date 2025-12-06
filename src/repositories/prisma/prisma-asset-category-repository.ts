@@ -97,4 +97,9 @@ export class PrismaAssetCategoryRepository implements IAssetCategoryRepository {
     })
     return assetCategory
   }
+
+  async findAllAssetCategories(): Promise<AssetCategory[]> {
+    const assetCategories = await prisma.assetCategory.findMany()
+    return assetCategories
+  }
 }

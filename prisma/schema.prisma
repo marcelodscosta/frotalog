@@ -132,8 +132,9 @@ model Maintenance {
   estimated_cost Decimal? @db.Decimal(10, 2)
   actual_cost    Decimal? @db.Decimal(10, 2)
 
-  status MaintenanceStatus @default(SCHEDULED)
-  notes  String?
+  status        MaintenanceStatus @default(SCHEDULED)
+  notes         String?
+  document_link String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

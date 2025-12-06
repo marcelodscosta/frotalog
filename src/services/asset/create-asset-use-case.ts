@@ -7,8 +7,8 @@ interface CreateAssetRequest {
   brand: string
   model: string
   year?: number
-  plate?: string
-  serial_number?: string
+  plate?: string | null
+  serial_number?: string | null
   assetCategoryId: string
 }
 

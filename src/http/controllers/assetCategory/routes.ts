@@ -6,6 +6,7 @@ import { updateAssetCategory } from './update-asset-category-controller'
 import { findAllAllAssetCategories } from './find-all-asset-category-controller'
 import { requireAuth } from '../../middleware/auth'
 import { updateAssetCategoryActive } from './update-asset-category-active-status-controller'
+import { findAllAllAssetCategoriesAll } from './find-all-asset-categories-controller'
 
 export async function assetCategoryRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de categorias
@@ -14,6 +15,7 @@ export async function assetCategoryRoutes(app: FastifyInstance) {
   app.post('/assetCategories', createAssetCategory)
   app.patch('/assetCategories/:id', updateAssetCategory)
   app.patch('/assetCategories/:id/active', updateAssetCategoryActive)
+  app.get('/assetCategories/search/all', findAllAllAssetCategoriesAll)
   app.get('/assetCategories/search', findAllAllAssetCategories)
   app.get('/assetCategories/search/:id', getAssetCategoryById)
   app.get('/assetCategories/search/name', SearchAssetCategory)

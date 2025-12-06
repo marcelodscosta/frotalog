@@ -124,6 +124,9 @@ export class PrismaAssetRepository implements IAssetRepository {
   async findById(id: string): Promise<Asset | null> {
     const asset = await prisma.asset.findUnique({
       where: { id },
+      include: {
+        assetCategory: true,
+      },
     })
 
     return asset

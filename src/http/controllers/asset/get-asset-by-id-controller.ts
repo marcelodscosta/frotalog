@@ -11,9 +11,9 @@ export async function getAssetById(
   reply: FastifyReply,
 ) {
   const getAssetUseCase = makeGetAssetById()
-  const { id } = getAssetByIdSchema.parse(request.query)
+  const { id } = getAssetByIdSchema.parse(request.params)
 
   const { asset } = await getAssetUseCase.execute({ id })
 
-  return reply.status(200).send({ asset })
+  return reply.status(200).send(asset)
 }

@@ -15,4 +15,5 @@ export interface IAssetCategoryRepository {
   updateAssetCategoryIsActive(id: string, data: boolean): Promise<AssetCategory>
 
   findAll(page: number): Promise<PaginatedResult<AssetCategory>>
+  findAllAssetCategories(): Promise<AssetCategory[]>
 }
