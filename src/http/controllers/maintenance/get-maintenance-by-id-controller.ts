@@ -7,7 +7,7 @@ export async function getMaintenanceById(
   reply: FastifyReply,
 ) {
   const paramsSchema = z.object({
-    id: z.string().uuid(),
+    id: z.string(),
   })
 
   const { id } = paramsSchema.parse(request.params)
@@ -15,5 +15,5 @@ export async function getMaintenanceById(
   const getMaintenanceById = makeGetMaintenanceById()
   const { maintenance } = await getMaintenanceById.execute({ id })
 
-  return reply.send({ maintenance })
+  return reply.send(maintenance)
 }
