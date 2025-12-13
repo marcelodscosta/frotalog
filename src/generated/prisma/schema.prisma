@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EMPLOYEE
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  phone         String?
+  password_hash String
+  role          Role     @default(EMPLOYEE)
+  avatar        String?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  is_Active     Boolean  @default(true)
+
+  @@map("users")
+}
+
+enum AssetType {
+  VEHICLE
+  EQUIPMENT
+}
+
+model AssetCategory {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  type        AssetType
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  is_Active  Boolean  @default(true)
+  Asset      Asset[]
+
+  @@map("asset_categories")
+}
+
+model Asset {
+  id    String @id @default(uuid())
+  brand String
+  model String
+  year  Int?
+
+  plate         String? @unique
+  serial_number String? @unique
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  is_Active  Boolean  @default(true)
+
+  assetCategory   AssetCategory @relation(fields: [assetCategoryId], references: [id])
+  assetCategoryId String
+  Maintenance     Maintenance[]
+
+  @@map("assets")
+}
+
+model Supplier {
+  id           String  @id @default(uuid())
+  company_name String
+  trading_name String?
+  cnpj         String  @unique
+  email        String
+  phone        String
+  contact      String
+
+  address  String?
+  city     String?
+  state    String?
+  zip_code String?
+
+  service_types String[]
+
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+  is_Active   Boolean       @default(true)
+  Maintenance Maintenance[]
+
+  @@map("suppliers")
+}
+
+enum MaintenanceStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum MaintenanceType {
+  PREVENTIVE
+  CORRECTIVE
+  EMERGENCY
+}
+
+model Maintenance {
+  id String @id @default(uuid())
+
+  asset   Asset  @relation(fields: [assetId], references: [id])
+  assetId String
+
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  supplierId String
+
+  type        MaintenanceType
+  description String
+
+  scheduled_date DateTime
+  started_date   DateTime?
+  completed_date DateTime?
+
+  estimated_cost Decimal? @db.Decimal(10, 2)
+  actual_cost    Decimal? @db.Decimal(10, 2)
+
+  status MaintenanceStatus @default(SCHEDULED)
+  notes  String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  is_Active  Boolean  @default(true)
+
+  documents MaintenanceDocument[]
+
+  @@map("maintenances")
+}
+
+model MaintenanceDocument {
+  id            String  @id @default(uuid())
+  filename      String
+  original_name String
+  file_path     String
+  file_size     Int
+  mime_type     String
+  description   String?
+
+  created_at    DateTime     @default(now())
+  Maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id])
+  maintenanceId String?
+
+  @@map("maintenance_documents")
+}
