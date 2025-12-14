@@ -36,6 +36,8 @@ app.register(fastifyCors, {
     'http://localhost:5173',
     'http://localhost:3000',
     'https://frotalog-web.vercel.app',
+    'https://frotalog-hoksn1hmd-marcelodscostas-projects.vercel.app/',
+    'https://frotalog-hoksn1hmd-marcelodscostas-projects.vercel.app/auth/sign-in',
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
