@@ -64,6 +64,14 @@ export const AssetType: {
 export type AssetType = (typeof AssetType)[keyof typeof AssetType]
 
 
+export const AssetOwnership: {
+  OWN: 'OWN',
+  THIRD: 'THIRD'
+};
+
+export type AssetOwnership = (typeof AssetOwnership)[keyof typeof AssetOwnership]
+
+
 export const MaintenanceStatus: {
   SCHEDULED: 'SCHEDULED',
   IN_PROGRESS: 'IN_PROGRESS',
@@ -91,6 +99,10 @@ export const Role: typeof $Enums.Role
 export type AssetType = $Enums.AssetType
 
 export const AssetType: typeof $Enums.AssetType
+
+export type AssetOwnership = $Enums.AssetOwnership
+
+export const AssetOwnership: typeof $Enums.AssetOwnership
 
 export type MaintenanceStatus = $Enums.MaintenanceStatus
 
@@ -3673,6 +3685,8 @@ export namespace Prisma {
     year: number | null
     plate: string | null
     serial_number: string | null
+    ownership: $Enums.AssetOwnership | null
+    documentsUrl: string | null
     created_at: Date | null
     updated_at: Date | null
     is_Active: boolean | null
@@ -3686,6 +3700,8 @@ export namespace Prisma {
     year: number | null
     plate: string | null
     serial_number: string | null
+    ownership: $Enums.AssetOwnership | null
+    documentsUrl: string | null
     created_at: Date | null
     updated_at: Date | null
     is_Active: boolean | null
@@ -3699,6 +3715,8 @@ export namespace Prisma {
     year: number
     plate: number
     serial_number: number
+    ownership: number
+    documentsUrl: number
     created_at: number
     updated_at: number
     is_Active: number
@@ -3722,6 +3740,8 @@ export namespace Prisma {
     year?: true
     plate?: true
     serial_number?: true
+    ownership?: true
+    documentsUrl?: true
     created_at?: true
     updated_at?: true
     is_Active?: true
@@ -3735,6 +3755,8 @@ export namespace Prisma {
     year?: true
     plate?: true
     serial_number?: true
+    ownership?: true
+    documentsUrl?: true
     created_at?: true
     updated_at?: true
     is_Active?: true
@@ -3748,6 +3770,8 @@ export namespace Prisma {
     year?: true
     plate?: true
     serial_number?: true
+    ownership?: true
+    documentsUrl?: true
     created_at?: true
     updated_at?: true
     is_Active?: true
@@ -3848,6 +3872,8 @@ export namespace Prisma {
     year: number | null
     plate: string | null
     serial_number: string | null
+    ownership: $Enums.AssetOwnership
+    documentsUrl: string | null
     created_at: Date
     updated_at: Date
     is_Active: boolean
@@ -3880,6 +3906,8 @@ export namespace Prisma {
     year?: boolean
     plate?: boolean
     serial_number?: boolean
+    ownership?: boolean
+    documentsUrl?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
@@ -3896,6 +3924,8 @@ export namespace Prisma {
     year?: boolean
     plate?: boolean
     serial_number?: boolean
+    ownership?: boolean
+    documentsUrl?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
@@ -3910,6 +3940,8 @@ export namespace Prisma {
     year?: boolean
     plate?: boolean
     serial_number?: boolean
+    ownership?: boolean
+    documentsUrl?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
@@ -3924,13 +3956,15 @@ export namespace Prisma {
     year?: boolean
     plate?: boolean
     serial_number?: boolean
+    ownership?: boolean
+    documentsUrl?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
     assetCategoryId?: boolean
   }
 
-  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "brand" | "model" | "year" | "plate" | "serial_number" | "created_at" | "updated_at" | "is_Active" | "assetCategoryId", ExtArgs["result"]["asset"]>
+  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "brand" | "model" | "year" | "plate" | "serial_number" | "ownership" | "documentsUrl" | "created_at" | "updated_at" | "is_Active" | "assetCategoryId", ExtArgs["result"]["asset"]>
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assetCategory?: boolean | AssetCategoryDefaultArgs<ExtArgs>
     Maintenance?: boolean | Asset$MaintenanceArgs<ExtArgs>
@@ -3956,6 +3990,8 @@ export namespace Prisma {
       year: number | null
       plate: string | null
       serial_number: string | null
+      ownership: $Enums.AssetOwnership
+      documentsUrl: string | null
       created_at: Date
       updated_at: Date
       is_Active: boolean
@@ -4391,6 +4427,8 @@ export namespace Prisma {
     readonly year: FieldRef<"Asset", 'Int'>
     readonly plate: FieldRef<"Asset", 'String'>
     readonly serial_number: FieldRef<"Asset", 'String'>
+    readonly ownership: FieldRef<"Asset", 'AssetOwnership'>
+    readonly documentsUrl: FieldRef<"Asset", 'String'>
     readonly created_at: FieldRef<"Asset", 'DateTime'>
     readonly updated_at: FieldRef<"Asset", 'DateTime'>
     readonly is_Active: FieldRef<"Asset", 'Boolean'>
@@ -8506,6 +8544,8 @@ export namespace Prisma {
     year: 'year',
     plate: 'plate',
     serial_number: 'serial_number',
+    ownership: 'ownership',
+    documentsUrl: 'documentsUrl',
     created_at: 'created_at',
     updated_at: 'updated_at',
     is_Active: 'is_Active',
@@ -8675,6 +8715,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AssetOwnership'
+   */
+  export type EnumAssetOwnershipFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssetOwnership'>
+    
+
+
+  /**
+   * Reference to a field of type 'AssetOwnership[]'
+   */
+  export type ListEnumAssetOwnershipFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssetOwnership[]'>
     
 
 
@@ -8889,6 +8943,8 @@ export namespace Prisma {
     year?: IntNullableFilter<"Asset"> | number | null
     plate?: StringNullableFilter<"Asset"> | string | null
     serial_number?: StringNullableFilter<"Asset"> | string | null
+    ownership?: EnumAssetOwnershipFilter<"Asset"> | $Enums.AssetOwnership
+    documentsUrl?: StringNullableFilter<"Asset"> | string | null
     created_at?: DateTimeFilter<"Asset"> | Date | string
     updated_at?: DateTimeFilter<"Asset"> | Date | string
     is_Active?: BoolFilter<"Asset"> | boolean
@@ -8904,6 +8960,8 @@ export namespace Prisma {
     year?: SortOrderInput | SortOrder
     plate?: SortOrderInput | SortOrder
     serial_number?: SortOrderInput | SortOrder
+    ownership?: SortOrder
+    documentsUrl?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -8922,6 +8980,8 @@ export namespace Prisma {
     brand?: StringFilter<"Asset"> | string
     model?: StringFilter<"Asset"> | string
     year?: IntNullableFilter<"Asset"> | number | null
+    ownership?: EnumAssetOwnershipFilter<"Asset"> | $Enums.AssetOwnership
+    documentsUrl?: StringNullableFilter<"Asset"> | string | null
     created_at?: DateTimeFilter<"Asset"> | Date | string
     updated_at?: DateTimeFilter<"Asset"> | Date | string
     is_Active?: BoolFilter<"Asset"> | boolean
@@ -8937,6 +8997,8 @@ export namespace Prisma {
     year?: SortOrderInput | SortOrder
     plate?: SortOrderInput | SortOrder
     serial_number?: SortOrderInput | SortOrder
+    ownership?: SortOrder
+    documentsUrl?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -8958,6 +9020,8 @@ export namespace Prisma {
     year?: IntNullableWithAggregatesFilter<"Asset"> | number | null
     plate?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     serial_number?: StringNullableWithAggregatesFilter<"Asset"> | string | null
+    ownership?: EnumAssetOwnershipWithAggregatesFilter<"Asset"> | $Enums.AssetOwnership
+    documentsUrl?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
     is_Active?: BoolWithAggregatesFilter<"Asset"> | boolean
@@ -9431,6 +9495,8 @@ export namespace Prisma {
     year?: number | null
     plate?: string | null
     serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -9445,6 +9511,8 @@ export namespace Prisma {
     year?: number | null
     plate?: string | null
     serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -9459,6 +9527,8 @@ export namespace Prisma {
     year?: NullableIntFieldUpdateOperationsInput | number | null
     plate?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -9473,6 +9543,8 @@ export namespace Prisma {
     year?: NullableIntFieldUpdateOperationsInput | number | null
     plate?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -9487,6 +9559,8 @@ export namespace Prisma {
     year?: number | null
     plate?: string | null
     serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -9500,6 +9574,8 @@ export namespace Prisma {
     year?: NullableIntFieldUpdateOperationsInput | number | null
     plate?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -9512,6 +9588,8 @@ export namespace Prisma {
     year?: NullableIntFieldUpdateOperationsInput | number | null
     plate?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -10092,6 +10170,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumAssetOwnershipFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssetOwnership | EnumAssetOwnershipFieldRefInput<$PrismaModel>
+    in?: $Enums.AssetOwnership[] | ListEnumAssetOwnershipFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AssetOwnership[] | ListEnumAssetOwnershipFieldRefInput<$PrismaModel>
+    not?: NestedEnumAssetOwnershipFilter<$PrismaModel> | $Enums.AssetOwnership
+  }
+
   export type AssetCategoryScalarRelationFilter = {
     is?: AssetCategoryWhereInput
     isNot?: AssetCategoryWhereInput
@@ -10114,6 +10199,8 @@ export namespace Prisma {
     year?: SortOrder
     plate?: SortOrder
     serial_number?: SortOrder
+    ownership?: SortOrder
+    documentsUrl?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -10131,6 +10218,8 @@ export namespace Prisma {
     year?: SortOrder
     plate?: SortOrder
     serial_number?: SortOrder
+    ownership?: SortOrder
+    documentsUrl?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -10144,6 +10233,8 @@ export namespace Prisma {
     year?: SortOrder
     plate?: SortOrder
     serial_number?: SortOrder
+    ownership?: SortOrder
+    documentsUrl?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -10168,6 +10259,16 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumAssetOwnershipWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssetOwnership | EnumAssetOwnershipFieldRefInput<$PrismaModel>
+    in?: $Enums.AssetOwnership[] | ListEnumAssetOwnershipFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AssetOwnership[] | ListEnumAssetOwnershipFieldRefInput<$PrismaModel>
+    not?: NestedEnumAssetOwnershipWithAggregatesFilter<$PrismaModel> | $Enums.AssetOwnership
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAssetOwnershipFilter<$PrismaModel>
+    _max?: NestedEnumAssetOwnershipFilter<$PrismaModel>
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -10570,6 +10671,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type EnumAssetOwnershipFieldUpdateOperationsInput = {
+    set?: $Enums.AssetOwnership
+  }
+
   export type AssetCategoryUpdateOneRequiredWithoutAssetNestedInput = {
     create?: XOR<AssetCategoryCreateWithoutAssetInput, AssetCategoryUncheckedCreateWithoutAssetInput>
     connectOrCreate?: AssetCategoryCreateOrConnectWithoutAssetInput
@@ -10927,6 +11032,13 @@ export namespace Prisma {
     _max?: NestedEnumAssetTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumAssetOwnershipFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssetOwnership | EnumAssetOwnershipFieldRefInput<$PrismaModel>
+    in?: $Enums.AssetOwnership[] | ListEnumAssetOwnershipFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AssetOwnership[] | ListEnumAssetOwnershipFieldRefInput<$PrismaModel>
+    not?: NestedEnumAssetOwnershipFilter<$PrismaModel> | $Enums.AssetOwnership
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -10952,6 +11064,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumAssetOwnershipWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssetOwnership | EnumAssetOwnershipFieldRefInput<$PrismaModel>
+    in?: $Enums.AssetOwnership[] | ListEnumAssetOwnershipFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AssetOwnership[] | ListEnumAssetOwnershipFieldRefInput<$PrismaModel>
+    not?: NestedEnumAssetOwnershipWithAggregatesFilter<$PrismaModel> | $Enums.AssetOwnership
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAssetOwnershipFilter<$PrismaModel>
+    _max?: NestedEnumAssetOwnershipFilter<$PrismaModel>
   }
 
   export type NestedEnumMaintenanceTypeFilter<$PrismaModel = never> = {
@@ -11074,6 +11196,8 @@ export namespace Prisma {
     year?: number | null
     plate?: string | null
     serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -11087,6 +11211,8 @@ export namespace Prisma {
     year?: number | null
     plate?: string | null
     serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -11129,6 +11255,8 @@ export namespace Prisma {
     year?: IntNullableFilter<"Asset"> | number | null
     plate?: StringNullableFilter<"Asset"> | string | null
     serial_number?: StringNullableFilter<"Asset"> | string | null
+    ownership?: EnumAssetOwnershipFilter<"Asset"> | $Enums.AssetOwnership
+    documentsUrl?: StringNullableFilter<"Asset"> | string | null
     created_at?: DateTimeFilter<"Asset"> | Date | string
     updated_at?: DateTimeFilter<"Asset"> | Date | string
     is_Active?: BoolFilter<"Asset"> | boolean
@@ -11343,6 +11471,8 @@ export namespace Prisma {
     year?: number | null
     plate?: string | null
     serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -11356,6 +11486,8 @@ export namespace Prisma {
     year?: number | null
     plate?: string | null
     serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -11458,6 +11590,8 @@ export namespace Prisma {
     year?: NullableIntFieldUpdateOperationsInput | number | null
     plate?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -11471,6 +11605,8 @@ export namespace Prisma {
     year?: NullableIntFieldUpdateOperationsInput | number | null
     plate?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -11650,6 +11786,8 @@ export namespace Prisma {
     year?: number | null
     plate?: string | null
     serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -11662,6 +11800,8 @@ export namespace Prisma {
     year?: NullableIntFieldUpdateOperationsInput | number | null
     plate?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -11675,6 +11815,8 @@ export namespace Prisma {
     year?: NullableIntFieldUpdateOperationsInput | number | null
     plate?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -11688,6 +11830,8 @@ export namespace Prisma {
     year?: NullableIntFieldUpdateOperationsInput | number | null
     plate?: NullableStringFieldUpdateOperationsInput | string | null
     serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean

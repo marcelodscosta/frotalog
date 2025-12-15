@@ -3,6 +3,8 @@ import { z } from 'zod'
 
 import { makeUpdateAsset } from '../../../services/factories/make-update-asset'
 
+const AssetOwnershipSchema = z.enum(['OWN', 'THIRD'])
+
 const updateBodySchema = z.object({
   brand: z.string().min(3),
   model: z.string().min(3),
@@ -12,6 +14,9 @@ const updateBodySchema = z.object({
   created_at: z.coerce.date().optional(),
   is_Active: z.boolean().optional(),
   assetCategoryId: z.uuid(),
+
+  ownership: AssetOwnershipSchema.default('OWN'),
+  documentsUrl: z.url().nullable().optional(),
 })
 
 const updateParamsSchema = z.object({
@@ -25,8 +30,6 @@ export async function updateAsset(
   const { id } = updateParamsSchema.parse(request.params)
   const parsedData = updateBodySchema.parse(request.body)
 
-  // Converter strings vazias em null para campos opcionais com constraint única
-  // Isso evita erro de constraint única quando múltiplos registros têm string vazia
   const data: typeof parsedData = { ...parsedData }
 
   if (parsedData.plate !== undefined) {
@@ -38,7 +41,8 @@ export async function updateAsset(
 
   if (parsedData.serial_number !== undefined) {
     data.serial_number =
-      parsedData.serial_number !== null && parsedData.serial_number.trim() !== ''
+      parsedData.serial_number !== null &&
+      parsedData.serial_number.trim() !== ''
         ? parsedData.serial_number.trim()
         : null
   }

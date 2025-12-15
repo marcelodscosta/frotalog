@@ -150,6 +150,8 @@ exports.Prisma.AssetScalarFieldEnum = {
   year: 'year',
   plate: 'plate',
   serial_number: 'serial_number',
+  ownership: 'ownership',
+  documentsUrl: 'documentsUrl',
   created_at: 'created_at',
   updated_at: 'updated_at',
   is_Active: 'is_Active',
@@ -226,6 +228,11 @@ exports.Role = exports.$Enums.Role = {
 exports.AssetType = exports.$Enums.AssetType = {
   VEHICLE: 'VEHICLE',
   EQUIPMENT: 'EQUIPMENT'
+};
+
+exports.AssetOwnership = exports.$Enums.AssetOwnership = {
+  OWN: 'OWN',
+  THIRD: 'THIRD'
 };
 
 exports.MaintenanceType = exports.$Enums.MaintenanceType = {

@@ -3,6 +3,8 @@ import { IAssetCategoryRepository } from '../../repositories/interfaces/IAssetCa
 import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository'
 import { AssetCategoryNotFoundError } from '../errors/asset-category-not-found-error'
 
+type AssetOwnership = 'OWN' | 'THIRD'
+
 interface CreateAssetRequest {
   brand: string
   model: string
@@ -10,6 +12,9 @@ interface CreateAssetRequest {
   plate?: string | null
   serial_number?: string | null
   assetCategoryId: string
+
+  ownership?: AssetOwnership
+  documentsUrl?: string | null
 }
 
 interface CreateAssetResponse {
