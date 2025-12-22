@@ -138,4 +138,10 @@ export class PrismaSupplierRepository implements ISupplierRepository {
     })
     return supplier !== null
   }
+
+  async findAllUnpaginated(): Promise<Supplier[]> {
+    return await prisma.supplier.findMany({
+      orderBy: { company_name: 'asc' },
+    })
+  }
 }
