@@ -15,4 +15,6 @@ export interface IAssetRepository {
   findById(id: string): Promise<Asset | null>
   findByPlate(plate: string): Promise<Asset | null>
   findBySerialNumber(serialNumber: string): Promise<Asset | null>
+
+  findAllUnpaginated(): Promise<Asset[]>
 }
