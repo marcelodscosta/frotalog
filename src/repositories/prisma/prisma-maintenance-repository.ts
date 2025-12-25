@@ -5,17 +5,20 @@ import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
 export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   async create(data: Prisma.MaintenanceCreateInput): Promise<Maintenance> {
-    const maintenance = await prisma.maintenance.create({ 
+    const maintenance = await prisma.maintenance.create({
       data: {
         ...data,
         asset: { connect: { id: data.asset.connect?.id } },
         supplier: { connect: { id: data.supplier.connect?.id } },
-      }
+      },
     })
     return maintenance
   }
 
-  async updateMaintenance(id: string, data: Prisma.MaintenanceUpdateInput): Promise<Maintenance> {
+  async updateMaintenance(
+    id: string,
+    data: Prisma.MaintenanceUpdateInput,
+  ): Promise<Maintenance> {
     const updateMaintenance = await prisma.maintenance.update({
       where: { id },
       data,
@@ -39,15 +42,18 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     return maintenance
   }
 
-  async findByAssetId(assetId: string, page: number): Promise<PaginatedResult<Maintenance>> {
+  async findByAssetId(
+    assetId: string,
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
     const [maintenances, totalCount] = await prisma.$transaction([
       prisma.maintenance.findMany({
-        where: { 
+        where: {
           is_Active: true,
-          assetId 
+          assetId,
         },
         skip,
         take: PAGE_SIZE,
@@ -62,9 +68,9 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         },
       }),
       prisma.maintenance.count({
-        where: { 
+        where: {
           is_Active: true,
-          assetId 
+          assetId,
         },
       }),
     ])
@@ -80,15 +86,18 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async findBySupplierId(supplierId: string, page: number): Promise<PaginatedResult<Maintenance>> {
+  async findBySupplierId(
+    supplierId: string,
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
     const [maintenances, totalCount] = await prisma.$transaction([
       prisma.maintenance.findMany({
-        where: { 
+        where: {
           is_Active: true,
-          supplierId 
+          supplierId,
         },
         skip,
         take: PAGE_SIZE,
@@ -103,9 +112,9 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         },
       }),
       prisma.maintenance.count({
-        where: { 
+        where: {
           is_Active: true,
-          supplierId 
+          supplierId,
         },
       }),
     ])
@@ -121,15 +130,18 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async findByStatus(status: Prisma.MaintenanceStatus, page: number): Promise<PaginatedResult<Maintenance>> {
+  async findByStatus(
+    status: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED',
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
     const [maintenances, totalCount] = await prisma.$transaction([
       prisma.maintenance.findMany({
-        where: { 
+        where: {
           is_Active: true,
-          status 
+          status,
         },
         skip,
         take: PAGE_SIZE,
@@ -144,9 +156,9 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         },
       }),
       prisma.maintenance.count({
-        where: { 
+        where: {
           is_Active: true,
-          status 
+          status,
         },
       }),
     ])
@@ -162,15 +174,18 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async findByType(type: Prisma.MaintenanceType, page: number): Promise<PaginatedResult<Maintenance>> {
+  async findByType(
+    type: 'PREVENTIVE' | 'CORRECTIVE' | 'EMERGENCY',
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
     const [maintenances, totalCount] = await prisma.$transaction([
       prisma.maintenance.findMany({
-        where: { 
+        where: {
           is_Active: true,
-          type 
+          type,
         },
         skip,
         take: PAGE_SIZE,
@@ -185,9 +200,9 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         },
       }),
       prisma.maintenance.count({
-        where: { 
+        where: {
           is_Active: true,
-          type 
+          type,
         },
       }),
     ])
@@ -238,17 +253,19 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async findScheduledMaintenances(page: number): Promise<PaginatedResult<Maintenance>> {
+  async findScheduledMaintenances(
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
     const now = new Date()
 
     const [maintenances, totalCount] = await prisma.$transaction([
       prisma.maintenance.findMany({
-        where: { 
+        where: {
           is_Active: true,
           status: 'SCHEDULED',
-          scheduled_date: { gte: now }
+          scheduled_date: { gte: now },
         },
         skip,
         take: PAGE_SIZE,
@@ -263,10 +280,10 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         },
       }),
       prisma.maintenance.count({
-        where: { 
+        where: {
           is_Active: true,
           status: 'SCHEDULED',
-          scheduled_date: { gte: now }
+          scheduled_date: { gte: now },
         },
       }),
     ])
@@ -282,17 +299,19 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async findOverdueMaintenances(page: number): Promise<PaginatedResult<Maintenance>> {
+  async findOverdueMaintenances(
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
     const now = new Date()
 
     const [maintenances, totalCount] = await prisma.$transaction([
       prisma.maintenance.findMany({
-        where: { 
+        where: {
           is_Active: true,
           status: 'SCHEDULED',
-          scheduled_date: { lt: now }
+          scheduled_date: { lt: now },
         },
         skip,
         take: PAGE_SIZE,
@@ -307,10 +326,10 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         },
       }),
       prisma.maintenance.count({
-        where: { 
+        where: {
           is_Active: true,
           status: 'SCHEDULED',
-          scheduled_date: { lt: now }
+          scheduled_date: { lt: now },
         },
       }),
     ])
@@ -326,14 +345,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async updateStatus(id: string, status: Prisma.MaintenanceStatus): Promise<Maintenance> {
+  async updateStatus(
+    id: string,
+    status: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED',
+  ): Promise<Maintenance> {
     const updateData: Prisma.MaintenanceUpdateInput = { status }
-
-    if (status === 'IN_PROGRESS') {
-      updateData.started_date = new Date()
-    } else if (status === 'COMPLETED') {
-      updateData.completed_date = new Date()
-    }
 
     const maintenance = await prisma.maintenance.update({
       where: { id },
@@ -342,7 +358,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     return maintenance
   }
 
-  async updateCosts(id: string, estimatedCost?: number, actualCost?: number): Promise<Maintenance> {
+  async updateCosts(
+    id: string,
+    estimatedCost?: number,
+    actualCost?: number,
+  ): Promise<Maintenance> {
     const updateData: Prisma.MaintenanceUpdateInput = {}
 
     if (estimatedCost !== undefined) {
@@ -373,5 +393,15 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       data: { is_Active: true },
     })
     return maintenance
+  }
+
+  async updateCompletedDate(id: string): Promise<Maintenance> {
+    const updateMaintenance = await prisma.maintenance.update({
+      where: { id },
+      data: {
+        completed_date: null,
+      },
+    })
+    return updateMaintenance
   }
 }
