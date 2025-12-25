@@ -224,7 +224,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
 
     const [maintenances, totalCount] = await prisma.$transaction([
       prisma.maintenance.findMany({
-        where: { is_Active: true },
+        where: {
+          NOT: {
+            status: 'CANCELLED',
+          },
+        },
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
