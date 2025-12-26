@@ -4,12 +4,7 @@ import { MaintenanceNotFoundError } from '../errors/maintenance-not-found-error'
 
 interface UpdateMaintenanceRequest {
   id: string
-  data: {
-    actual_cost?: number
-    completed_date?: Date
-    document_link?: string | null
-    notes?: string | null
-  }
+  data: Prisma.MaintenanceUpdateInput
 }
 
 interface UpdateMaintenanceResponse {
@@ -19,34 +14,73 @@ interface UpdateMaintenanceResponse {
 export class UpdateMaintenanceUseCase {
   constructor(private maintenanceRepository: IMaintenanceRepository) {}
 
-  async execute({ id, data }: UpdateMaintenanceRequest): Promise<UpdateMaintenanceResponse> {
+  async execute({
+    id,
+    data,
+  }: UpdateMaintenanceRequest): Promise<UpdateMaintenanceResponse> {
     const existingMaintenance = await this.maintenanceRepository.findById(id)
 
     if (!existingMaintenance) {
       throw new MaintenanceNotFoundError()
     }
-
-    const updateData: Prisma.MaintenanceUpdateInput = {}
-
-    if (data.actual_cost !== undefined) {
-      updateData.actual_cost = data.actual_cost
+    console.log(
+      `Estou na camada de serviço, os dados brutos recebidos: ${JSON.stringify(data)}`,
+    )
+    const updateData: Prisma.MaintenanceUpdateInput = {
+      ...data,
     }
 
-    if (data.completed_date !== undefined) {
+    if (data.actual_cost !== undefined && data.actual_cost !== null) {
+      const normalized = String(data.actual_cost)
+        .replace(/\./g, '')
+        .replace(',', '.')
+      const num = Number(normalized)
+
+      if (!Number.isNaN(num)) {
+        updateData.actual_cost = num
+      } else {
+        updateData.actual_cost = null
+      }
+    }
+
+    if (data.actual_cost !== undefined && data.actual_cost !== null) {
+      const normalized = String(data.actual_cost)
+        .replace(/\./g, '')
+        .replace(',', '.')
+      const num = Number(normalized)
+
+      if (!Number.isNaN(num)) {
+        updateData.actual_cost = num
+      } else {
+        updateData.actual_cost = null
+      }
+    }
+
+    if (data.estimated_cost !== undefined && data.estimated_cost !== null) {
+      const normalized = String(data.estimated_cost)
+        .replace(/\./g, '')
+        .replace(',', '.')
+      const num = Number(normalized)
+
+      if (!Number.isNaN(num)) {
+        updateData.estimated_cost = num
+      } else {
+        updateData.estimated_cost = null
+      }
+    }
+
+    if (data.completed_date !== undefined || data.completed_date !== null) {
       updateData.completed_date = data.completed_date
     }
 
-    if (data.notes !== undefined) {
-      updateData.notes = data.notes
-    }
-
-    if (data.document_link !== undefined) {
-      updateData.document_link = data.document_link
-    }
-
-    const maintenance = await this.maintenanceRepository.updateMaintenance(id, updateData)
+    console.log(
+      `Estou na camada de serviço os dados trabalhados: ${JSON.stringify(updateData)}`,
+    )
+    const maintenance = await this.maintenanceRepository.updateMaintenance(
+      id,
+      updateData,
+    )
 
     return { maintenance }
   }
 }
-
