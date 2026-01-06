@@ -16,8 +16,11 @@ interface FindAllMaintenanceResponse {
 export class FindAllMaintenanceUseCase {
   constructor(private maintenanceRepository: IMaintenanceRepository) {}
 
-  async execute({ page }: FindAllMaintenanceRequest): Promise<FindAllMaintenanceResponse> {
-    const { items, currentPage, pageSize, totalItems, totalPages } = await this.maintenanceRepository.findAll(page)
+  async execute({
+    page,
+  }: FindAllMaintenanceRequest): Promise<FindAllMaintenanceResponse> {
+    const { items, currentPage, pageSize, totalItems, totalPages } =
+      await this.maintenanceRepository.findAll(page)
     return {
       maintenances: items,
       currentPage,

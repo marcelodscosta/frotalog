@@ -13,7 +13,9 @@ interface GetMaintenanceByIdResponse {
 export class GetMaintenanceByIdUseCase {
   constructor(private maintenanceRepository: IMaintenanceRepository) {}
 
-  async execute({ id }: GetMaintenanceByIdRequest): Promise<GetMaintenanceByIdResponse> {
+  async execute({
+    id,
+  }: GetMaintenanceByIdRequest): Promise<GetMaintenanceByIdResponse> {
     const maintenance = await this.maintenanceRepository.findById(id)
 
     if (!maintenance) {

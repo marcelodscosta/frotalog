@@ -26,7 +26,9 @@ export class CreateMaintenanceUseCase {
     private supplierRepository: ISupplierRepository,
   ) {}
 
-  async execute(data: CreateMaintenanceRequest): Promise<CreateMaintenanceResponse> {
+  async execute(
+    data: CreateMaintenanceRequest,
+  ): Promise<CreateMaintenanceResponse> {
     // Verificar se o asset existe
     const asset = await this.assetRepository.findById(data.assetId)
     if (!asset) {
