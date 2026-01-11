@@ -1,4 +1,4 @@
-import { Maintenance, Prisma } from '../../generated/prisma'
+import { Asset, Maintenance, Prisma, Supplier } from '../../generated/prisma'
 import { PaginatedResult } from './IPaginatedResult'
 
 export interface IMaintenanceRepository {
@@ -43,4 +43,17 @@ export interface IMaintenanceRepository {
 
   deactivateMaintenance(id: string): Promise<Maintenance>
   activateMaintenance(id: string): Promise<Maintenance>
+
+  findMaintenancesByAssetPeriod(
+    assetId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<
+    Array<
+      Maintenance & {
+        supplier: Pick<Supplier, 'company_name'>
+        asset: Pick<Asset, 'brand' | 'model' | 'plate' | 'year'>
+      }
+    >
+  >
 }

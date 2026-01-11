@@ -1,4 +1,4 @@
-import { Prisma, Maintenance } from '../../generated/prisma'
+import { Prisma, Maintenance, Supplier, Asset } from '../../generated/prisma'
 import { prisma } from '../../lib/prisma'
 import { IMaintenanceRepository } from '../interfaces/IMaintenanceRepository'
 import { PaginatedResult } from '../interfaces/IPaginatedResult'
@@ -28,7 +28,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
 
   async findById(id: string): Promise<Maintenance | null> {
     const maintenance = await prisma.maintenance.findUnique({
-      where: { id },
+      where: {
+        id,
+        is_Active: true,
+        status: { not: 'CANCELLED' }, // ✅ NOVO
+      },
       include: {
         asset: {
           include: {
@@ -54,6 +58,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         where: {
           is_Active: true,
           assetId,
+          status: { not: 'CANCELLED' }, // ✅ NOVO
         },
         skip,
         take: PAGE_SIZE,
@@ -71,6 +76,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         where: {
           is_Active: true,
           assetId,
+          status: { not: 'CANCELLED' }, // ✅ NOVO
         },
       }),
     ])
@@ -98,6 +104,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         where: {
           is_Active: true,
           supplierId,
+          status: { not: 'CANCELLED' }, // ✅ NOVO
         },
         skip,
         take: PAGE_SIZE,
@@ -115,6 +122,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         where: {
           is_Active: true,
           supplierId,
+          status: { not: 'CANCELLED' }, // ✅ NOVO
         },
       }),
     ])
@@ -141,7 +149,10 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       prisma.maintenance.findMany({
         where: {
           is_Active: true,
-          status,
+          status: {
+            in: [status], // ✅ Mantém o status específico
+            not: 'CANCELLED', // ✅ + exclui CANCELLED (redundante se status='CANCELLED')
+          },
         },
         skip,
         take: PAGE_SIZE,
@@ -158,7 +169,10 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       prisma.maintenance.count({
         where: {
           is_Active: true,
-          status,
+          status: {
+            in: [status],
+            not: 'CANCELLED',
+          },
         },
       }),
     ])
@@ -186,6 +200,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         where: {
           is_Active: true,
           type,
+          status: { not: 'CANCELLED' }, // ✅ NOVO
         },
         skip,
         take: PAGE_SIZE,
@@ -203,6 +218,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         where: {
           is_Active: true,
           type,
+          status: { not: 'CANCELLED' }, // ✅ NOVO
         },
       }),
     ])
@@ -225,9 +241,8 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const [maintenances, totalCount] = await prisma.$transaction([
       prisma.maintenance.findMany({
         where: {
-          NOT: {
-            status: 'CANCELLED',
-          },
+          is_Active: true,
+          status: { not: 'CANCELLED' }, // ✅ NOVO
         },
         skip,
         take: PAGE_SIZE,
@@ -242,7 +257,10 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         },
       }),
       prisma.maintenance.count({
-        where: { is_Active: true },
+        where: {
+          is_Active: true,
+          status: { not: 'CANCELLED' }, // ✅ NOVO
+        },
       }),
     ])
 
@@ -268,7 +286,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       prisma.maintenance.findMany({
         where: {
           is_Active: true,
-          status: 'SCHEDULED',
+          status: 'SCHEDULED', // ✅ Já exclui CANCELLED
           scheduled_date: { gte: now },
         },
         skip,
@@ -314,7 +332,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       prisma.maintenance.findMany({
         where: {
           is_Active: true,
-          status: 'SCHEDULED',
+          status: 'SCHEDULED', // ✅ Já exclui CANCELLED
           scheduled_date: { lt: now },
         },
         skip,
@@ -407,5 +425,88 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       },
     })
     return updateMaintenance
+  }
+
+  async findMaintenancesByAssetPeriod(
+    assetId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<
+    Array<
+      Maintenance & {
+        supplier: Pick<Supplier, 'company_name'>
+        asset: Pick<Asset, 'brand' | 'model' | 'plate' | 'year'>
+      }
+    >
+  > {
+    const maintenances = await prisma.maintenance.findMany({
+      where: {
+        is_Active: true,
+        assetId,
+        status: { not: 'CANCELLED' }, // ✅ NOVO - Crucial pro DailyBulletin
+        OR: [
+          // 1. Manutenções que começaram no período
+          {
+            started_date: {
+              gte: startDate,
+              lte: endDate,
+            },
+          },
+          // 2. Manutenções agendadas para o período
+          {
+            scheduled_date: {
+              gte: startDate,
+              lte: endDate,
+            },
+          },
+          // 3. Manutenções que terminaram no período
+          {
+            completed_date: {
+              gte: startDate,
+              lte: endDate,
+            },
+          },
+          // 4. Manutenções que começaram antes do período mas ainda estavam ativas
+          {
+            AND: [
+              {
+                OR: [
+                  { started_date: { lte: startDate } },
+                  { scheduled_date: { lte: startDate } },
+                ],
+              },
+              {
+                OR: [
+                  // Terminou depois do início do período
+                  { completed_date: { gte: startDate } },
+                  // Ou ainda não terminou (null)
+                  { completed_date: null },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      include: {
+        supplier: {
+          select: {
+            company_name: true,
+          },
+        },
+        asset: {
+          select: {
+            brand: true,
+            model: true,
+            plate: true,
+            year: true,
+          },
+        },
+      },
+      orderBy: {
+        started_date: 'asc',
+      },
+    })
+
+    return maintenances
   }
 }

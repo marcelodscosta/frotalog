@@ -60,55 +60,65 @@ export class MaintenanceReportUseCase {
     private supplierRepository: ISupplierRepository,
   ) {}
 
-  async execute(filters: MaintenanceReportRequest): Promise<MaintenanceReportResponse> {
+  async execute(
+    filters: MaintenanceReportRequest,
+  ): Promise<MaintenanceReportResponse> {
     // Buscar todas as manutenções com filtros
     const allMaintenances = await this.maintenanceRepository.findAll(1)
-    
+
     // Aplicar filtros
     let filteredMaintenances = allMaintenances.items
 
     if (filters.startDate) {
       filteredMaintenances = filteredMaintenances.filter(
-        m => m.scheduled_date >= filters.startDate!
+        (m) => m.scheduled_date >= filters.startDate!,
       )
     }
 
     if (filters.endDate) {
       filteredMaintenances = filteredMaintenances.filter(
-        m => m.scheduled_date <= filters.endDate!
+        (m) => m.scheduled_date <= filters.endDate!,
       )
     }
 
     if (filters.status) {
       filteredMaintenances = filteredMaintenances.filter(
-        m => m.status === filters.status
+        (m) => m.status === filters.status,
       )
     }
 
     if (filters.type) {
       filteredMaintenances = filteredMaintenances.filter(
-        m => m.type === filters.type
+        (m) => m.type === filters.type,
       )
     }
 
     if (filters.assetId) {
       filteredMaintenances = filteredMaintenances.filter(
-        m => m.assetId === filters.assetId
+        (m) => m.assetId === filters.assetId,
       )
     }
 
     if (filters.supplierId) {
       filteredMaintenances = filteredMaintenances.filter(
-        m => m.supplierId === filters.supplierId
+        (m) => m.supplierId === filters.supplierId,
       )
     }
 
     // Calcular estatísticas
     const total = filteredMaintenances.length
-    const scheduled = filteredMaintenances.filter(m => m.status === 'SCHEDULED').length
-    const inProgress = filteredMaintenances.filter(m => m.status === 'IN_PROGRESS').length
-    const completed = filteredMaintenances.filter(m => m.status === 'COMPLETED').length
-    const cancelled = filteredMaintenances.filter(m => m.status === 'CANCELLED').length
+    const scheduled = filteredMaintenances.filter(
+      (m) => m.status === 'SCHEDULED',
+    ).length
+    const inProgress = filteredMaintenances.filter(
+      (m) => m.status === 'IN_PROGRESS',
+    ).length
+    const completed = filteredMaintenances.filter(
+      (m) => m.status === 'COMPLETED',
+    ).length
+    const cancelled = filteredMaintenances.filter(
+      (m) => m.status === 'CANCELLED',
+    ).length
 
     const totalCost = filteredMaintenances.reduce((sum, m) => {
       return sum + (Number(m.actual_cost) || Number(m.estimated_cost) || 0)
@@ -117,9 +127,12 @@ export class MaintenanceReportUseCase {
     const averageCost = total > 0 ? totalCost / total : 0
 
     const byType = {
-      preventive: filteredMaintenances.filter(m => m.type === 'PREVENTIVE').length,
-      corrective: filteredMaintenances.filter(m => m.type === 'CORRECTIVE').length,
-      emergency: filteredMaintenances.filter(m => m.type === 'EMERGENCY').length,
+      preventive: filteredMaintenances.filter((m) => m.type === 'PREVENTIVE')
+        .length,
+      corrective: filteredMaintenances.filter((m) => m.type === 'CORRECTIVE')
+        .length,
+      emergency: filteredMaintenances.filter((m) => m.type === 'EMERGENCY')
+        .length,
     }
 
     const byStatus = {
@@ -133,7 +146,9 @@ export class MaintenanceReportUseCase {
     const maintenancesWithDetails = await Promise.all(
       filteredMaintenances.map(async (maintenance) => {
         const asset = await this.assetRepository.findById(maintenance.assetId)
-        const supplier = await this.supplierRepository.findById(maintenance.supplierId)
+        const supplier = await this.supplierRepository.findById(
+          maintenance.supplierId,
+        )
 
         return {
           id: maintenance.id,
@@ -141,8 +156,12 @@ export class MaintenanceReportUseCase {
           status: maintenance.status,
           description: maintenance.description,
           scheduled_date: maintenance.scheduled_date,
-          estimated_cost: maintenance.estimated_cost ? Number(maintenance.estimated_cost) : null,
-          actual_cost: maintenance.actual_cost ? Number(maintenance.actual_cost) : null,
+          estimated_cost: maintenance.estimated_cost
+            ? Number(maintenance.estimated_cost)
+            : null,
+          actual_cost: maintenance.actual_cost
+            ? Number(maintenance.actual_cost)
+            : null,
           asset: {
             id: asset?.id || '',
             brand: asset?.brand || '',
@@ -154,7 +173,7 @@ export class MaintenanceReportUseCase {
             company_name: supplier?.company_name || '',
           },
         }
-      })
+      }),
     )
 
     return {
