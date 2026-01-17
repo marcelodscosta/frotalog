@@ -34,7 +34,7 @@ export class MaintenanceByAssetUseCase {
       endDate: request.endDate.toISOString(),
     })
 
-    // Usar EXATAMENTE as datas recebidas
+    // Normaliza as datas de entrada para UTC 00:00:00.000 e 23:59:59.999
     const startDate = new Date(request.startDate)
     startDate.setUTCHours(0, 0, 0, 0)
 
@@ -56,36 +56,38 @@ export class MaintenanceByAssetUseCase {
     console.log('📋 Manutenções encontradas:', maintenances.length)
 
     while (currentDate <= endDate) {
-      // Normalizar currentDate para comparação (apenas data, sem hora)
       const currentDayStart = new Date(currentDate)
       currentDayStart.setUTCHours(0, 0, 0, 0)
 
       const currentDayEnd = new Date(currentDate)
       currentDayEnd.setUTCHours(23, 59, 59, 999)
 
-      // Verificar se há manutenção ativa neste dia
+      // 🔑 LÓGICA CORRIGIDA: só considera inoperante se a manutenção FOI INICIADA
       const activeMaintenance = maintenances.find((m) => {
-        // Normalizar datas da manutenção
-        const maintenanceStart = new Date(m.started_date || m.scheduled_date)
+        // ❌ Ignora manutenções que ainda não começaram
+        if (!m.started_date) {
+          return false
+        }
+
+        const maintenanceStart = new Date(m.started_date)
         maintenanceStart.setUTCHours(0, 0, 0, 0)
 
+        // ✅ Usa endDate do relatório (não "hoje") para manutenções em aberto
         const maintenanceEnd = m.completed_date
           ? new Date(m.completed_date)
-          : new Date() // Se não completou, considera até hoje
+          : endDate // ← importante para consistência histórica
         maintenanceEnd.setUTCHours(23, 59, 59, 999)
 
-        // Verificar se o dia atual está dentro do período da manutenção
         const isWithinRange =
           currentDayStart <= maintenanceEnd && currentDayEnd >= maintenanceStart
 
         if (isWithinRange) {
           console.log(
-            `✅ Dia ${currentDate.toISOString().split('T')[0]} está em manutenção:`,
+            `✅ Dia ${currentDate.toISOString().split('T')[0]} está em manutenção REAL:`,
             {
               maintenanceId: m.id,
-              maintenanceStart: maintenanceStart.toISOString(),
-              maintenanceEnd: maintenanceEnd.toISOString(),
-              currentDay: currentDayStart.toISOString(),
+              started_date: m.started_date,
+              completed_date: m.completed_date,
             },
           )
         }
@@ -94,7 +96,7 @@ export class MaintenanceByAssetUseCase {
       })
 
       dailyStatus.push({
-        date: currentDate.toISOString(),
+        date: currentDate.toISOString().split('T')[0], // ✅ Formato ISO apenas da data (sem hora)
         status: activeMaintenance ? 'INOPERATIVE' : 'OPERATIVE',
         maintenanceId: activeMaintenance?.id || null,
       })
