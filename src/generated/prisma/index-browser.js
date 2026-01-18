@@ -152,6 +152,7 @@ exports.Prisma.AssetScalarFieldEnum = {
   serial_number: 'serial_number',
   ownership: 'ownership',
   documentsUrl: 'documentsUrl',
+  notes: 'notes',
   created_at: 'created_at',
   updated_at: 'updated_at',
   is_Active: 'is_Active',
@@ -176,10 +177,20 @@ exports.Prisma.SupplierScalarFieldEnum = {
   is_Active: 'is_Active'
 };
 
+exports.Prisma.ServiceCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.MaintenanceScalarFieldEnum = {
   id: 'id',
   assetId: 'assetId',
   supplierId: 'supplierId',
+  serviceCategoryId: 'serviceCategoryId',
   type: 'type',
   description: 'description',
   scheduled_date: 'scheduled_date',
@@ -253,6 +264,7 @@ exports.Prisma.ModelName = {
   AssetCategory: 'AssetCategory',
   Asset: 'Asset',
   Supplier: 'Supplier',
+  ServiceCategory: 'ServiceCategory',
   Maintenance: 'Maintenance',
   MaintenanceDocument: 'MaintenanceDocument'
 };

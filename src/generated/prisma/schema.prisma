@@ -64,6 +64,7 @@ model Asset {
 
   ownership    AssetOwnership @default(OWN)
   documentsUrl String?
+  notes        String? // ✅ CAMPO ADICIONADO
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -100,6 +101,19 @@ model Supplier {
   @@map("suppliers")
 }
 
+model ServiceCategory {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  Maintenance Maintenance[]
+
+  @@map("service_categories")
+}
+
 enum MaintenanceStatus {
   SCHEDULED
   IN_PROGRESS
@@ -121,6 +135,9 @@ model Maintenance {
 
   supplier   Supplier @relation(fields: [supplierId], references: [id])
   supplierId String
+
+  serviceCategory   ServiceCategory? @relation(fields: [serviceCategoryId], references: [id])
+  serviceCategoryId String?
 
   type        MaintenanceType
   description String
