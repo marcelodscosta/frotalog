@@ -509,4 +509,112 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
 
     return maintenances
   }
+
+  async findMaintenancesByPlate(
+    plate: string,
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>> {
+    const PAGE_SIZE = 20
+    const skip = (page - 1) * PAGE_SIZE
+
+    const [maintenances, totalCount] = await prisma.$transaction([
+      prisma.maintenance.findMany({
+        where: {
+          is_Active: true,
+          asset: {
+            plate: {
+              contains: plate,
+              mode: 'insensitive', // Busca ignorando maiúsculas/minúsculas
+            },
+          },
+        },
+        skip,
+        take: PAGE_SIZE,
+        orderBy: { scheduled_date: 'desc' },
+        include: {
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
+          supplier: true,
+        },
+      }),
+      prisma.maintenance.count({
+        where: {
+          is_Active: true,
+          asset: {
+            plate: {
+              contains: plate,
+              mode: 'insensitive',
+            },
+          },
+        },
+      }),
+    ])
+
+    const totalPages = Math.ceil(totalCount / PAGE_SIZE)
+
+    return {
+      items: maintenances,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems: totalCount,
+      totalPages,
+    }
+  }
+
+  async findMaintenancesBySerialNumber(
+    serialNumber: string,
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>> {
+    const PAGE_SIZE = 20
+    const skip = (page - 1) * PAGE_SIZE
+
+    const [maintenances, totalCount] = await prisma.$transaction([
+      prisma.maintenance.findMany({
+        where: {
+          is_Active: true,
+          asset: {
+            serial_number: {
+              contains: serialNumber,
+              mode: 'insensitive',
+            },
+          },
+        },
+        skip,
+        take: PAGE_SIZE,
+        orderBy: { scheduled_date: 'desc' },
+        include: {
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
+          supplier: true,
+        },
+      }),
+      prisma.maintenance.count({
+        where: {
+          is_Active: true,
+          asset: {
+            serial_number: {
+              contains: serialNumber,
+              mode: 'insensitive',
+            },
+          },
+        },
+      }),
+    ])
+
+    const totalPages = Math.ceil(totalCount / PAGE_SIZE)
+
+    return {
+      items: maintenances,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems: totalCount,
+      totalPages,
+    }
+  }
 }

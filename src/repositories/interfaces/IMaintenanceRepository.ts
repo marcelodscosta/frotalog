@@ -56,4 +56,14 @@ export interface IMaintenanceRepository {
       }
     >
   >
+
+  findMaintenancesByPlate(
+    plate: string,
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>>
+
+  findMaintenancesBySerialNumber(
+    plate: string,
+    page: number,
+  ): Promise<PaginatedResult<Maintenance>>
 }

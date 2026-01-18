@@ -7,6 +7,8 @@ import { updateMaintenance } from './update-maintenance-controller'
 import { requireAuth } from '../../middleware/auth'
 import { getMaintenancesByType } from './get-maintenance-by-type-controller'
 import { getMaintenancesByStatus } from './get-maintenance-by-status-controller'
+import { getMaintenancesByPlate } from './get-maintenance-by-plate-controller'
+import { getMaintenancesBySerialNumber } from './get-maintenance-by-serial-number-controller'
 
 export async function maintenanceRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de manutenções
@@ -20,4 +22,7 @@ export async function maintenanceRoutes(app: FastifyInstance) {
 
   app.get('/maintenance/search/type', getMaintenancesByType)
   app.get('/maintenance/search/status', getMaintenancesByStatus)
+
+  app.get('/maintenance/search/plate', getMaintenancesByPlate)
+  app.get('/maintenance/search/serial', getMaintenancesBySerialNumber)
 }
