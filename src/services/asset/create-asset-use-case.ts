@@ -15,6 +15,7 @@ interface CreateAssetRequest {
 
   ownership?: AssetOwnership
   documentsUrl?: string | null
+  notes?: string | null
 }
 
 interface CreateAssetResponse {

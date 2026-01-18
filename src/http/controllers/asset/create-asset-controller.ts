@@ -17,6 +17,7 @@ export async function createAsset(
     assetCategoryId: z.uuid(),
     ownership: AssetOwnershipSchema.default('OWN'),
     documentsUrl: z.url().nullable().optional(),
+    notes: z.string().optional().nullable(),
   })
 
   const {
@@ -28,6 +29,7 @@ export async function createAsset(
     assetCategoryId,
     ownership,
     documentsUrl,
+    notes,
   } = createBodySchema.parse(request.body)
 
   const normalizedPlate =
@@ -51,6 +53,7 @@ export async function createAsset(
     assetCategoryId,
     ownership,
     documentsUrl,
+    notes,
   })
   return reply.status(201).send({ asset })
 }

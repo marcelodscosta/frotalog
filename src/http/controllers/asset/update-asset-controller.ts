@@ -14,6 +14,7 @@ const updateBodySchema = z.object({
   created_at: z.coerce.date().optional(),
   is_Active: z.boolean().optional(),
   assetCategoryId: z.uuid(),
+  notes: z.string().optional().nullable(),
 
   ownership: AssetOwnershipSchema.default('OWN'),
   documentsUrl: z.url().nullable().optional(),
