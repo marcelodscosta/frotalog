@@ -3,6 +3,8 @@ import { FindAllMaintenanceUseCase } from '../maintenance/find-all-maintenance-u
 
 export function makeFindAllMaintenance() {
   const maintenanceRepository = new PrismaMaintenanceRepository()
-  const findAllMaintenanceUseCase = new FindAllMaintenanceUseCase(maintenanceRepository)
+  const findAllMaintenanceUseCase = new FindAllMaintenanceUseCase(
+    maintenanceRepository,
+  )
   return findAllMaintenanceUseCase
 }
