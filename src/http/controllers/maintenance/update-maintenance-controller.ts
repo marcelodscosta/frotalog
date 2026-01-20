@@ -24,6 +24,7 @@ export async function updateMaintenance(
   const bodySchema = z.object({
     assetId: z.string().optional(),
     supplierId: z.string().optional(),
+    serviceCategoryId: z.string().nullable().optional(),
 
     type: z.enum(['PREVENTIVE', 'CORRECTIVE', 'EMERGENCY']).optional(),
     description: z.string().min(5).optional(),
@@ -79,10 +80,14 @@ export async function updateMaintenance(
     })
   }
 
-  const data = parseResult?.data
+  const { serviceCategoryId, ...data } = parseResult.data
 
   const updateMaintenance = makeUpdateMaintenance()
-  const { maintenance } = await updateMaintenance.execute({ id, data })
+  const { maintenance } = await updateMaintenance.execute({
+    id,
+    data,
+    serviceCategoryId,
+  })
 
   return reply.status(200).send({ maintenance })
 }

@@ -2,12 +2,15 @@ import { Maintenance } from '../../generated/prisma'
 import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
 import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository'
 import { ISupplierRepository } from '../../repositories/interfaces/ISupplierRepository'
+import { IServiceCategoryRepository } from '../../repositories/interfaces/IServiceCategoryRepository' // ✅ NOVO
 import { AssetNotFoundError } from '../errors/asset-not-found-error'
 import { SupplierNotFoundError } from '../errors/supplier-not-found-error'
+import { ServiceCategoryNotFoundError } from '../errors/service-category-not-found-error'
 
 interface CreateMaintenanceRequest {
   assetId: string
   supplierId: string
+  serviceCategoryId?: string // ✅ NOVO - opcional
   type: 'PREVENTIVE' | 'CORRECTIVE' | 'EMERGENCY'
   description: string
   scheduled_date: Date
@@ -24,6 +27,7 @@ export class CreateMaintenanceUseCase {
     private maintenanceRepository: IMaintenanceRepository,
     private assetRepository: IAssetRepository,
     private supplierRepository: ISupplierRepository,
+    private serviceCategoryRepository: IServiceCategoryRepository, // ✅ NOVO
   ) {}
 
   async execute(
@@ -41,9 +45,23 @@ export class CreateMaintenanceUseCase {
       throw new SupplierNotFoundError()
     }
 
+    // ✅ NOVO - Verificar se a categoria de serviço existe (se fornecida)
+    if (data.serviceCategoryId) {
+      const serviceCategory = await this.serviceCategoryRepository.findById(
+        data.serviceCategoryId,
+      )
+      if (!serviceCategory) {
+        throw new ServiceCategoryNotFoundError()
+      }
+    }
+
     const maintenance = await this.maintenanceRepository.create({
       asset: { connect: { id: data.assetId } },
       supplier: { connect: { id: data.supplierId } },
+      // ✅ NOVO - Conectar categoria se fornecida
+      ...(data.serviceCategoryId && {
+        serviceCategory: { connect: { id: data.serviceCategoryId } },
+      }),
       type: data.type,
       description: data.description,
       scheduled_date: data.scheduled_date,

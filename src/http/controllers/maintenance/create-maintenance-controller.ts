@@ -7,8 +7,9 @@ export async function createMaintenance(
   reply: FastifyReply,
 ) {
   const createBodySchema = z.object({
-    assetId: z.string().uuid(),
-    supplierId: z.string().uuid(),
+    assetId: z.string(),
+    supplierId: z.string(),
+    serviceCategoryId: z.string().optional(),
     type: z.enum(['PREVENTIVE', 'CORRECTIVE', 'EMERGENCY']),
     description: z.string().min(10),
     scheduled_date: z.coerce.date(),
@@ -16,13 +17,22 @@ export async function createMaintenance(
     notes: z.string().optional(),
   })
 
-  const { assetId, supplierId, type, description, scheduled_date, estimated_cost, notes } =
-    createBodySchema.parse(request.body)
+  const {
+    assetId,
+    supplierId,
+    serviceCategoryId,
+    type,
+    description,
+    scheduled_date,
+    estimated_cost,
+    notes,
+  } = createBodySchema.parse(request.body)
 
   const createMaintenance = makeCreateMaintenance()
   const { maintenance } = await createMaintenance.execute({
     assetId,
     supplierId,
+    serviceCategoryId,
     type,
     description,
     scheduled_date,

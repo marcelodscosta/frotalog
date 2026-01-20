@@ -1,5 +1,17 @@
-import { Asset, Maintenance, Prisma, Supplier } from '../../generated/prisma'
+import {
+  Asset,
+  Maintenance,
+  Prisma,
+  Supplier,
+  ServiceCategory,
+} from '../../generated/prisma'
 import { PaginatedResult } from './IPaginatedResult'
+
+export type MaintenanceWithRelations = Maintenance & {
+  supplier: Pick<Supplier, 'company_name' | 'trading_name'>
+  asset: Pick<Asset, 'brand' | 'model' | 'plate' | 'serial_number' | 'year'>
+  serviceCategory: Pick<ServiceCategory, 'id' | 'name' | 'description'> | null // ✅ NOVO
+}
 
 export interface IMaintenanceRepository {
   create(data: Prisma.MaintenanceCreateInput): Promise<Maintenance>
@@ -8,27 +20,31 @@ export interface IMaintenanceRepository {
     data: Prisma.MaintenanceUpdateInput,
   ): Promise<Maintenance>
 
-  findById(id: string): Promise<Maintenance | null>
+  findById(id: string): Promise<MaintenanceWithRelations | null>
   findByAssetId(
     assetId: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>>
+  ): Promise<PaginatedResult<MaintenanceWithRelations>>
   findBySupplierId(
     supplierId: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>>
+  ): Promise<PaginatedResult<MaintenanceWithRelations>>
   findByStatus(
     status: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED',
     page: number,
-  ): Promise<PaginatedResult<Maintenance>>
+  ): Promise<PaginatedResult<MaintenanceWithRelations>>
   findByType(
     type: 'PREVENTIVE' | 'CORRECTIVE' | 'EMERGENCY',
     page: number,
-  ): Promise<PaginatedResult<Maintenance>>
+  ): Promise<PaginatedResult<MaintenanceWithRelations>>
 
-  findAll(page: number): Promise<PaginatedResult<Maintenance>>
-  findScheduledMaintenances(page: number): Promise<PaginatedResult<Maintenance>>
-  findOverdueMaintenances(page: number): Promise<PaginatedResult<Maintenance>>
+  findAll(page: number): Promise<PaginatedResult<MaintenanceWithRelations>>
+  findScheduledMaintenances(
+    page: number,
+  ): Promise<PaginatedResult<MaintenanceWithRelations>>
+  findOverdueMaintenances(
+    page: number,
+  ): Promise<PaginatedResult<MaintenanceWithRelations>>
 
   updateStatus(
     id: string,
@@ -53,6 +69,7 @@ export interface IMaintenanceRepository {
       Maintenance & {
         supplier: Pick<Supplier, 'company_name'>
         asset: Pick<Asset, 'brand' | 'model' | 'plate' | 'year'>
+        serviceCategory: Pick<ServiceCategory, 'name'> | null // ✅ NOVO
       }
     >
   >
@@ -60,10 +77,10 @@ export interface IMaintenanceRepository {
   findMaintenancesByPlate(
     plate: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>>
+  ): Promise<PaginatedResult<MaintenanceWithRelations>>
 
   findMaintenancesBySerialNumber(
-    plate: string,
+    serialNumber: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>>
+  ): Promise<PaginatedResult<MaintenanceWithRelations>>
 }

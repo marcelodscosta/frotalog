@@ -1,5 +1,7 @@
-import { Maintenance } from '../../generated/prisma'
-import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
+import {
+  IMaintenanceRepository,
+  MaintenanceWithRelations,
+} from '../../repositories/interfaces/IMaintenanceRepository'
 import { MaintenanceNotFoundError } from '../errors/maintenance-not-found-error'
 
 interface GetMaintenanceByIdRequest {
@@ -7,7 +9,7 @@ interface GetMaintenanceByIdRequest {
 }
 
 interface GetMaintenanceByIdResponse {
-  maintenance: Maintenance
+  maintenance: MaintenanceWithRelations
 }
 
 export class GetMaintenanceByIdUseCase {

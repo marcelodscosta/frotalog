@@ -1,6 +1,15 @@
-import { Prisma, Maintenance, Supplier, Asset } from '../../generated/prisma'
+import {
+  Prisma,
+  Maintenance,
+  Supplier,
+  Asset,
+  ServiceCategory,
+} from '../../generated/prisma'
 import { prisma } from '../../lib/prisma'
-import { IMaintenanceRepository } from '../interfaces/IMaintenanceRepository'
+import {
+  IMaintenanceRepository,
+  MaintenanceWithRelations,
+} from '../interfaces/IMaintenanceRepository'
 import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
 export class PrismaMaintenanceRepository implements IMaintenanceRepository {
@@ -10,6 +19,9 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         ...data,
         asset: { connect: { id: data.asset.connect?.id } },
         supplier: { connect: { id: data.supplier.connect?.id } },
+        serviceCategory: data.serviceCategory?.connect?.id
+          ? { connect: { id: data.serviceCategory.connect.id } }
+          : undefined,
       },
     })
     return maintenance
@@ -19,19 +31,73 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     id: string,
     data: Prisma.MaintenanceUpdateInput,
   ): Promise<Maintenance> {
+    // ✅ Criar cópia dos dados com type assertion para aceitar os campos extras
+    const inputData = data as any
+    const updateData: Prisma.MaintenanceUpdateInput = {}
+
+    // Copiar todos os campos exceto assetId, supplierId e serviceCategoryId
+    Object.keys(data).forEach((key) => {
+      if (
+        key !== 'assetId' &&
+        key !== 'supplierId' &&
+        key !== 'serviceCategoryId'
+      ) {
+        ;(updateData as any)[key] = (data as any)[key]
+      }
+    })
+
+    // Se assetId foi enviado, transformar em relacionamento
+    if (inputData.assetId) {
+      updateData.asset = {
+        connect: { id: inputData.assetId as string },
+      }
+    }
+
+    // Se supplierId foi enviado, transformar em relacionamento
+    if (inputData.supplierId) {
+      updateData.supplier = {
+        connect: { id: inputData.supplierId as string },
+      }
+    }
+
+    // Se serviceCategoryId foi enviado, transformar em relacionamento
+    if ('serviceCategoryId' in inputData) {
+      if (inputData.serviceCategoryId === null) {
+        // Desconectar categoria
+        updateData.serviceCategory = {
+          disconnect: true,
+        }
+      } else if (inputData.serviceCategoryId) {
+        // Conectar nova categoria
+        updateData.serviceCategory = {
+          connect: { id: inputData.serviceCategoryId as string },
+        }
+      }
+    }
+
     const updateMaintenance = await prisma.maintenance.update({
       where: { id },
-      data,
+      data: updateData,
+      include: {
+        asset: {
+          include: {
+            assetCategory: true,
+          },
+        },
+        supplier: true,
+        serviceCategory: true,
+      },
     })
+
     return updateMaintenance
   }
 
-  async findById(id: string): Promise<Maintenance | null> {
+  async findById(id: string): Promise<MaintenanceWithRelations | null> {
     const maintenance = await prisma.maintenance.findUnique({
       where: {
         id,
         is_Active: true,
-        status: { not: 'CANCELLED' }, // ✅ NOVO
+        status: { not: 'CANCELLED' },
       },
       include: {
         asset: {
@@ -40,6 +106,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
         },
         supplier: true,
+        serviceCategory: true,
         documents: true,
       },
     })
@@ -49,7 +116,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   async findByAssetId(
     assetId: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -58,7 +125,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         where: {
           is_Active: true,
           assetId,
-          status: { not: 'CANCELLED' }, // ✅ NOVO
+          status: { not: 'CANCELLED' },
         },
         skip,
         take: PAGE_SIZE,
@@ -70,13 +137,14 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             },
           },
           supplier: true,
+          serviceCategory: true,
         },
       }),
       prisma.maintenance.count({
         where: {
           is_Active: true,
           assetId,
-          status: { not: 'CANCELLED' }, // ✅ NOVO
+          status: { not: 'CANCELLED' },
         },
       }),
     ])
@@ -95,7 +163,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   async findBySupplierId(
     supplierId: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -104,7 +172,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         where: {
           is_Active: true,
           supplierId,
-          status: { not: 'CANCELLED' }, // ✅ NOVO
+          status: { not: 'CANCELLED' },
         },
         skip,
         take: PAGE_SIZE,
@@ -116,13 +184,14 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             },
           },
           supplier: true,
+          serviceCategory: true,
         },
       }),
       prisma.maintenance.count({
         where: {
           is_Active: true,
           supplierId,
-          status: { not: 'CANCELLED' }, // ✅ NOVO
+          status: { not: 'CANCELLED' },
         },
       }),
     ])
@@ -141,7 +210,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   async findByStatus(
     status: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED',
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -149,10 +218,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       prisma.maintenance.findMany({
         where: {
           is_Active: true,
-          status: {
-            in: [status], // ✅ Mantém o status específico
-            not: 'CANCELLED', // ✅ + exclui CANCELLED (redundante se status='CANCELLED')
-          },
+          status,
         },
         skip,
         take: PAGE_SIZE,
@@ -164,15 +230,13 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             },
           },
           supplier: true,
+          serviceCategory: true,
         },
       }),
       prisma.maintenance.count({
         where: {
           is_Active: true,
-          status: {
-            in: [status],
-            not: 'CANCELLED',
-          },
+          status,
         },
       }),
     ])
@@ -191,7 +255,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   async findByType(
     type: 'PREVENTIVE' | 'CORRECTIVE' | 'EMERGENCY',
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -200,7 +264,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         where: {
           is_Active: true,
           type,
-          status: { not: 'CANCELLED' }, // ✅ NOVO
+          status: { not: 'CANCELLED' },
         },
         skip,
         take: PAGE_SIZE,
@@ -212,13 +276,14 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             },
           },
           supplier: true,
+          serviceCategory: true,
         },
       }),
       prisma.maintenance.count({
         where: {
           is_Active: true,
           type,
-          status: { not: 'CANCELLED' }, // ✅ NOVO
+          status: { not: 'CANCELLED' },
         },
       }),
     ])
@@ -234,7 +299,9 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async findAll(page: number): Promise<PaginatedResult<Maintenance>> {
+  async findAll(
+    page: number,
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -242,7 +309,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       prisma.maintenance.findMany({
         where: {
           is_Active: true,
-          status: { not: 'CANCELLED' }, // ✅ NOVO
+          status: { not: 'CANCELLED' },
         },
         skip,
         take: PAGE_SIZE,
@@ -254,12 +321,13 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             },
           },
           supplier: true,
+          serviceCategory: true,
         },
       }),
       prisma.maintenance.count({
         where: {
           is_Active: true,
-          status: { not: 'CANCELLED' }, // ✅ NOVO
+          status: { not: 'CANCELLED' },
         },
       }),
     ])
@@ -277,7 +345,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
 
   async findScheduledMaintenances(
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
     const now = new Date()
@@ -286,7 +354,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       prisma.maintenance.findMany({
         where: {
           is_Active: true,
-          status: 'SCHEDULED', // ✅ Já exclui CANCELLED
+          status: 'SCHEDULED',
           scheduled_date: { gte: now },
         },
         skip,
@@ -299,6 +367,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             },
           },
           supplier: true,
+          serviceCategory: true,
         },
       }),
       prisma.maintenance.count({
@@ -323,7 +392,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
 
   async findOverdueMaintenances(
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
     const now = new Date()
@@ -332,7 +401,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       prisma.maintenance.findMany({
         where: {
           is_Active: true,
-          status: 'SCHEDULED', // ✅ Já exclui CANCELLED
+          status: 'SCHEDULED',
           scheduled_date: { lt: now },
         },
         skip,
@@ -345,6 +414,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             },
           },
           supplier: true,
+          serviceCategory: true,
         },
       }),
       prisma.maintenance.count({
@@ -436,6 +506,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       Maintenance & {
         supplier: Pick<Supplier, 'company_name'>
         asset: Pick<Asset, 'brand' | 'model' | 'plate' | 'year'>
+        serviceCategory: Pick<ServiceCategory, 'name'> | null
       }
     >
   > {
@@ -443,30 +514,26 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       where: {
         is_Active: true,
         assetId,
-        status: { not: 'CANCELLED' }, // ✅ NOVO - Crucial pro DailyBulletin
+        status: { not: 'CANCELLED' },
         OR: [
-          // 1. Manutenções que começaram no período
           {
             started_date: {
               gte: startDate,
               lte: endDate,
             },
           },
-          // 2. Manutenções agendadas para o período
           {
             scheduled_date: {
               gte: startDate,
               lte: endDate,
             },
           },
-          // 3. Manutenções que terminaram no período
           {
             completed_date: {
               gte: startDate,
               lte: endDate,
             },
           },
-          // 4. Manutenções que começaram antes do período mas ainda estavam ativas
           {
             AND: [
               {
@@ -477,9 +544,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
               },
               {
                 OR: [
-                  // Terminou depois do início do período
                   { completed_date: { gte: startDate } },
-                  // Ou ainda não terminou (null)
                   { completed_date: null },
                 ],
               },
@@ -501,6 +566,11 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             year: true,
           },
         },
+        serviceCategory: {
+          select: {
+            name: true,
+          },
+        },
       },
       orderBy: {
         started_date: 'asc',
@@ -513,7 +583,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   async findMaintenancesByPlate(
     plate: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -524,7 +594,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           asset: {
             plate: {
               contains: plate,
-              mode: 'insensitive', // Busca ignorando maiúsculas/minúsculas
+              mode: 'insensitive',
             },
           },
         },
@@ -538,6 +608,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             },
           },
           supplier: true,
+          serviceCategory: true,
         },
       }),
       prisma.maintenance.count({
@@ -567,7 +638,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   async findMaintenancesBySerialNumber(
     serialNumber: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -592,6 +663,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             },
           },
           supplier: true,
+          serviceCategory: true,
         },
       }),
       prisma.maintenance.count({
