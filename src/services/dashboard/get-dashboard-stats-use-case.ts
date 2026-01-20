@@ -14,6 +14,11 @@ interface DashboardStatsResponse {
   dailyExpenses: Array<{
     date: string
     expense: number
+    maintenances: Array<{
+      plate?: string
+      assetName?: string
+      expense: number
+    }>
   }>
   expensesByEquipment: Array<{
     name: string
@@ -182,8 +187,19 @@ export class GetDashboardStatsUseCase {
       )
     }).length
 
-    // Despesas diárias do período selecionado
-    const dailyExpensesMap = new Map<string, number>()
+    // Despesas diárias do período selecionado (agrupando múltiplas manutenções por data)
+    const dailyExpensesMap = new Map<
+      string,
+      {
+        totalExpense: number
+        maintenances: Array<{
+          plate?: string
+          assetName?: string
+          expense: number
+        }>
+      }
+    >()
+
     const periodStart = params?.startDate
       ? new Date(params.startDate)
       : params?.month && params?.year
@@ -213,12 +229,35 @@ export class GetDashboardStatsUseCase {
         month: '2-digit',
       })
       const cost = Number(m.actual_cost) || 0
-      const current = dailyExpensesMap.get(date) || 0
-      dailyExpensesMap.set(date, current + cost)
+
+      // Buscar informações do asset
+      const asset = allAssetsItems.find((a) => a.id === m.assetId)
+      const plate = asset?.plate || undefined
+      const assetName = asset ? `${asset.brand} ${asset.model}` : undefined
+
+      // Obter ou criar entrada para esta data
+      const current = dailyExpensesMap.get(date) || {
+        totalExpense: 0,
+        maintenances: [],
+      }
+
+      // Adicionar esta manutenção à lista
+      current.maintenances.push({
+        plate,
+        assetName,
+        expense: cost,
+      })
+      current.totalExpense += cost
+
+      dailyExpensesMap.set(date, current)
     })
 
     const dailyExpenses = Array.from(dailyExpensesMap.entries())
-      .map(([date, expense]) => ({ date, expense }))
+      .map(([date, data]) => ({
+        date,
+        expense: data.totalExpense,
+        maintenances: data.maintenances,
+      }))
       .sort((a, b) => {
         const [dayA, monthA] = a.date.split('/').map(Number)
         const [dayB, monthB] = b.date.split('/').map(Number)
