@@ -9,15 +9,32 @@ export async function updateMaintenance(
   const paramsSchema = z.object({
     id: z.string(),
   })
-
+  console.log(`Camada Controller: ${JSON.stringify(request.body)}}`)
   const moneyPreprocess = z.preprocess((val) => {
     if (val === null || val === undefined || val === '') return null
     if (typeof val === 'number') return val
+
     if (typeof val === 'string') {
-      const normalized = val.replace(/\./g, '').replace(',', '.')
-      const num = Number(normalized)
+      const trimmed = val.trim()
+
+      // Formato BR: 1.234,56
+      if (trimmed.includes(',') && trimmed.includes('.')) {
+        const normalized = trimmed.replace(/\./g, '').replace(',', '.')
+        const num = Number(normalized)
+        return Number.isNaN(num) ? null : num
+      }
+
+      // Formato BR simples: 123,45
+      if (trimmed.includes(',')) {
+        const num = Number(trimmed.replace(',', '.'))
+        return Number.isNaN(num) ? null : num
+      }
+
+      // Formato US: 123.45
+      const num = Number(trimmed)
       return Number.isNaN(num) ? null : num
     }
+
     return null
   }, z.number().min(0))
 
@@ -81,7 +98,7 @@ export async function updateMaintenance(
   }
 
   const { serviceCategoryId, ...data } = parseResult.data
-
+  console.log(`Essa é o final da camada de controller: ${JSON.stringify(data)}`)
   const updateMaintenance = makeUpdateMaintenance()
   const { maintenance } = await updateMaintenance.execute({
     id,
