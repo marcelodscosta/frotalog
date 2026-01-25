@@ -13,6 +13,11 @@ export type MaintenanceWithRelations = Maintenance & {
   serviceCategory: Pick<ServiceCategory, 'id' | 'name' | 'description'> | null // ✅ NOVO
 }
 
+interface FindScheduledOnlyParams {
+  startDate?: Date
+  endDate?: Date
+}
+
 export interface IMaintenanceRepository {
   create(data: Prisma.MaintenanceCreateInput): Promise<Maintenance>
   updateMaintenance(
@@ -83,4 +88,6 @@ export interface IMaintenanceRepository {
     serialNumber: string,
     page: number,
   ): Promise<PaginatedResult<MaintenanceWithRelations>>
+
+  findScheduledOnly(params?: FindScheduledOnlyParams): Promise<Maintenance[]>
 }

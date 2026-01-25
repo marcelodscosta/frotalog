@@ -12,6 +12,11 @@ import {
 } from '../interfaces/IMaintenanceRepository'
 import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
+interface FindScheduledOnlyParams {
+  startDate?: Date
+  endDate?: Date
+}
+
 export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   async create(data: Prisma.MaintenanceCreateInput): Promise<Maintenance> {
     const maintenance = await prisma.maintenance.create({
@@ -31,11 +36,9 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     id: string,
     data: Prisma.MaintenanceUpdateInput,
   ): Promise<Maintenance> {
-    // ✅ Criar cópia dos dados com type assertion para aceitar os campos extras
     const inputData = data as any
     const updateData: Prisma.MaintenanceUpdateInput = {}
 
-    // Copiar todos os campos exceto assetId, supplierId e serviceCategoryId
     Object.keys(data).forEach((key) => {
       if (
         key !== 'assetId' &&
@@ -46,29 +49,24 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       }
     })
 
-    // Se assetId foi enviado, transformar em relacionamento
     if (inputData.assetId) {
       updateData.asset = {
         connect: { id: inputData.assetId as string },
       }
     }
 
-    // Se supplierId foi enviado, transformar em relacionamento
     if (inputData.supplierId) {
       updateData.supplier = {
         connect: { id: inputData.supplierId as string },
       }
     }
 
-    // Se serviceCategoryId foi enviado, transformar em relacionamento
     if ('serviceCategoryId' in inputData) {
       if (inputData.serviceCategoryId === null) {
-        // Desconectar categoria
         updateData.serviceCategory = {
           disconnect: true,
         }
       } else if (inputData.serviceCategoryId) {
-        // Conectar nova categoria
         updateData.serviceCategory = {
           connect: { id: inputData.serviceCategoryId as string },
         }
@@ -688,5 +686,46 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       totalItems: totalCount,
       totalPages,
     }
+  }
+
+  async findScheduledOnly(
+    params?: FindScheduledOnlyParams,
+  ): Promise<Maintenance[]> {
+    const where: Prisma.MaintenanceWhereInput = {
+      is_Active: true,
+      status: 'SCHEDULED', // Apenas agendadas, não inclui IN_PROGRESS
+    }
+
+    // Filtro por período (opcional)
+    if (params?.startDate || params?.endDate) {
+      where.scheduled_date = {}
+
+      if (params.startDate) {
+        where.scheduled_date.gte = params.startDate
+      }
+
+      if (params.endDate) {
+        where.scheduled_date.lte = params.endDate
+      }
+    }
+
+    const maintenances = await prisma.maintenance.findMany({
+      where,
+      include: {
+        asset: {
+          include: {
+            assetCategory: true,
+          },
+        },
+        supplier: true,
+        serviceCategory: true,
+      },
+      orderBy: {
+        scheduled_date: 'asc',
+      },
+      // SEM take/skip = sem paginação
+    })
+
+    return maintenances
   }
 }
