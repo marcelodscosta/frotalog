@@ -281,7 +281,7 @@ export class GetDashboardStatsUseCase {
     const expensesByEquipment = Array.from(expensesByEquipmentMap.entries())
       .map(([name, value]) => ({ name, value }))
       .sort((a, b) => b.value - a.value)
-      .slice(0, 4)
+      .slice(0, 6)
 
     return {
       totalMonthlyExpense,
