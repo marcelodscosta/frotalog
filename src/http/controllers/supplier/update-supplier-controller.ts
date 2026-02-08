@@ -2,12 +2,11 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import z from 'zod'
 
 import { makeUpdateSupplier } from '../../../services/factories/make-update-supplier'
-// import { isValidCNPJ } from '../../../utils/cnpjValidate'
 
 const updateBodySchema = z.object({
   company_name: z.string().min(3).optional(),
   trading_name: z.string().optional(),
-  // cnpj: z.string().refine(isValidCNPJ, { message: 'Invalid CNPJ' }).optional(),
+  isClient: z.boolean().optional(),
   cnpj: z.string().optional(),
   email: z.email().optional(),
   phone: z.string().optional(),

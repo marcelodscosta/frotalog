@@ -86,6 +86,8 @@ model Supplier {
   phone        String
   contact      String
 
+  isClient Boolean @default(false) @map("is_client")
+
   address  String?
   city     String?
   state    String?

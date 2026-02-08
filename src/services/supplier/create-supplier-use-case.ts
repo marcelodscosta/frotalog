@@ -9,7 +9,7 @@ interface CreateSupplierRequest {
   email: string
   phone: string
   contact: string
-
+  isClient?: boolean
   adrdress?: string
   city?: string
   state?: string

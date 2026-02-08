@@ -1,16 +1,17 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeCreateSupplier } from '../../../services/factories/make-create-supplier'
-// import { isValidCNPJ } from '../../../utils/cnpjValidate'
 
 const createSupplierSchema = z.object({
   company_name: z.string().min(3),
   trading_name: z.string().optional(),
-  // cnpj: z.string().refine(isValidCNPJ, { message: 'Invalid CNPJ' }),
+
   cnpj: z.string(),
   email: z.email(),
   phone: z.string(),
   contact: z.string().min(5),
+
+  isClient: z.boolean().optional(),
 
   address: z.string().optional(),
   city: z.string().optional(),

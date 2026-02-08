@@ -64,7 +64,7 @@ model Asset {
 
   ownership    AssetOwnership @default(OWN)
   documentsUrl String?
-  notes        String? // ✅ CAMPO ADICIONADO
+  notes        String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -85,6 +85,8 @@ model Supplier {
   email        String
   phone        String
   contact      String
+
+  isClient Boolean @default(false) @map("is_client")
 
   address  String?
   city     String?

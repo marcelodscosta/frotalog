@@ -5024,6 +5024,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     contact: string | null
+    isClient: boolean | null
     address: string | null
     city: string | null
     state: string | null
@@ -5041,6 +5042,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     contact: string | null
+    isClient: boolean | null
     address: string | null
     city: string | null
     state: string | null
@@ -5058,6 +5060,7 @@ export namespace Prisma {
     email: number
     phone: number
     contact: number
+    isClient: number
     address: number
     city: number
     state: number
@@ -5078,6 +5081,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     contact?: true
+    isClient?: true
     address?: true
     city?: true
     state?: true
@@ -5095,6 +5099,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     contact?: true
+    isClient?: true
     address?: true
     city?: true
     state?: true
@@ -5112,6 +5117,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     contact?: true
+    isClient?: true
     address?: true
     city?: true
     state?: true
@@ -5203,6 +5209,7 @@ export namespace Prisma {
     email: string
     phone: string
     contact: string
+    isClient: boolean
     address: string | null
     city: string | null
     state: string | null
@@ -5238,6 +5245,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     contact?: boolean
+    isClient?: boolean
     address?: boolean
     city?: boolean
     state?: boolean
@@ -5258,6 +5266,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     contact?: boolean
+    isClient?: boolean
     address?: boolean
     city?: boolean
     state?: boolean
@@ -5276,6 +5285,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     contact?: boolean
+    isClient?: boolean
     address?: boolean
     city?: boolean
     state?: boolean
@@ -5294,6 +5304,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     contact?: boolean
+    isClient?: boolean
     address?: boolean
     city?: boolean
     state?: boolean
@@ -5304,7 +5315,7 @@ export namespace Prisma {
     is_Active?: boolean
   }
 
-  export type SupplierOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_name" | "trading_name" | "cnpj" | "email" | "phone" | "contact" | "address" | "city" | "state" | "zip_code" | "service_types" | "created_at" | "updated_at" | "is_Active", ExtArgs["result"]["supplier"]>
+  export type SupplierOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_name" | "trading_name" | "cnpj" | "email" | "phone" | "contact" | "isClient" | "address" | "city" | "state" | "zip_code" | "service_types" | "created_at" | "updated_at" | "is_Active", ExtArgs["result"]["supplier"]>
   export type SupplierInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Maintenance?: boolean | Supplier$MaintenanceArgs<ExtArgs>
     _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
@@ -5325,6 +5336,7 @@ export namespace Prisma {
       email: string
       phone: string
       contact: string
+      isClient: boolean
       address: string | null
       city: string | null
       state: string | null
@@ -5764,6 +5776,7 @@ export namespace Prisma {
     readonly email: FieldRef<"Supplier", 'String'>
     readonly phone: FieldRef<"Supplier", 'String'>
     readonly contact: FieldRef<"Supplier", 'String'>
+    readonly isClient: FieldRef<"Supplier", 'Boolean'>
     readonly address: FieldRef<"Supplier", 'String'>
     readonly city: FieldRef<"Supplier", 'String'>
     readonly state: FieldRef<"Supplier", 'String'>
@@ -9822,6 +9835,7 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     contact: 'contact',
+    isClient: 'isClient',
     address: 'address',
     city: 'city',
     state: 'state',
@@ -10316,6 +10330,7 @@ export namespace Prisma {
     email?: StringFilter<"Supplier"> | string
     phone?: StringFilter<"Supplier"> | string
     contact?: StringFilter<"Supplier"> | string
+    isClient?: BoolFilter<"Supplier"> | boolean
     address?: StringNullableFilter<"Supplier"> | string | null
     city?: StringNullableFilter<"Supplier"> | string | null
     state?: StringNullableFilter<"Supplier"> | string | null
@@ -10335,6 +10350,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     contact?: SortOrder
+    isClient?: SortOrder
     address?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
@@ -10357,6 +10373,7 @@ export namespace Prisma {
     email?: StringFilter<"Supplier"> | string
     phone?: StringFilter<"Supplier"> | string
     contact?: StringFilter<"Supplier"> | string
+    isClient?: BoolFilter<"Supplier"> | boolean
     address?: StringNullableFilter<"Supplier"> | string | null
     city?: StringNullableFilter<"Supplier"> | string | null
     state?: StringNullableFilter<"Supplier"> | string | null
@@ -10376,6 +10393,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     contact?: SortOrder
+    isClient?: SortOrder
     address?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     state?: SortOrderInput | SortOrder
@@ -10400,6 +10418,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"Supplier"> | string
     phone?: StringWithAggregatesFilter<"Supplier"> | string
     contact?: StringWithAggregatesFilter<"Supplier"> | string
+    isClient?: BoolWithAggregatesFilter<"Supplier"> | boolean
     address?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
     city?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
     state?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
@@ -10956,6 +10975,7 @@ export namespace Prisma {
     email: string
     phone: string
     contact: string
+    isClient?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -10975,6 +10995,7 @@ export namespace Prisma {
     email: string
     phone: string
     contact: string
+    isClient?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -10994,6 +11015,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
+    isClient?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11013,6 +11035,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
+    isClient?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11032,6 +11055,7 @@ export namespace Prisma {
     email: string
     phone: string
     contact: string
+    isClient?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -11050,6 +11074,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
+    isClient?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11068,6 +11093,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
+    isClient?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11715,6 +11741,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     contact?: SortOrder
+    isClient?: SortOrder
     address?: SortOrder
     city?: SortOrder
     state?: SortOrder
@@ -11733,6 +11760,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     contact?: SortOrder
+    isClient?: SortOrder
     address?: SortOrder
     city?: SortOrder
     state?: SortOrder
@@ -11750,6 +11778,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     contact?: SortOrder
+    isClient?: SortOrder
     address?: SortOrder
     city?: SortOrder
     state?: SortOrder
@@ -13102,6 +13131,7 @@ export namespace Prisma {
     email: string
     phone: string
     contact: string
+    isClient?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -13120,6 +13150,7 @@ export namespace Prisma {
     email: string
     phone: string
     contact: string
+    isClient?: boolean
     address?: string | null
     city?: string | null
     state?: string | null
@@ -13252,6 +13283,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
+    isClient?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13270,6 +13302,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
+    isClient?: BoolFieldUpdateOperationsInput | boolean
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     state?: NullableStringFieldUpdateOperationsInput | string | null
