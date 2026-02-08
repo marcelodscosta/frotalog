@@ -165,4 +165,78 @@ export class PrismaAssetRepository implements IAssetRepository {
       orderBy: { brand: 'asc' },
     })
   }
+
+  async search({
+    brand,
+    model,
+    plate,
+    serial_number,
+    ownership,
+    assetCategoryId,
+    page,
+  }: {
+    brand?: string
+    model?: string
+    plate?: string
+    serial_number?: string
+    ownership?: 'OWN' | 'THIRD'
+    assetCategoryId?: string
+    page: number
+  }): Promise<PaginatedResult<Asset>> {
+    const PAGE_SIZE = 20
+    const skip = (page - 1) * PAGE_SIZE
+
+    const where: Prisma.AssetWhereInput = {
+      is_Active: true,
+    }
+
+    if (brand) {
+      where.brand = { contains: brand, mode: 'insensitive' }
+    }
+
+    if (model) {
+      where.model = { contains: model, mode: 'insensitive' }
+    }
+
+    if (plate) {
+      where.plate = { contains: plate, mode: 'insensitive' }
+    }
+
+    if (serial_number) {
+      where.serial_number = { contains: serial_number, mode: 'insensitive' }
+    }
+
+    if (ownership) {
+      where.ownership = ownership
+    }
+
+    if (assetCategoryId) {
+      where.assetCategoryId = assetCategoryId
+    }
+
+    const [assets, totalCount] = await prisma.$transaction([
+      prisma.asset.findMany({
+        where,
+        skip,
+        take: PAGE_SIZE,
+        include: {
+          assetCategory: true,
+        },
+        orderBy: {
+          created_at: 'desc',
+        },
+      }),
+      prisma.asset.count({ where }),
+    ])
+
+    const totalPages = Math.ceil(totalCount / PAGE_SIZE)
+
+    return {
+      items: assets,
+      currentPage: page,
+      pageSize: PAGE_SIZE,
+      totalItems: totalCount,
+      totalPages,
+    }
+  }
 }

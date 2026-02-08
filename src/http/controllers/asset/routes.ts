@@ -10,6 +10,7 @@ import { updateAsset } from './update-asset-controller'
 import { requireAuth } from '../../middleware/auth'
 import { updateAssetActive } from './update-asset-active-status-controller'
 import { findAllAssetsUnpaginated } from './find-all-asset-unpaginated-controller'
+import { searchAssets } from './search-asset-controller'
 
 export async function assetRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de ativos
@@ -24,6 +25,7 @@ export async function assetRoutes(app: FastifyInstance) {
   app.get('/asset/search/serialNumber/:serialNumber', getAssetBySerialNumber)
   app.patch('/asset/:id', updateAsset)
   app.patch('/asset/:id/active', updateAssetActive)
+  app.get('/asset/filter', searchAssets)
 
   app.get('/asset/search/findAll/unpaginated', findAllAssetsUnpaginated)
 }

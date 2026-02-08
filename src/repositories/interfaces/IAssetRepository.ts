@@ -17,4 +17,14 @@ export interface IAssetRepository {
   findBySerialNumber(serialNumber: string): Promise<Asset | null>
 
   findAllUnpaginated(): Promise<Asset[]>
+
+  search(params: {
+    brand?: string
+    model?: string
+    plate?: string
+    serial_number?: string
+    ownership?: 'OWN' | 'THIRD'
+    assetCategoryId?: string
+    page: number
+  }): Promise<PaginatedResult<Asset>>
 }
