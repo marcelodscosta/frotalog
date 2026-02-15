@@ -14,6 +14,42 @@ enum Role {
   EMPLOYEE
 }
 
+enum AssetType {
+  VEHICLE
+  EQUIPMENT
+}
+
+enum AssetOwnership {
+  OWN
+  THIRD
+}
+
+enum MaintenanceStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum MaintenanceType {
+  PREVENTIVE
+  CORRECTIVE
+  EMERGENCY
+}
+
+enum ContractStatus {
+  DRAFT
+  ACTIVE
+  FINISHED
+  CANCELLED
+}
+
+enum BillingCycle {
+  DAILY
+  MONTHLY
+  WEEKLY
+}
+
 model User {
   id            String   @id @default(uuid())
   name          String
@@ -27,16 +63,6 @@ model User {
   is_Active     Boolean  @default(true)
 
   @@map("users")
-}
-
-enum AssetType {
-  VEHICLE
-  EQUIPMENT
-}
-
-enum AssetOwnership {
-  OWN
-  THIRD
 }
 
 model AssetCategory {
@@ -72,7 +98,9 @@ model Asset {
 
   assetCategory   AssetCategory @relation(fields: [assetCategoryId], references: [id])
   assetCategoryId String
-  Maintenance     Maintenance[]
+
+  Maintenance Maintenance[]
+  Movements   AssetMovement[]
 
   @@map("assets")
 }
@@ -95,10 +123,12 @@ model Supplier {
 
   service_types String[]
 
-  created_at  DateTime      @default(now())
-  updated_at  DateTime      @updatedAt
-  is_Active   Boolean       @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  is_Active  Boolean  @default(true)
+
   Maintenance Maintenance[]
+  Contracts   Contract[]
 
   @@map("suppliers")
 }
@@ -114,19 +144,6 @@ model ServiceCategory {
   Maintenance Maintenance[]
 
   @@map("service_categories")
-}
-
-enum MaintenanceStatus {
-  SCHEDULED
-  IN_PROGRESS
-  COMPLETED
-  CANCELLED
-}
-
-enum MaintenanceType {
-  PREVENTIVE
-  CORRECTIVE
-  EMERGENCY
 }
 
 model Maintenance {
@@ -160,6 +177,9 @@ model Maintenance {
 
   documents MaintenanceDocument[]
 
+  contract   Contract? @relation(fields: [contractId], references: [id])
+  contractId String?
+
   @@map("maintenances")
 }
 
@@ -177,4 +197,69 @@ model MaintenanceDocument {
   maintenanceId String?
 
   @@map("maintenance_documents")
+}
+
+model Contract {
+  id              String  @id @default(uuid())
+  contract_number String  @unique
+  description     String?
+
+  client   Supplier @relation(fields: [clientId], references: [id])
+  clientId String
+
+  responsible_name  String?
+  responsible_phone String?
+  responsible_email String?
+
+  start_date DateTime
+  end_date   DateTime?
+
+  status ContractStatus @default(DRAFT)
+
+  total_value Decimal? @db.Decimal(10, 2)
+  billing_day Int?
+  notes       String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  is_Active  Boolean  @default(true)
+
+  movements    AssetMovement[]
+  maintenances Maintenance[]
+
+  @@map("contracts")
+}
+
+model AssetMovement {
+  id String @id @default(uuid())
+
+  contract   Contract @relation(fields: [contractId], references: [id])
+  contractId String
+
+  asset   Asset  @relation(fields: [assetId], references: [id])
+  assetId String
+
+  mobilization_date   DateTime  @default(now())
+  integration_date    DateTime?
+  demobilization_date DateTime?
+
+  mobilization_checklist_url   String?
+  demobilization_checklist_url String?
+
+  rental_value  Decimal      @db.Decimal(10, 2)
+  billing_cycle BillingCycle @default(MONTHLY)
+
+  operator_name     String?
+  current_horometer Float?
+  current_odometer  Float?
+  delivery_location String?
+  freight_value     Decimal? @db.Decimal(10, 2)
+
+  notes     String?
+  is_active Boolean @default(true)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("asset_movements")
 }

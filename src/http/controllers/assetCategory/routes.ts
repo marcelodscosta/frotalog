@@ -9,7 +9,6 @@ import { updateAssetCategoryActive } from './update-asset-category-active-status
 import { findAllAllAssetCategoriesAll } from './find-all-asset-categories-controller'
 
 export async function assetCategoryRoutes(app: FastifyInstance) {
-  // Aplicar autenticação em todas as rotas de categorias
   app.addHook('preHandler', requireAuth())
 
   app.post('/assetCategories', createAssetCategory)

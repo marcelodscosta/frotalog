@@ -14,6 +14,7 @@ import { dashboardRoutes } from './http/controllers/dashboard/routes'
 
 import fastifyCors from '@fastify/cors'
 import { serviceCategoryRoutes } from './http/controllers/serviceCategory/routes'
+import { contractRoutes } from './http/controllers/contract/routes'
 
 export const app = fastify({
   logger: {
@@ -49,6 +50,7 @@ app.register(maintenanceDocumentRoutes)
 app.register(reportsRoutes)
 app.register(dashboardRoutes)
 app.register(serviceCategoryRoutes)
+app.register(contractRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   const requestId = request.id

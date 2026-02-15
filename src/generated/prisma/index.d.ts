@@ -48,6 +48,16 @@ export type Maintenance = $Result.DefaultSelection<Prisma.$MaintenancePayload>
  * 
  */
 export type MaintenanceDocument = $Result.DefaultSelection<Prisma.$MaintenanceDocumentPayload>
+/**
+ * Model Contract
+ * 
+ */
+export type Contract = $Result.DefaultSelection<Prisma.$ContractPayload>
+/**
+ * Model AssetMovement
+ * 
+ */
+export type AssetMovement = $Result.DefaultSelection<Prisma.$AssetMovementPayload>
 
 /**
  * Enums
@@ -95,6 +105,25 @@ export const MaintenanceType: {
 
 export type MaintenanceType = (typeof MaintenanceType)[keyof typeof MaintenanceType]
 
+
+export const ContractStatus: {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  FINISHED: 'FINISHED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type ContractStatus = (typeof ContractStatus)[keyof typeof ContractStatus]
+
+
+export const BillingCycle: {
+  DAILY: 'DAILY',
+  MONTHLY: 'MONTHLY',
+  WEEKLY: 'WEEKLY'
+};
+
+export type BillingCycle = (typeof BillingCycle)[keyof typeof BillingCycle]
+
 }
 
 export type Role = $Enums.Role
@@ -116,6 +145,14 @@ export const MaintenanceStatus: typeof $Enums.MaintenanceStatus
 export type MaintenanceType = $Enums.MaintenanceType
 
 export const MaintenanceType: typeof $Enums.MaintenanceType
+
+export type ContractStatus = $Enums.ContractStatus
+
+export const ContractStatus: typeof $Enums.ContractStatus
+
+export type BillingCycle = $Enums.BillingCycle
+
+export const BillingCycle: typeof $Enums.BillingCycle
 
 /**
  * ##  Prisma Client ʲˢ
@@ -304,6 +341,26 @@ export class PrismaClient<
     * ```
     */
   get maintenanceDocument(): Prisma.MaintenanceDocumentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contract`: Exposes CRUD operations for the **Contract** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Contracts
+    * const contracts = await prisma.contract.findMany()
+    * ```
+    */
+  get contract(): Prisma.ContractDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.assetMovement`: Exposes CRUD operations for the **AssetMovement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AssetMovements
+    * const assetMovements = await prisma.assetMovement.findMany()
+    * ```
+    */
+  get assetMovement(): Prisma.AssetMovementDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -750,7 +807,9 @@ export namespace Prisma {
     Supplier: 'Supplier',
     ServiceCategory: 'ServiceCategory',
     Maintenance: 'Maintenance',
-    MaintenanceDocument: 'MaintenanceDocument'
+    MaintenanceDocument: 'MaintenanceDocument',
+    Contract: 'Contract',
+    AssetMovement: 'AssetMovement'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -769,7 +828,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "assetCategory" | "asset" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument"
+      modelProps: "user" | "assetCategory" | "asset" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1291,6 +1350,154 @@ export namespace Prisma {
           }
         }
       }
+      Contract: {
+        payload: Prisma.$ContractPayload<ExtArgs>
+        fields: Prisma.ContractFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContractFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContractFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          findFirst: {
+            args: Prisma.ContractFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContractFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          findMany: {
+            args: Prisma.ContractFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>[]
+          }
+          create: {
+            args: Prisma.ContractCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          createMany: {
+            args: Prisma.ContractCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContractCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>[]
+          }
+          delete: {
+            args: Prisma.ContractDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          update: {
+            args: Prisma.ContractUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContractDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContractUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContractUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>[]
+          }
+          upsert: {
+            args: Prisma.ContractUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          aggregate: {
+            args: Prisma.ContractAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContract>
+          }
+          groupBy: {
+            args: Prisma.ContractGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContractGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContractCountArgs<ExtArgs>
+            result: $Utils.Optional<ContractCountAggregateOutputType> | number
+          }
+        }
+      }
+      AssetMovement: {
+        payload: Prisma.$AssetMovementPayload<ExtArgs>
+        fields: Prisma.AssetMovementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AssetMovementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AssetMovementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload>
+          }
+          findFirst: {
+            args: Prisma.AssetMovementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AssetMovementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload>
+          }
+          findMany: {
+            args: Prisma.AssetMovementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload>[]
+          }
+          create: {
+            args: Prisma.AssetMovementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload>
+          }
+          createMany: {
+            args: Prisma.AssetMovementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AssetMovementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload>[]
+          }
+          delete: {
+            args: Prisma.AssetMovementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload>
+          }
+          update: {
+            args: Prisma.AssetMovementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload>
+          }
+          deleteMany: {
+            args: Prisma.AssetMovementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AssetMovementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AssetMovementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload>[]
+          }
+          upsert: {
+            args: Prisma.AssetMovementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetMovementPayload>
+          }
+          aggregate: {
+            args: Prisma.AssetMovementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAssetMovement>
+          }
+          groupBy: {
+            args: Prisma.AssetMovementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AssetMovementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AssetMovementCountArgs<ExtArgs>
+            result: $Utils.Optional<AssetMovementCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1390,6 +1597,8 @@ export namespace Prisma {
     serviceCategory?: ServiceCategoryOmit
     maintenance?: MaintenanceOmit
     maintenanceDocument?: MaintenanceDocumentOmit
+    contract?: ContractOmit
+    assetMovement?: AssetMovementOmit
   }
 
   /* Types for Logging */
@@ -1502,10 +1711,12 @@ export namespace Prisma {
 
   export type AssetCountOutputType = {
     Maintenance: number
+    Movements: number
   }
 
   export type AssetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Maintenance?: boolean | AssetCountOutputTypeCountMaintenanceArgs
+    Movements?: boolean | AssetCountOutputTypeCountMovementsArgs
   }
 
   // Custom InputTypes
@@ -1526,6 +1737,13 @@ export namespace Prisma {
     where?: MaintenanceWhereInput
   }
 
+  /**
+   * AssetCountOutputType without action
+   */
+  export type AssetCountOutputTypeCountMovementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssetMovementWhereInput
+  }
+
 
   /**
    * Count Type SupplierCountOutputType
@@ -1533,10 +1751,12 @@ export namespace Prisma {
 
   export type SupplierCountOutputType = {
     Maintenance: number
+    Contracts: number
   }
 
   export type SupplierCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Maintenance?: boolean | SupplierCountOutputTypeCountMaintenanceArgs
+    Contracts?: boolean | SupplierCountOutputTypeCountContractsArgs
   }
 
   // Custom InputTypes
@@ -1555,6 +1775,13 @@ export namespace Prisma {
    */
   export type SupplierCountOutputTypeCountMaintenanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaintenanceWhereInput
+  }
+
+  /**
+   * SupplierCountOutputType without action
+   */
+  export type SupplierCountOutputTypeCountContractsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContractWhereInput
   }
 
 
@@ -1617,6 +1844,46 @@ export namespace Prisma {
    */
   export type MaintenanceCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaintenanceDocumentWhereInput
+  }
+
+
+  /**
+   * Count Type ContractCountOutputType
+   */
+
+  export type ContractCountOutputType = {
+    movements: number
+    maintenances: number
+  }
+
+  export type ContractCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movements?: boolean | ContractCountOutputTypeCountMovementsArgs
+    maintenances?: boolean | ContractCountOutputTypeCountMaintenancesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContractCountOutputType
+     */
+    select?: ContractCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeCountMovementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssetMovementWhereInput
+  }
+
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
   }
 
 
@@ -4044,6 +4311,7 @@ export namespace Prisma {
     assetCategoryId?: boolean
     assetCategory?: boolean | AssetCategoryDefaultArgs<ExtArgs>
     Maintenance?: boolean | Asset$MaintenanceArgs<ExtArgs>
+    Movements?: boolean | Asset$MovementsArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
@@ -4101,6 +4369,7 @@ export namespace Prisma {
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assetCategory?: boolean | AssetCategoryDefaultArgs<ExtArgs>
     Maintenance?: boolean | Asset$MaintenanceArgs<ExtArgs>
+    Movements?: boolean | Asset$MovementsArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4115,6 +4384,7 @@ export namespace Prisma {
     objects: {
       assetCategory: Prisma.$AssetCategoryPayload<ExtArgs>
       Maintenance: Prisma.$MaintenancePayload<ExtArgs>[]
+      Movements: Prisma.$AssetMovementPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4526,6 +4796,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     assetCategory<T extends AssetCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategoryDefaultArgs<ExtArgs>>): Prisma__AssetCategoryClient<$Result.GetResult<Prisma.$AssetCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     Maintenance<T extends Asset$MaintenanceArgs<ExtArgs> = {}>(args?: Subset<T, Asset$MaintenanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Movements<T extends Asset$MovementsArgs<ExtArgs> = {}>(args?: Subset<T, Asset$MovementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4988,6 +5259,30 @@ export namespace Prisma {
   }
 
   /**
+   * Asset.Movements
+   */
+  export type Asset$MovementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    where?: AssetMovementWhereInput
+    orderBy?: AssetMovementOrderByWithRelationInput | AssetMovementOrderByWithRelationInput[]
+    cursor?: AssetMovementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssetMovementScalarFieldEnum | AssetMovementScalarFieldEnum[]
+  }
+
+  /**
    * Asset without action
    */
   export type AssetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5255,6 +5550,7 @@ export namespace Prisma {
     updated_at?: boolean
     is_Active?: boolean
     Maintenance?: boolean | Supplier$MaintenanceArgs<ExtArgs>
+    Contracts?: boolean | Supplier$ContractsArgs<ExtArgs>
     _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["supplier"]>
 
@@ -5318,6 +5614,7 @@ export namespace Prisma {
   export type SupplierOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_name" | "trading_name" | "cnpj" | "email" | "phone" | "contact" | "isClient" | "address" | "city" | "state" | "zip_code" | "service_types" | "created_at" | "updated_at" | "is_Active", ExtArgs["result"]["supplier"]>
   export type SupplierInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Maintenance?: boolean | Supplier$MaintenanceArgs<ExtArgs>
+    Contracts?: boolean | Supplier$ContractsArgs<ExtArgs>
     _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SupplierIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5327,6 +5624,7 @@ export namespace Prisma {
     name: "Supplier"
     objects: {
       Maintenance: Prisma.$MaintenancePayload<ExtArgs>[]
+      Contracts: Prisma.$ContractPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5740,6 +6038,7 @@ export namespace Prisma {
   export interface Prisma__SupplierClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     Maintenance<T extends Supplier$MaintenanceArgs<ExtArgs> = {}>(args?: Subset<T, Supplier$MaintenanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Contracts<T extends Supplier$ContractsArgs<ExtArgs> = {}>(args?: Subset<T, Supplier$ContractsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6194,6 +6493,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Supplier.Contracts
+   */
+  export type Supplier$ContractsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    where?: ContractWhereInput
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    cursor?: ContractWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
   }
 
   /**
@@ -7337,6 +7660,7 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     is_Active: boolean | null
+    contractId: string | null
   }
 
   export type MaintenanceMaxAggregateOutputType = {
@@ -7356,6 +7680,7 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     is_Active: boolean | null
+    contractId: string | null
   }
 
   export type MaintenanceCountAggregateOutputType = {
@@ -7375,6 +7700,7 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     is_Active: number
+    contractId: number
     _all: number
   }
 
@@ -7406,6 +7732,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     is_Active?: true
+    contractId?: true
   }
 
   export type MaintenanceMaxAggregateInputType = {
@@ -7425,6 +7752,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     is_Active?: true
+    contractId?: true
   }
 
   export type MaintenanceCountAggregateInputType = {
@@ -7444,6 +7772,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     is_Active?: true
+    contractId?: true
     _all?: true
   }
 
@@ -7550,6 +7879,7 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     is_Active: boolean
+    contractId: string | null
     _count: MaintenanceCountAggregateOutputType | null
     _avg: MaintenanceAvgAggregateOutputType | null
     _sum: MaintenanceSumAggregateOutputType | null
@@ -7588,10 +7918,12 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
+    contractId?: boolean
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
     documents?: boolean | Maintenance$documentsArgs<ExtArgs>
+    contract?: boolean | Maintenance$contractArgs<ExtArgs>
     _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
 
@@ -7612,9 +7944,11 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
+    contractId?: boolean
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
+    contract?: boolean | Maintenance$contractArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
 
   export type MaintenanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7634,9 +7968,11 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
+    contractId?: boolean
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
+    contract?: boolean | Maintenance$contractArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
 
   export type MaintenanceSelectScalar = {
@@ -7656,25 +7992,29 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
+    contractId?: boolean
   }
 
-  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "assetId" | "supplierId" | "serviceCategoryId" | "type" | "description" | "scheduled_date" | "started_date" | "completed_date" | "estimated_cost" | "actual_cost" | "status" | "notes" | "created_at" | "updated_at" | "is_Active", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "assetId" | "supplierId" | "serviceCategoryId" | "type" | "description" | "scheduled_date" | "started_date" | "completed_date" | "estimated_cost" | "actual_cost" | "status" | "notes" | "created_at" | "updated_at" | "is_Active" | "contractId", ExtArgs["result"]["maintenance"]>
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
     documents?: boolean | Maintenance$documentsArgs<ExtArgs>
+    contract?: boolean | Maintenance$contractArgs<ExtArgs>
     _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MaintenanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
+    contract?: boolean | Maintenance$contractArgs<ExtArgs>
   }
   export type MaintenanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
+    contract?: boolean | Maintenance$contractArgs<ExtArgs>
   }
 
   export type $MaintenancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7684,6 +8024,7 @@ export namespace Prisma {
       supplier: Prisma.$SupplierPayload<ExtArgs>
       serviceCategory: Prisma.$ServiceCategoryPayload<ExtArgs> | null
       documents: Prisma.$MaintenanceDocumentPayload<ExtArgs>[]
+      contract: Prisma.$ContractPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7702,6 +8043,7 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       is_Active: boolean
+      contractId: string | null
     }, ExtArgs["result"]["maintenance"]>
     composites: {}
   }
@@ -8100,6 +8442,7 @@ export namespace Prisma {
     supplier<T extends SupplierDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SupplierDefaultArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     serviceCategory<T extends Maintenance$serviceCategoryArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$serviceCategoryArgs<ExtArgs>>): Prisma__ServiceCategoryClient<$Result.GetResult<Prisma.$ServiceCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     documents<T extends Maintenance$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    contract<T extends Maintenance$contractArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$contractArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8145,6 +8488,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"Maintenance", 'DateTime'>
     readonly updated_at: FieldRef<"Maintenance", 'DateTime'>
     readonly is_Active: FieldRef<"Maintenance", 'Boolean'>
+    readonly contractId: FieldRef<"Maintenance", 'String'>
   }
     
 
@@ -8581,6 +8925,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MaintenanceDocumentScalarFieldEnum | MaintenanceDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * Maintenance.contract
+   */
+  export type Maintenance$contractArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    where?: ContractWhereInput
   }
 
   /**
@@ -9766,6 +10129,2597 @@ export namespace Prisma {
 
 
   /**
+   * Model Contract
+   */
+
+  export type AggregateContract = {
+    _count: ContractCountAggregateOutputType | null
+    _avg: ContractAvgAggregateOutputType | null
+    _sum: ContractSumAggregateOutputType | null
+    _min: ContractMinAggregateOutputType | null
+    _max: ContractMaxAggregateOutputType | null
+  }
+
+  export type ContractAvgAggregateOutputType = {
+    total_value: Decimal | null
+    billing_day: number | null
+  }
+
+  export type ContractSumAggregateOutputType = {
+    total_value: Decimal | null
+    billing_day: number | null
+  }
+
+  export type ContractMinAggregateOutputType = {
+    id: string | null
+    contract_number: string | null
+    description: string | null
+    clientId: string | null
+    responsible_name: string | null
+    responsible_phone: string | null
+    responsible_email: string | null
+    start_date: Date | null
+    end_date: Date | null
+    status: $Enums.ContractStatus | null
+    total_value: Decimal | null
+    billing_day: number | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    is_Active: boolean | null
+  }
+
+  export type ContractMaxAggregateOutputType = {
+    id: string | null
+    contract_number: string | null
+    description: string | null
+    clientId: string | null
+    responsible_name: string | null
+    responsible_phone: string | null
+    responsible_email: string | null
+    start_date: Date | null
+    end_date: Date | null
+    status: $Enums.ContractStatus | null
+    total_value: Decimal | null
+    billing_day: number | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    is_Active: boolean | null
+  }
+
+  export type ContractCountAggregateOutputType = {
+    id: number
+    contract_number: number
+    description: number
+    clientId: number
+    responsible_name: number
+    responsible_phone: number
+    responsible_email: number
+    start_date: number
+    end_date: number
+    status: number
+    total_value: number
+    billing_day: number
+    notes: number
+    created_at: number
+    updated_at: number
+    is_Active: number
+    _all: number
+  }
+
+
+  export type ContractAvgAggregateInputType = {
+    total_value?: true
+    billing_day?: true
+  }
+
+  export type ContractSumAggregateInputType = {
+    total_value?: true
+    billing_day?: true
+  }
+
+  export type ContractMinAggregateInputType = {
+    id?: true
+    contract_number?: true
+    description?: true
+    clientId?: true
+    responsible_name?: true
+    responsible_phone?: true
+    responsible_email?: true
+    start_date?: true
+    end_date?: true
+    status?: true
+    total_value?: true
+    billing_day?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+    is_Active?: true
+  }
+
+  export type ContractMaxAggregateInputType = {
+    id?: true
+    contract_number?: true
+    description?: true
+    clientId?: true
+    responsible_name?: true
+    responsible_phone?: true
+    responsible_email?: true
+    start_date?: true
+    end_date?: true
+    status?: true
+    total_value?: true
+    billing_day?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+    is_Active?: true
+  }
+
+  export type ContractCountAggregateInputType = {
+    id?: true
+    contract_number?: true
+    description?: true
+    clientId?: true
+    responsible_name?: true
+    responsible_phone?: true
+    responsible_email?: true
+    start_date?: true
+    end_date?: true
+    status?: true
+    total_value?: true
+    billing_day?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+    is_Active?: true
+    _all?: true
+  }
+
+  export type ContractAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contract to aggregate.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Contracts
+    **/
+    _count?: true | ContractCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ContractAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ContractSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContractMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContractMaxAggregateInputType
+  }
+
+  export type GetContractAggregateType<T extends ContractAggregateArgs> = {
+        [P in keyof T & keyof AggregateContract]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContract[P]>
+      : GetScalarType<T[P], AggregateContract[P]>
+  }
+
+
+
+
+  export type ContractGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContractWhereInput
+    orderBy?: ContractOrderByWithAggregationInput | ContractOrderByWithAggregationInput[]
+    by: ContractScalarFieldEnum[] | ContractScalarFieldEnum
+    having?: ContractScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContractCountAggregateInputType | true
+    _avg?: ContractAvgAggregateInputType
+    _sum?: ContractSumAggregateInputType
+    _min?: ContractMinAggregateInputType
+    _max?: ContractMaxAggregateInputType
+  }
+
+  export type ContractGroupByOutputType = {
+    id: string
+    contract_number: string
+    description: string | null
+    clientId: string
+    responsible_name: string | null
+    responsible_phone: string | null
+    responsible_email: string | null
+    start_date: Date
+    end_date: Date | null
+    status: $Enums.ContractStatus
+    total_value: Decimal | null
+    billing_day: number | null
+    notes: string | null
+    created_at: Date
+    updated_at: Date
+    is_Active: boolean
+    _count: ContractCountAggregateOutputType | null
+    _avg: ContractAvgAggregateOutputType | null
+    _sum: ContractSumAggregateOutputType | null
+    _min: ContractMinAggregateOutputType | null
+    _max: ContractMaxAggregateOutputType | null
+  }
+
+  type GetContractGroupByPayload<T extends ContractGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContractGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContractGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContractGroupByOutputType[P]>
+            : GetScalarType<T[P], ContractGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContractSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contract_number?: boolean
+    description?: boolean
+    clientId?: boolean
+    responsible_name?: boolean
+    responsible_phone?: boolean
+    responsible_email?: boolean
+    start_date?: boolean
+    end_date?: boolean
+    status?: boolean
+    total_value?: boolean
+    billing_day?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_Active?: boolean
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+    movements?: boolean | Contract$movementsArgs<ExtArgs>
+    maintenances?: boolean | Contract$maintenancesArgs<ExtArgs>
+    _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contract"]>
+
+  export type ContractSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contract_number?: boolean
+    description?: boolean
+    clientId?: boolean
+    responsible_name?: boolean
+    responsible_phone?: boolean
+    responsible_email?: boolean
+    start_date?: boolean
+    end_date?: boolean
+    status?: boolean
+    total_value?: boolean
+    billing_day?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_Active?: boolean
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contract"]>
+
+  export type ContractSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contract_number?: boolean
+    description?: boolean
+    clientId?: boolean
+    responsible_name?: boolean
+    responsible_phone?: boolean
+    responsible_email?: boolean
+    start_date?: boolean
+    end_date?: boolean
+    status?: boolean
+    total_value?: boolean
+    billing_day?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_Active?: boolean
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contract"]>
+
+  export type ContractSelectScalar = {
+    id?: boolean
+    contract_number?: boolean
+    description?: boolean
+    clientId?: boolean
+    responsible_name?: boolean
+    responsible_phone?: boolean
+    responsible_email?: boolean
+    start_date?: boolean
+    end_date?: boolean
+    status?: boolean
+    total_value?: boolean
+    billing_day?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_Active?: boolean
+  }
+
+  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contract_number" | "description" | "clientId" | "responsible_name" | "responsible_phone" | "responsible_email" | "start_date" | "end_date" | "status" | "total_value" | "billing_day" | "notes" | "created_at" | "updated_at" | "is_Active", ExtArgs["result"]["contract"]>
+  export type ContractInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+    movements?: boolean | Contract$movementsArgs<ExtArgs>
+    maintenances?: boolean | Contract$maintenancesArgs<ExtArgs>
+    _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ContractIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+  }
+  export type ContractIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+  }
+
+  export type $ContractPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Contract"
+    objects: {
+      client: Prisma.$SupplierPayload<ExtArgs>
+      movements: Prisma.$AssetMovementPayload<ExtArgs>[]
+      maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      contract_number: string
+      description: string | null
+      clientId: string
+      responsible_name: string | null
+      responsible_phone: string | null
+      responsible_email: string | null
+      start_date: Date
+      end_date: Date | null
+      status: $Enums.ContractStatus
+      total_value: Prisma.Decimal | null
+      billing_day: number | null
+      notes: string | null
+      created_at: Date
+      updated_at: Date
+      is_Active: boolean
+    }, ExtArgs["result"]["contract"]>
+    composites: {}
+  }
+
+  type ContractGetPayload<S extends boolean | null | undefined | ContractDefaultArgs> = $Result.GetResult<Prisma.$ContractPayload, S>
+
+  type ContractCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContractFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContractCountAggregateInputType | true
+    }
+
+  export interface ContractDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Contract'], meta: { name: 'Contract' } }
+    /**
+     * Find zero or one Contract that matches the filter.
+     * @param {ContractFindUniqueArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContractFindUniqueArgs>(args: SelectSubset<T, ContractFindUniqueArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Contract that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContractFindUniqueOrThrowArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContractFindUniqueOrThrowArgs>(args: SelectSubset<T, ContractFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Contract that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractFindFirstArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContractFindFirstArgs>(args?: SelectSubset<T, ContractFindFirstArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Contract that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractFindFirstOrThrowArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContractFindFirstOrThrowArgs>(args?: SelectSubset<T, ContractFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Contracts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Contracts
+     * const contracts = await prisma.contract.findMany()
+     * 
+     * // Get first 10 Contracts
+     * const contracts = await prisma.contract.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contractWithIdOnly = await prisma.contract.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContractFindManyArgs>(args?: SelectSubset<T, ContractFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Contract.
+     * @param {ContractCreateArgs} args - Arguments to create a Contract.
+     * @example
+     * // Create one Contract
+     * const Contract = await prisma.contract.create({
+     *   data: {
+     *     // ... data to create a Contract
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContractCreateArgs>(args: SelectSubset<T, ContractCreateArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Contracts.
+     * @param {ContractCreateManyArgs} args - Arguments to create many Contracts.
+     * @example
+     * // Create many Contracts
+     * const contract = await prisma.contract.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContractCreateManyArgs>(args?: SelectSubset<T, ContractCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Contracts and returns the data saved in the database.
+     * @param {ContractCreateManyAndReturnArgs} args - Arguments to create many Contracts.
+     * @example
+     * // Create many Contracts
+     * const contract = await prisma.contract.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Contracts and only return the `id`
+     * const contractWithIdOnly = await prisma.contract.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContractCreateManyAndReturnArgs>(args?: SelectSubset<T, ContractCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Contract.
+     * @param {ContractDeleteArgs} args - Arguments to delete one Contract.
+     * @example
+     * // Delete one Contract
+     * const Contract = await prisma.contract.delete({
+     *   where: {
+     *     // ... filter to delete one Contract
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContractDeleteArgs>(args: SelectSubset<T, ContractDeleteArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Contract.
+     * @param {ContractUpdateArgs} args - Arguments to update one Contract.
+     * @example
+     * // Update one Contract
+     * const contract = await prisma.contract.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContractUpdateArgs>(args: SelectSubset<T, ContractUpdateArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Contracts.
+     * @param {ContractDeleteManyArgs} args - Arguments to filter Contracts to delete.
+     * @example
+     * // Delete a few Contracts
+     * const { count } = await prisma.contract.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContractDeleteManyArgs>(args?: SelectSubset<T, ContractDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Contracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Contracts
+     * const contract = await prisma.contract.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContractUpdateManyArgs>(args: SelectSubset<T, ContractUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Contracts and returns the data updated in the database.
+     * @param {ContractUpdateManyAndReturnArgs} args - Arguments to update many Contracts.
+     * @example
+     * // Update many Contracts
+     * const contract = await prisma.contract.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Contracts and only return the `id`
+     * const contractWithIdOnly = await prisma.contract.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContractUpdateManyAndReturnArgs>(args: SelectSubset<T, ContractUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Contract.
+     * @param {ContractUpsertArgs} args - Arguments to update or create a Contract.
+     * @example
+     * // Update or create a Contract
+     * const contract = await prisma.contract.upsert({
+     *   create: {
+     *     // ... data to create a Contract
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Contract we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContractUpsertArgs>(args: SelectSubset<T, ContractUpsertArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Contracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractCountArgs} args - Arguments to filter Contracts to count.
+     * @example
+     * // Count the number of Contracts
+     * const count = await prisma.contract.count({
+     *   where: {
+     *     // ... the filter for the Contracts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContractCountArgs>(
+      args?: Subset<T, ContractCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContractCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Contract.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContractAggregateArgs>(args: Subset<T, ContractAggregateArgs>): Prisma.PrismaPromise<GetContractAggregateType<T>>
+
+    /**
+     * Group by Contract.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContractGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContractGroupByArgs['orderBy'] }
+        : { orderBy?: ContractGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContractGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContractGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Contract model
+   */
+  readonly fields: ContractFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Contract.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContractClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    client<T extends SupplierDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SupplierDefaultArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    movements<T extends Contract$movementsArgs<ExtArgs> = {}>(args?: Subset<T, Contract$movementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenances<T extends Contract$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Contract$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Contract model
+   */
+  interface ContractFieldRefs {
+    readonly id: FieldRef<"Contract", 'String'>
+    readonly contract_number: FieldRef<"Contract", 'String'>
+    readonly description: FieldRef<"Contract", 'String'>
+    readonly clientId: FieldRef<"Contract", 'String'>
+    readonly responsible_name: FieldRef<"Contract", 'String'>
+    readonly responsible_phone: FieldRef<"Contract", 'String'>
+    readonly responsible_email: FieldRef<"Contract", 'String'>
+    readonly start_date: FieldRef<"Contract", 'DateTime'>
+    readonly end_date: FieldRef<"Contract", 'DateTime'>
+    readonly status: FieldRef<"Contract", 'ContractStatus'>
+    readonly total_value: FieldRef<"Contract", 'Decimal'>
+    readonly billing_day: FieldRef<"Contract", 'Int'>
+    readonly notes: FieldRef<"Contract", 'String'>
+    readonly created_at: FieldRef<"Contract", 'DateTime'>
+    readonly updated_at: FieldRef<"Contract", 'DateTime'>
+    readonly is_Active: FieldRef<"Contract", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Contract findUnique
+   */
+  export type ContractFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract findUniqueOrThrow
+   */
+  export type ContractFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract findFirst
+   */
+  export type ContractFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contracts.
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contracts.
+     */
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
+  }
+
+  /**
+   * Contract findFirstOrThrow
+   */
+  export type ContractFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contracts.
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contracts.
+     */
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
+  }
+
+  /**
+   * Contract findMany
+   */
+  export type ContractFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contracts to fetch.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Contracts.
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
+  }
+
+  /**
+   * Contract create
+   */
+  export type ContractCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Contract.
+     */
+    data: XOR<ContractCreateInput, ContractUncheckedCreateInput>
+  }
+
+  /**
+   * Contract createMany
+   */
+  export type ContractCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Contracts.
+     */
+    data: ContractCreateManyInput | ContractCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Contract createManyAndReturn
+   */
+  export type ContractCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * The data used to create many Contracts.
+     */
+    data: ContractCreateManyInput | ContractCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Contract update
+   */
+  export type ContractUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Contract.
+     */
+    data: XOR<ContractUpdateInput, ContractUncheckedUpdateInput>
+    /**
+     * Choose, which Contract to update.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract updateMany
+   */
+  export type ContractUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Contracts.
+     */
+    data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyInput>
+    /**
+     * Filter which Contracts to update
+     */
+    where?: ContractWhereInput
+    /**
+     * Limit how many Contracts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contract updateManyAndReturn
+   */
+  export type ContractUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * The data used to update Contracts.
+     */
+    data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyInput>
+    /**
+     * Filter which Contracts to update
+     */
+    where?: ContractWhereInput
+    /**
+     * Limit how many Contracts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Contract upsert
+   */
+  export type ContractUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Contract to update in case it exists.
+     */
+    where: ContractWhereUniqueInput
+    /**
+     * In case the Contract found by the `where` argument doesn't exist, create a new Contract with this data.
+     */
+    create: XOR<ContractCreateInput, ContractUncheckedCreateInput>
+    /**
+     * In case the Contract was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContractUpdateInput, ContractUncheckedUpdateInput>
+  }
+
+  /**
+   * Contract delete
+   */
+  export type ContractDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter which Contract to delete.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract deleteMany
+   */
+  export type ContractDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contracts to delete
+     */
+    where?: ContractWhereInput
+    /**
+     * Limit how many Contracts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contract.movements
+   */
+  export type Contract$movementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    where?: AssetMovementWhereInput
+    orderBy?: AssetMovementOrderByWithRelationInput | AssetMovementOrderByWithRelationInput[]
+    cursor?: AssetMovementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssetMovementScalarFieldEnum | AssetMovementScalarFieldEnum[]
+  }
+
+  /**
+   * Contract.maintenances
+   */
+  export type Contract$maintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
+   * Contract without action
+   */
+  export type ContractDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AssetMovement
+   */
+
+  export type AggregateAssetMovement = {
+    _count: AssetMovementCountAggregateOutputType | null
+    _avg: AssetMovementAvgAggregateOutputType | null
+    _sum: AssetMovementSumAggregateOutputType | null
+    _min: AssetMovementMinAggregateOutputType | null
+    _max: AssetMovementMaxAggregateOutputType | null
+  }
+
+  export type AssetMovementAvgAggregateOutputType = {
+    rental_value: Decimal | null
+    current_horometer: number | null
+    current_odometer: number | null
+    freight_value: Decimal | null
+  }
+
+  export type AssetMovementSumAggregateOutputType = {
+    rental_value: Decimal | null
+    current_horometer: number | null
+    current_odometer: number | null
+    freight_value: Decimal | null
+  }
+
+  export type AssetMovementMinAggregateOutputType = {
+    id: string | null
+    contractId: string | null
+    assetId: string | null
+    mobilization_date: Date | null
+    integration_date: Date | null
+    demobilization_date: Date | null
+    mobilization_checklist_url: string | null
+    demobilization_checklist_url: string | null
+    rental_value: Decimal | null
+    billing_cycle: $Enums.BillingCycle | null
+    operator_name: string | null
+    current_horometer: number | null
+    current_odometer: number | null
+    delivery_location: string | null
+    freight_value: Decimal | null
+    notes: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AssetMovementMaxAggregateOutputType = {
+    id: string | null
+    contractId: string | null
+    assetId: string | null
+    mobilization_date: Date | null
+    integration_date: Date | null
+    demobilization_date: Date | null
+    mobilization_checklist_url: string | null
+    demobilization_checklist_url: string | null
+    rental_value: Decimal | null
+    billing_cycle: $Enums.BillingCycle | null
+    operator_name: string | null
+    current_horometer: number | null
+    current_odometer: number | null
+    delivery_location: string | null
+    freight_value: Decimal | null
+    notes: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AssetMovementCountAggregateOutputType = {
+    id: number
+    contractId: number
+    assetId: number
+    mobilization_date: number
+    integration_date: number
+    demobilization_date: number
+    mobilization_checklist_url: number
+    demobilization_checklist_url: number
+    rental_value: number
+    billing_cycle: number
+    operator_name: number
+    current_horometer: number
+    current_odometer: number
+    delivery_location: number
+    freight_value: number
+    notes: number
+    is_active: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type AssetMovementAvgAggregateInputType = {
+    rental_value?: true
+    current_horometer?: true
+    current_odometer?: true
+    freight_value?: true
+  }
+
+  export type AssetMovementSumAggregateInputType = {
+    rental_value?: true
+    current_horometer?: true
+    current_odometer?: true
+    freight_value?: true
+  }
+
+  export type AssetMovementMinAggregateInputType = {
+    id?: true
+    contractId?: true
+    assetId?: true
+    mobilization_date?: true
+    integration_date?: true
+    demobilization_date?: true
+    mobilization_checklist_url?: true
+    demobilization_checklist_url?: true
+    rental_value?: true
+    billing_cycle?: true
+    operator_name?: true
+    current_horometer?: true
+    current_odometer?: true
+    delivery_location?: true
+    freight_value?: true
+    notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AssetMovementMaxAggregateInputType = {
+    id?: true
+    contractId?: true
+    assetId?: true
+    mobilization_date?: true
+    integration_date?: true
+    demobilization_date?: true
+    mobilization_checklist_url?: true
+    demobilization_checklist_url?: true
+    rental_value?: true
+    billing_cycle?: true
+    operator_name?: true
+    current_horometer?: true
+    current_odometer?: true
+    delivery_location?: true
+    freight_value?: true
+    notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AssetMovementCountAggregateInputType = {
+    id?: true
+    contractId?: true
+    assetId?: true
+    mobilization_date?: true
+    integration_date?: true
+    demobilization_date?: true
+    mobilization_checklist_url?: true
+    demobilization_checklist_url?: true
+    rental_value?: true
+    billing_cycle?: true
+    operator_name?: true
+    current_horometer?: true
+    current_odometer?: true
+    delivery_location?: true
+    freight_value?: true
+    notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type AssetMovementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AssetMovement to aggregate.
+     */
+    where?: AssetMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssetMovements to fetch.
+     */
+    orderBy?: AssetMovementOrderByWithRelationInput | AssetMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AssetMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssetMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssetMovements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AssetMovements
+    **/
+    _count?: true | AssetMovementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AssetMovementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AssetMovementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AssetMovementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AssetMovementMaxAggregateInputType
+  }
+
+  export type GetAssetMovementAggregateType<T extends AssetMovementAggregateArgs> = {
+        [P in keyof T & keyof AggregateAssetMovement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAssetMovement[P]>
+      : GetScalarType<T[P], AggregateAssetMovement[P]>
+  }
+
+
+
+
+  export type AssetMovementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssetMovementWhereInput
+    orderBy?: AssetMovementOrderByWithAggregationInput | AssetMovementOrderByWithAggregationInput[]
+    by: AssetMovementScalarFieldEnum[] | AssetMovementScalarFieldEnum
+    having?: AssetMovementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AssetMovementCountAggregateInputType | true
+    _avg?: AssetMovementAvgAggregateInputType
+    _sum?: AssetMovementSumAggregateInputType
+    _min?: AssetMovementMinAggregateInputType
+    _max?: AssetMovementMaxAggregateInputType
+  }
+
+  export type AssetMovementGroupByOutputType = {
+    id: string
+    contractId: string
+    assetId: string
+    mobilization_date: Date
+    integration_date: Date | null
+    demobilization_date: Date | null
+    mobilization_checklist_url: string | null
+    demobilization_checklist_url: string | null
+    rental_value: Decimal
+    billing_cycle: $Enums.BillingCycle
+    operator_name: string | null
+    current_horometer: number | null
+    current_odometer: number | null
+    delivery_location: string | null
+    freight_value: Decimal | null
+    notes: string | null
+    is_active: boolean
+    created_at: Date
+    updated_at: Date
+    _count: AssetMovementCountAggregateOutputType | null
+    _avg: AssetMovementAvgAggregateOutputType | null
+    _sum: AssetMovementSumAggregateOutputType | null
+    _min: AssetMovementMinAggregateOutputType | null
+    _max: AssetMovementMaxAggregateOutputType | null
+  }
+
+  type GetAssetMovementGroupByPayload<T extends AssetMovementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AssetMovementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AssetMovementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AssetMovementGroupByOutputType[P]>
+            : GetScalarType<T[P], AssetMovementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AssetMovementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contractId?: boolean
+    assetId?: boolean
+    mobilization_date?: boolean
+    integration_date?: boolean
+    demobilization_date?: boolean
+    mobilization_checklist_url?: boolean
+    demobilization_checklist_url?: boolean
+    rental_value?: boolean
+    billing_cycle?: boolean
+    operator_name?: boolean
+    current_horometer?: boolean
+    current_odometer?: boolean
+    delivery_location?: boolean
+    freight_value?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assetMovement"]>
+
+  export type AssetMovementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contractId?: boolean
+    assetId?: boolean
+    mobilization_date?: boolean
+    integration_date?: boolean
+    demobilization_date?: boolean
+    mobilization_checklist_url?: boolean
+    demobilization_checklist_url?: boolean
+    rental_value?: boolean
+    billing_cycle?: boolean
+    operator_name?: boolean
+    current_horometer?: boolean
+    current_odometer?: boolean
+    delivery_location?: boolean
+    freight_value?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assetMovement"]>
+
+  export type AssetMovementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contractId?: boolean
+    assetId?: boolean
+    mobilization_date?: boolean
+    integration_date?: boolean
+    demobilization_date?: boolean
+    mobilization_checklist_url?: boolean
+    demobilization_checklist_url?: boolean
+    rental_value?: boolean
+    billing_cycle?: boolean
+    operator_name?: boolean
+    current_horometer?: boolean
+    current_odometer?: boolean
+    delivery_location?: boolean
+    freight_value?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assetMovement"]>
+
+  export type AssetMovementSelectScalar = {
+    id?: boolean
+    contractId?: boolean
+    assetId?: boolean
+    mobilization_date?: boolean
+    integration_date?: boolean
+    demobilization_date?: boolean
+    mobilization_checklist_url?: boolean
+    demobilization_checklist_url?: boolean
+    rental_value?: boolean
+    billing_cycle?: boolean
+    operator_name?: boolean
+    current_horometer?: boolean
+    current_odometer?: boolean
+    delivery_location?: boolean
+    freight_value?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type AssetMovementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetId" | "mobilization_date" | "integration_date" | "demobilization_date" | "mobilization_checklist_url" | "demobilization_checklist_url" | "rental_value" | "billing_cycle" | "operator_name" | "current_horometer" | "current_odometer" | "delivery_location" | "freight_value" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["assetMovement"]>
+  export type AssetMovementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }
+  export type AssetMovementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }
+  export type AssetMovementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }
+
+  export type $AssetMovementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AssetMovement"
+    objects: {
+      contract: Prisma.$ContractPayload<ExtArgs>
+      asset: Prisma.$AssetPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      contractId: string
+      assetId: string
+      mobilization_date: Date
+      integration_date: Date | null
+      demobilization_date: Date | null
+      mobilization_checklist_url: string | null
+      demobilization_checklist_url: string | null
+      rental_value: Prisma.Decimal
+      billing_cycle: $Enums.BillingCycle
+      operator_name: string | null
+      current_horometer: number | null
+      current_odometer: number | null
+      delivery_location: string | null
+      freight_value: Prisma.Decimal | null
+      notes: string | null
+      is_active: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["assetMovement"]>
+    composites: {}
+  }
+
+  type AssetMovementGetPayload<S extends boolean | null | undefined | AssetMovementDefaultArgs> = $Result.GetResult<Prisma.$AssetMovementPayload, S>
+
+  type AssetMovementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AssetMovementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AssetMovementCountAggregateInputType | true
+    }
+
+  export interface AssetMovementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AssetMovement'], meta: { name: 'AssetMovement' } }
+    /**
+     * Find zero or one AssetMovement that matches the filter.
+     * @param {AssetMovementFindUniqueArgs} args - Arguments to find a AssetMovement
+     * @example
+     * // Get one AssetMovement
+     * const assetMovement = await prisma.assetMovement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AssetMovementFindUniqueArgs>(args: SelectSubset<T, AssetMovementFindUniqueArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AssetMovement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AssetMovementFindUniqueOrThrowArgs} args - Arguments to find a AssetMovement
+     * @example
+     * // Get one AssetMovement
+     * const assetMovement = await prisma.assetMovement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AssetMovementFindUniqueOrThrowArgs>(args: SelectSubset<T, AssetMovementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AssetMovement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetMovementFindFirstArgs} args - Arguments to find a AssetMovement
+     * @example
+     * // Get one AssetMovement
+     * const assetMovement = await prisma.assetMovement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AssetMovementFindFirstArgs>(args?: SelectSubset<T, AssetMovementFindFirstArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AssetMovement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetMovementFindFirstOrThrowArgs} args - Arguments to find a AssetMovement
+     * @example
+     * // Get one AssetMovement
+     * const assetMovement = await prisma.assetMovement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AssetMovementFindFirstOrThrowArgs>(args?: SelectSubset<T, AssetMovementFindFirstOrThrowArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AssetMovements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetMovementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AssetMovements
+     * const assetMovements = await prisma.assetMovement.findMany()
+     * 
+     * // Get first 10 AssetMovements
+     * const assetMovements = await prisma.assetMovement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const assetMovementWithIdOnly = await prisma.assetMovement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AssetMovementFindManyArgs>(args?: SelectSubset<T, AssetMovementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AssetMovement.
+     * @param {AssetMovementCreateArgs} args - Arguments to create a AssetMovement.
+     * @example
+     * // Create one AssetMovement
+     * const AssetMovement = await prisma.assetMovement.create({
+     *   data: {
+     *     // ... data to create a AssetMovement
+     *   }
+     * })
+     * 
+     */
+    create<T extends AssetMovementCreateArgs>(args: SelectSubset<T, AssetMovementCreateArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AssetMovements.
+     * @param {AssetMovementCreateManyArgs} args - Arguments to create many AssetMovements.
+     * @example
+     * // Create many AssetMovements
+     * const assetMovement = await prisma.assetMovement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AssetMovementCreateManyArgs>(args?: SelectSubset<T, AssetMovementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AssetMovements and returns the data saved in the database.
+     * @param {AssetMovementCreateManyAndReturnArgs} args - Arguments to create many AssetMovements.
+     * @example
+     * // Create many AssetMovements
+     * const assetMovement = await prisma.assetMovement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AssetMovements and only return the `id`
+     * const assetMovementWithIdOnly = await prisma.assetMovement.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AssetMovementCreateManyAndReturnArgs>(args?: SelectSubset<T, AssetMovementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AssetMovement.
+     * @param {AssetMovementDeleteArgs} args - Arguments to delete one AssetMovement.
+     * @example
+     * // Delete one AssetMovement
+     * const AssetMovement = await prisma.assetMovement.delete({
+     *   where: {
+     *     // ... filter to delete one AssetMovement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AssetMovementDeleteArgs>(args: SelectSubset<T, AssetMovementDeleteArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AssetMovement.
+     * @param {AssetMovementUpdateArgs} args - Arguments to update one AssetMovement.
+     * @example
+     * // Update one AssetMovement
+     * const assetMovement = await prisma.assetMovement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AssetMovementUpdateArgs>(args: SelectSubset<T, AssetMovementUpdateArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AssetMovements.
+     * @param {AssetMovementDeleteManyArgs} args - Arguments to filter AssetMovements to delete.
+     * @example
+     * // Delete a few AssetMovements
+     * const { count } = await prisma.assetMovement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AssetMovementDeleteManyArgs>(args?: SelectSubset<T, AssetMovementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AssetMovements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetMovementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AssetMovements
+     * const assetMovement = await prisma.assetMovement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AssetMovementUpdateManyArgs>(args: SelectSubset<T, AssetMovementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AssetMovements and returns the data updated in the database.
+     * @param {AssetMovementUpdateManyAndReturnArgs} args - Arguments to update many AssetMovements.
+     * @example
+     * // Update many AssetMovements
+     * const assetMovement = await prisma.assetMovement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AssetMovements and only return the `id`
+     * const assetMovementWithIdOnly = await prisma.assetMovement.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AssetMovementUpdateManyAndReturnArgs>(args: SelectSubset<T, AssetMovementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AssetMovement.
+     * @param {AssetMovementUpsertArgs} args - Arguments to update or create a AssetMovement.
+     * @example
+     * // Update or create a AssetMovement
+     * const assetMovement = await prisma.assetMovement.upsert({
+     *   create: {
+     *     // ... data to create a AssetMovement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AssetMovement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AssetMovementUpsertArgs>(args: SelectSubset<T, AssetMovementUpsertArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AssetMovements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetMovementCountArgs} args - Arguments to filter AssetMovements to count.
+     * @example
+     * // Count the number of AssetMovements
+     * const count = await prisma.assetMovement.count({
+     *   where: {
+     *     // ... the filter for the AssetMovements we want to count
+     *   }
+     * })
+    **/
+    count<T extends AssetMovementCountArgs>(
+      args?: Subset<T, AssetMovementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AssetMovementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AssetMovement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetMovementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AssetMovementAggregateArgs>(args: Subset<T, AssetMovementAggregateArgs>): Prisma.PrismaPromise<GetAssetMovementAggregateType<T>>
+
+    /**
+     * Group by AssetMovement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetMovementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AssetMovementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AssetMovementGroupByArgs['orderBy'] }
+        : { orderBy?: AssetMovementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AssetMovementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAssetMovementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AssetMovement model
+   */
+  readonly fields: AssetMovementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AssetMovement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AssetMovementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    contract<T extends ContractDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContractDefaultArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    asset<T extends AssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetDefaultArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AssetMovement model
+   */
+  interface AssetMovementFieldRefs {
+    readonly id: FieldRef<"AssetMovement", 'String'>
+    readonly contractId: FieldRef<"AssetMovement", 'String'>
+    readonly assetId: FieldRef<"AssetMovement", 'String'>
+    readonly mobilization_date: FieldRef<"AssetMovement", 'DateTime'>
+    readonly integration_date: FieldRef<"AssetMovement", 'DateTime'>
+    readonly demobilization_date: FieldRef<"AssetMovement", 'DateTime'>
+    readonly mobilization_checklist_url: FieldRef<"AssetMovement", 'String'>
+    readonly demobilization_checklist_url: FieldRef<"AssetMovement", 'String'>
+    readonly rental_value: FieldRef<"AssetMovement", 'Decimal'>
+    readonly billing_cycle: FieldRef<"AssetMovement", 'BillingCycle'>
+    readonly operator_name: FieldRef<"AssetMovement", 'String'>
+    readonly current_horometer: FieldRef<"AssetMovement", 'Float'>
+    readonly current_odometer: FieldRef<"AssetMovement", 'Float'>
+    readonly delivery_location: FieldRef<"AssetMovement", 'String'>
+    readonly freight_value: FieldRef<"AssetMovement", 'Decimal'>
+    readonly notes: FieldRef<"AssetMovement", 'String'>
+    readonly is_active: FieldRef<"AssetMovement", 'Boolean'>
+    readonly created_at: FieldRef<"AssetMovement", 'DateTime'>
+    readonly updated_at: FieldRef<"AssetMovement", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AssetMovement findUnique
+   */
+  export type AssetMovementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetMovement to fetch.
+     */
+    where: AssetMovementWhereUniqueInput
+  }
+
+  /**
+   * AssetMovement findUniqueOrThrow
+   */
+  export type AssetMovementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetMovement to fetch.
+     */
+    where: AssetMovementWhereUniqueInput
+  }
+
+  /**
+   * AssetMovement findFirst
+   */
+  export type AssetMovementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetMovement to fetch.
+     */
+    where?: AssetMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssetMovements to fetch.
+     */
+    orderBy?: AssetMovementOrderByWithRelationInput | AssetMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AssetMovements.
+     */
+    cursor?: AssetMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssetMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssetMovements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AssetMovements.
+     */
+    distinct?: AssetMovementScalarFieldEnum | AssetMovementScalarFieldEnum[]
+  }
+
+  /**
+   * AssetMovement findFirstOrThrow
+   */
+  export type AssetMovementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetMovement to fetch.
+     */
+    where?: AssetMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssetMovements to fetch.
+     */
+    orderBy?: AssetMovementOrderByWithRelationInput | AssetMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AssetMovements.
+     */
+    cursor?: AssetMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssetMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssetMovements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AssetMovements.
+     */
+    distinct?: AssetMovementScalarFieldEnum | AssetMovementScalarFieldEnum[]
+  }
+
+  /**
+   * AssetMovement findMany
+   */
+  export type AssetMovementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetMovements to fetch.
+     */
+    where?: AssetMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssetMovements to fetch.
+     */
+    orderBy?: AssetMovementOrderByWithRelationInput | AssetMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AssetMovements.
+     */
+    cursor?: AssetMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssetMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssetMovements.
+     */
+    skip?: number
+    distinct?: AssetMovementScalarFieldEnum | AssetMovementScalarFieldEnum[]
+  }
+
+  /**
+   * AssetMovement create
+   */
+  export type AssetMovementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AssetMovement.
+     */
+    data: XOR<AssetMovementCreateInput, AssetMovementUncheckedCreateInput>
+  }
+
+  /**
+   * AssetMovement createMany
+   */
+  export type AssetMovementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AssetMovements.
+     */
+    data: AssetMovementCreateManyInput | AssetMovementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AssetMovement createManyAndReturn
+   */
+  export type AssetMovementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * The data used to create many AssetMovements.
+     */
+    data: AssetMovementCreateManyInput | AssetMovementCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AssetMovement update
+   */
+  export type AssetMovementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AssetMovement.
+     */
+    data: XOR<AssetMovementUpdateInput, AssetMovementUncheckedUpdateInput>
+    /**
+     * Choose, which AssetMovement to update.
+     */
+    where: AssetMovementWhereUniqueInput
+  }
+
+  /**
+   * AssetMovement updateMany
+   */
+  export type AssetMovementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AssetMovements.
+     */
+    data: XOR<AssetMovementUpdateManyMutationInput, AssetMovementUncheckedUpdateManyInput>
+    /**
+     * Filter which AssetMovements to update
+     */
+    where?: AssetMovementWhereInput
+    /**
+     * Limit how many AssetMovements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AssetMovement updateManyAndReturn
+   */
+  export type AssetMovementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * The data used to update AssetMovements.
+     */
+    data: XOR<AssetMovementUpdateManyMutationInput, AssetMovementUncheckedUpdateManyInput>
+    /**
+     * Filter which AssetMovements to update
+     */
+    where?: AssetMovementWhereInput
+    /**
+     * Limit how many AssetMovements to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AssetMovement upsert
+   */
+  export type AssetMovementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AssetMovement to update in case it exists.
+     */
+    where: AssetMovementWhereUniqueInput
+    /**
+     * In case the AssetMovement found by the `where` argument doesn't exist, create a new AssetMovement with this data.
+     */
+    create: XOR<AssetMovementCreateInput, AssetMovementUncheckedCreateInput>
+    /**
+     * In case the AssetMovement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AssetMovementUpdateInput, AssetMovementUncheckedUpdateInput>
+  }
+
+  /**
+   * AssetMovement delete
+   */
+  export type AssetMovementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+    /**
+     * Filter which AssetMovement to delete.
+     */
+    where: AssetMovementWhereUniqueInput
+  }
+
+  /**
+   * AssetMovement deleteMany
+   */
+  export type AssetMovementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AssetMovements to delete
+     */
+    where?: AssetMovementWhereInput
+    /**
+     * Limit how many AssetMovements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AssetMovement without action
+   */
+  export type AssetMovementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovement
+     */
+    select?: AssetMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetMovement
+     */
+    omit?: AssetMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetMovementInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9877,7 +12831,8 @@ export namespace Prisma {
     notes: 'notes',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    is_Active: 'is_Active'
+    is_Active: 'is_Active',
+    contractId: 'contractId'
   };
 
   export type MaintenanceScalarFieldEnum = (typeof MaintenanceScalarFieldEnum)[keyof typeof MaintenanceScalarFieldEnum]
@@ -9896,6 +12851,53 @@ export namespace Prisma {
   };
 
   export type MaintenanceDocumentScalarFieldEnum = (typeof MaintenanceDocumentScalarFieldEnum)[keyof typeof MaintenanceDocumentScalarFieldEnum]
+
+
+  export const ContractScalarFieldEnum: {
+    id: 'id',
+    contract_number: 'contract_number',
+    description: 'description',
+    clientId: 'clientId',
+    responsible_name: 'responsible_name',
+    responsible_phone: 'responsible_phone',
+    responsible_email: 'responsible_email',
+    start_date: 'start_date',
+    end_date: 'end_date',
+    status: 'status',
+    total_value: 'total_value',
+    billing_day: 'billing_day',
+    notes: 'notes',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    is_Active: 'is_Active'
+  };
+
+  export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
+
+
+  export const AssetMovementScalarFieldEnum: {
+    id: 'id',
+    contractId: 'contractId',
+    assetId: 'assetId',
+    mobilization_date: 'mobilization_date',
+    integration_date: 'integration_date',
+    demobilization_date: 'demobilization_date',
+    mobilization_checklist_url: 'mobilization_checklist_url',
+    demobilization_checklist_url: 'demobilization_checklist_url',
+    rental_value: 'rental_value',
+    billing_cycle: 'billing_cycle',
+    operator_name: 'operator_name',
+    current_horometer: 'current_horometer',
+    current_odometer: 'current_odometer',
+    delivery_location: 'delivery_location',
+    freight_value: 'freight_value',
+    notes: 'notes',
+    is_active: 'is_active',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type AssetMovementScalarFieldEnum = (typeof AssetMovementScalarFieldEnum)[keyof typeof AssetMovementScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10057,6 +13059,34 @@ export namespace Prisma {
    * Reference to a field of type 'MaintenanceStatus[]'
    */
   export type ListEnumMaintenanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContractStatus'
+   */
+  export type EnumContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContractStatus[]'
+   */
+  export type ListEnumContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BillingCycle'
+   */
+  export type EnumBillingCycleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BillingCycle'>
+    
+
+
+  /**
+   * Reference to a field of type 'BillingCycle[]'
+   */
+  export type ListEnumBillingCycleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BillingCycle[]'>
     
 
 
@@ -10238,6 +13268,7 @@ export namespace Prisma {
     assetCategoryId?: StringFilter<"Asset"> | string
     assetCategory?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
     Maintenance?: MaintenanceListRelationFilter
+    Movements?: AssetMovementListRelationFilter
   }
 
   export type AssetOrderByWithRelationInput = {
@@ -10256,6 +13287,7 @@ export namespace Prisma {
     assetCategoryId?: SortOrder
     assetCategory?: AssetCategoryOrderByWithRelationInput
     Maintenance?: MaintenanceOrderByRelationAggregateInput
+    Movements?: AssetMovementOrderByRelationAggregateInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -10277,6 +13309,7 @@ export namespace Prisma {
     assetCategoryId?: StringFilter<"Asset"> | string
     assetCategory?: XOR<AssetCategoryScalarRelationFilter, AssetCategoryWhereInput>
     Maintenance?: MaintenanceListRelationFilter
+    Movements?: AssetMovementListRelationFilter
   }, "id" | "plate" | "serial_number">
 
   export type AssetOrderByWithAggregationInput = {
@@ -10340,6 +13373,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Supplier"> | Date | string
     is_Active?: BoolFilter<"Supplier"> | boolean
     Maintenance?: MaintenanceListRelationFilter
+    Contracts?: ContractListRelationFilter
   }
 
   export type SupplierOrderByWithRelationInput = {
@@ -10360,6 +13394,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     is_Active?: SortOrder
     Maintenance?: MaintenanceOrderByRelationAggregateInput
+    Contracts?: ContractOrderByRelationAggregateInput
   }
 
   export type SupplierWhereUniqueInput = Prisma.AtLeast<{
@@ -10383,6 +13418,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Supplier"> | Date | string
     is_Active?: BoolFilter<"Supplier"> | boolean
     Maintenance?: MaintenanceListRelationFilter
+    Contracts?: ContractListRelationFilter
   }, "id" | "cnpj">
 
   export type SupplierOrderByWithAggregationInput = {
@@ -10509,10 +13545,12 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Maintenance"> | Date | string
     updated_at?: DateTimeFilter<"Maintenance"> | Date | string
     is_Active?: BoolFilter<"Maintenance"> | boolean
+    contractId?: StringNullableFilter<"Maintenance"> | string | null
     asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
     supplier?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     serviceCategory?: XOR<ServiceCategoryNullableScalarRelationFilter, ServiceCategoryWhereInput> | null
     documents?: MaintenanceDocumentListRelationFilter
+    contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
   }
 
   export type MaintenanceOrderByWithRelationInput = {
@@ -10532,10 +13570,12 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    contractId?: SortOrderInput | SortOrder
     asset?: AssetOrderByWithRelationInput
     supplier?: SupplierOrderByWithRelationInput
     serviceCategory?: ServiceCategoryOrderByWithRelationInput
     documents?: MaintenanceDocumentOrderByRelationAggregateInput
+    contract?: ContractOrderByWithRelationInput
   }
 
   export type MaintenanceWhereUniqueInput = Prisma.AtLeast<{
@@ -10558,10 +13598,12 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Maintenance"> | Date | string
     updated_at?: DateTimeFilter<"Maintenance"> | Date | string
     is_Active?: BoolFilter<"Maintenance"> | boolean
+    contractId?: StringNullableFilter<"Maintenance"> | string | null
     asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
     supplier?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     serviceCategory?: XOR<ServiceCategoryNullableScalarRelationFilter, ServiceCategoryWhereInput> | null
     documents?: MaintenanceDocumentListRelationFilter
+    contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
   }, "id">
 
   export type MaintenanceOrderByWithAggregationInput = {
@@ -10581,6 +13623,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    contractId?: SortOrderInput | SortOrder
     _count?: MaintenanceCountOrderByAggregateInput
     _avg?: MaintenanceAvgOrderByAggregateInput
     _max?: MaintenanceMaxOrderByAggregateInput
@@ -10608,6 +13651,7 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
     is_Active?: BoolWithAggregatesFilter<"Maintenance"> | boolean
+    contractId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
   }
 
   export type MaintenanceDocumentWhereInput = {
@@ -10685,6 +13729,254 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"MaintenanceDocument"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"MaintenanceDocument"> | Date | string
     maintenanceId?: StringNullableWithAggregatesFilter<"MaintenanceDocument"> | string | null
+  }
+
+  export type ContractWhereInput = {
+    AND?: ContractWhereInput | ContractWhereInput[]
+    OR?: ContractWhereInput[]
+    NOT?: ContractWhereInput | ContractWhereInput[]
+    id?: StringFilter<"Contract"> | string
+    contract_number?: StringFilter<"Contract"> | string
+    description?: StringNullableFilter<"Contract"> | string | null
+    clientId?: StringFilter<"Contract"> | string
+    responsible_name?: StringNullableFilter<"Contract"> | string | null
+    responsible_phone?: StringNullableFilter<"Contract"> | string | null
+    responsible_email?: StringNullableFilter<"Contract"> | string | null
+    start_date?: DateTimeFilter<"Contract"> | Date | string
+    end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
+    billing_day?: IntNullableFilter<"Contract"> | number | null
+    notes?: StringNullableFilter<"Contract"> | string | null
+    created_at?: DateTimeFilter<"Contract"> | Date | string
+    updated_at?: DateTimeFilter<"Contract"> | Date | string
+    is_Active?: BoolFilter<"Contract"> | boolean
+    client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
+    movements?: AssetMovementListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
+  }
+
+  export type ContractOrderByWithRelationInput = {
+    id?: SortOrder
+    contract_number?: SortOrder
+    description?: SortOrderInput | SortOrder
+    clientId?: SortOrder
+    responsible_name?: SortOrderInput | SortOrder
+    responsible_phone?: SortOrderInput | SortOrder
+    responsible_email?: SortOrderInput | SortOrder
+    start_date?: SortOrder
+    end_date?: SortOrderInput | SortOrder
+    status?: SortOrder
+    total_value?: SortOrderInput | SortOrder
+    billing_day?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_Active?: SortOrder
+    client?: SupplierOrderByWithRelationInput
+    movements?: AssetMovementOrderByRelationAggregateInput
+    maintenances?: MaintenanceOrderByRelationAggregateInput
+  }
+
+  export type ContractWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    contract_number?: string
+    AND?: ContractWhereInput | ContractWhereInput[]
+    OR?: ContractWhereInput[]
+    NOT?: ContractWhereInput | ContractWhereInput[]
+    description?: StringNullableFilter<"Contract"> | string | null
+    clientId?: StringFilter<"Contract"> | string
+    responsible_name?: StringNullableFilter<"Contract"> | string | null
+    responsible_phone?: StringNullableFilter<"Contract"> | string | null
+    responsible_email?: StringNullableFilter<"Contract"> | string | null
+    start_date?: DateTimeFilter<"Contract"> | Date | string
+    end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
+    billing_day?: IntNullableFilter<"Contract"> | number | null
+    notes?: StringNullableFilter<"Contract"> | string | null
+    created_at?: DateTimeFilter<"Contract"> | Date | string
+    updated_at?: DateTimeFilter<"Contract"> | Date | string
+    is_Active?: BoolFilter<"Contract"> | boolean
+    client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
+    movements?: AssetMovementListRelationFilter
+    maintenances?: MaintenanceListRelationFilter
+  }, "id" | "contract_number">
+
+  export type ContractOrderByWithAggregationInput = {
+    id?: SortOrder
+    contract_number?: SortOrder
+    description?: SortOrderInput | SortOrder
+    clientId?: SortOrder
+    responsible_name?: SortOrderInput | SortOrder
+    responsible_phone?: SortOrderInput | SortOrder
+    responsible_email?: SortOrderInput | SortOrder
+    start_date?: SortOrder
+    end_date?: SortOrderInput | SortOrder
+    status?: SortOrder
+    total_value?: SortOrderInput | SortOrder
+    billing_day?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_Active?: SortOrder
+    _count?: ContractCountOrderByAggregateInput
+    _avg?: ContractAvgOrderByAggregateInput
+    _max?: ContractMaxOrderByAggregateInput
+    _min?: ContractMinOrderByAggregateInput
+    _sum?: ContractSumOrderByAggregateInput
+  }
+
+  export type ContractScalarWhereWithAggregatesInput = {
+    AND?: ContractScalarWhereWithAggregatesInput | ContractScalarWhereWithAggregatesInput[]
+    OR?: ContractScalarWhereWithAggregatesInput[]
+    NOT?: ContractScalarWhereWithAggregatesInput | ContractScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Contract"> | string
+    contract_number?: StringWithAggregatesFilter<"Contract"> | string
+    description?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    clientId?: StringWithAggregatesFilter<"Contract"> | string
+    responsible_name?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    responsible_phone?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    responsible_email?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    start_date?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
+    end_date?: DateTimeNullableWithAggregatesFilter<"Contract"> | Date | string | null
+    status?: EnumContractStatusWithAggregatesFilter<"Contract"> | $Enums.ContractStatus
+    total_value?: DecimalNullableWithAggregatesFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
+    billing_day?: IntNullableWithAggregatesFilter<"Contract"> | number | null
+    notes?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
+    is_Active?: BoolWithAggregatesFilter<"Contract"> | boolean
+  }
+
+  export type AssetMovementWhereInput = {
+    AND?: AssetMovementWhereInput | AssetMovementWhereInput[]
+    OR?: AssetMovementWhereInput[]
+    NOT?: AssetMovementWhereInput | AssetMovementWhereInput[]
+    id?: StringFilter<"AssetMovement"> | string
+    contractId?: StringFilter<"AssetMovement"> | string
+    assetId?: StringFilter<"AssetMovement"> | string
+    mobilization_date?: DateTimeFilter<"AssetMovement"> | Date | string
+    integration_date?: DateTimeNullableFilter<"AssetMovement"> | Date | string | null
+    demobilization_date?: DateTimeNullableFilter<"AssetMovement"> | Date | string | null
+    mobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
+    demobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
+    rental_value?: DecimalFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFilter<"AssetMovement"> | $Enums.BillingCycle
+    operator_name?: StringNullableFilter<"AssetMovement"> | string | null
+    current_horometer?: FloatNullableFilter<"AssetMovement"> | number | null
+    current_odometer?: FloatNullableFilter<"AssetMovement"> | number | null
+    delivery_location?: StringNullableFilter<"AssetMovement"> | string | null
+    freight_value?: DecimalNullableFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
+    notes?: StringNullableFilter<"AssetMovement"> | string | null
+    is_active?: BoolFilter<"AssetMovement"> | boolean
+    created_at?: DateTimeFilter<"AssetMovement"> | Date | string
+    updated_at?: DateTimeFilter<"AssetMovement"> | Date | string
+    contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
+    asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
+  }
+
+  export type AssetMovementOrderByWithRelationInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetId?: SortOrder
+    mobilization_date?: SortOrder
+    integration_date?: SortOrderInput | SortOrder
+    demobilization_date?: SortOrderInput | SortOrder
+    mobilization_checklist_url?: SortOrderInput | SortOrder
+    demobilization_checklist_url?: SortOrderInput | SortOrder
+    rental_value?: SortOrder
+    billing_cycle?: SortOrder
+    operator_name?: SortOrderInput | SortOrder
+    current_horometer?: SortOrderInput | SortOrder
+    current_odometer?: SortOrderInput | SortOrder
+    delivery_location?: SortOrderInput | SortOrder
+    freight_value?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    contract?: ContractOrderByWithRelationInput
+    asset?: AssetOrderByWithRelationInput
+  }
+
+  export type AssetMovementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AssetMovementWhereInput | AssetMovementWhereInput[]
+    OR?: AssetMovementWhereInput[]
+    NOT?: AssetMovementWhereInput | AssetMovementWhereInput[]
+    contractId?: StringFilter<"AssetMovement"> | string
+    assetId?: StringFilter<"AssetMovement"> | string
+    mobilization_date?: DateTimeFilter<"AssetMovement"> | Date | string
+    integration_date?: DateTimeNullableFilter<"AssetMovement"> | Date | string | null
+    demobilization_date?: DateTimeNullableFilter<"AssetMovement"> | Date | string | null
+    mobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
+    demobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
+    rental_value?: DecimalFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFilter<"AssetMovement"> | $Enums.BillingCycle
+    operator_name?: StringNullableFilter<"AssetMovement"> | string | null
+    current_horometer?: FloatNullableFilter<"AssetMovement"> | number | null
+    current_odometer?: FloatNullableFilter<"AssetMovement"> | number | null
+    delivery_location?: StringNullableFilter<"AssetMovement"> | string | null
+    freight_value?: DecimalNullableFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
+    notes?: StringNullableFilter<"AssetMovement"> | string | null
+    is_active?: BoolFilter<"AssetMovement"> | boolean
+    created_at?: DateTimeFilter<"AssetMovement"> | Date | string
+    updated_at?: DateTimeFilter<"AssetMovement"> | Date | string
+    contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
+    asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
+  }, "id">
+
+  export type AssetMovementOrderByWithAggregationInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetId?: SortOrder
+    mobilization_date?: SortOrder
+    integration_date?: SortOrderInput | SortOrder
+    demobilization_date?: SortOrderInput | SortOrder
+    mobilization_checklist_url?: SortOrderInput | SortOrder
+    demobilization_checklist_url?: SortOrderInput | SortOrder
+    rental_value?: SortOrder
+    billing_cycle?: SortOrder
+    operator_name?: SortOrderInput | SortOrder
+    current_horometer?: SortOrderInput | SortOrder
+    current_odometer?: SortOrderInput | SortOrder
+    delivery_location?: SortOrderInput | SortOrder
+    freight_value?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: AssetMovementCountOrderByAggregateInput
+    _avg?: AssetMovementAvgOrderByAggregateInput
+    _max?: AssetMovementMaxOrderByAggregateInput
+    _min?: AssetMovementMinOrderByAggregateInput
+    _sum?: AssetMovementSumOrderByAggregateInput
+  }
+
+  export type AssetMovementScalarWhereWithAggregatesInput = {
+    AND?: AssetMovementScalarWhereWithAggregatesInput | AssetMovementScalarWhereWithAggregatesInput[]
+    OR?: AssetMovementScalarWhereWithAggregatesInput[]
+    NOT?: AssetMovementScalarWhereWithAggregatesInput | AssetMovementScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AssetMovement"> | string
+    contractId?: StringWithAggregatesFilter<"AssetMovement"> | string
+    assetId?: StringWithAggregatesFilter<"AssetMovement"> | string
+    mobilization_date?: DateTimeWithAggregatesFilter<"AssetMovement"> | Date | string
+    integration_date?: DateTimeNullableWithAggregatesFilter<"AssetMovement"> | Date | string | null
+    demobilization_date?: DateTimeNullableWithAggregatesFilter<"AssetMovement"> | Date | string | null
+    mobilization_checklist_url?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
+    demobilization_checklist_url?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
+    rental_value?: DecimalWithAggregatesFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleWithAggregatesFilter<"AssetMovement"> | $Enums.BillingCycle
+    operator_name?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
+    current_horometer?: FloatNullableWithAggregatesFilter<"AssetMovement"> | number | null
+    current_odometer?: FloatNullableWithAggregatesFilter<"AssetMovement"> | number | null
+    delivery_location?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
+    freight_value?: DecimalNullableWithAggregatesFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
+    notes?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
+    is_active?: BoolWithAggregatesFilter<"AssetMovement"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"AssetMovement"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"AssetMovement"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -10867,6 +14159,7 @@ export namespace Prisma {
     is_Active?: boolean
     assetCategory: AssetCategoryCreateNestedOneWithoutAssetInput
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
+    Movements?: AssetMovementCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateInput = {
@@ -10884,6 +14177,7 @@ export namespace Prisma {
     is_Active?: boolean
     assetCategoryId: string
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    Movements?: AssetMovementUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUpdateInput = {
@@ -10901,6 +14195,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     assetCategory?: AssetCategoryUpdateOneRequiredWithoutAssetNestedInput
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
+    Movements?: AssetMovementUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateInput = {
@@ -10918,6 +14213,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     assetCategoryId?: StringFieldUpdateOperationsInput | string
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    Movements?: AssetMovementUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetCreateManyInput = {
@@ -10985,6 +14281,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     Maintenance?: MaintenanceCreateNestedManyWithoutSupplierInput
+    Contracts?: ContractCreateNestedManyWithoutClientInput
   }
 
   export type SupplierUncheckedCreateInput = {
@@ -11005,6 +14302,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutSupplierInput
+    Contracts?: ContractUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type SupplierUpdateInput = {
@@ -11025,6 +14323,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     Maintenance?: MaintenanceUpdateManyWithoutSupplierNestedInput
+    Contracts?: ContractUpdateManyWithoutClientNestedInput
   }
 
   export type SupplierUncheckedUpdateInput = {
@@ -11045,6 +14344,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutSupplierNestedInput
+    Contracts?: ContractUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type SupplierCreateManyInput = {
@@ -11189,6 +14489,7 @@ export namespace Prisma {
     supplier: SupplierCreateNestedOneWithoutMaintenanceInput
     serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
     documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    contract?: ContractCreateNestedOneWithoutMaintenancesInput
   }
 
   export type MaintenanceUncheckedCreateInput = {
@@ -11208,6 +14509,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    contractId?: string | null
     documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -11229,6 +14531,7 @@ export namespace Prisma {
     supplier?: SupplierUpdateOneRequiredWithoutMaintenanceNestedInput
     serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
     documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    contract?: ContractUpdateOneWithoutMaintenancesNestedInput
   }
 
   export type MaintenanceUncheckedUpdateInput = {
@@ -11248,6 +14551,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -11268,6 +14572,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    contractId?: string | null
   }
 
   export type MaintenanceUpdateManyMutationInput = {
@@ -11303,6 +14608,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceDocumentCreateInput = {
@@ -11386,6 +14692,298 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContractCreateInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    client: SupplierCreateNestedOneWithoutContractsInput
+    movements?: AssetMovementCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUncheckedCreateInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
+    movements?: AssetMovementUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractCreateManyInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+  }
+
+  export type ContractUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ContractUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AssetMovementCreateInput = {
+    id?: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutMovementsInput
+    asset: AssetCreateNestedOneWithoutMovementsInput
+  }
+
+  export type AssetMovementUncheckedCreateInput = {
+    id?: string
+    contractId: string
+    assetId: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetMovementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutMovementsNestedInput
+    asset?: AssetUpdateOneRequiredWithoutMovementsNestedInput
+  }
+
+  export type AssetMovementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetMovementCreateManyInput = {
+    id?: string
+    contractId: string
+    assetId: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetMovementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetMovementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -11639,7 +15237,17 @@ export namespace Prisma {
     none?: MaintenanceWhereInput
   }
 
+  export type AssetMovementListRelationFilter = {
+    every?: AssetMovementWhereInput
+    some?: AssetMovementWhereInput
+    none?: AssetMovementWhereInput
+  }
+
   export type MaintenanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AssetMovementOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11731,6 +15339,16 @@ export namespace Prisma {
     hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
     hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
     isEmpty?: boolean
+  }
+
+  export type ContractListRelationFilter = {
+    every?: ContractWhereInput
+    some?: ContractWhereInput
+    none?: ContractWhereInput
+  }
+
+  export type ContractOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type SupplierCountOrderByAggregateInput = {
@@ -11872,6 +15490,11 @@ export namespace Prisma {
     none?: MaintenanceDocumentWhereInput
   }
 
+  export type ContractNullableScalarRelationFilter = {
+    is?: ContractWhereInput | null
+    isNot?: ContractWhereInput | null
+  }
+
   export type MaintenanceDocumentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -11893,6 +15516,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    contractId?: SortOrder
   }
 
   export type MaintenanceAvgOrderByAggregateInput = {
@@ -11917,6 +15541,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    contractId?: SortOrder
   }
 
   export type MaintenanceMinOrderByAggregateInput = {
@@ -11936,6 +15561,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    contractId?: SortOrder
   }
 
   export type MaintenanceSumOrderByAggregateInput = {
@@ -12069,6 +15695,246 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type EnumContractStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractStatus | EnumContractStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractStatusFilter<$PrismaModel> | $Enums.ContractStatus
+  }
+
+  export type ContractCountOrderByAggregateInput = {
+    id?: SortOrder
+    contract_number?: SortOrder
+    description?: SortOrder
+    clientId?: SortOrder
+    responsible_name?: SortOrder
+    responsible_phone?: SortOrder
+    responsible_email?: SortOrder
+    start_date?: SortOrder
+    end_date?: SortOrder
+    status?: SortOrder
+    total_value?: SortOrder
+    billing_day?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_Active?: SortOrder
+  }
+
+  export type ContractAvgOrderByAggregateInput = {
+    total_value?: SortOrder
+    billing_day?: SortOrder
+  }
+
+  export type ContractMaxOrderByAggregateInput = {
+    id?: SortOrder
+    contract_number?: SortOrder
+    description?: SortOrder
+    clientId?: SortOrder
+    responsible_name?: SortOrder
+    responsible_phone?: SortOrder
+    responsible_email?: SortOrder
+    start_date?: SortOrder
+    end_date?: SortOrder
+    status?: SortOrder
+    total_value?: SortOrder
+    billing_day?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_Active?: SortOrder
+  }
+
+  export type ContractMinOrderByAggregateInput = {
+    id?: SortOrder
+    contract_number?: SortOrder
+    description?: SortOrder
+    clientId?: SortOrder
+    responsible_name?: SortOrder
+    responsible_phone?: SortOrder
+    responsible_email?: SortOrder
+    start_date?: SortOrder
+    end_date?: SortOrder
+    status?: SortOrder
+    total_value?: SortOrder
+    billing_day?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_Active?: SortOrder
+  }
+
+  export type ContractSumOrderByAggregateInput = {
+    total_value?: SortOrder
+    billing_day?: SortOrder
+  }
+
+  export type EnumContractStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractStatus | EnumContractStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContractStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContractStatusFilter<$PrismaModel>
+    _max?: NestedEnumContractStatusFilter<$PrismaModel>
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumBillingCycleFilter<$PrismaModel = never> = {
+    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
+    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    not?: NestedEnumBillingCycleFilter<$PrismaModel> | $Enums.BillingCycle
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type ContractScalarRelationFilter = {
+    is?: ContractWhereInput
+    isNot?: ContractWhereInput
+  }
+
+  export type AssetMovementCountOrderByAggregateInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetId?: SortOrder
+    mobilization_date?: SortOrder
+    integration_date?: SortOrder
+    demobilization_date?: SortOrder
+    mobilization_checklist_url?: SortOrder
+    demobilization_checklist_url?: SortOrder
+    rental_value?: SortOrder
+    billing_cycle?: SortOrder
+    operator_name?: SortOrder
+    current_horometer?: SortOrder
+    current_odometer?: SortOrder
+    delivery_location?: SortOrder
+    freight_value?: SortOrder
+    notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AssetMovementAvgOrderByAggregateInput = {
+    rental_value?: SortOrder
+    current_horometer?: SortOrder
+    current_odometer?: SortOrder
+    freight_value?: SortOrder
+  }
+
+  export type AssetMovementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetId?: SortOrder
+    mobilization_date?: SortOrder
+    integration_date?: SortOrder
+    demobilization_date?: SortOrder
+    mobilization_checklist_url?: SortOrder
+    demobilization_checklist_url?: SortOrder
+    rental_value?: SortOrder
+    billing_cycle?: SortOrder
+    operator_name?: SortOrder
+    current_horometer?: SortOrder
+    current_odometer?: SortOrder
+    delivery_location?: SortOrder
+    freight_value?: SortOrder
+    notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AssetMovementMinOrderByAggregateInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetId?: SortOrder
+    mobilization_date?: SortOrder
+    integration_date?: SortOrder
+    demobilization_date?: SortOrder
+    mobilization_checklist_url?: SortOrder
+    demobilization_checklist_url?: SortOrder
+    rental_value?: SortOrder
+    billing_cycle?: SortOrder
+    operator_name?: SortOrder
+    current_horometer?: SortOrder
+    current_odometer?: SortOrder
+    delivery_location?: SortOrder
+    freight_value?: SortOrder
+    notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AssetMovementSumOrderByAggregateInput = {
+    rental_value?: SortOrder
+    current_horometer?: SortOrder
+    current_odometer?: SortOrder
+    freight_value?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type EnumBillingCycleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
+    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    not?: NestedEnumBillingCycleWithAggregatesFilter<$PrismaModel> | $Enums.BillingCycle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBillingCycleFilter<$PrismaModel>
+    _max?: NestedEnumBillingCycleFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -12148,11 +16014,25 @@ export namespace Prisma {
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
+  export type AssetMovementCreateNestedManyWithoutAssetInput = {
+    create?: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput> | AssetMovementCreateWithoutAssetInput[] | AssetMovementUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutAssetInput | AssetMovementCreateOrConnectWithoutAssetInput[]
+    createMany?: AssetMovementCreateManyAssetInputEnvelope
+    connect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+  }
+
   export type MaintenanceUncheckedCreateNestedManyWithoutAssetInput = {
     create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
     createMany?: MaintenanceCreateManyAssetInputEnvelope
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type AssetMovementUncheckedCreateNestedManyWithoutAssetInput = {
+    create?: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput> | AssetMovementCreateWithoutAssetInput[] | AssetMovementUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutAssetInput | AssetMovementCreateOrConnectWithoutAssetInput[]
+    createMany?: AssetMovementCreateManyAssetInputEnvelope
+    connect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -12189,6 +16069,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
+  export type AssetMovementUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput> | AssetMovementCreateWithoutAssetInput[] | AssetMovementUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutAssetInput | AssetMovementCreateOrConnectWithoutAssetInput[]
+    upsert?: AssetMovementUpsertWithWhereUniqueWithoutAssetInput | AssetMovementUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: AssetMovementCreateManyAssetInputEnvelope
+    set?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    disconnect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    delete?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    connect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    update?: AssetMovementUpdateWithWhereUniqueWithoutAssetInput | AssetMovementUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: AssetMovementUpdateManyWithWhereWithoutAssetInput | AssetMovementUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: AssetMovementScalarWhereInput | AssetMovementScalarWhereInput[]
+  }
+
   export type MaintenanceUncheckedUpdateManyWithoutAssetNestedInput = {
     create?: XOR<MaintenanceCreateWithoutAssetInput, MaintenanceUncheckedCreateWithoutAssetInput> | MaintenanceCreateWithoutAssetInput[] | MaintenanceUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAssetInput | MaintenanceCreateOrConnectWithoutAssetInput[]
@@ -12203,6 +16097,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
+  export type AssetMovementUncheckedUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput> | AssetMovementCreateWithoutAssetInput[] | AssetMovementUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutAssetInput | AssetMovementCreateOrConnectWithoutAssetInput[]
+    upsert?: AssetMovementUpsertWithWhereUniqueWithoutAssetInput | AssetMovementUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: AssetMovementCreateManyAssetInputEnvelope
+    set?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    disconnect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    delete?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    connect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    update?: AssetMovementUpdateWithWhereUniqueWithoutAssetInput | AssetMovementUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: AssetMovementUpdateManyWithWhereWithoutAssetInput | AssetMovementUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: AssetMovementScalarWhereInput | AssetMovementScalarWhereInput[]
+  }
+
   export type SupplierCreateservice_typesInput = {
     set: string[]
   }
@@ -12214,11 +16122,25 @@ export namespace Prisma {
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
+  export type ContractCreateNestedManyWithoutClientInput = {
+    create?: XOR<ContractCreateWithoutClientInput, ContractUncheckedCreateWithoutClientInput> | ContractCreateWithoutClientInput[] | ContractUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutClientInput | ContractCreateOrConnectWithoutClientInput[]
+    createMany?: ContractCreateManyClientInputEnvelope
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+  }
+
   export type MaintenanceUncheckedCreateNestedManyWithoutSupplierInput = {
     create?: XOR<MaintenanceCreateWithoutSupplierInput, MaintenanceUncheckedCreateWithoutSupplierInput> | MaintenanceCreateWithoutSupplierInput[] | MaintenanceUncheckedCreateWithoutSupplierInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutSupplierInput | MaintenanceCreateOrConnectWithoutSupplierInput[]
     createMany?: MaintenanceCreateManySupplierInputEnvelope
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type ContractUncheckedCreateNestedManyWithoutClientInput = {
+    create?: XOR<ContractCreateWithoutClientInput, ContractUncheckedCreateWithoutClientInput> | ContractCreateWithoutClientInput[] | ContractUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutClientInput | ContractCreateOrConnectWithoutClientInput[]
+    createMany?: ContractCreateManyClientInputEnvelope
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
   export type SupplierUpdateservice_typesInput = {
@@ -12240,6 +16162,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
+  export type ContractUpdateManyWithoutClientNestedInput = {
+    create?: XOR<ContractCreateWithoutClientInput, ContractUncheckedCreateWithoutClientInput> | ContractCreateWithoutClientInput[] | ContractUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutClientInput | ContractCreateOrConnectWithoutClientInput[]
+    upsert?: ContractUpsertWithWhereUniqueWithoutClientInput | ContractUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: ContractCreateManyClientInputEnvelope
+    set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    update?: ContractUpdateWithWhereUniqueWithoutClientInput | ContractUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: ContractUpdateManyWithWhereWithoutClientInput | ContractUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
+  }
+
   export type MaintenanceUncheckedUpdateManyWithoutSupplierNestedInput = {
     create?: XOR<MaintenanceCreateWithoutSupplierInput, MaintenanceUncheckedCreateWithoutSupplierInput> | MaintenanceCreateWithoutSupplierInput[] | MaintenanceUncheckedCreateWithoutSupplierInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutSupplierInput | MaintenanceCreateOrConnectWithoutSupplierInput[]
@@ -12252,6 +16188,20 @@ export namespace Prisma {
     update?: MaintenanceUpdateWithWhereUniqueWithoutSupplierInput | MaintenanceUpdateWithWhereUniqueWithoutSupplierInput[]
     updateMany?: MaintenanceUpdateManyWithWhereWithoutSupplierInput | MaintenanceUpdateManyWithWhereWithoutSupplierInput[]
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type ContractUncheckedUpdateManyWithoutClientNestedInput = {
+    create?: XOR<ContractCreateWithoutClientInput, ContractUncheckedCreateWithoutClientInput> | ContractCreateWithoutClientInput[] | ContractUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutClientInput | ContractCreateOrConnectWithoutClientInput[]
+    upsert?: ContractUpsertWithWhereUniqueWithoutClientInput | ContractUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: ContractCreateManyClientInputEnvelope
+    set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    update?: ContractUpdateWithWhereUniqueWithoutClientInput | ContractUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: ContractUpdateManyWithWhereWithoutClientInput | ContractUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
   }
 
   export type MaintenanceCreateNestedManyWithoutServiceCategoryInput = {
@@ -12321,6 +16271,12 @@ export namespace Prisma {
     connect?: MaintenanceDocumentWhereUniqueInput | MaintenanceDocumentWhereUniqueInput[]
   }
 
+  export type ContractCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<ContractCreateWithoutMaintenancesInput, ContractUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutMaintenancesInput
+    connect?: ContractWhereUniqueInput
+  }
+
   export type MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput = {
     create?: XOR<MaintenanceDocumentCreateWithoutMaintenanceInput, MaintenanceDocumentUncheckedCreateWithoutMaintenanceInput> | MaintenanceDocumentCreateWithoutMaintenanceInput[] | MaintenanceDocumentUncheckedCreateWithoutMaintenanceInput[]
     connectOrCreate?: MaintenanceDocumentCreateOrConnectWithoutMaintenanceInput | MaintenanceDocumentCreateOrConnectWithoutMaintenanceInput[]
@@ -12388,6 +16344,16 @@ export namespace Prisma {
     deleteMany?: MaintenanceDocumentScalarWhereInput | MaintenanceDocumentScalarWhereInput[]
   }
 
+  export type ContractUpdateOneWithoutMaintenancesNestedInput = {
+    create?: XOR<ContractCreateWithoutMaintenancesInput, ContractUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutMaintenancesInput
+    upsert?: ContractUpsertWithoutMaintenancesInput
+    disconnect?: ContractWhereInput | boolean
+    delete?: ContractWhereInput | boolean
+    connect?: ContractWhereUniqueInput
+    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutMaintenancesInput, ContractUpdateWithoutMaintenancesInput>, ContractUncheckedUpdateWithoutMaintenancesInput>
+  }
+
   export type MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput = {
     create?: XOR<MaintenanceDocumentCreateWithoutMaintenanceInput, MaintenanceDocumentUncheckedCreateWithoutMaintenanceInput> | MaintenanceDocumentCreateWithoutMaintenanceInput[] | MaintenanceDocumentUncheckedCreateWithoutMaintenanceInput[]
     connectOrCreate?: MaintenanceDocumentCreateOrConnectWithoutMaintenanceInput | MaintenanceDocumentCreateOrConnectWithoutMaintenanceInput[]
@@ -12424,6 +16390,156 @@ export namespace Prisma {
     delete?: MaintenanceWhereInput | boolean
     connect?: MaintenanceWhereUniqueInput
     update?: XOR<XOR<MaintenanceUpdateToOneWithWhereWithoutDocumentsInput, MaintenanceUpdateWithoutDocumentsInput>, MaintenanceUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type SupplierCreateNestedOneWithoutContractsInput = {
+    create?: XOR<SupplierCreateWithoutContractsInput, SupplierUncheckedCreateWithoutContractsInput>
+    connectOrCreate?: SupplierCreateOrConnectWithoutContractsInput
+    connect?: SupplierWhereUniqueInput
+  }
+
+  export type AssetMovementCreateNestedManyWithoutContractInput = {
+    create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
+    createMany?: AssetMovementCreateManyContractInputEnvelope
+    connect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+  }
+
+  export type MaintenanceCreateNestedManyWithoutContractInput = {
+    create?: XOR<MaintenanceCreateWithoutContractInput, MaintenanceUncheckedCreateWithoutContractInput> | MaintenanceCreateWithoutContractInput[] | MaintenanceUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutContractInput | MaintenanceCreateOrConnectWithoutContractInput[]
+    createMany?: MaintenanceCreateManyContractInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type AssetMovementUncheckedCreateNestedManyWithoutContractInput = {
+    create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
+    createMany?: AssetMovementCreateManyContractInputEnvelope
+    connect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutContractInput = {
+    create?: XOR<MaintenanceCreateWithoutContractInput, MaintenanceUncheckedCreateWithoutContractInput> | MaintenanceCreateWithoutContractInput[] | MaintenanceUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutContractInput | MaintenanceCreateOrConnectWithoutContractInput[]
+    createMany?: MaintenanceCreateManyContractInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type EnumContractStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ContractStatus
+  }
+
+  export type SupplierUpdateOneRequiredWithoutContractsNestedInput = {
+    create?: XOR<SupplierCreateWithoutContractsInput, SupplierUncheckedCreateWithoutContractsInput>
+    connectOrCreate?: SupplierCreateOrConnectWithoutContractsInput
+    upsert?: SupplierUpsertWithoutContractsInput
+    connect?: SupplierWhereUniqueInput
+    update?: XOR<XOR<SupplierUpdateToOneWithWhereWithoutContractsInput, SupplierUpdateWithoutContractsInput>, SupplierUncheckedUpdateWithoutContractsInput>
+  }
+
+  export type AssetMovementUpdateManyWithoutContractNestedInput = {
+    create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
+    upsert?: AssetMovementUpsertWithWhereUniqueWithoutContractInput | AssetMovementUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: AssetMovementCreateManyContractInputEnvelope
+    set?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    disconnect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    delete?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    connect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    update?: AssetMovementUpdateWithWhereUniqueWithoutContractInput | AssetMovementUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: AssetMovementUpdateManyWithWhereWithoutContractInput | AssetMovementUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: AssetMovementScalarWhereInput | AssetMovementScalarWhereInput[]
+  }
+
+  export type MaintenanceUpdateManyWithoutContractNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutContractInput, MaintenanceUncheckedCreateWithoutContractInput> | MaintenanceCreateWithoutContractInput[] | MaintenanceUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutContractInput | MaintenanceCreateOrConnectWithoutContractInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutContractInput | MaintenanceUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: MaintenanceCreateManyContractInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutContractInput | MaintenanceUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutContractInput | MaintenanceUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type AssetMovementUncheckedUpdateManyWithoutContractNestedInput = {
+    create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
+    upsert?: AssetMovementUpsertWithWhereUniqueWithoutContractInput | AssetMovementUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: AssetMovementCreateManyContractInputEnvelope
+    set?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    disconnect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    delete?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    connect?: AssetMovementWhereUniqueInput | AssetMovementWhereUniqueInput[]
+    update?: AssetMovementUpdateWithWhereUniqueWithoutContractInput | AssetMovementUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: AssetMovementUpdateManyWithWhereWithoutContractInput | AssetMovementUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: AssetMovementScalarWhereInput | AssetMovementScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutContractNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutContractInput, MaintenanceUncheckedCreateWithoutContractInput> | MaintenanceCreateWithoutContractInput[] | MaintenanceUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutContractInput | MaintenanceCreateOrConnectWithoutContractInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutContractInput | MaintenanceUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: MaintenanceCreateManyContractInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutContractInput | MaintenanceUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutContractInput | MaintenanceUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type ContractCreateNestedOneWithoutMovementsInput = {
+    create?: XOR<ContractCreateWithoutMovementsInput, ContractUncheckedCreateWithoutMovementsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutMovementsInput
+    connect?: ContractWhereUniqueInput
+  }
+
+  export type AssetCreateNestedOneWithoutMovementsInput = {
+    create?: XOR<AssetCreateWithoutMovementsInput, AssetUncheckedCreateWithoutMovementsInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutMovementsInput
+    connect?: AssetWhereUniqueInput
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumBillingCycleFieldUpdateOperationsInput = {
+    set?: $Enums.BillingCycle
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ContractUpdateOneRequiredWithoutMovementsNestedInput = {
+    create?: XOR<ContractCreateWithoutMovementsInput, ContractUncheckedCreateWithoutMovementsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutMovementsInput
+    upsert?: ContractUpsertWithoutMovementsInput
+    connect?: ContractWhereUniqueInput
+    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutMovementsInput, ContractUpdateWithoutMovementsInput>, ContractUncheckedUpdateWithoutMovementsInput>
+  }
+
+  export type AssetUpdateOneRequiredWithoutMovementsNestedInput = {
+    create?: XOR<AssetCreateWithoutMovementsInput, AssetUncheckedCreateWithoutMovementsInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutMovementsInput
+    upsert?: AssetUpsertWithoutMovementsInput
+    connect?: AssetWhereUniqueInput
+    update?: XOR<XOR<AssetUpdateToOneWithWhereWithoutMovementsInput, AssetUpdateWithoutMovementsInput>, AssetUncheckedUpdateWithoutMovementsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12739,6 +16855,83 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumContractStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractStatus | EnumContractStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractStatusFilter<$PrismaModel> | $Enums.ContractStatus
+  }
+
+  export type NestedEnumContractStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractStatus | EnumContractStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContractStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContractStatusFilter<$PrismaModel>
+    _max?: NestedEnumContractStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedEnumBillingCycleFilter<$PrismaModel = never> = {
+    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
+    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    not?: NestedEnumBillingCycleFilter<$PrismaModel> | $Enums.BillingCycle
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBillingCycleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BillingCycle | EnumBillingCycleFieldRefInput<$PrismaModel>
+    in?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BillingCycle[] | ListEnumBillingCycleFieldRefInput<$PrismaModel>
+    not?: NestedEnumBillingCycleWithAggregatesFilter<$PrismaModel> | $Enums.BillingCycle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBillingCycleFilter<$PrismaModel>
+    _max?: NestedEnumBillingCycleFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type AssetCreateWithoutAssetCategoryInput = {
     id?: string
     brand: string
@@ -12753,6 +16946,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
+    Movements?: AssetMovementCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutAssetCategoryInput = {
@@ -12769,6 +16963,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    Movements?: AssetMovementUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutAssetCategoryInput = {
@@ -12858,6 +17053,7 @@ export namespace Prisma {
     supplier: SupplierCreateNestedOneWithoutMaintenanceInput
     serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
     documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    contract?: ContractCreateNestedOneWithoutMaintenancesInput
   }
 
   export type MaintenanceUncheckedCreateWithoutAssetInput = {
@@ -12876,6 +17072,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    contractId?: string | null
     documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -12886,6 +17083,58 @@ export namespace Prisma {
 
   export type MaintenanceCreateManyAssetInputEnvelope = {
     data: MaintenanceCreateManyAssetInput | MaintenanceCreateManyAssetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AssetMovementCreateWithoutAssetInput = {
+    id?: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutMovementsInput
+  }
+
+  export type AssetMovementUncheckedCreateWithoutAssetInput = {
+    id?: string
+    contractId: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetMovementCreateOrConnectWithoutAssetInput = {
+    where: AssetMovementWhereUniqueInput
+    create: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput>
+  }
+
+  export type AssetMovementCreateManyAssetInputEnvelope = {
+    data: AssetMovementCreateManyAssetInput | AssetMovementCreateManyAssetInput[]
     skipDuplicates?: boolean
   }
 
@@ -12956,6 +17205,48 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Maintenance"> | Date | string
     updated_at?: DateTimeFilter<"Maintenance"> | Date | string
     is_Active?: BoolFilter<"Maintenance"> | boolean
+    contractId?: StringNullableFilter<"Maintenance"> | string | null
+  }
+
+  export type AssetMovementUpsertWithWhereUniqueWithoutAssetInput = {
+    where: AssetMovementWhereUniqueInput
+    update: XOR<AssetMovementUpdateWithoutAssetInput, AssetMovementUncheckedUpdateWithoutAssetInput>
+    create: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput>
+  }
+
+  export type AssetMovementUpdateWithWhereUniqueWithoutAssetInput = {
+    where: AssetMovementWhereUniqueInput
+    data: XOR<AssetMovementUpdateWithoutAssetInput, AssetMovementUncheckedUpdateWithoutAssetInput>
+  }
+
+  export type AssetMovementUpdateManyWithWhereWithoutAssetInput = {
+    where: AssetMovementScalarWhereInput
+    data: XOR<AssetMovementUpdateManyMutationInput, AssetMovementUncheckedUpdateManyWithoutAssetInput>
+  }
+
+  export type AssetMovementScalarWhereInput = {
+    AND?: AssetMovementScalarWhereInput | AssetMovementScalarWhereInput[]
+    OR?: AssetMovementScalarWhereInput[]
+    NOT?: AssetMovementScalarWhereInput | AssetMovementScalarWhereInput[]
+    id?: StringFilter<"AssetMovement"> | string
+    contractId?: StringFilter<"AssetMovement"> | string
+    assetId?: StringFilter<"AssetMovement"> | string
+    mobilization_date?: DateTimeFilter<"AssetMovement"> | Date | string
+    integration_date?: DateTimeNullableFilter<"AssetMovement"> | Date | string | null
+    demobilization_date?: DateTimeNullableFilter<"AssetMovement"> | Date | string | null
+    mobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
+    demobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
+    rental_value?: DecimalFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFilter<"AssetMovement"> | $Enums.BillingCycle
+    operator_name?: StringNullableFilter<"AssetMovement"> | string | null
+    current_horometer?: FloatNullableFilter<"AssetMovement"> | number | null
+    current_odometer?: FloatNullableFilter<"AssetMovement"> | number | null
+    delivery_location?: StringNullableFilter<"AssetMovement"> | string | null
+    freight_value?: DecimalNullableFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
+    notes?: StringNullableFilter<"AssetMovement"> | string | null
+    is_active?: BoolFilter<"AssetMovement"> | boolean
+    created_at?: DateTimeFilter<"AssetMovement"> | Date | string
+    updated_at?: DateTimeFilter<"AssetMovement"> | Date | string
   }
 
   export type MaintenanceCreateWithoutSupplierInput = {
@@ -12975,6 +17266,7 @@ export namespace Prisma {
     asset: AssetCreateNestedOneWithoutMaintenanceInput
     serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
     documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    contract?: ContractCreateNestedOneWithoutMaintenancesInput
   }
 
   export type MaintenanceUncheckedCreateWithoutSupplierInput = {
@@ -12993,6 +17285,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    contractId?: string | null
     documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -13003,6 +17296,56 @@ export namespace Prisma {
 
   export type MaintenanceCreateManySupplierInputEnvelope = {
     data: MaintenanceCreateManySupplierInput | MaintenanceCreateManySupplierInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContractCreateWithoutClientInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    movements?: AssetMovementCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUncheckedCreateWithoutClientInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractCreateOrConnectWithoutClientInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutClientInput, ContractUncheckedCreateWithoutClientInput>
+  }
+
+  export type ContractCreateManyClientInputEnvelope = {
+    data: ContractCreateManyClientInput | ContractCreateManyClientInput[]
     skipDuplicates?: boolean
   }
 
@@ -13022,6 +17365,44 @@ export namespace Prisma {
     data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutSupplierInput>
   }
 
+  export type ContractUpsertWithWhereUniqueWithoutClientInput = {
+    where: ContractWhereUniqueInput
+    update: XOR<ContractUpdateWithoutClientInput, ContractUncheckedUpdateWithoutClientInput>
+    create: XOR<ContractCreateWithoutClientInput, ContractUncheckedCreateWithoutClientInput>
+  }
+
+  export type ContractUpdateWithWhereUniqueWithoutClientInput = {
+    where: ContractWhereUniqueInput
+    data: XOR<ContractUpdateWithoutClientInput, ContractUncheckedUpdateWithoutClientInput>
+  }
+
+  export type ContractUpdateManyWithWhereWithoutClientInput = {
+    where: ContractScalarWhereInput
+    data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyWithoutClientInput>
+  }
+
+  export type ContractScalarWhereInput = {
+    AND?: ContractScalarWhereInput | ContractScalarWhereInput[]
+    OR?: ContractScalarWhereInput[]
+    NOT?: ContractScalarWhereInput | ContractScalarWhereInput[]
+    id?: StringFilter<"Contract"> | string
+    contract_number?: StringFilter<"Contract"> | string
+    description?: StringNullableFilter<"Contract"> | string | null
+    clientId?: StringFilter<"Contract"> | string
+    responsible_name?: StringNullableFilter<"Contract"> | string | null
+    responsible_phone?: StringNullableFilter<"Contract"> | string | null
+    responsible_email?: StringNullableFilter<"Contract"> | string | null
+    start_date?: DateTimeFilter<"Contract"> | Date | string
+    end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
+    billing_day?: IntNullableFilter<"Contract"> | number | null
+    notes?: StringNullableFilter<"Contract"> | string | null
+    created_at?: DateTimeFilter<"Contract"> | Date | string
+    updated_at?: DateTimeFilter<"Contract"> | Date | string
+    is_Active?: BoolFilter<"Contract"> | boolean
+  }
+
   export type MaintenanceCreateWithoutServiceCategoryInput = {
     id?: string
     type: $Enums.MaintenanceType
@@ -13039,6 +17420,7 @@ export namespace Prisma {
     asset: AssetCreateNestedOneWithoutMaintenanceInput
     supplier: SupplierCreateNestedOneWithoutMaintenanceInput
     documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    contract?: ContractCreateNestedOneWithoutMaintenancesInput
   }
 
   export type MaintenanceUncheckedCreateWithoutServiceCategoryInput = {
@@ -13057,6 +17439,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    contractId?: string | null
     documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -13100,6 +17483,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     assetCategory: AssetCategoryCreateNestedOneWithoutAssetInput
+    Movements?: AssetMovementCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutMaintenanceInput = {
@@ -13116,6 +17500,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     assetCategoryId: string
+    Movements?: AssetMovementUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutMaintenanceInput = {
@@ -13140,6 +17525,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    Contracts?: ContractCreateNestedManyWithoutClientInput
   }
 
   export type SupplierUncheckedCreateWithoutMaintenanceInput = {
@@ -13159,6 +17545,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    Contracts?: ContractUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type SupplierCreateOrConnectWithoutMaintenanceInput = {
@@ -13221,6 +17608,51 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ContractCreateWithoutMaintenancesInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    client: SupplierCreateNestedOneWithoutContractsInput
+    movements?: AssetMovementCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractCreateOrConnectWithoutMaintenancesInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutMaintenancesInput, ContractUncheckedCreateWithoutMaintenancesInput>
+  }
+
   export type AssetUpsertWithoutMaintenanceInput = {
     update: XOR<AssetUpdateWithoutMaintenanceInput, AssetUncheckedUpdateWithoutMaintenanceInput>
     create: XOR<AssetCreateWithoutMaintenanceInput, AssetUncheckedCreateWithoutMaintenanceInput>
@@ -13246,6 +17678,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     assetCategory?: AssetCategoryUpdateOneRequiredWithoutAssetNestedInput
+    Movements?: AssetMovementUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutMaintenanceInput = {
@@ -13262,6 +17695,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     assetCategoryId?: StringFieldUpdateOperationsInput | string
+    Movements?: AssetMovementUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type SupplierUpsertWithoutMaintenanceInput = {
@@ -13292,6 +17726,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    Contracts?: ContractUpdateManyWithoutClientNestedInput
   }
 
   export type SupplierUncheckedUpdateWithoutMaintenanceInput = {
@@ -13311,6 +17746,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    Contracts?: ContractUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ServiceCategoryUpsertWithoutMaintenanceInput = {
@@ -13373,6 +17809,57 @@ export namespace Prisma {
     maintenanceId?: StringNullableFilter<"MaintenanceDocument"> | string | null
   }
 
+  export type ContractUpsertWithoutMaintenancesInput = {
+    update: XOR<ContractUpdateWithoutMaintenancesInput, ContractUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<ContractCreateWithoutMaintenancesInput, ContractUncheckedCreateWithoutMaintenancesInput>
+    where?: ContractWhereInput
+  }
+
+  export type ContractUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: ContractWhereInput
+    data: XOR<ContractUpdateWithoutMaintenancesInput, ContractUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type ContractUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
+    movements?: AssetMovementUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+  }
+
   export type MaintenanceCreateWithoutDocumentsInput = {
     id?: string
     type: $Enums.MaintenanceType
@@ -13390,6 +17877,7 @@ export namespace Prisma {
     asset: AssetCreateNestedOneWithoutMaintenanceInput
     supplier: SupplierCreateNestedOneWithoutMaintenanceInput
     serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
+    contract?: ContractCreateNestedOneWithoutMaintenancesInput
   }
 
   export type MaintenanceUncheckedCreateWithoutDocumentsInput = {
@@ -13409,6 +17897,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    contractId?: string | null
   }
 
   export type MaintenanceCreateOrConnectWithoutDocumentsInput = {
@@ -13444,6 +17933,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
     supplier?: SupplierUpdateOneRequiredWithoutMaintenanceNestedInput
     serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
+    contract?: ContractUpdateOneWithoutMaintenancesNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutDocumentsInput = {
@@ -13463,6 +17953,417 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SupplierCreateWithoutContractsInput = {
+    id?: string
+    company_name: string
+    trading_name?: string | null
+    cnpj: string
+    email: string
+    phone: string
+    contact: string
+    isClient?: boolean
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    zip_code?: string | null
+    service_types?: SupplierCreateservice_typesInput | string[]
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    Maintenance?: MaintenanceCreateNestedManyWithoutSupplierInput
+  }
+
+  export type SupplierUncheckedCreateWithoutContractsInput = {
+    id?: string
+    company_name: string
+    trading_name?: string | null
+    cnpj: string
+    email: string
+    phone: string
+    contact: string
+    isClient?: boolean
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    zip_code?: string | null
+    service_types?: SupplierCreateservice_typesInput | string[]
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutSupplierInput
+  }
+
+  export type SupplierCreateOrConnectWithoutContractsInput = {
+    where: SupplierWhereUniqueInput
+    create: XOR<SupplierCreateWithoutContractsInput, SupplierUncheckedCreateWithoutContractsInput>
+  }
+
+  export type AssetMovementCreateWithoutContractInput = {
+    id?: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    asset: AssetCreateNestedOneWithoutMovementsInput
+  }
+
+  export type AssetMovementUncheckedCreateWithoutContractInput = {
+    id?: string
+    assetId: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetMovementCreateOrConnectWithoutContractInput = {
+    where: AssetMovementWhereUniqueInput
+    create: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput>
+  }
+
+  export type AssetMovementCreateManyContractInputEnvelope = {
+    data: AssetMovementCreateManyContractInput | AssetMovementCreateManyContractInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceCreateWithoutContractInput = {
+    id?: string
+    type: $Enums.MaintenanceType
+    description: string
+    scheduled_date: Date | string
+    started_date?: Date | string | null
+    completed_date?: Date | string | null
+    estimated_cost?: Decimal | DecimalJsLike | number | string | null
+    actual_cost?: Decimal | DecimalJsLike | number | string | null
+    status?: $Enums.MaintenanceStatus
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    asset: AssetCreateNestedOneWithoutMaintenanceInput
+    supplier: SupplierCreateNestedOneWithoutMaintenanceInput
+    serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
+    documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutContractInput = {
+    id?: string
+    assetId: string
+    supplierId: string
+    serviceCategoryId?: string | null
+    type: $Enums.MaintenanceType
+    description: string
+    scheduled_date: Date | string
+    started_date?: Date | string | null
+    completed_date?: Date | string | null
+    estimated_cost?: Decimal | DecimalJsLike | number | string | null
+    actual_cost?: Decimal | DecimalJsLike | number | string | null
+    status?: $Enums.MaintenanceStatus
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutContractInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutContractInput, MaintenanceUncheckedCreateWithoutContractInput>
+  }
+
+  export type MaintenanceCreateManyContractInputEnvelope = {
+    data: MaintenanceCreateManyContractInput | MaintenanceCreateManyContractInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SupplierUpsertWithoutContractsInput = {
+    update: XOR<SupplierUpdateWithoutContractsInput, SupplierUncheckedUpdateWithoutContractsInput>
+    create: XOR<SupplierCreateWithoutContractsInput, SupplierUncheckedCreateWithoutContractsInput>
+    where?: SupplierWhereInput
+  }
+
+  export type SupplierUpdateToOneWithWhereWithoutContractsInput = {
+    where?: SupplierWhereInput
+    data: XOR<SupplierUpdateWithoutContractsInput, SupplierUncheckedUpdateWithoutContractsInput>
+  }
+
+  export type SupplierUpdateWithoutContractsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+    isClient?: BoolFieldUpdateOperationsInput | boolean
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    service_types?: SupplierUpdateservice_typesInput | string[]
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    Maintenance?: MaintenanceUpdateManyWithoutSupplierNestedInput
+  }
+
+  export type SupplierUncheckedUpdateWithoutContractsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+    isClient?: BoolFieldUpdateOperationsInput | boolean
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    service_types?: SupplierUpdateservice_typesInput | string[]
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    Maintenance?: MaintenanceUncheckedUpdateManyWithoutSupplierNestedInput
+  }
+
+  export type AssetMovementUpsertWithWhereUniqueWithoutContractInput = {
+    where: AssetMovementWhereUniqueInput
+    update: XOR<AssetMovementUpdateWithoutContractInput, AssetMovementUncheckedUpdateWithoutContractInput>
+    create: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput>
+  }
+
+  export type AssetMovementUpdateWithWhereUniqueWithoutContractInput = {
+    where: AssetMovementWhereUniqueInput
+    data: XOR<AssetMovementUpdateWithoutContractInput, AssetMovementUncheckedUpdateWithoutContractInput>
+  }
+
+  export type AssetMovementUpdateManyWithWhereWithoutContractInput = {
+    where: AssetMovementScalarWhereInput
+    data: XOR<AssetMovementUpdateManyMutationInput, AssetMovementUncheckedUpdateManyWithoutContractInput>
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutContractInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutContractInput, MaintenanceUncheckedUpdateWithoutContractInput>
+    create: XOR<MaintenanceCreateWithoutContractInput, MaintenanceUncheckedCreateWithoutContractInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutContractInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutContractInput, MaintenanceUncheckedUpdateWithoutContractInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutContractInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutContractInput>
+  }
+
+  export type ContractCreateWithoutMovementsInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    client: SupplierCreateNestedOneWithoutContractsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUncheckedCreateWithoutMovementsInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractCreateOrConnectWithoutMovementsInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutMovementsInput, ContractUncheckedCreateWithoutMovementsInput>
+  }
+
+  export type AssetCreateWithoutMovementsInput = {
+    id?: string
+    brand: string
+    model: string
+    year?: number | null
+    plate?: string | null
+    serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    assetCategory: AssetCategoryCreateNestedOneWithoutAssetInput
+    Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetUncheckedCreateWithoutMovementsInput = {
+    id?: string
+    brand: string
+    model: string
+    year?: number | null
+    plate?: string | null
+    serial_number?: string | null
+    ownership?: $Enums.AssetOwnership
+    documentsUrl?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    assetCategoryId: string
+    Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetCreateOrConnectWithoutMovementsInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutMovementsInput, AssetUncheckedCreateWithoutMovementsInput>
+  }
+
+  export type ContractUpsertWithoutMovementsInput = {
+    update: XOR<ContractUpdateWithoutMovementsInput, ContractUncheckedUpdateWithoutMovementsInput>
+    create: XOR<ContractCreateWithoutMovementsInput, ContractUncheckedCreateWithoutMovementsInput>
+    where?: ContractWhereInput
+  }
+
+  export type ContractUpdateToOneWithWhereWithoutMovementsInput = {
+    where?: ContractWhereInput
+    data: XOR<ContractUpdateWithoutMovementsInput, ContractUncheckedUpdateWithoutMovementsInput>
+  }
+
+  export type ContractUpdateWithoutMovementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutMovementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+  }
+
+  export type AssetUpsertWithoutMovementsInput = {
+    update: XOR<AssetUpdateWithoutMovementsInput, AssetUncheckedUpdateWithoutMovementsInput>
+    create: XOR<AssetCreateWithoutMovementsInput, AssetUncheckedCreateWithoutMovementsInput>
+    where?: AssetWhereInput
+  }
+
+  export type AssetUpdateToOneWithWhereWithoutMovementsInput = {
+    where?: AssetWhereInput
+    data: XOR<AssetUpdateWithoutMovementsInput, AssetUncheckedUpdateWithoutMovementsInput>
+  }
+
+  export type AssetUpdateWithoutMovementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    plate?: NullableStringFieldUpdateOperationsInput | string | null
+    serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assetCategory?: AssetCategoryUpdateOneRequiredWithoutAssetNestedInput
+    Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutMovementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    plate?: NullableStringFieldUpdateOperationsInput | string | null
+    serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assetCategoryId?: StringFieldUpdateOperationsInput | string
+    Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetCreateManyAssetCategoryInput = {
@@ -13494,6 +18395,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
+    Movements?: AssetMovementUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutAssetCategoryInput = {
@@ -13510,6 +18412,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    Movements?: AssetMovementUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutAssetCategoryInput = {
@@ -13543,6 +18446,28 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    contractId?: string | null
+  }
+
+  export type AssetMovementCreateManyAssetInput = {
+    id?: string
+    contractId: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type MaintenanceUpdateWithoutAssetInput = {
@@ -13562,6 +18487,7 @@ export namespace Prisma {
     supplier?: SupplierUpdateOneRequiredWithoutMaintenanceNestedInput
     serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
     documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    contract?: ContractUpdateOneWithoutMaintenancesNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutAssetInput = {
@@ -13580,6 +18506,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -13599,6 +18526,70 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AssetMovementUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutMovementsNestedInput
+  }
+
+  export type AssetMovementUncheckedUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetMovementUncheckedUpdateManyWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MaintenanceCreateManySupplierInput = {
@@ -13613,6 +18604,25 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    contractId?: string | null
+  }
+
+  export type ContractCreateManyClientInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13636,6 +18646,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
     serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
     documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    contract?: ContractUpdateOneWithoutMaintenancesNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutSupplierInput = {
@@ -13654,6 +18665,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -13669,6 +18681,65 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContractUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    movements?: AssetMovementUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateManyWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13691,6 +18762,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    contractId?: string | null
   }
 
   export type MaintenanceUpdateWithoutServiceCategoryInput = {
@@ -13710,6 +18782,7 @@ export namespace Prisma {
     asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
     supplier?: SupplierUpdateOneRequiredWithoutMaintenanceNestedInput
     documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    contract?: ContractUpdateOneWithoutMaintenancesNestedInput
   }
 
   export type MaintenanceUncheckedUpdateWithoutServiceCategoryInput = {
@@ -13728,6 +18801,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -13747,6 +18821,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceDocumentCreateManyMaintenanceInput = {
@@ -13791,6 +18866,168 @@ export namespace Prisma {
     mime_type?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetMovementCreateManyContractInput = {
+    id?: string
+    assetId: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MaintenanceCreateManyContractInput = {
+    id?: string
+    assetId: string
+    supplierId: string
+    serviceCategoryId?: string | null
+    type: $Enums.MaintenanceType
+    description: string
+    scheduled_date: Date | string
+    started_date?: Date | string | null
+    completed_date?: Date | string | null
+    estimated_cost?: Decimal | DecimalJsLike | number | string | null
+    actual_cost?: Decimal | DecimalJsLike | number | string | null
+    status?: $Enums.MaintenanceStatus
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+  }
+
+  export type AssetMovementUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneRequiredWithoutMovementsNestedInput
+  }
+
+  export type AssetMovementUncheckedUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetMovementUncheckedUpdateManyWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    description?: StringFieldUpdateOperationsInput | string
+    scheduled_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    started_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
+    supplier?: SupplierUpdateOneRequiredWithoutMaintenanceNestedInput
+    serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
+    documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    supplierId?: StringFieldUpdateOperationsInput | string
+    serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    description?: StringFieldUpdateOperationsInput | string
+    scheduled_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    started_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    supplierId?: StringFieldUpdateOperationsInput | string
+    serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    description?: StringFieldUpdateOperationsInput | string
+    scheduled_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    started_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

@@ -203,7 +203,8 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   notes: 'notes',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  is_Active: 'is_Active'
+  is_Active: 'is_Active',
+  contractId: 'contractId'
 };
 
 exports.Prisma.MaintenanceDocumentScalarFieldEnum = {
@@ -216,6 +217,47 @@ exports.Prisma.MaintenanceDocumentScalarFieldEnum = {
   description: 'description',
   created_at: 'created_at',
   maintenanceId: 'maintenanceId'
+};
+
+exports.Prisma.ContractScalarFieldEnum = {
+  id: 'id',
+  contract_number: 'contract_number',
+  description: 'description',
+  clientId: 'clientId',
+  responsible_name: 'responsible_name',
+  responsible_phone: 'responsible_phone',
+  responsible_email: 'responsible_email',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  status: 'status',
+  total_value: 'total_value',
+  billing_day: 'billing_day',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  is_Active: 'is_Active'
+};
+
+exports.Prisma.AssetMovementScalarFieldEnum = {
+  id: 'id',
+  contractId: 'contractId',
+  assetId: 'assetId',
+  mobilization_date: 'mobilization_date',
+  integration_date: 'integration_date',
+  demobilization_date: 'demobilization_date',
+  mobilization_checklist_url: 'mobilization_checklist_url',
+  demobilization_checklist_url: 'demobilization_checklist_url',
+  rental_value: 'rental_value',
+  billing_cycle: 'billing_cycle',
+  operator_name: 'operator_name',
+  current_horometer: 'current_horometer',
+  current_odometer: 'current_odometer',
+  delivery_location: 'delivery_location',
+  freight_value: 'freight_value',
+  notes: 'notes',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -260,6 +302,19 @@ exports.MaintenanceStatus = exports.$Enums.MaintenanceStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.ContractStatus = exports.$Enums.ContractStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  FINISHED: 'FINISHED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.BillingCycle = exports.$Enums.BillingCycle = {
+  DAILY: 'DAILY',
+  MONTHLY: 'MONTHLY',
+  WEEKLY: 'WEEKLY'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   AssetCategory: 'AssetCategory',
@@ -267,7 +322,9 @@ exports.Prisma.ModelName = {
   Supplier: 'Supplier',
   ServiceCategory: 'ServiceCategory',
   Maintenance: 'Maintenance',
-  MaintenanceDocument: 'MaintenanceDocument'
+  MaintenanceDocument: 'MaintenanceDocument',
+  Contract: 'Contract',
+  AssetMovement: 'AssetMovement'
 };
 
 /**
