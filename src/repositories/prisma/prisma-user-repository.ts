@@ -58,24 +58,27 @@ export class PrismaUserRepository implements IUserRepository {
     }
   }
 
-  async findByRole(role: Prisma.Role, page: number): Promise<PaginatedResult<User>> {
+  async findByRole(
+    role: Prisma.Role,
+    page: number,
+  ): Promise<PaginatedResult<User>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
     const [users, totalCount] = await prisma.$transaction([
       prisma.user.findMany({
-        where: { 
+        where: {
           is_Active: true,
-          role 
+          role,
         },
         skip,
         take: PAGE_SIZE,
         orderBy: { created_at: 'desc' },
       }),
       prisma.user.count({
-        where: { 
+        where: {
           is_Active: true,
-          role 
+          role,
         },
       }),
     ])
@@ -91,7 +94,10 @@ export class PrismaUserRepository implements IUserRepository {
     }
   }
 
-  async searchByName(name: string, page: number): Promise<PaginatedResult<User>> {
+  async searchByName(
+    name: string,
+    page: number,
+  ): Promise<PaginatedResult<User>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -99,9 +105,9 @@ export class PrismaUserRepository implements IUserRepository {
       prisma.user.findMany({
         where: {
           is_Active: true,
-          name: { 
-            contains: name, 
-            mode: 'insensitive' 
+          name: {
+            contains: name,
+            mode: 'insensitive',
           },
         },
         skip,
@@ -111,9 +117,9 @@ export class PrismaUserRepository implements IUserRepository {
       prisma.user.count({
         where: {
           is_Active: true,
-          name: { 
-            contains: name, 
-            mode: 'insensitive' 
+          name: {
+            contains: name,
+            mode: 'insensitive',
           },
         },
       }),

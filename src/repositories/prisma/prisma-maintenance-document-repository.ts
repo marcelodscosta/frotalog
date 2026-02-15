@@ -3,18 +3,27 @@ import { prisma } from '../../lib/prisma'
 import { IMaintenanceDocumentRepository } from '../interfaces/IMaintenanceDocumentRepository'
 import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
-export class PrismaMaintenanceDocumentRepository implements IMaintenanceDocumentRepository {
-  async create(data: Prisma.MaintenanceDocumentCreateInput): Promise<MaintenanceDocument> {
-    const document = await prisma.maintenanceDocument.create({ 
+export class PrismaMaintenanceDocumentRepository
+  implements IMaintenanceDocumentRepository
+{
+  async create(
+    data: Prisma.MaintenanceDocumentCreateInput,
+  ): Promise<MaintenanceDocument> {
+    const document = await prisma.maintenanceDocument.create({
       data: {
         ...data,
-        Maintenance: data.Maintenance ? { connect: { id: data.Maintenance.connect?.id } } : undefined,
-      }
+        Maintenance: data.Maintenance
+          ? { connect: { id: data.Maintenance.connect?.id } }
+          : undefined,
+      },
     })
     return document
   }
 
-  async updateDocument(id: string, data: Prisma.MaintenanceDocumentUpdateInput): Promise<MaintenanceDocument> {
+  async updateDocument(
+    id: string,
+    data: Prisma.MaintenanceDocumentUpdateInput,
+  ): Promise<MaintenanceDocument> {
     const updateDocument = await prisma.maintenanceDocument.update({
       where: { id },
       data,
@@ -32,14 +41,17 @@ export class PrismaMaintenanceDocumentRepository implements IMaintenanceDocument
     return document
   }
 
-  async findByMaintenanceId(maintenanceId: string, page: number): Promise<PaginatedResult<MaintenanceDocument>> {
+  async findByMaintenanceId(
+    maintenanceId: string,
+    page: number,
+  ): Promise<PaginatedResult<MaintenanceDocument>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
     const [documents, totalCount] = await prisma.$transaction([
       prisma.maintenanceDocument.findMany({
-        where: { 
-          maintenanceId 
+        where: {
+          maintenanceId,
         },
         skip,
         take: PAGE_SIZE,
@@ -49,8 +61,8 @@ export class PrismaMaintenanceDocumentRepository implements IMaintenanceDocument
         },
       }),
       prisma.maintenanceDocument.count({
-        where: { 
-          maintenanceId 
+        where: {
+          maintenanceId,
         },
       }),
     ])
@@ -103,14 +115,17 @@ export class PrismaMaintenanceDocumentRepository implements IMaintenanceDocument
     }
   }
 
-  async findByMimeType(mimeType: string, page: number): Promise<PaginatedResult<MaintenanceDocument>> {
+  async findByMimeType(
+    mimeType: string,
+    page: number,
+  ): Promise<PaginatedResult<MaintenanceDocument>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
     const [documents, totalCount] = await prisma.$transaction([
       prisma.maintenanceDocument.findMany({
-        where: { 
-          mime_type: mimeType
+        where: {
+          mime_type: mimeType,
         },
         skip,
         take: PAGE_SIZE,
@@ -120,8 +135,8 @@ export class PrismaMaintenanceDocumentRepository implements IMaintenanceDocument
         },
       }),
       prisma.maintenanceDocument.count({
-        where: { 
-          mime_type: mimeType
+        where: {
+          mime_type: mimeType,
         },
       }),
     ])
@@ -150,7 +165,7 @@ export class PrismaMaintenanceDocumentRepository implements IMaintenanceDocument
     const document = await prisma.maintenanceDocument.findUnique({
       where: { id },
     })
-    
+
     if (!document) {
       throw new Error('Document not found')
     }
