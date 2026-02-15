@@ -10,7 +10,7 @@ export async function getAssetMovementController(
     id: z.string(),
   })
 
-  const { id } = getParamsSchema.parse(request.query)
+  const { id } = getParamsSchema.parse(request.params)
 
   const getAssetMovementUseCase = makeGetAssetMovement()
 

@@ -1,0 +1,49 @@
+import { FastifyReply, FastifyRequest } from 'fastify'
+import { z } from 'zod'
+import { makeSearchAssetMovements } from '../../../services/factories/make-search-asset-movements'
+
+export async function searchAssetMovements(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
+  const searchQuerySchema = z.object({
+    page: z.coerce.number().min(1).default(1),
+    assetId: z.string().optional(),
+    contractId: z.string().optional(),
+    billingCycle: z.enum(['DAILY', 'WEEKLY', 'MONTHLY']).optional(),
+    isActive: z
+      .string()
+      .optional()
+      .transform((val) => {
+        if (val === 'true') return true
+        if (val === 'false') return false
+        return undefined
+      }),
+    mobilizationDateFrom: z.coerce.date().optional(),
+    mobilizationDateTo: z.coerce.date().optional(),
+  })
+
+  const {
+    page,
+    assetId,
+    contractId,
+    billingCycle,
+    isActive,
+    mobilizationDateFrom,
+    mobilizationDateTo,
+  } = searchQuerySchema.parse(request.query)
+
+  const searchAssetMovementsUseCase = makeSearchAssetMovements()
+
+  const { assetMovements } = await searchAssetMovementsUseCase.execute({
+    page,
+    assetId,
+    contractId,
+    billingCycle,
+    isActive,
+    mobilizationDateFrom,
+    mobilizationDateTo,
+  })
+
+  return reply.status(200).send(assetMovements)
+}
