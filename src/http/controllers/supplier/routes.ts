@@ -8,6 +8,7 @@ import { findSupplierByServiceType } from './find-supplier-by-service-type-contr
 import { requireAuth } from '../../middleware/auth'
 import { updateSupplierActive } from './update-supplier-active-status-controller'
 import { findAllSupplierUnpaginated } from './find-all-supplier-unpaginated-controller'
+import { findAllClientsUnpaginated } from './find-all-clients-unpaginated-controller'
 
 export async function supplierRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de fornecedores
@@ -20,6 +21,7 @@ export async function supplierRoutes(app: FastifyInstance) {
   app.get('/supplier/search/companyName', findSupplierByCompanyName)
   app.get('/supplier/search/findAll', findAllSupplier)
   app.get('/supplier/search/findAll/unpaginated', findAllSupplierUnpaginated)
+  app.get('/supplier/search/findAll/clients', findAllClientsUnpaginated)
 
   // Rota adicionada para buscar por tipo de serviço
   app.get('/supplier/search/serviceType', findSupplierByServiceType)

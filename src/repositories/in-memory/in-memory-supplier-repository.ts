@@ -120,4 +120,25 @@ export class InMemorySupplierRepository implements ISupplierRepository {
       totalPages,
     }
   }
+
+  async findByCNPJ(cnpj: string): Promise<boolean> {
+    return this.items.some((item) => item.cnpj === cnpj)
+  }
+
+  async findAllUnpaginated(): Promise<Supplier[]> {
+    return this.items
+  }
+
+  async findAllClientsUnpaginated(): Promise<Supplier[]> {
+    return this.items.filter((item) => (item as any).isClient === true)
+  }
+
+  async updateSupplierIsActive(id: string, is_Active: boolean): Promise<Supplier> {
+    const index = this.items.findIndex((item) => item.id === id)
+    if (index === -1) {
+      throw new SupplierNotFoundError()
+    }
+    this.items[index] = { ...this.items[index], is_Active, updated_at: new Date() }
+    return this.items[index]
+  }
 }

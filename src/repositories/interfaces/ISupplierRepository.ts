@@ -26,4 +26,5 @@ export interface ISupplierRepository {
   findByCNPJ(cnpj: string): Promise<boolean>
 
   findAllUnpaginated(): Promise<Supplier[]>
+  findAllClientsUnpaginated(): Promise<Supplier[]>
 }

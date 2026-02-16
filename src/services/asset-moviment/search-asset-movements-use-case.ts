@@ -7,6 +7,7 @@ interface SearchAssetMovementsUseCaseRequest {
   contractId?: string
   billingCycle?: BillingCycle
   isActive?: boolean
+  type?: 'DEPLOYMENT' | 'RETURN' | 'MAINTENANCE' | 'TRANSFER'
   mobilizationDateFrom?: Date
   mobilizationDateTo?: Date
   page: number

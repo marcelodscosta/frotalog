@@ -190,6 +190,25 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
         skip,
         take: this.PAGE_SIZE,
         orderBy: { created_at: 'desc' },
+        include: {
+          asset: {
+            include: {
+              Maintenance: {
+                where: {
+                  contractId: filters.contractId,
+                },
+                include: {
+                  serviceCategory: true,
+                  supplier: true,
+                },
+                orderBy: {
+                  scheduled_date: 'desc'
+                }
+              }
+            }
+          },
+          contract: true,
+        },
       }),
       prisma.assetMovement.count({
         where,

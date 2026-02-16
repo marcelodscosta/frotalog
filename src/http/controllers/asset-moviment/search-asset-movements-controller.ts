@@ -11,6 +11,7 @@ export async function searchAssetMovements(
     assetId: z.string().optional(),
     contractId: z.string().optional(),
     billingCycle: z.enum(['DAILY', 'WEEKLY', 'MONTHLY']).optional(),
+    type: z.enum(['DEPLOYMENT', 'RETURN', 'MAINTENANCE', 'TRANSFER']).optional(),
     isActive: z
       .string()
       .optional()
@@ -28,6 +29,7 @@ export async function searchAssetMovements(
     assetId,
     contractId,
     billingCycle,
+    type,
     isActive,
     mobilizationDateFrom,
     mobilizationDateTo,
@@ -40,6 +42,7 @@ export async function searchAssetMovements(
     assetId,
     contractId,
     billingCycle,
+    type,
     isActive,
     mobilizationDateFrom,
     mobilizationDateTo,
