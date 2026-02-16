@@ -156,6 +156,34 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
     return assetMovement
   }
 
+  async findActiveByAssetAndContract(
+    assetId: string,
+    contractId: string,
+  ): Promise<AssetMovement | null> {
+    const assetMovement = await prisma.assetMovement.findFirst({
+      where: {
+        assetId,
+        contractId,
+        is_active: true,
+        demobilization_date: null,
+      },
+    })
+    return assetMovement
+  }
+
+  async findActiveNotDemobilizedByAssetId(
+    assetId: string,
+  ): Promise<AssetMovement | null> {
+    const assetMovement = await prisma.assetMovement.findFirst({
+      where: {
+        assetId,
+        is_active: true,
+        demobilization_date: null,
+      },
+    })
+    return assetMovement
+  }
+
   // Busca avançada
   async search(params: {
     assetId?: string

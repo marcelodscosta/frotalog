@@ -4,6 +4,8 @@ import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { AssetNotFoundError } from '../errors/asset-not-found-error'
 import { ContractNotFoundError } from '../errors/contract-not-fount-error'
+import { AssetAlreadyInContractError } from '../errors/asset-already-in-contract-error'
+import { AssetActiveInAnotherContractError } from '../errors/asset-active-in-another-contract-error'
 
 interface CreateAssetMovementRequest {
   contractId: string
@@ -42,6 +44,25 @@ export class CreateAssetMovementUseCase {
 
     const contract = await this.contractRepository.findById(data.contractId)
     if (!contract) throw new ContractNotFoundError()
+
+    // Verifica se o ativo já está ativo (sem desmobilização) no mesmo contrato
+    const existingInSameContract =
+      await this.assetMovementRepository.findActiveByAssetAndContract(
+        data.assetId,
+        data.contractId,
+      )
+    if (existingInSameContract) {
+      throw new AssetAlreadyInContractError()
+    }
+
+    // Verifica se o ativo está ativo (sem desmobilização) em qualquer outro contrato
+    const activeInAnotherContract =
+      await this.assetMovementRepository.findActiveNotDemobilizedByAssetId(
+        data.assetId,
+      )
+    if (activeInAnotherContract && activeInAnotherContract.contractId !== data.contractId) {
+      throw new AssetActiveInAnotherContractError()
+    }
 
     const assetMovement = await this.assetMovementRepository.create({
       ...data,

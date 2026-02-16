@@ -37,6 +37,13 @@ export interface IAssetMovementRepository {
     assetId: string,
     contractId: string,
   ): Promise<AssetMovement | null>
+  findActiveByAssetAndContract(
+    assetId: string,
+    contractId: string,
+  ): Promise<AssetMovement | null>
+  findActiveNotDemobilizedByAssetId(
+    assetId: string,
+  ): Promise<AssetMovement | null>
 
   // Busca avançada
   search(params: {
