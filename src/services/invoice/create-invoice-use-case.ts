@@ -10,6 +10,7 @@ interface CreateInvoiceRequest {
   invoice_number?: string
   issue_date: Date
   due_date: Date
+  total_value?: number
   notes?: string | null
 }
 
@@ -44,6 +45,9 @@ export class CreateInvoiceUseCase {
     const invoiceNumber =
       data.invoice_number || (await this.generateNextInvoiceNumber())
 
+    // Use provided total_value or fallback to bulletin's value
+    const invoiceValue = data.total_value ?? bulletin.total_value
+
     const result = await prisma.$transaction(async (tx) => {
       let invoice: Invoice
 
@@ -57,7 +61,7 @@ export class CreateInvoiceUseCase {
             invoice_number: invoiceNumber,
             issue_date: data.issue_date,
             due_date: data.due_date,
-            total_value: bulletin.total_value, // Update value in case bulletin changed
+            total_value: invoiceValue,
             notes: data.notes,
             payment_date: null,
             is_paid: false,
@@ -71,7 +75,7 @@ export class CreateInvoiceUseCase {
             invoice_number: invoiceNumber,
             issue_date: data.issue_date,
             due_date: data.due_date,
-            total_value: bulletin.total_value,
+            total_value: invoiceValue,
             notes: data.notes,
           },
         })

@@ -11,6 +11,7 @@ export async function createInvoice(
     invoice_number: z.string().optional(),
     issue_date: z.coerce.date(),
     due_date: z.coerce.date(),
+    total_value: z.number().optional(),
     notes: z.string().optional().nullable(),
   })
 
