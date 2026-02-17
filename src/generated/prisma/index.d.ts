@@ -15760,11 +15760,13 @@ export namespace Prisma {
   }
 
   export type BulletinExpenseAvgAggregateOutputType = {
+    quantity: Decimal | null
     unit_value: Decimal | null
     total_value: Decimal | null
   }
 
   export type BulletinExpenseSumAggregateOutputType = {
+    quantity: Decimal | null
     unit_value: Decimal | null
     total_value: Decimal | null
   }
@@ -15773,6 +15775,7 @@ export namespace Prisma {
     id: string | null
     measurementBulletinId: string | null
     description: string | null
+    quantity: Decimal | null
     unit_value: Decimal | null
     total_value: Decimal | null
     created_at: Date | null
@@ -15783,6 +15786,7 @@ export namespace Prisma {
     id: string | null
     measurementBulletinId: string | null
     description: string | null
+    quantity: Decimal | null
     unit_value: Decimal | null
     total_value: Decimal | null
     created_at: Date | null
@@ -15793,6 +15797,7 @@ export namespace Prisma {
     id: number
     measurementBulletinId: number
     description: number
+    quantity: number
     unit_value: number
     total_value: number
     created_at: number
@@ -15802,11 +15807,13 @@ export namespace Prisma {
 
 
   export type BulletinExpenseAvgAggregateInputType = {
+    quantity?: true
     unit_value?: true
     total_value?: true
   }
 
   export type BulletinExpenseSumAggregateInputType = {
+    quantity?: true
     unit_value?: true
     total_value?: true
   }
@@ -15815,6 +15822,7 @@ export namespace Prisma {
     id?: true
     measurementBulletinId?: true
     description?: true
+    quantity?: true
     unit_value?: true
     total_value?: true
     created_at?: true
@@ -15825,6 +15833,7 @@ export namespace Prisma {
     id?: true
     measurementBulletinId?: true
     description?: true
+    quantity?: true
     unit_value?: true
     total_value?: true
     created_at?: true
@@ -15835,6 +15844,7 @@ export namespace Prisma {
     id?: true
     measurementBulletinId?: true
     description?: true
+    quantity?: true
     unit_value?: true
     total_value?: true
     created_at?: true
@@ -15932,6 +15942,7 @@ export namespace Prisma {
     id: string
     measurementBulletinId: string
     description: string
+    quantity: Decimal
     unit_value: Decimal
     total_value: Decimal
     created_at: Date
@@ -15961,6 +15972,7 @@ export namespace Prisma {
     id?: boolean
     measurementBulletinId?: boolean
     description?: boolean
+    quantity?: boolean
     unit_value?: boolean
     total_value?: boolean
     created_at?: boolean
@@ -15972,6 +15984,7 @@ export namespace Prisma {
     id?: boolean
     measurementBulletinId?: boolean
     description?: boolean
+    quantity?: boolean
     unit_value?: boolean
     total_value?: boolean
     created_at?: boolean
@@ -15983,6 +15996,7 @@ export namespace Prisma {
     id?: boolean
     measurementBulletinId?: boolean
     description?: boolean
+    quantity?: boolean
     unit_value?: boolean
     total_value?: boolean
     created_at?: boolean
@@ -15994,13 +16008,14 @@ export namespace Prisma {
     id?: boolean
     measurementBulletinId?: boolean
     description?: boolean
+    quantity?: boolean
     unit_value?: boolean
     total_value?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type BulletinExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "measurementBulletinId" | "description" | "unit_value" | "total_value" | "created_at" | "updated_at", ExtArgs["result"]["bulletinExpense"]>
+  export type BulletinExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "measurementBulletinId" | "description" | "quantity" | "unit_value" | "total_value" | "created_at" | "updated_at", ExtArgs["result"]["bulletinExpense"]>
   export type BulletinExpenseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
   }
@@ -16020,6 +16035,7 @@ export namespace Prisma {
       id: string
       measurementBulletinId: string
       description: string
+      quantity: Prisma.Decimal
       unit_value: Prisma.Decimal
       total_value: Prisma.Decimal
       created_at: Date
@@ -16451,6 +16467,7 @@ export namespace Prisma {
     readonly id: FieldRef<"BulletinExpense", 'String'>
     readonly measurementBulletinId: FieldRef<"BulletinExpense", 'String'>
     readonly description: FieldRef<"BulletinExpense", 'String'>
+    readonly quantity: FieldRef<"BulletinExpense", 'Decimal'>
     readonly unit_value: FieldRef<"BulletinExpense", 'Decimal'>
     readonly total_value: FieldRef<"BulletinExpense", 'Decimal'>
     readonly created_at: FieldRef<"BulletinExpense", 'DateTime'>
@@ -18241,6 +18258,7 @@ export namespace Prisma {
     id: 'id',
     measurementBulletinId: 'measurementBulletinId',
     description: 'description',
+    quantity: 'quantity',
     unit_value: 'unit_value',
     total_value: 'total_value',
     created_at: 'created_at',
@@ -19608,6 +19626,7 @@ export namespace Prisma {
     id?: StringFilter<"BulletinExpense"> | string
     measurementBulletinId?: StringFilter<"BulletinExpense"> | string
     description?: StringFilter<"BulletinExpense"> | string
+    quantity?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"BulletinExpense"> | Date | string
@@ -19619,6 +19638,7 @@ export namespace Prisma {
     id?: SortOrder
     measurementBulletinId?: SortOrder
     description?: SortOrder
+    quantity?: SortOrder
     unit_value?: SortOrder
     total_value?: SortOrder
     created_at?: SortOrder
@@ -19633,6 +19653,7 @@ export namespace Prisma {
     NOT?: BulletinExpenseWhereInput | BulletinExpenseWhereInput[]
     measurementBulletinId?: StringFilter<"BulletinExpense"> | string
     description?: StringFilter<"BulletinExpense"> | string
+    quantity?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"BulletinExpense"> | Date | string
@@ -19644,6 +19665,7 @@ export namespace Prisma {
     id?: SortOrder
     measurementBulletinId?: SortOrder
     description?: SortOrder
+    quantity?: SortOrder
     unit_value?: SortOrder
     total_value?: SortOrder
     created_at?: SortOrder
@@ -19662,6 +19684,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"BulletinExpense"> | string
     measurementBulletinId?: StringWithAggregatesFilter<"BulletinExpense"> | string
     description?: StringWithAggregatesFilter<"BulletinExpense"> | string
+    quantity?: DecimalWithAggregatesFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalWithAggregatesFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalWithAggregatesFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeWithAggregatesFilter<"BulletinExpense"> | Date | string
@@ -21035,6 +21058,7 @@ export namespace Prisma {
   export type BulletinExpenseCreateInput = {
     id?: string
     description: string
+    quantity?: Decimal | DecimalJsLike | number | string
     unit_value: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
@@ -21046,6 +21070,7 @@ export namespace Prisma {
     id?: string
     measurementBulletinId: string
     description: string
+    quantity?: Decimal | DecimalJsLike | number | string
     unit_value: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
@@ -21055,6 +21080,7 @@ export namespace Prisma {
   export type BulletinExpenseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21066,6 +21092,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     measurementBulletinId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21076,6 +21103,7 @@ export namespace Prisma {
     id?: string
     measurementBulletinId: string
     description: string
+    quantity?: Decimal | DecimalJsLike | number | string
     unit_value: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
@@ -21085,6 +21113,7 @@ export namespace Prisma {
   export type BulletinExpenseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21095,6 +21124,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     measurementBulletinId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22371,6 +22401,7 @@ export namespace Prisma {
     id?: SortOrder
     measurementBulletinId?: SortOrder
     description?: SortOrder
+    quantity?: SortOrder
     unit_value?: SortOrder
     total_value?: SortOrder
     created_at?: SortOrder
@@ -22378,6 +22409,7 @@ export namespace Prisma {
   }
 
   export type BulletinExpenseAvgOrderByAggregateInput = {
+    quantity?: SortOrder
     unit_value?: SortOrder
     total_value?: SortOrder
   }
@@ -22386,6 +22418,7 @@ export namespace Prisma {
     id?: SortOrder
     measurementBulletinId?: SortOrder
     description?: SortOrder
+    quantity?: SortOrder
     unit_value?: SortOrder
     total_value?: SortOrder
     created_at?: SortOrder
@@ -22396,6 +22429,7 @@ export namespace Prisma {
     id?: SortOrder
     measurementBulletinId?: SortOrder
     description?: SortOrder
+    quantity?: SortOrder
     unit_value?: SortOrder
     total_value?: SortOrder
     created_at?: SortOrder
@@ -22403,6 +22437,7 @@ export namespace Prisma {
   }
 
   export type BulletinExpenseSumOrderByAggregateInput = {
+    quantity?: SortOrder
     unit_value?: SortOrder
     total_value?: SortOrder
   }
@@ -25463,6 +25498,7 @@ export namespace Prisma {
   export type BulletinExpenseCreateWithoutMeasurementBulletinInput = {
     id?: string
     description: string
+    quantity?: Decimal | DecimalJsLike | number | string
     unit_value: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
@@ -25472,6 +25508,7 @@ export namespace Prisma {
   export type BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput = {
     id?: string
     description: string
+    quantity?: Decimal | DecimalJsLike | number | string
     unit_value: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
@@ -25660,6 +25697,7 @@ export namespace Prisma {
     id?: StringFilter<"BulletinExpense"> | string
     measurementBulletinId?: StringFilter<"BulletinExpense"> | string
     description?: StringFilter<"BulletinExpense"> | string
+    quantity?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"BulletinExpense"> | Date | string
@@ -26683,6 +26721,7 @@ export namespace Prisma {
   export type BulletinExpenseCreateManyMeasurementBulletinInput = {
     id?: string
     description: string
+    quantity?: Decimal | DecimalJsLike | number | string
     unit_value: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
@@ -26692,6 +26731,7 @@ export namespace Prisma {
   export type BulletinExpenseUpdateWithoutMeasurementBulletinInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26701,6 +26741,7 @@ export namespace Prisma {
   export type BulletinExpenseUncheckedUpdateWithoutMeasurementBulletinInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26710,6 +26751,7 @@ export namespace Prisma {
   export type BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

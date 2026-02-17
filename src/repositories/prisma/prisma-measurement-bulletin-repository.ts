@@ -66,12 +66,28 @@ export class PrismaMeasurementBulletinRepository
     }
   }
 
-  async findByContractId(
-    contractId: string,
-    page: number,
-  ): Promise<PaginatedResult<MeasurementBulletin>> {
+  async findMany({
+    page,
+    status,
+    contractId,
+    assetId,
+  }: {
+    page: number
+    status?: MeasurementBulletinStatus
+    contractId?: string
+    assetId?: string
+  }): Promise<PaginatedResult<MeasurementBulletin>> {
     const skip = (page - 1) * this.PAGE_SIZE
-    const where = { contractId, is_active: true }
+    const where: Prisma.MeasurementBulletinWhereInput = {
+      is_active: true,
+      ...(status && { status }),
+      ...(contractId && { contractId }),
+      ...(assetId && {
+        assetMovement: {
+          assetId,
+        },
+      }),
+    }
 
     const [items, totalItems] = await prisma.$transaction([
       prisma.measurementBulletin.findMany({
@@ -83,6 +99,7 @@ export class PrismaMeasurementBulletinRepository
           contract: { include: { client: true } },
           assetMovement: { include: { asset: true } },
           invoice: true,
+          expenses: { orderBy: { created_at: 'asc' } },
         },
       }),
       prisma.measurementBulletin.count({ where }),
@@ -95,6 +112,14 @@ export class PrismaMeasurementBulletinRepository
       totalItems,
       totalPages: Math.ceil(totalItems / this.PAGE_SIZE),
     }
+  }
+
+  async findByContractId(
+    contractId: string,
+    page: number,
+  ): Promise<PaginatedResult<MeasurementBulletin>> {
+    // Deprecated in favor of findMany
+    return this.findMany({ page, contractId })
   }
 
   async update(

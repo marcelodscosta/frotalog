@@ -11,6 +11,13 @@ export interface IMeasurementBulletinRepository {
   ): Promise<MeasurementBulletin>
   findById(id: string): Promise<MeasurementBulletin | null>
   findAll(page: number): Promise<PaginatedResult<MeasurementBulletin>>
+  findAll(page: number): Promise<PaginatedResult<MeasurementBulletin>>
+  findMany(options: {
+    page: number
+    status?: MeasurementBulletinStatus
+    contractId?: string
+    assetId?: string
+  }): Promise<PaginatedResult<MeasurementBulletin>>
   findByContractId(
     contractId: string,
     page: number,

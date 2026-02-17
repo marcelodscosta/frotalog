@@ -5,6 +5,12 @@ export interface IInvoiceRepository {
   create(data: Prisma.InvoiceUncheckedCreateInput): Promise<Invoice>
   findById(id: string): Promise<Invoice | null>
   findAll(page: number): Promise<PaginatedResult<Invoice>>
+  findMany(options: {
+    page: number
+    status?: InvoiceStatus
+    contractId?: string
+    assetId?: string
+  }): Promise<PaginatedResult<Invoice>>
   findByStatus(
     status: InvoiceStatus,
     page: number,

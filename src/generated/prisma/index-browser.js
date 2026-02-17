@@ -299,6 +299,7 @@ exports.Prisma.BulletinExpenseScalarFieldEnum = {
   id: 'id',
   measurementBulletinId: 'measurementBulletinId',
   description: 'description',
+  quantity: 'quantity',
   unit_value: 'unit_value',
   total_value: 'total_value',
   created_at: 'created_at',

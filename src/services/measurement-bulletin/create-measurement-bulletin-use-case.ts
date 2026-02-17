@@ -4,6 +4,7 @@ import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMo
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { ContractNotFoundError } from '../errors/contract-not-fount-error'
 import { AssetMovimentNotFoundError } from '../errors/asset-moviment-not-found-error'
+import { AppError } from '../errors/app-error'
 import { prisma } from '../../lib/prisma'
 
 interface CreateMeasurementBulletinRequest {
@@ -38,6 +39,25 @@ export class CreateMeasurementBulletinUseCase {
 
     const startDate = new Date(data.reference_start)
     let endDate = new Date(data.reference_end)
+
+    // Check for overlapping bulletins
+    const overlappingBulletin = await prisma.measurementBulletin.findFirst({
+      where: {
+        assetMovementId: data.assetMovementId,
+        is_active: true,
+        AND: [
+          { reference_start: { lte: endDate } },
+          { reference_end: { gte: startDate } },
+        ],
+      },
+    })
+
+    if (overlappingBulletin) {
+      throw new AppError(
+        'Já existe um boletim de medição para este período.',
+        409,
+      )
+    }
     const today = new Date()
     today.setHours(23, 59, 59, 999)
 

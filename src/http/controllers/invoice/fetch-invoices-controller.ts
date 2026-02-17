@@ -9,11 +9,13 @@ export async function fetchInvoices(
   const querySchema = z.object({
     page: z.coerce.number().default(1),
     status: z.enum(['PENDING', 'PAID', 'OVERDUE', 'CANCELLED']).optional(),
+    contractId: z.string().optional(),
+    assetId: z.string().optional(),
   })
 
-  const { page, status } = querySchema.parse(request.query)
+  const { page, status, contractId, assetId } = querySchema.parse(request.query)
   const useCase = makeFetchInvoices()
-  const { invoices } = await useCase.execute({ status, page })
+  const { invoices } = await useCase.execute({ status, page, contractId, assetId })
 
   return reply.status(200).send(invoices)
 }

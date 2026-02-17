@@ -1,9 +1,11 @@
-import { MeasurementBulletin } from '../../generated/prisma'
+import { MeasurementBulletin, MeasurementBulletinStatus } from '../../generated/prisma'
 import { IMeasurementBulletinRepository } from '../../repositories/interfaces/IMeasurementBulletinRepository'
 import { PaginatedResult } from '../../repositories/interfaces/IPaginatedResult'
 
 interface FetchMeasurementBulletinsRequest {
   contractId?: string
+  assetId?: string
+  status?: MeasurementBulletinStatus
   page: number
 }
 
@@ -18,14 +20,16 @@ export class FetchMeasurementBulletinsUseCase {
 
   async execute({
     contractId,
+    assetId,
+    status,
     page,
   }: FetchMeasurementBulletinsRequest): Promise<FetchMeasurementBulletinsResponse> {
-    const bulletins = contractId
-      ? await this.measurementBulletinRepository.findByContractId(
-          contractId,
-          page,
-        )
-      : await this.measurementBulletinRepository.findAll(page)
+    const bulletins = await this.measurementBulletinRepository.findMany({
+      page,
+      contractId,
+      assetId,
+      status,
+    })
 
     return { bulletins }
   }

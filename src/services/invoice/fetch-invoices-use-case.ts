@@ -4,6 +4,8 @@ import { PaginatedResult } from '../../repositories/interfaces/IPaginatedResult'
 
 interface FetchInvoicesRequest {
   status?: InvoiceStatus
+  contractId?: string
+  assetId?: string
   page: number
 }
 
@@ -16,11 +18,16 @@ export class FetchInvoicesUseCase {
 
   async execute({
     status,
+    contractId,
+    assetId,
     page,
   }: FetchInvoicesRequest): Promise<FetchInvoicesResponse> {
-    const invoices = status
-      ? await this.invoiceRepository.findByStatus(status, page)
-      : await this.invoiceRepository.findAll(page)
+    const invoices = await this.invoiceRepository.findMany({
+      page,
+      status,
+      contractId,
+      assetId,
+    })
 
     return { invoices }
   }

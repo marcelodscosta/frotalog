@@ -33,7 +33,7 @@ export class CreateInvoiceUseCase {
     const existing = await this.invoiceRepository.findByMeasurementBulletinId(
       data.measurementBulletinId,
     )
-    if (existing) {
+    if (existing && existing.is_active) {
       throw new AppError(
         'Já existe uma fatura para este boletim de medição.',
         409,
@@ -44,22 +44,49 @@ export class CreateInvoiceUseCase {
     const invoiceNumber =
       data.invoice_number || (await this.generateNextInvoiceNumber())
 
-    const invoice = await this.invoiceRepository.create({
-      measurementBulletinId: data.measurementBulletinId,
-      invoice_number: invoiceNumber,
-      issue_date: data.issue_date,
-      due_date: data.due_date,
-      total_value: bulletin.total_value,
-      notes: data.notes,
+    const result = await prisma.$transaction(async (tx) => {
+      let invoice: Invoice
+
+      if (existing && !existing.is_active) {
+        // Reactivate and update existing invoice
+        invoice = await tx.invoice.update({
+          where: { id: existing.id },
+          data: {
+            is_active: true,
+            status: 'PENDING', // Reset status
+            invoice_number: invoiceNumber,
+            issue_date: data.issue_date,
+            due_date: data.due_date,
+            total_value: bulletin.total_value, // Update value in case bulletin changed
+            notes: data.notes,
+            payment_date: null,
+            is_paid: false,
+          },
+        })
+      } else {
+        // Create new invoice
+        invoice = await tx.invoice.create({
+          data: {
+            measurementBulletinId: data.measurementBulletinId,
+            invoice_number: invoiceNumber,
+            issue_date: data.issue_date,
+            due_date: data.due_date,
+            total_value: bulletin.total_value,
+            notes: data.notes,
+          },
+        })
+      }
+
+      // Update bulletin status to INVOICED
+      await tx.measurementBulletin.update({
+        where: { id: data.measurementBulletinId },
+        data: { status: 'INVOICED' },
+      })
+
+      return { invoice }
     })
 
-    // Update bulletin status to INVOICED
-    await this.measurementBulletinRepository.update(
-      data.measurementBulletinId,
-      { status: 'INVOICED' },
-    )
-
-    return { invoice }
+    return result
   }
 
   private async generateNextInvoiceNumber(): Promise<string> {

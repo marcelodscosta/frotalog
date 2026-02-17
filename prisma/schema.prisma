@@ -345,6 +345,7 @@ model BulletinExpense {
   measurementBulletinId String
 
   description String
+  quantity    Decimal @db.Decimal(10, 2) @default(1)
   unit_value  Decimal @db.Decimal(10, 2)
   total_value Decimal @db.Decimal(10, 2)
 

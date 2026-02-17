@@ -60,12 +60,34 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
     }
   }
 
-  async findByStatus(
-    status: InvoiceStatus,
-    page: number,
-  ): Promise<PaginatedResult<Invoice>> {
+  async findMany({
+    page,
+    status,
+    contractId,
+    assetId,
+  }: {
+    page: number
+    status?: InvoiceStatus
+    contractId?: string
+    assetId?: string
+  }): Promise<PaginatedResult<Invoice>> {
     const skip = (page - 1) * this.PAGE_SIZE
-    const where = { status, is_active: true }
+    const where: Prisma.InvoiceWhereInput = {
+      is_active: true,
+      ...(status && { status }),
+      ...(contractId && {
+        measurementBulletin: {
+          contractId,
+        },
+      }),
+      ...(assetId && {
+        measurementBulletin: {
+          assetMovement: {
+            assetId,
+          },
+        },
+      }),
+    }
 
     const [items, totalItems] = await prisma.$transaction([
       prisma.invoice.findMany({
@@ -78,6 +100,7 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
             include: {
               contract: { include: { client: true } },
               assetMovement: { include: { asset: true } },
+              expenses: { orderBy: { created_at: 'asc' } },
             },
           },
         },
@@ -92,6 +115,14 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
       totalItems,
       totalPages: Math.ceil(totalItems / this.PAGE_SIZE),
     }
+  }
+
+  async findByStatus(
+    status: InvoiceStatus,
+    page: number,
+  ): Promise<PaginatedResult<Invoice>> {
+    // Deprecated in favor of findMany, but kept for compatibility if needed
+    return this.findMany({ page, status })
   }
 
   async update(
