@@ -7,13 +7,22 @@ import { makeMaintenanceByAssetUseCase } from '../../../services/factories/make-
 const querySchema = z.object({
   assetId: z.string(),
   startDate: z.string().transform((val) => {
-    // Adicionar T00:00:00.000Z para garantir UTC
-    const date = new Date(val + 'T00:00:00.000Z')
+    let date = new Date(val)
+    if (isNaN(date.getTime())) {
+       // Tenta adicionar tempo se falhar (caso seja apenas YYYY-MM-DD)
+       date = new Date(val + 'T00:00:00.000Z')
+    }
+    // Garante UTC-00:00:00
+    date.setUTCHours(0, 0, 0, 0)
     return date
   }),
   endDate: z.string().transform((val) => {
-    // Adicionar T23:59:59.999Z para garantir UTC
-    const date = new Date(val + 'T23:59:59.999Z')
+    let date = new Date(val)
+    if (isNaN(date.getTime())) {
+       date = new Date(val + 'T23:59:59.999Z')
+    }
+    // Garante UTC-23:59:59
+    date.setUTCHours(23, 59, 59, 999)
     return date
   }),
 })
