@@ -556,6 +556,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         supplier: {
           select: {
             company_name: true,
+            trading_name: true,
           },
         },
         asset: {
@@ -564,11 +565,14 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             model: true,
             plate: true,
             year: true,
+            serial_number: true,
           },
         },
         serviceCategory: {
           select: {
+            id: true,
             name: true,
+            description: true,
           },
         },
       },
@@ -576,8 +580,8 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         started_date: 'asc',
       },
     })
-
-    return maintenances
+    
+     return maintenances as any
   }
 
   async findMaintenancesByPlate(

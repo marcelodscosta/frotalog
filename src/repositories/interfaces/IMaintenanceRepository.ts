@@ -8,7 +8,7 @@ import {
 import { PaginatedResult } from './IPaginatedResult'
 
 export type MaintenanceWithRelations = Maintenance & {
-  supplier: Pick<Supplier, 'company_name' | 'trading_name'>
+  supplier: Pick<Supplier, 'company_name' | 'trading_name'> | null
   asset: Pick<Asset, 'brand' | 'model' | 'plate' | 'serial_number' | 'year'>
   serviceCategory: Pick<ServiceCategory, 'id' | 'name' | 'description'> | null // ✅ NOVO
 }
