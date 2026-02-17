@@ -15,6 +15,7 @@ interface CreateMaintenanceRequest {
   description: string
   scheduled_date: Date
   estimated_cost?: number | null
+  equipment_inactive?: boolean
   notes?: string | null
 }
 
@@ -65,6 +66,7 @@ export class CreateMaintenanceUseCase {
       description: data.description,
       scheduled_date: data.scheduled_date,
       estimated_cost: data.estimated_cost ?? null,
+      equipment_inactive: data.equipment_inactive ?? false,
       notes: data.notes ?? null,
     })
 

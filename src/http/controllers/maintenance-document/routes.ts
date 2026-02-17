@@ -8,13 +8,6 @@ import { deleteMaintenanceDocument } from './delete-maintenance-document-control
 import { requireAuth } from '../../middleware/auth'
 
 export async function maintenanceDocumentRoutes(app: FastifyInstance) {
-  // Registrar plugin de multipart para upload de arquivos
-  await app.register(require('@fastify/multipart'), {
-    limits: {
-      fileSize: 10 * 1024 * 1024, // 10MB
-    },
-  })
-
   // Aplicar autenticação em todas as rotas de documentos
   app.addHook('preHandler', requireAuth())
 

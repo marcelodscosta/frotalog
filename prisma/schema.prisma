@@ -168,8 +168,9 @@ model Maintenance {
   estimated_cost Decimal? @db.Decimal(10, 2)
   actual_cost    Decimal? @db.Decimal(10, 2)
 
-  status MaintenanceStatus @default(SCHEDULED)
-  notes  String?
+  status             MaintenanceStatus @default(SCHEDULED)
+  equipment_inactive Boolean           @default(false)
+  notes              String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -226,6 +227,7 @@ model Contract {
 
   movements    AssetMovement[]
   maintenances Maintenance[]
+  measurementBulletins MeasurementBulletin[]
 
   @@map("contracts")
 }
@@ -261,5 +263,115 @@ model AssetMovement {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
+  measurementBulletins MeasurementBulletin[]
+
   @@map("asset_movements")
+}
+
+enum MeasurementBulletinStatus {
+  DRAFT
+  APPROVED
+  INVOICED
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+model MeasurementBulletin {
+  id String @id @default(uuid())
+
+  contract   Contract @relation(fields: [contractId], references: [id])
+  contractId String
+
+  assetMovement   AssetMovement @relation(fields: [assetMovementId], references: [id])
+  assetMovementId String
+
+  reference_start DateTime
+  reference_end   DateTime
+
+  total_days   Int
+  inactive_days Int
+  working_days  Int
+
+  daily_rate  Decimal @db.Decimal(10, 2)
+  total_value Decimal @db.Decimal(10, 2)
+
+  status MeasurementBulletinStatus @default(DRAFT)
+  notes  String?
+
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  invoice Invoice?
+  expenses BulletinExpense[]
+
+  @@map("measurement_bulletins")
+}
+
+model Invoice {
+  id String @id @default(uuid())
+
+  measurementBulletin   MeasurementBulletin @relation(fields: [measurementBulletinId], references: [id])
+  measurementBulletinId String              @unique
+
+  invoice_number String @unique
+  issue_date     DateTime
+  due_date       DateTime
+
+  total_value Decimal @db.Decimal(10, 2)
+
+  is_paid      Boolean   @default(false)
+  payment_date DateTime?
+
+  status InvoiceStatus @default(PENDING)
+  notes  String?
+
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("invoices")
+}
+
+model BulletinExpense {
+  id String @id @default(uuid())
+
+  measurementBulletin   MeasurementBulletin @relation(fields: [measurementBulletinId], references: [id], onDelete: Cascade)
+  measurementBulletinId String
+
+  description String
+  unit_value  Decimal @db.Decimal(10, 2)
+  total_value Decimal @db.Decimal(10, 2)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("bulletin_expenses")
+}
+
+model CompanySettings {
+  id String @id @default(uuid())
+
+  company_name  String
+  trading_name  String?
+  cnpj          String?
+  address       String?
+  city          String?
+  state         String?
+  zip_code      String?
+  phone         String?
+  email         String?
+  logo_url      String?
+
+  invoice_start_number Int @default(1)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("company_settings")
 }

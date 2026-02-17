@@ -58,6 +58,26 @@ export type Contract = $Result.DefaultSelection<Prisma.$ContractPayload>
  * 
  */
 export type AssetMovement = $Result.DefaultSelection<Prisma.$AssetMovementPayload>
+/**
+ * Model MeasurementBulletin
+ * 
+ */
+export type MeasurementBulletin = $Result.DefaultSelection<Prisma.$MeasurementBulletinPayload>
+/**
+ * Model Invoice
+ * 
+ */
+export type Invoice = $Result.DefaultSelection<Prisma.$InvoicePayload>
+/**
+ * Model BulletinExpense
+ * 
+ */
+export type BulletinExpense = $Result.DefaultSelection<Prisma.$BulletinExpensePayload>
+/**
+ * Model CompanySettings
+ * 
+ */
+export type CompanySettings = $Result.DefaultSelection<Prisma.$CompanySettingsPayload>
 
 /**
  * Enums
@@ -124,6 +144,25 @@ export const BillingCycle: {
 
 export type BillingCycle = (typeof BillingCycle)[keyof typeof BillingCycle]
 
+
+export const MeasurementBulletinStatus: {
+  DRAFT: 'DRAFT',
+  APPROVED: 'APPROVED',
+  INVOICED: 'INVOICED'
+};
+
+export type MeasurementBulletinStatus = (typeof MeasurementBulletinStatus)[keyof typeof MeasurementBulletinStatus]
+
+
+export const InvoiceStatus: {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
+  CANCELLED: 'CANCELLED'
+};
+
+export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -153,6 +192,14 @@ export const ContractStatus: typeof $Enums.ContractStatus
 export type BillingCycle = $Enums.BillingCycle
 
 export const BillingCycle: typeof $Enums.BillingCycle
+
+export type MeasurementBulletinStatus = $Enums.MeasurementBulletinStatus
+
+export const MeasurementBulletinStatus: typeof $Enums.MeasurementBulletinStatus
+
+export type InvoiceStatus = $Enums.InvoiceStatus
+
+export const InvoiceStatus: typeof $Enums.InvoiceStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -361,6 +408,46 @@ export class PrismaClient<
     * ```
     */
   get assetMovement(): Prisma.AssetMovementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.measurementBulletin`: Exposes CRUD operations for the **MeasurementBulletin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MeasurementBulletins
+    * const measurementBulletins = await prisma.measurementBulletin.findMany()
+    * ```
+    */
+  get measurementBulletin(): Prisma.MeasurementBulletinDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.invoice`: Exposes CRUD operations for the **Invoice** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Invoices
+    * const invoices = await prisma.invoice.findMany()
+    * ```
+    */
+  get invoice(): Prisma.InvoiceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.bulletinExpense`: Exposes CRUD operations for the **BulletinExpense** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BulletinExpenses
+    * const bulletinExpenses = await prisma.bulletinExpense.findMany()
+    * ```
+    */
+  get bulletinExpense(): Prisma.BulletinExpenseDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.companySettings`: Exposes CRUD operations for the **CompanySettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CompanySettings
+    * const companySettings = await prisma.companySettings.findMany()
+    * ```
+    */
+  get companySettings(): Prisma.CompanySettingsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -809,7 +896,11 @@ export namespace Prisma {
     Maintenance: 'Maintenance',
     MaintenanceDocument: 'MaintenanceDocument',
     Contract: 'Contract',
-    AssetMovement: 'AssetMovement'
+    AssetMovement: 'AssetMovement',
+    MeasurementBulletin: 'MeasurementBulletin',
+    Invoice: 'Invoice',
+    BulletinExpense: 'BulletinExpense',
+    CompanySettings: 'CompanySettings'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -828,7 +919,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "assetCategory" | "asset" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement"
+      modelProps: "user" | "assetCategory" | "asset" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement" | "measurementBulletin" | "invoice" | "bulletinExpense" | "companySettings"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1498,6 +1589,302 @@ export namespace Prisma {
           }
         }
       }
+      MeasurementBulletin: {
+        payload: Prisma.$MeasurementBulletinPayload<ExtArgs>
+        fields: Prisma.MeasurementBulletinFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MeasurementBulletinFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MeasurementBulletinFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload>
+          }
+          findFirst: {
+            args: Prisma.MeasurementBulletinFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MeasurementBulletinFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload>
+          }
+          findMany: {
+            args: Prisma.MeasurementBulletinFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload>[]
+          }
+          create: {
+            args: Prisma.MeasurementBulletinCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload>
+          }
+          createMany: {
+            args: Prisma.MeasurementBulletinCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MeasurementBulletinCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload>[]
+          }
+          delete: {
+            args: Prisma.MeasurementBulletinDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload>
+          }
+          update: {
+            args: Prisma.MeasurementBulletinUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload>
+          }
+          deleteMany: {
+            args: Prisma.MeasurementBulletinDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MeasurementBulletinUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MeasurementBulletinUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload>[]
+          }
+          upsert: {
+            args: Prisma.MeasurementBulletinUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeasurementBulletinPayload>
+          }
+          aggregate: {
+            args: Prisma.MeasurementBulletinAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMeasurementBulletin>
+          }
+          groupBy: {
+            args: Prisma.MeasurementBulletinGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MeasurementBulletinGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MeasurementBulletinCountArgs<ExtArgs>
+            result: $Utils.Optional<MeasurementBulletinCountAggregateOutputType> | number
+          }
+        }
+      }
+      Invoice: {
+        payload: Prisma.$InvoicePayload<ExtArgs>
+        fields: Prisma.InvoiceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InvoiceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InvoiceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          findFirst: {
+            args: Prisma.InvoiceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InvoiceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          findMany: {
+            args: Prisma.InvoiceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>[]
+          }
+          create: {
+            args: Prisma.InvoiceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          createMany: {
+            args: Prisma.InvoiceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InvoiceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>[]
+          }
+          delete: {
+            args: Prisma.InvoiceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          update: {
+            args: Prisma.InvoiceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          deleteMany: {
+            args: Prisma.InvoiceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InvoiceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InvoiceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>[]
+          }
+          upsert: {
+            args: Prisma.InvoiceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          aggregate: {
+            args: Prisma.InvoiceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInvoice>
+          }
+          groupBy: {
+            args: Prisma.InvoiceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InvoiceCountArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceCountAggregateOutputType> | number
+          }
+        }
+      }
+      BulletinExpense: {
+        payload: Prisma.$BulletinExpensePayload<ExtArgs>
+        fields: Prisma.BulletinExpenseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BulletinExpenseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BulletinExpenseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload>
+          }
+          findFirst: {
+            args: Prisma.BulletinExpenseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BulletinExpenseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload>
+          }
+          findMany: {
+            args: Prisma.BulletinExpenseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload>[]
+          }
+          create: {
+            args: Prisma.BulletinExpenseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload>
+          }
+          createMany: {
+            args: Prisma.BulletinExpenseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BulletinExpenseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload>[]
+          }
+          delete: {
+            args: Prisma.BulletinExpenseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload>
+          }
+          update: {
+            args: Prisma.BulletinExpenseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload>
+          }
+          deleteMany: {
+            args: Prisma.BulletinExpenseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BulletinExpenseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BulletinExpenseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload>[]
+          }
+          upsert: {
+            args: Prisma.BulletinExpenseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BulletinExpensePayload>
+          }
+          aggregate: {
+            args: Prisma.BulletinExpenseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBulletinExpense>
+          }
+          groupBy: {
+            args: Prisma.BulletinExpenseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BulletinExpenseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BulletinExpenseCountArgs<ExtArgs>
+            result: $Utils.Optional<BulletinExpenseCountAggregateOutputType> | number
+          }
+        }
+      }
+      CompanySettings: {
+        payload: Prisma.$CompanySettingsPayload<ExtArgs>
+        fields: Prisma.CompanySettingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CompanySettingsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CompanySettingsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload>
+          }
+          findFirst: {
+            args: Prisma.CompanySettingsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CompanySettingsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload>
+          }
+          findMany: {
+            args: Prisma.CompanySettingsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload>[]
+          }
+          create: {
+            args: Prisma.CompanySettingsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload>
+          }
+          createMany: {
+            args: Prisma.CompanySettingsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CompanySettingsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload>[]
+          }
+          delete: {
+            args: Prisma.CompanySettingsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload>
+          }
+          update: {
+            args: Prisma.CompanySettingsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.CompanySettingsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CompanySettingsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CompanySettingsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload>[]
+          }
+          upsert: {
+            args: Prisma.CompanySettingsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySettingsPayload>
+          }
+          aggregate: {
+            args: Prisma.CompanySettingsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCompanySettings>
+          }
+          groupBy: {
+            args: Prisma.CompanySettingsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CompanySettingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CompanySettingsCountArgs<ExtArgs>
+            result: $Utils.Optional<CompanySettingsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1599,6 +1986,10 @@ export namespace Prisma {
     maintenanceDocument?: MaintenanceDocumentOmit
     contract?: ContractOmit
     assetMovement?: AssetMovementOmit
+    measurementBulletin?: MeasurementBulletinOmit
+    invoice?: InvoiceOmit
+    bulletinExpense?: BulletinExpenseOmit
+    companySettings?: CompanySettingsOmit
   }
 
   /* Types for Logging */
@@ -1854,11 +2245,13 @@ export namespace Prisma {
   export type ContractCountOutputType = {
     movements: number
     maintenances: number
+    measurementBulletins: number
   }
 
   export type ContractCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     movements?: boolean | ContractCountOutputTypeCountMovementsArgs
     maintenances?: boolean | ContractCountOutputTypeCountMaintenancesArgs
+    measurementBulletins?: boolean | ContractCountOutputTypeCountMeasurementBulletinsArgs
   }
 
   // Custom InputTypes
@@ -1884,6 +2277,75 @@ export namespace Prisma {
    */
   export type ContractCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MaintenanceWhereInput
+  }
+
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeCountMeasurementBulletinsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeasurementBulletinWhereInput
+  }
+
+
+  /**
+   * Count Type AssetMovementCountOutputType
+   */
+
+  export type AssetMovementCountOutputType = {
+    measurementBulletins: number
+  }
+
+  export type AssetMovementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementBulletins?: boolean | AssetMovementCountOutputTypeCountMeasurementBulletinsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AssetMovementCountOutputType without action
+   */
+  export type AssetMovementCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetMovementCountOutputType
+     */
+    select?: AssetMovementCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AssetMovementCountOutputType without action
+   */
+  export type AssetMovementCountOutputTypeCountMeasurementBulletinsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeasurementBulletinWhereInput
+  }
+
+
+  /**
+   * Count Type MeasurementBulletinCountOutputType
+   */
+
+  export type MeasurementBulletinCountOutputType = {
+    expenses: number
+  }
+
+  export type MeasurementBulletinCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    expenses?: boolean | MeasurementBulletinCountOutputTypeCountExpensesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MeasurementBulletinCountOutputType without action
+   */
+  export type MeasurementBulletinCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletinCountOutputType
+     */
+    select?: MeasurementBulletinCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MeasurementBulletinCountOutputType without action
+   */
+  export type MeasurementBulletinCountOutputTypeCountExpensesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BulletinExpenseWhereInput
   }
 
 
@@ -7656,6 +8118,7 @@ export namespace Prisma {
     estimated_cost: Decimal | null
     actual_cost: Decimal | null
     status: $Enums.MaintenanceStatus | null
+    equipment_inactive: boolean | null
     notes: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -7676,6 +8139,7 @@ export namespace Prisma {
     estimated_cost: Decimal | null
     actual_cost: Decimal | null
     status: $Enums.MaintenanceStatus | null
+    equipment_inactive: boolean | null
     notes: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -7696,6 +8160,7 @@ export namespace Prisma {
     estimated_cost: number
     actual_cost: number
     status: number
+    equipment_inactive: number
     notes: number
     created_at: number
     updated_at: number
@@ -7728,6 +8193,7 @@ export namespace Prisma {
     estimated_cost?: true
     actual_cost?: true
     status?: true
+    equipment_inactive?: true
     notes?: true
     created_at?: true
     updated_at?: true
@@ -7748,6 +8214,7 @@ export namespace Prisma {
     estimated_cost?: true
     actual_cost?: true
     status?: true
+    equipment_inactive?: true
     notes?: true
     created_at?: true
     updated_at?: true
@@ -7768,6 +8235,7 @@ export namespace Prisma {
     estimated_cost?: true
     actual_cost?: true
     status?: true
+    equipment_inactive?: true
     notes?: true
     created_at?: true
     updated_at?: true
@@ -7875,6 +8343,7 @@ export namespace Prisma {
     estimated_cost: Decimal | null
     actual_cost: Decimal | null
     status: $Enums.MaintenanceStatus
+    equipment_inactive: boolean
     notes: string | null
     created_at: Date
     updated_at: Date
@@ -7914,6 +8383,7 @@ export namespace Prisma {
     estimated_cost?: boolean
     actual_cost?: boolean
     status?: boolean
+    equipment_inactive?: boolean
     notes?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -7940,6 +8410,7 @@ export namespace Prisma {
     estimated_cost?: boolean
     actual_cost?: boolean
     status?: boolean
+    equipment_inactive?: boolean
     notes?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -7964,6 +8435,7 @@ export namespace Prisma {
     estimated_cost?: boolean
     actual_cost?: boolean
     status?: boolean
+    equipment_inactive?: boolean
     notes?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -7988,6 +8460,7 @@ export namespace Prisma {
     estimated_cost?: boolean
     actual_cost?: boolean
     status?: boolean
+    equipment_inactive?: boolean
     notes?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -7995,7 +8468,7 @@ export namespace Prisma {
     contractId?: boolean
   }
 
-  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "assetId" | "supplierId" | "serviceCategoryId" | "type" | "description" | "scheduled_date" | "started_date" | "completed_date" | "estimated_cost" | "actual_cost" | "status" | "notes" | "created_at" | "updated_at" | "is_Active" | "contractId", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "assetId" | "supplierId" | "serviceCategoryId" | "type" | "description" | "scheduled_date" | "started_date" | "completed_date" | "estimated_cost" | "actual_cost" | "status" | "equipment_inactive" | "notes" | "created_at" | "updated_at" | "is_Active" | "contractId", ExtArgs["result"]["maintenance"]>
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
@@ -8039,6 +8512,7 @@ export namespace Prisma {
       estimated_cost: Prisma.Decimal | null
       actual_cost: Prisma.Decimal | null
       status: $Enums.MaintenanceStatus
+      equipment_inactive: boolean
       notes: string | null
       created_at: Date
       updated_at: Date
@@ -8484,6 +8958,7 @@ export namespace Prisma {
     readonly estimated_cost: FieldRef<"Maintenance", 'Decimal'>
     readonly actual_cost: FieldRef<"Maintenance", 'Decimal'>
     readonly status: FieldRef<"Maintenance", 'MaintenanceStatus'>
+    readonly equipment_inactive: FieldRef<"Maintenance", 'Boolean'>
     readonly notes: FieldRef<"Maintenance", 'String'>
     readonly created_at: FieldRef<"Maintenance", 'DateTime'>
     readonly updated_at: FieldRef<"Maintenance", 'DateTime'>
@@ -10421,6 +10896,7 @@ export namespace Prisma {
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     movements?: boolean | Contract$movementsArgs<ExtArgs>
     maintenances?: boolean | Contract$maintenancesArgs<ExtArgs>
+    measurementBulletins?: boolean | Contract$measurementBulletinsArgs<ExtArgs>
     _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contract"]>
 
@@ -10488,6 +10964,7 @@ export namespace Prisma {
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     movements?: boolean | Contract$movementsArgs<ExtArgs>
     maintenances?: boolean | Contract$maintenancesArgs<ExtArgs>
+    measurementBulletins?: boolean | Contract$measurementBulletinsArgs<ExtArgs>
     _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContractIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10503,6 +10980,7 @@ export namespace Prisma {
       client: Prisma.$SupplierPayload<ExtArgs>
       movements: Prisma.$AssetMovementPayload<ExtArgs>[]
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      measurementBulletins: Prisma.$MeasurementBulletinPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10918,6 +11396,7 @@ export namespace Prisma {
     client<T extends SupplierDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SupplierDefaultArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     movements<T extends Contract$movementsArgs<ExtArgs> = {}>(args?: Subset<T, Contract$movementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenances<T extends Contract$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Contract$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    measurementBulletins<T extends Contract$measurementBulletinsArgs<ExtArgs> = {}>(args?: Subset<T, Contract$measurementBulletinsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11407,6 +11886,30 @@ export namespace Prisma {
   }
 
   /**
+   * Contract.measurementBulletins
+   */
+  export type Contract$measurementBulletinsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    where?: MeasurementBulletinWhereInput
+    orderBy?: MeasurementBulletinOrderByWithRelationInput | MeasurementBulletinOrderByWithRelationInput[]
+    cursor?: MeasurementBulletinWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeasurementBulletinScalarFieldEnum | MeasurementBulletinScalarFieldEnum[]
+  }
+
+  /**
    * Contract without action
    */
   export type ContractDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11749,6 +12252,8 @@ export namespace Prisma {
     updated_at?: boolean
     contract?: boolean | ContractDefaultArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
+    measurementBulletins?: boolean | AssetMovement$measurementBulletinsArgs<ExtArgs>
+    _count?: boolean | AssetMovementCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assetMovement"]>
 
   export type AssetMovementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11825,6 +12330,8 @@ export namespace Prisma {
   export type AssetMovementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contract?: boolean | ContractDefaultArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
+    measurementBulletins?: boolean | AssetMovement$measurementBulletinsArgs<ExtArgs>
+    _count?: boolean | AssetMovementCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetMovementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contract?: boolean | ContractDefaultArgs<ExtArgs>
@@ -11840,6 +12347,7 @@ export namespace Prisma {
     objects: {
       contract: Prisma.$ContractPayload<ExtArgs>
       asset: Prisma.$AssetPayload<ExtArgs>
+      measurementBulletins: Prisma.$MeasurementBulletinPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12257,6 +12765,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     contract<T extends ContractDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContractDefaultArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     asset<T extends AssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetDefaultArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    measurementBulletins<T extends AssetMovement$measurementBulletinsArgs<ExtArgs> = {}>(args?: Subset<T, AssetMovement$measurementBulletinsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12701,6 +13210,30 @@ export namespace Prisma {
   }
 
   /**
+   * AssetMovement.measurementBulletins
+   */
+  export type AssetMovement$measurementBulletinsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    where?: MeasurementBulletinWhereInput
+    orderBy?: MeasurementBulletinOrderByWithRelationInput | MeasurementBulletinOrderByWithRelationInput[]
+    cursor?: MeasurementBulletinWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeasurementBulletinScalarFieldEnum | MeasurementBulletinScalarFieldEnum[]
+  }
+
+  /**
    * AssetMovement without action
    */
   export type AssetMovementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12716,6 +13249,4769 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AssetMovementInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MeasurementBulletin
+   */
+
+  export type AggregateMeasurementBulletin = {
+    _count: MeasurementBulletinCountAggregateOutputType | null
+    _avg: MeasurementBulletinAvgAggregateOutputType | null
+    _sum: MeasurementBulletinSumAggregateOutputType | null
+    _min: MeasurementBulletinMinAggregateOutputType | null
+    _max: MeasurementBulletinMaxAggregateOutputType | null
+  }
+
+  export type MeasurementBulletinAvgAggregateOutputType = {
+    total_days: number | null
+    inactive_days: number | null
+    working_days: number | null
+    daily_rate: Decimal | null
+    total_value: Decimal | null
+  }
+
+  export type MeasurementBulletinSumAggregateOutputType = {
+    total_days: number | null
+    inactive_days: number | null
+    working_days: number | null
+    daily_rate: Decimal | null
+    total_value: Decimal | null
+  }
+
+  export type MeasurementBulletinMinAggregateOutputType = {
+    id: string | null
+    contractId: string | null
+    assetMovementId: string | null
+    reference_start: Date | null
+    reference_end: Date | null
+    total_days: number | null
+    inactive_days: number | null
+    working_days: number | null
+    daily_rate: Decimal | null
+    total_value: Decimal | null
+    status: $Enums.MeasurementBulletinStatus | null
+    notes: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MeasurementBulletinMaxAggregateOutputType = {
+    id: string | null
+    contractId: string | null
+    assetMovementId: string | null
+    reference_start: Date | null
+    reference_end: Date | null
+    total_days: number | null
+    inactive_days: number | null
+    working_days: number | null
+    daily_rate: Decimal | null
+    total_value: Decimal | null
+    status: $Enums.MeasurementBulletinStatus | null
+    notes: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MeasurementBulletinCountAggregateOutputType = {
+    id: number
+    contractId: number
+    assetMovementId: number
+    reference_start: number
+    reference_end: number
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: number
+    total_value: number
+    status: number
+    notes: number
+    is_active: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type MeasurementBulletinAvgAggregateInputType = {
+    total_days?: true
+    inactive_days?: true
+    working_days?: true
+    daily_rate?: true
+    total_value?: true
+  }
+
+  export type MeasurementBulletinSumAggregateInputType = {
+    total_days?: true
+    inactive_days?: true
+    working_days?: true
+    daily_rate?: true
+    total_value?: true
+  }
+
+  export type MeasurementBulletinMinAggregateInputType = {
+    id?: true
+    contractId?: true
+    assetMovementId?: true
+    reference_start?: true
+    reference_end?: true
+    total_days?: true
+    inactive_days?: true
+    working_days?: true
+    daily_rate?: true
+    total_value?: true
+    status?: true
+    notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MeasurementBulletinMaxAggregateInputType = {
+    id?: true
+    contractId?: true
+    assetMovementId?: true
+    reference_start?: true
+    reference_end?: true
+    total_days?: true
+    inactive_days?: true
+    working_days?: true
+    daily_rate?: true
+    total_value?: true
+    status?: true
+    notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MeasurementBulletinCountAggregateInputType = {
+    id?: true
+    contractId?: true
+    assetMovementId?: true
+    reference_start?: true
+    reference_end?: true
+    total_days?: true
+    inactive_days?: true
+    working_days?: true
+    daily_rate?: true
+    total_value?: true
+    status?: true
+    notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type MeasurementBulletinAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeasurementBulletin to aggregate.
+     */
+    where?: MeasurementBulletinWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeasurementBulletins to fetch.
+     */
+    orderBy?: MeasurementBulletinOrderByWithRelationInput | MeasurementBulletinOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MeasurementBulletinWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeasurementBulletins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeasurementBulletins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MeasurementBulletins
+    **/
+    _count?: true | MeasurementBulletinCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MeasurementBulletinAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MeasurementBulletinSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MeasurementBulletinMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MeasurementBulletinMaxAggregateInputType
+  }
+
+  export type GetMeasurementBulletinAggregateType<T extends MeasurementBulletinAggregateArgs> = {
+        [P in keyof T & keyof AggregateMeasurementBulletin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMeasurementBulletin[P]>
+      : GetScalarType<T[P], AggregateMeasurementBulletin[P]>
+  }
+
+
+
+
+  export type MeasurementBulletinGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeasurementBulletinWhereInput
+    orderBy?: MeasurementBulletinOrderByWithAggregationInput | MeasurementBulletinOrderByWithAggregationInput[]
+    by: MeasurementBulletinScalarFieldEnum[] | MeasurementBulletinScalarFieldEnum
+    having?: MeasurementBulletinScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MeasurementBulletinCountAggregateInputType | true
+    _avg?: MeasurementBulletinAvgAggregateInputType
+    _sum?: MeasurementBulletinSumAggregateInputType
+    _min?: MeasurementBulletinMinAggregateInputType
+    _max?: MeasurementBulletinMaxAggregateInputType
+  }
+
+  export type MeasurementBulletinGroupByOutputType = {
+    id: string
+    contractId: string
+    assetMovementId: string
+    reference_start: Date
+    reference_end: Date
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal
+    total_value: Decimal
+    status: $Enums.MeasurementBulletinStatus
+    notes: string | null
+    is_active: boolean
+    created_at: Date
+    updated_at: Date
+    _count: MeasurementBulletinCountAggregateOutputType | null
+    _avg: MeasurementBulletinAvgAggregateOutputType | null
+    _sum: MeasurementBulletinSumAggregateOutputType | null
+    _min: MeasurementBulletinMinAggregateOutputType | null
+    _max: MeasurementBulletinMaxAggregateOutputType | null
+  }
+
+  type GetMeasurementBulletinGroupByPayload<T extends MeasurementBulletinGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MeasurementBulletinGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MeasurementBulletinGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MeasurementBulletinGroupByOutputType[P]>
+            : GetScalarType<T[P], MeasurementBulletinGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MeasurementBulletinSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contractId?: boolean
+    assetMovementId?: boolean
+    reference_start?: boolean
+    reference_end?: boolean
+    total_days?: boolean
+    inactive_days?: boolean
+    working_days?: boolean
+    daily_rate?: boolean
+    total_value?: boolean
+    status?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
+    invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
+    expenses?: boolean | MeasurementBulletin$expensesArgs<ExtArgs>
+    _count?: boolean | MeasurementBulletinCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["measurementBulletin"]>
+
+  export type MeasurementBulletinSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contractId?: boolean
+    assetMovementId?: boolean
+    reference_start?: boolean
+    reference_end?: boolean
+    total_days?: boolean
+    inactive_days?: boolean
+    working_days?: boolean
+    daily_rate?: boolean
+    total_value?: boolean
+    status?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["measurementBulletin"]>
+
+  export type MeasurementBulletinSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contractId?: boolean
+    assetMovementId?: boolean
+    reference_start?: boolean
+    reference_end?: boolean
+    total_days?: boolean
+    inactive_days?: boolean
+    working_days?: boolean
+    daily_rate?: boolean
+    total_value?: boolean
+    status?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["measurementBulletin"]>
+
+  export type MeasurementBulletinSelectScalar = {
+    id?: boolean
+    contractId?: boolean
+    assetMovementId?: boolean
+    reference_start?: boolean
+    reference_end?: boolean
+    total_days?: boolean
+    inactive_days?: boolean
+    working_days?: boolean
+    daily_rate?: boolean
+    total_value?: boolean
+    status?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type MeasurementBulletinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetMovementId" | "reference_start" | "reference_end" | "total_days" | "inactive_days" | "working_days" | "daily_rate" | "total_value" | "status" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["measurementBulletin"]>
+  export type MeasurementBulletinInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
+    invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
+    expenses?: boolean | MeasurementBulletin$expensesArgs<ExtArgs>
+    _count?: boolean | MeasurementBulletinCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MeasurementBulletinIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
+  }
+  export type MeasurementBulletinIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
+  }
+
+  export type $MeasurementBulletinPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MeasurementBulletin"
+    objects: {
+      contract: Prisma.$ContractPayload<ExtArgs>
+      assetMovement: Prisma.$AssetMovementPayload<ExtArgs>
+      invoice: Prisma.$InvoicePayload<ExtArgs> | null
+      expenses: Prisma.$BulletinExpensePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      contractId: string
+      assetMovementId: string
+      reference_start: Date
+      reference_end: Date
+      total_days: number
+      inactive_days: number
+      working_days: number
+      daily_rate: Prisma.Decimal
+      total_value: Prisma.Decimal
+      status: $Enums.MeasurementBulletinStatus
+      notes: string | null
+      is_active: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["measurementBulletin"]>
+    composites: {}
+  }
+
+  type MeasurementBulletinGetPayload<S extends boolean | null | undefined | MeasurementBulletinDefaultArgs> = $Result.GetResult<Prisma.$MeasurementBulletinPayload, S>
+
+  type MeasurementBulletinCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MeasurementBulletinFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MeasurementBulletinCountAggregateInputType | true
+    }
+
+  export interface MeasurementBulletinDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MeasurementBulletin'], meta: { name: 'MeasurementBulletin' } }
+    /**
+     * Find zero or one MeasurementBulletin that matches the filter.
+     * @param {MeasurementBulletinFindUniqueArgs} args - Arguments to find a MeasurementBulletin
+     * @example
+     * // Get one MeasurementBulletin
+     * const measurementBulletin = await prisma.measurementBulletin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MeasurementBulletinFindUniqueArgs>(args: SelectSubset<T, MeasurementBulletinFindUniqueArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MeasurementBulletin that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MeasurementBulletinFindUniqueOrThrowArgs} args - Arguments to find a MeasurementBulletin
+     * @example
+     * // Get one MeasurementBulletin
+     * const measurementBulletin = await prisma.measurementBulletin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MeasurementBulletinFindUniqueOrThrowArgs>(args: SelectSubset<T, MeasurementBulletinFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeasurementBulletin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementBulletinFindFirstArgs} args - Arguments to find a MeasurementBulletin
+     * @example
+     * // Get one MeasurementBulletin
+     * const measurementBulletin = await prisma.measurementBulletin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MeasurementBulletinFindFirstArgs>(args?: SelectSubset<T, MeasurementBulletinFindFirstArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MeasurementBulletin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementBulletinFindFirstOrThrowArgs} args - Arguments to find a MeasurementBulletin
+     * @example
+     * // Get one MeasurementBulletin
+     * const measurementBulletin = await prisma.measurementBulletin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MeasurementBulletinFindFirstOrThrowArgs>(args?: SelectSubset<T, MeasurementBulletinFindFirstOrThrowArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MeasurementBulletins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementBulletinFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MeasurementBulletins
+     * const measurementBulletins = await prisma.measurementBulletin.findMany()
+     * 
+     * // Get first 10 MeasurementBulletins
+     * const measurementBulletins = await prisma.measurementBulletin.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const measurementBulletinWithIdOnly = await prisma.measurementBulletin.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MeasurementBulletinFindManyArgs>(args?: SelectSubset<T, MeasurementBulletinFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MeasurementBulletin.
+     * @param {MeasurementBulletinCreateArgs} args - Arguments to create a MeasurementBulletin.
+     * @example
+     * // Create one MeasurementBulletin
+     * const MeasurementBulletin = await prisma.measurementBulletin.create({
+     *   data: {
+     *     // ... data to create a MeasurementBulletin
+     *   }
+     * })
+     * 
+     */
+    create<T extends MeasurementBulletinCreateArgs>(args: SelectSubset<T, MeasurementBulletinCreateArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MeasurementBulletins.
+     * @param {MeasurementBulletinCreateManyArgs} args - Arguments to create many MeasurementBulletins.
+     * @example
+     * // Create many MeasurementBulletins
+     * const measurementBulletin = await prisma.measurementBulletin.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MeasurementBulletinCreateManyArgs>(args?: SelectSubset<T, MeasurementBulletinCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MeasurementBulletins and returns the data saved in the database.
+     * @param {MeasurementBulletinCreateManyAndReturnArgs} args - Arguments to create many MeasurementBulletins.
+     * @example
+     * // Create many MeasurementBulletins
+     * const measurementBulletin = await prisma.measurementBulletin.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MeasurementBulletins and only return the `id`
+     * const measurementBulletinWithIdOnly = await prisma.measurementBulletin.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MeasurementBulletinCreateManyAndReturnArgs>(args?: SelectSubset<T, MeasurementBulletinCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MeasurementBulletin.
+     * @param {MeasurementBulletinDeleteArgs} args - Arguments to delete one MeasurementBulletin.
+     * @example
+     * // Delete one MeasurementBulletin
+     * const MeasurementBulletin = await prisma.measurementBulletin.delete({
+     *   where: {
+     *     // ... filter to delete one MeasurementBulletin
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MeasurementBulletinDeleteArgs>(args: SelectSubset<T, MeasurementBulletinDeleteArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MeasurementBulletin.
+     * @param {MeasurementBulletinUpdateArgs} args - Arguments to update one MeasurementBulletin.
+     * @example
+     * // Update one MeasurementBulletin
+     * const measurementBulletin = await prisma.measurementBulletin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MeasurementBulletinUpdateArgs>(args: SelectSubset<T, MeasurementBulletinUpdateArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MeasurementBulletins.
+     * @param {MeasurementBulletinDeleteManyArgs} args - Arguments to filter MeasurementBulletins to delete.
+     * @example
+     * // Delete a few MeasurementBulletins
+     * const { count } = await prisma.measurementBulletin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MeasurementBulletinDeleteManyArgs>(args?: SelectSubset<T, MeasurementBulletinDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeasurementBulletins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementBulletinUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MeasurementBulletins
+     * const measurementBulletin = await prisma.measurementBulletin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MeasurementBulletinUpdateManyArgs>(args: SelectSubset<T, MeasurementBulletinUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MeasurementBulletins and returns the data updated in the database.
+     * @param {MeasurementBulletinUpdateManyAndReturnArgs} args - Arguments to update many MeasurementBulletins.
+     * @example
+     * // Update many MeasurementBulletins
+     * const measurementBulletin = await prisma.measurementBulletin.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MeasurementBulletins and only return the `id`
+     * const measurementBulletinWithIdOnly = await prisma.measurementBulletin.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MeasurementBulletinUpdateManyAndReturnArgs>(args: SelectSubset<T, MeasurementBulletinUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MeasurementBulletin.
+     * @param {MeasurementBulletinUpsertArgs} args - Arguments to update or create a MeasurementBulletin.
+     * @example
+     * // Update or create a MeasurementBulletin
+     * const measurementBulletin = await prisma.measurementBulletin.upsert({
+     *   create: {
+     *     // ... data to create a MeasurementBulletin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MeasurementBulletin we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MeasurementBulletinUpsertArgs>(args: SelectSubset<T, MeasurementBulletinUpsertArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MeasurementBulletins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementBulletinCountArgs} args - Arguments to filter MeasurementBulletins to count.
+     * @example
+     * // Count the number of MeasurementBulletins
+     * const count = await prisma.measurementBulletin.count({
+     *   where: {
+     *     // ... the filter for the MeasurementBulletins we want to count
+     *   }
+     * })
+    **/
+    count<T extends MeasurementBulletinCountArgs>(
+      args?: Subset<T, MeasurementBulletinCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MeasurementBulletinCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MeasurementBulletin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementBulletinAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MeasurementBulletinAggregateArgs>(args: Subset<T, MeasurementBulletinAggregateArgs>): Prisma.PrismaPromise<GetMeasurementBulletinAggregateType<T>>
+
+    /**
+     * Group by MeasurementBulletin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeasurementBulletinGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MeasurementBulletinGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MeasurementBulletinGroupByArgs['orderBy'] }
+        : { orderBy?: MeasurementBulletinGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MeasurementBulletinGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMeasurementBulletinGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MeasurementBulletin model
+   */
+  readonly fields: MeasurementBulletinFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MeasurementBulletin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MeasurementBulletinClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    contract<T extends ContractDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContractDefaultArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    assetMovement<T extends AssetMovementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetMovementDefaultArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    invoice<T extends MeasurementBulletin$invoiceArgs<ExtArgs> = {}>(args?: Subset<T, MeasurementBulletin$invoiceArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    expenses<T extends MeasurementBulletin$expensesArgs<ExtArgs> = {}>(args?: Subset<T, MeasurementBulletin$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MeasurementBulletin model
+   */
+  interface MeasurementBulletinFieldRefs {
+    readonly id: FieldRef<"MeasurementBulletin", 'String'>
+    readonly contractId: FieldRef<"MeasurementBulletin", 'String'>
+    readonly assetMovementId: FieldRef<"MeasurementBulletin", 'String'>
+    readonly reference_start: FieldRef<"MeasurementBulletin", 'DateTime'>
+    readonly reference_end: FieldRef<"MeasurementBulletin", 'DateTime'>
+    readonly total_days: FieldRef<"MeasurementBulletin", 'Int'>
+    readonly inactive_days: FieldRef<"MeasurementBulletin", 'Int'>
+    readonly working_days: FieldRef<"MeasurementBulletin", 'Int'>
+    readonly daily_rate: FieldRef<"MeasurementBulletin", 'Decimal'>
+    readonly total_value: FieldRef<"MeasurementBulletin", 'Decimal'>
+    readonly status: FieldRef<"MeasurementBulletin", 'MeasurementBulletinStatus'>
+    readonly notes: FieldRef<"MeasurementBulletin", 'String'>
+    readonly is_active: FieldRef<"MeasurementBulletin", 'Boolean'>
+    readonly created_at: FieldRef<"MeasurementBulletin", 'DateTime'>
+    readonly updated_at: FieldRef<"MeasurementBulletin", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MeasurementBulletin findUnique
+   */
+  export type MeasurementBulletinFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementBulletin to fetch.
+     */
+    where: MeasurementBulletinWhereUniqueInput
+  }
+
+  /**
+   * MeasurementBulletin findUniqueOrThrow
+   */
+  export type MeasurementBulletinFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementBulletin to fetch.
+     */
+    where: MeasurementBulletinWhereUniqueInput
+  }
+
+  /**
+   * MeasurementBulletin findFirst
+   */
+  export type MeasurementBulletinFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementBulletin to fetch.
+     */
+    where?: MeasurementBulletinWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeasurementBulletins to fetch.
+     */
+    orderBy?: MeasurementBulletinOrderByWithRelationInput | MeasurementBulletinOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeasurementBulletins.
+     */
+    cursor?: MeasurementBulletinWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeasurementBulletins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeasurementBulletins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeasurementBulletins.
+     */
+    distinct?: MeasurementBulletinScalarFieldEnum | MeasurementBulletinScalarFieldEnum[]
+  }
+
+  /**
+   * MeasurementBulletin findFirstOrThrow
+   */
+  export type MeasurementBulletinFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementBulletin to fetch.
+     */
+    where?: MeasurementBulletinWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeasurementBulletins to fetch.
+     */
+    orderBy?: MeasurementBulletinOrderByWithRelationInput | MeasurementBulletinOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MeasurementBulletins.
+     */
+    cursor?: MeasurementBulletinWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeasurementBulletins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeasurementBulletins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MeasurementBulletins.
+     */
+    distinct?: MeasurementBulletinScalarFieldEnum | MeasurementBulletinScalarFieldEnum[]
+  }
+
+  /**
+   * MeasurementBulletin findMany
+   */
+  export type MeasurementBulletinFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    /**
+     * Filter, which MeasurementBulletins to fetch.
+     */
+    where?: MeasurementBulletinWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MeasurementBulletins to fetch.
+     */
+    orderBy?: MeasurementBulletinOrderByWithRelationInput | MeasurementBulletinOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MeasurementBulletins.
+     */
+    cursor?: MeasurementBulletinWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MeasurementBulletins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MeasurementBulletins.
+     */
+    skip?: number
+    distinct?: MeasurementBulletinScalarFieldEnum | MeasurementBulletinScalarFieldEnum[]
+  }
+
+  /**
+   * MeasurementBulletin create
+   */
+  export type MeasurementBulletinCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MeasurementBulletin.
+     */
+    data: XOR<MeasurementBulletinCreateInput, MeasurementBulletinUncheckedCreateInput>
+  }
+
+  /**
+   * MeasurementBulletin createMany
+   */
+  export type MeasurementBulletinCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MeasurementBulletins.
+     */
+    data: MeasurementBulletinCreateManyInput | MeasurementBulletinCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MeasurementBulletin createManyAndReturn
+   */
+  export type MeasurementBulletinCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * The data used to create many MeasurementBulletins.
+     */
+    data: MeasurementBulletinCreateManyInput | MeasurementBulletinCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeasurementBulletin update
+   */
+  export type MeasurementBulletinUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MeasurementBulletin.
+     */
+    data: XOR<MeasurementBulletinUpdateInput, MeasurementBulletinUncheckedUpdateInput>
+    /**
+     * Choose, which MeasurementBulletin to update.
+     */
+    where: MeasurementBulletinWhereUniqueInput
+  }
+
+  /**
+   * MeasurementBulletin updateMany
+   */
+  export type MeasurementBulletinUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MeasurementBulletins.
+     */
+    data: XOR<MeasurementBulletinUpdateManyMutationInput, MeasurementBulletinUncheckedUpdateManyInput>
+    /**
+     * Filter which MeasurementBulletins to update
+     */
+    where?: MeasurementBulletinWhereInput
+    /**
+     * Limit how many MeasurementBulletins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeasurementBulletin updateManyAndReturn
+   */
+  export type MeasurementBulletinUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * The data used to update MeasurementBulletins.
+     */
+    data: XOR<MeasurementBulletinUpdateManyMutationInput, MeasurementBulletinUncheckedUpdateManyInput>
+    /**
+     * Filter which MeasurementBulletins to update
+     */
+    where?: MeasurementBulletinWhereInput
+    /**
+     * Limit how many MeasurementBulletins to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MeasurementBulletin upsert
+   */
+  export type MeasurementBulletinUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MeasurementBulletin to update in case it exists.
+     */
+    where: MeasurementBulletinWhereUniqueInput
+    /**
+     * In case the MeasurementBulletin found by the `where` argument doesn't exist, create a new MeasurementBulletin with this data.
+     */
+    create: XOR<MeasurementBulletinCreateInput, MeasurementBulletinUncheckedCreateInput>
+    /**
+     * In case the MeasurementBulletin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MeasurementBulletinUpdateInput, MeasurementBulletinUncheckedUpdateInput>
+  }
+
+  /**
+   * MeasurementBulletin delete
+   */
+  export type MeasurementBulletinDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    /**
+     * Filter which MeasurementBulletin to delete.
+     */
+    where: MeasurementBulletinWhereUniqueInput
+  }
+
+  /**
+   * MeasurementBulletin deleteMany
+   */
+  export type MeasurementBulletinDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MeasurementBulletins to delete
+     */
+    where?: MeasurementBulletinWhereInput
+    /**
+     * Limit how many MeasurementBulletins to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MeasurementBulletin.invoice
+   */
+  export type MeasurementBulletin$invoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+  }
+
+  /**
+   * MeasurementBulletin.expenses
+   */
+  export type MeasurementBulletin$expensesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    where?: BulletinExpenseWhereInput
+    orderBy?: BulletinExpenseOrderByWithRelationInput | BulletinExpenseOrderByWithRelationInput[]
+    cursor?: BulletinExpenseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BulletinExpenseScalarFieldEnum | BulletinExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * MeasurementBulletin without action
+   */
+  export type MeasurementBulletinDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Invoice
+   */
+
+  export type AggregateInvoice = {
+    _count: InvoiceCountAggregateOutputType | null
+    _avg: InvoiceAvgAggregateOutputType | null
+    _sum: InvoiceSumAggregateOutputType | null
+    _min: InvoiceMinAggregateOutputType | null
+    _max: InvoiceMaxAggregateOutputType | null
+  }
+
+  export type InvoiceAvgAggregateOutputType = {
+    total_value: Decimal | null
+  }
+
+  export type InvoiceSumAggregateOutputType = {
+    total_value: Decimal | null
+  }
+
+  export type InvoiceMinAggregateOutputType = {
+    id: string | null
+    measurementBulletinId: string | null
+    invoice_number: string | null
+    issue_date: Date | null
+    due_date: Date | null
+    total_value: Decimal | null
+    is_paid: boolean | null
+    payment_date: Date | null
+    status: $Enums.InvoiceStatus | null
+    notes: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type InvoiceMaxAggregateOutputType = {
+    id: string | null
+    measurementBulletinId: string | null
+    invoice_number: string | null
+    issue_date: Date | null
+    due_date: Date | null
+    total_value: Decimal | null
+    is_paid: boolean | null
+    payment_date: Date | null
+    status: $Enums.InvoiceStatus | null
+    notes: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type InvoiceCountAggregateOutputType = {
+    id: number
+    measurementBulletinId: number
+    invoice_number: number
+    issue_date: number
+    due_date: number
+    total_value: number
+    is_paid: number
+    payment_date: number
+    status: number
+    notes: number
+    is_active: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type InvoiceAvgAggregateInputType = {
+    total_value?: true
+  }
+
+  export type InvoiceSumAggregateInputType = {
+    total_value?: true
+  }
+
+  export type InvoiceMinAggregateInputType = {
+    id?: true
+    measurementBulletinId?: true
+    invoice_number?: true
+    issue_date?: true
+    due_date?: true
+    total_value?: true
+    is_paid?: true
+    payment_date?: true
+    status?: true
+    notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type InvoiceMaxAggregateInputType = {
+    id?: true
+    measurementBulletinId?: true
+    invoice_number?: true
+    issue_date?: true
+    due_date?: true
+    total_value?: true
+    is_paid?: true
+    payment_date?: true
+    status?: true
+    notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type InvoiceCountAggregateInputType = {
+    id?: true
+    measurementBulletinId?: true
+    invoice_number?: true
+    issue_date?: true
+    due_date?: true
+    total_value?: true
+    is_paid?: true
+    payment_date?: true
+    status?: true
+    notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type InvoiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Invoice to aggregate.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Invoices
+    **/
+    _count?: true | InvoiceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InvoiceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InvoiceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InvoiceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InvoiceMaxAggregateInputType
+  }
+
+  export type GetInvoiceAggregateType<T extends InvoiceAggregateArgs> = {
+        [P in keyof T & keyof AggregateInvoice]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInvoice[P]>
+      : GetScalarType<T[P], AggregateInvoice[P]>
+  }
+
+
+
+
+  export type InvoiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithAggregationInput | InvoiceOrderByWithAggregationInput[]
+    by: InvoiceScalarFieldEnum[] | InvoiceScalarFieldEnum
+    having?: InvoiceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InvoiceCountAggregateInputType | true
+    _avg?: InvoiceAvgAggregateInputType
+    _sum?: InvoiceSumAggregateInputType
+    _min?: InvoiceMinAggregateInputType
+    _max?: InvoiceMaxAggregateInputType
+  }
+
+  export type InvoiceGroupByOutputType = {
+    id: string
+    measurementBulletinId: string
+    invoice_number: string
+    issue_date: Date
+    due_date: Date
+    total_value: Decimal
+    is_paid: boolean
+    payment_date: Date | null
+    status: $Enums.InvoiceStatus
+    notes: string | null
+    is_active: boolean
+    created_at: Date
+    updated_at: Date
+    _count: InvoiceCountAggregateOutputType | null
+    _avg: InvoiceAvgAggregateOutputType | null
+    _sum: InvoiceSumAggregateOutputType | null
+    _min: InvoiceMinAggregateOutputType | null
+    _max: InvoiceMaxAggregateOutputType | null
+  }
+
+  type GetInvoiceGroupByPayload<T extends InvoiceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InvoiceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InvoiceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InvoiceGroupByOutputType[P]>
+            : GetScalarType<T[P], InvoiceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    measurementBulletinId?: boolean
+    invoice_number?: boolean
+    issue_date?: boolean
+    due_date?: boolean
+    total_value?: boolean
+    is_paid?: boolean
+    payment_date?: boolean
+    status?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["invoice"]>
+
+  export type InvoiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    measurementBulletinId?: boolean
+    invoice_number?: boolean
+    issue_date?: boolean
+    due_date?: boolean
+    total_value?: boolean
+    is_paid?: boolean
+    payment_date?: boolean
+    status?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["invoice"]>
+
+  export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    measurementBulletinId?: boolean
+    invoice_number?: boolean
+    issue_date?: boolean
+    due_date?: boolean
+    total_value?: boolean
+    is_paid?: boolean
+    payment_date?: boolean
+    status?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["invoice"]>
+
+  export type InvoiceSelectScalar = {
+    id?: boolean
+    measurementBulletinId?: boolean
+    invoice_number?: boolean
+    issue_date?: boolean
+    due_date?: boolean
+    total_value?: boolean
+    is_paid?: boolean
+    payment_date?: boolean
+    status?: boolean
+    notes?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "measurementBulletinId" | "invoice_number" | "issue_date" | "due_date" | "total_value" | "is_paid" | "payment_date" | "status" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["invoice"]>
+  export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }
+  export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }
+  export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }
+
+  export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Invoice"
+    objects: {
+      measurementBulletin: Prisma.$MeasurementBulletinPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      measurementBulletinId: string
+      invoice_number: string
+      issue_date: Date
+      due_date: Date
+      total_value: Prisma.Decimal
+      is_paid: boolean
+      payment_date: Date | null
+      status: $Enums.InvoiceStatus
+      notes: string | null
+      is_active: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["invoice"]>
+    composites: {}
+  }
+
+  type InvoiceGetPayload<S extends boolean | null | undefined | InvoiceDefaultArgs> = $Result.GetResult<Prisma.$InvoicePayload, S>
+
+  type InvoiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InvoiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InvoiceCountAggregateInputType | true
+    }
+
+  export interface InvoiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Invoice'], meta: { name: 'Invoice' } }
+    /**
+     * Find zero or one Invoice that matches the filter.
+     * @param {InvoiceFindUniqueArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InvoiceFindUniqueArgs>(args: SelectSubset<T, InvoiceFindUniqueArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Invoice that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InvoiceFindUniqueOrThrowArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InvoiceFindUniqueOrThrowArgs>(args: SelectSubset<T, InvoiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Invoice that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceFindFirstArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InvoiceFindFirstArgs>(args?: SelectSubset<T, InvoiceFindFirstArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Invoice that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceFindFirstOrThrowArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InvoiceFindFirstOrThrowArgs>(args?: SelectSubset<T, InvoiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Invoices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Invoices
+     * const invoices = await prisma.invoice.findMany()
+     * 
+     * // Get first 10 Invoices
+     * const invoices = await prisma.invoice.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const invoiceWithIdOnly = await prisma.invoice.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InvoiceFindManyArgs>(args?: SelectSubset<T, InvoiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Invoice.
+     * @param {InvoiceCreateArgs} args - Arguments to create a Invoice.
+     * @example
+     * // Create one Invoice
+     * const Invoice = await prisma.invoice.create({
+     *   data: {
+     *     // ... data to create a Invoice
+     *   }
+     * })
+     * 
+     */
+    create<T extends InvoiceCreateArgs>(args: SelectSubset<T, InvoiceCreateArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Invoices.
+     * @param {InvoiceCreateManyArgs} args - Arguments to create many Invoices.
+     * @example
+     * // Create many Invoices
+     * const invoice = await prisma.invoice.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InvoiceCreateManyArgs>(args?: SelectSubset<T, InvoiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Invoices and returns the data saved in the database.
+     * @param {InvoiceCreateManyAndReturnArgs} args - Arguments to create many Invoices.
+     * @example
+     * // Create many Invoices
+     * const invoice = await prisma.invoice.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Invoices and only return the `id`
+     * const invoiceWithIdOnly = await prisma.invoice.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InvoiceCreateManyAndReturnArgs>(args?: SelectSubset<T, InvoiceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Invoice.
+     * @param {InvoiceDeleteArgs} args - Arguments to delete one Invoice.
+     * @example
+     * // Delete one Invoice
+     * const Invoice = await prisma.invoice.delete({
+     *   where: {
+     *     // ... filter to delete one Invoice
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InvoiceDeleteArgs>(args: SelectSubset<T, InvoiceDeleteArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Invoice.
+     * @param {InvoiceUpdateArgs} args - Arguments to update one Invoice.
+     * @example
+     * // Update one Invoice
+     * const invoice = await prisma.invoice.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InvoiceUpdateArgs>(args: SelectSubset<T, InvoiceUpdateArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Invoices.
+     * @param {InvoiceDeleteManyArgs} args - Arguments to filter Invoices to delete.
+     * @example
+     * // Delete a few Invoices
+     * const { count } = await prisma.invoice.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InvoiceDeleteManyArgs>(args?: SelectSubset<T, InvoiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Invoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Invoices
+     * const invoice = await prisma.invoice.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InvoiceUpdateManyArgs>(args: SelectSubset<T, InvoiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Invoices and returns the data updated in the database.
+     * @param {InvoiceUpdateManyAndReturnArgs} args - Arguments to update many Invoices.
+     * @example
+     * // Update many Invoices
+     * const invoice = await prisma.invoice.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Invoices and only return the `id`
+     * const invoiceWithIdOnly = await prisma.invoice.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InvoiceUpdateManyAndReturnArgs>(args: SelectSubset<T, InvoiceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Invoice.
+     * @param {InvoiceUpsertArgs} args - Arguments to update or create a Invoice.
+     * @example
+     * // Update or create a Invoice
+     * const invoice = await prisma.invoice.upsert({
+     *   create: {
+     *     // ... data to create a Invoice
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Invoice we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InvoiceUpsertArgs>(args: SelectSubset<T, InvoiceUpsertArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Invoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCountArgs} args - Arguments to filter Invoices to count.
+     * @example
+     * // Count the number of Invoices
+     * const count = await prisma.invoice.count({
+     *   where: {
+     *     // ... the filter for the Invoices we want to count
+     *   }
+     * })
+    **/
+    count<T extends InvoiceCountArgs>(
+      args?: Subset<T, InvoiceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InvoiceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Invoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InvoiceAggregateArgs>(args: Subset<T, InvoiceAggregateArgs>): Prisma.PrismaPromise<GetInvoiceAggregateType<T>>
+
+    /**
+     * Group by Invoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InvoiceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InvoiceGroupByArgs['orderBy'] }
+        : { orderBy?: InvoiceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InvoiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInvoiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Invoice model
+   */
+  readonly fields: InvoiceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Invoice.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    measurementBulletin<T extends MeasurementBulletinDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MeasurementBulletinDefaultArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Invoice model
+   */
+  interface InvoiceFieldRefs {
+    readonly id: FieldRef<"Invoice", 'String'>
+    readonly measurementBulletinId: FieldRef<"Invoice", 'String'>
+    readonly invoice_number: FieldRef<"Invoice", 'String'>
+    readonly issue_date: FieldRef<"Invoice", 'DateTime'>
+    readonly due_date: FieldRef<"Invoice", 'DateTime'>
+    readonly total_value: FieldRef<"Invoice", 'Decimal'>
+    readonly is_paid: FieldRef<"Invoice", 'Boolean'>
+    readonly payment_date: FieldRef<"Invoice", 'DateTime'>
+    readonly status: FieldRef<"Invoice", 'InvoiceStatus'>
+    readonly notes: FieldRef<"Invoice", 'String'>
+    readonly is_active: FieldRef<"Invoice", 'Boolean'>
+    readonly created_at: FieldRef<"Invoice", 'DateTime'>
+    readonly updated_at: FieldRef<"Invoice", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Invoice findUnique
+   */
+  export type InvoiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice findUniqueOrThrow
+   */
+  export type InvoiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice findFirst
+   */
+  export type InvoiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Invoices.
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Invoices.
+     */
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice findFirstOrThrow
+   */
+  export type InvoiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Invoices.
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Invoices.
+     */
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice findMany
+   */
+  export type InvoiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoices to fetch.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Invoices.
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice create
+   */
+  export type InvoiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Invoice.
+     */
+    data: XOR<InvoiceCreateInput, InvoiceUncheckedCreateInput>
+  }
+
+  /**
+   * Invoice createMany
+   */
+  export type InvoiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Invoices.
+     */
+    data: InvoiceCreateManyInput | InvoiceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Invoice createManyAndReturn
+   */
+  export type InvoiceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Invoices.
+     */
+    data: InvoiceCreateManyInput | InvoiceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Invoice update
+   */
+  export type InvoiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Invoice.
+     */
+    data: XOR<InvoiceUpdateInput, InvoiceUncheckedUpdateInput>
+    /**
+     * Choose, which Invoice to update.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice updateMany
+   */
+  export type InvoiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Invoices.
+     */
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyInput>
+    /**
+     * Filter which Invoices to update
+     */
+    where?: InvoiceWhereInput
+    /**
+     * Limit how many Invoices to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Invoice updateManyAndReturn
+   */
+  export type InvoiceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * The data used to update Invoices.
+     */
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyInput>
+    /**
+     * Filter which Invoices to update
+     */
+    where?: InvoiceWhereInput
+    /**
+     * Limit how many Invoices to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Invoice upsert
+   */
+  export type InvoiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Invoice to update in case it exists.
+     */
+    where: InvoiceWhereUniqueInput
+    /**
+     * In case the Invoice found by the `where` argument doesn't exist, create a new Invoice with this data.
+     */
+    create: XOR<InvoiceCreateInput, InvoiceUncheckedCreateInput>
+    /**
+     * In case the Invoice was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InvoiceUpdateInput, InvoiceUncheckedUpdateInput>
+  }
+
+  /**
+   * Invoice delete
+   */
+  export type InvoiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter which Invoice to delete.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice deleteMany
+   */
+  export type InvoiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Invoices to delete
+     */
+    where?: InvoiceWhereInput
+    /**
+     * Limit how many Invoices to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Invoice without action
+   */
+  export type InvoiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BulletinExpense
+   */
+
+  export type AggregateBulletinExpense = {
+    _count: BulletinExpenseCountAggregateOutputType | null
+    _avg: BulletinExpenseAvgAggregateOutputType | null
+    _sum: BulletinExpenseSumAggregateOutputType | null
+    _min: BulletinExpenseMinAggregateOutputType | null
+    _max: BulletinExpenseMaxAggregateOutputType | null
+  }
+
+  export type BulletinExpenseAvgAggregateOutputType = {
+    unit_value: Decimal | null
+    total_value: Decimal | null
+  }
+
+  export type BulletinExpenseSumAggregateOutputType = {
+    unit_value: Decimal | null
+    total_value: Decimal | null
+  }
+
+  export type BulletinExpenseMinAggregateOutputType = {
+    id: string | null
+    measurementBulletinId: string | null
+    description: string | null
+    unit_value: Decimal | null
+    total_value: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type BulletinExpenseMaxAggregateOutputType = {
+    id: string | null
+    measurementBulletinId: string | null
+    description: string | null
+    unit_value: Decimal | null
+    total_value: Decimal | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type BulletinExpenseCountAggregateOutputType = {
+    id: number
+    measurementBulletinId: number
+    description: number
+    unit_value: number
+    total_value: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type BulletinExpenseAvgAggregateInputType = {
+    unit_value?: true
+    total_value?: true
+  }
+
+  export type BulletinExpenseSumAggregateInputType = {
+    unit_value?: true
+    total_value?: true
+  }
+
+  export type BulletinExpenseMinAggregateInputType = {
+    id?: true
+    measurementBulletinId?: true
+    description?: true
+    unit_value?: true
+    total_value?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type BulletinExpenseMaxAggregateInputType = {
+    id?: true
+    measurementBulletinId?: true
+    description?: true
+    unit_value?: true
+    total_value?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type BulletinExpenseCountAggregateInputType = {
+    id?: true
+    measurementBulletinId?: true
+    description?: true
+    unit_value?: true
+    total_value?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type BulletinExpenseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BulletinExpense to aggregate.
+     */
+    where?: BulletinExpenseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BulletinExpenses to fetch.
+     */
+    orderBy?: BulletinExpenseOrderByWithRelationInput | BulletinExpenseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BulletinExpenseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BulletinExpenses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BulletinExpenses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BulletinExpenses
+    **/
+    _count?: true | BulletinExpenseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BulletinExpenseAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BulletinExpenseSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BulletinExpenseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BulletinExpenseMaxAggregateInputType
+  }
+
+  export type GetBulletinExpenseAggregateType<T extends BulletinExpenseAggregateArgs> = {
+        [P in keyof T & keyof AggregateBulletinExpense]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBulletinExpense[P]>
+      : GetScalarType<T[P], AggregateBulletinExpense[P]>
+  }
+
+
+
+
+  export type BulletinExpenseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BulletinExpenseWhereInput
+    orderBy?: BulletinExpenseOrderByWithAggregationInput | BulletinExpenseOrderByWithAggregationInput[]
+    by: BulletinExpenseScalarFieldEnum[] | BulletinExpenseScalarFieldEnum
+    having?: BulletinExpenseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BulletinExpenseCountAggregateInputType | true
+    _avg?: BulletinExpenseAvgAggregateInputType
+    _sum?: BulletinExpenseSumAggregateInputType
+    _min?: BulletinExpenseMinAggregateInputType
+    _max?: BulletinExpenseMaxAggregateInputType
+  }
+
+  export type BulletinExpenseGroupByOutputType = {
+    id: string
+    measurementBulletinId: string
+    description: string
+    unit_value: Decimal
+    total_value: Decimal
+    created_at: Date
+    updated_at: Date
+    _count: BulletinExpenseCountAggregateOutputType | null
+    _avg: BulletinExpenseAvgAggregateOutputType | null
+    _sum: BulletinExpenseSumAggregateOutputType | null
+    _min: BulletinExpenseMinAggregateOutputType | null
+    _max: BulletinExpenseMaxAggregateOutputType | null
+  }
+
+  type GetBulletinExpenseGroupByPayload<T extends BulletinExpenseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BulletinExpenseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BulletinExpenseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BulletinExpenseGroupByOutputType[P]>
+            : GetScalarType<T[P], BulletinExpenseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BulletinExpenseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    measurementBulletinId?: boolean
+    description?: boolean
+    unit_value?: boolean
+    total_value?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bulletinExpense"]>
+
+  export type BulletinExpenseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    measurementBulletinId?: boolean
+    description?: boolean
+    unit_value?: boolean
+    total_value?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bulletinExpense"]>
+
+  export type BulletinExpenseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    measurementBulletinId?: boolean
+    description?: boolean
+    unit_value?: boolean
+    total_value?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bulletinExpense"]>
+
+  export type BulletinExpenseSelectScalar = {
+    id?: boolean
+    measurementBulletinId?: boolean
+    description?: boolean
+    unit_value?: boolean
+    total_value?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type BulletinExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "measurementBulletinId" | "description" | "unit_value" | "total_value" | "created_at" | "updated_at", ExtArgs["result"]["bulletinExpense"]>
+  export type BulletinExpenseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }
+  export type BulletinExpenseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }
+  export type BulletinExpenseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+  }
+
+  export type $BulletinExpensePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BulletinExpense"
+    objects: {
+      measurementBulletin: Prisma.$MeasurementBulletinPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      measurementBulletinId: string
+      description: string
+      unit_value: Prisma.Decimal
+      total_value: Prisma.Decimal
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["bulletinExpense"]>
+    composites: {}
+  }
+
+  type BulletinExpenseGetPayload<S extends boolean | null | undefined | BulletinExpenseDefaultArgs> = $Result.GetResult<Prisma.$BulletinExpensePayload, S>
+
+  type BulletinExpenseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BulletinExpenseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BulletinExpenseCountAggregateInputType | true
+    }
+
+  export interface BulletinExpenseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BulletinExpense'], meta: { name: 'BulletinExpense' } }
+    /**
+     * Find zero or one BulletinExpense that matches the filter.
+     * @param {BulletinExpenseFindUniqueArgs} args - Arguments to find a BulletinExpense
+     * @example
+     * // Get one BulletinExpense
+     * const bulletinExpense = await prisma.bulletinExpense.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BulletinExpenseFindUniqueArgs>(args: SelectSubset<T, BulletinExpenseFindUniqueArgs<ExtArgs>>): Prisma__BulletinExpenseClient<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BulletinExpense that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BulletinExpenseFindUniqueOrThrowArgs} args - Arguments to find a BulletinExpense
+     * @example
+     * // Get one BulletinExpense
+     * const bulletinExpense = await prisma.bulletinExpense.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BulletinExpenseFindUniqueOrThrowArgs>(args: SelectSubset<T, BulletinExpenseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BulletinExpenseClient<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BulletinExpense that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BulletinExpenseFindFirstArgs} args - Arguments to find a BulletinExpense
+     * @example
+     * // Get one BulletinExpense
+     * const bulletinExpense = await prisma.bulletinExpense.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BulletinExpenseFindFirstArgs>(args?: SelectSubset<T, BulletinExpenseFindFirstArgs<ExtArgs>>): Prisma__BulletinExpenseClient<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BulletinExpense that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BulletinExpenseFindFirstOrThrowArgs} args - Arguments to find a BulletinExpense
+     * @example
+     * // Get one BulletinExpense
+     * const bulletinExpense = await prisma.bulletinExpense.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BulletinExpenseFindFirstOrThrowArgs>(args?: SelectSubset<T, BulletinExpenseFindFirstOrThrowArgs<ExtArgs>>): Prisma__BulletinExpenseClient<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BulletinExpenses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BulletinExpenseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BulletinExpenses
+     * const bulletinExpenses = await prisma.bulletinExpense.findMany()
+     * 
+     * // Get first 10 BulletinExpenses
+     * const bulletinExpenses = await prisma.bulletinExpense.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bulletinExpenseWithIdOnly = await prisma.bulletinExpense.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BulletinExpenseFindManyArgs>(args?: SelectSubset<T, BulletinExpenseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BulletinExpense.
+     * @param {BulletinExpenseCreateArgs} args - Arguments to create a BulletinExpense.
+     * @example
+     * // Create one BulletinExpense
+     * const BulletinExpense = await prisma.bulletinExpense.create({
+     *   data: {
+     *     // ... data to create a BulletinExpense
+     *   }
+     * })
+     * 
+     */
+    create<T extends BulletinExpenseCreateArgs>(args: SelectSubset<T, BulletinExpenseCreateArgs<ExtArgs>>): Prisma__BulletinExpenseClient<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BulletinExpenses.
+     * @param {BulletinExpenseCreateManyArgs} args - Arguments to create many BulletinExpenses.
+     * @example
+     * // Create many BulletinExpenses
+     * const bulletinExpense = await prisma.bulletinExpense.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BulletinExpenseCreateManyArgs>(args?: SelectSubset<T, BulletinExpenseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BulletinExpenses and returns the data saved in the database.
+     * @param {BulletinExpenseCreateManyAndReturnArgs} args - Arguments to create many BulletinExpenses.
+     * @example
+     * // Create many BulletinExpenses
+     * const bulletinExpense = await prisma.bulletinExpense.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BulletinExpenses and only return the `id`
+     * const bulletinExpenseWithIdOnly = await prisma.bulletinExpense.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BulletinExpenseCreateManyAndReturnArgs>(args?: SelectSubset<T, BulletinExpenseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BulletinExpense.
+     * @param {BulletinExpenseDeleteArgs} args - Arguments to delete one BulletinExpense.
+     * @example
+     * // Delete one BulletinExpense
+     * const BulletinExpense = await prisma.bulletinExpense.delete({
+     *   where: {
+     *     // ... filter to delete one BulletinExpense
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BulletinExpenseDeleteArgs>(args: SelectSubset<T, BulletinExpenseDeleteArgs<ExtArgs>>): Prisma__BulletinExpenseClient<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BulletinExpense.
+     * @param {BulletinExpenseUpdateArgs} args - Arguments to update one BulletinExpense.
+     * @example
+     * // Update one BulletinExpense
+     * const bulletinExpense = await prisma.bulletinExpense.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BulletinExpenseUpdateArgs>(args: SelectSubset<T, BulletinExpenseUpdateArgs<ExtArgs>>): Prisma__BulletinExpenseClient<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BulletinExpenses.
+     * @param {BulletinExpenseDeleteManyArgs} args - Arguments to filter BulletinExpenses to delete.
+     * @example
+     * // Delete a few BulletinExpenses
+     * const { count } = await prisma.bulletinExpense.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BulletinExpenseDeleteManyArgs>(args?: SelectSubset<T, BulletinExpenseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BulletinExpenses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BulletinExpenseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BulletinExpenses
+     * const bulletinExpense = await prisma.bulletinExpense.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BulletinExpenseUpdateManyArgs>(args: SelectSubset<T, BulletinExpenseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BulletinExpenses and returns the data updated in the database.
+     * @param {BulletinExpenseUpdateManyAndReturnArgs} args - Arguments to update many BulletinExpenses.
+     * @example
+     * // Update many BulletinExpenses
+     * const bulletinExpense = await prisma.bulletinExpense.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BulletinExpenses and only return the `id`
+     * const bulletinExpenseWithIdOnly = await prisma.bulletinExpense.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BulletinExpenseUpdateManyAndReturnArgs>(args: SelectSubset<T, BulletinExpenseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BulletinExpense.
+     * @param {BulletinExpenseUpsertArgs} args - Arguments to update or create a BulletinExpense.
+     * @example
+     * // Update or create a BulletinExpense
+     * const bulletinExpense = await prisma.bulletinExpense.upsert({
+     *   create: {
+     *     // ... data to create a BulletinExpense
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BulletinExpense we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BulletinExpenseUpsertArgs>(args: SelectSubset<T, BulletinExpenseUpsertArgs<ExtArgs>>): Prisma__BulletinExpenseClient<$Result.GetResult<Prisma.$BulletinExpensePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BulletinExpenses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BulletinExpenseCountArgs} args - Arguments to filter BulletinExpenses to count.
+     * @example
+     * // Count the number of BulletinExpenses
+     * const count = await prisma.bulletinExpense.count({
+     *   where: {
+     *     // ... the filter for the BulletinExpenses we want to count
+     *   }
+     * })
+    **/
+    count<T extends BulletinExpenseCountArgs>(
+      args?: Subset<T, BulletinExpenseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BulletinExpenseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BulletinExpense.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BulletinExpenseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BulletinExpenseAggregateArgs>(args: Subset<T, BulletinExpenseAggregateArgs>): Prisma.PrismaPromise<GetBulletinExpenseAggregateType<T>>
+
+    /**
+     * Group by BulletinExpense.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BulletinExpenseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BulletinExpenseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BulletinExpenseGroupByArgs['orderBy'] }
+        : { orderBy?: BulletinExpenseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BulletinExpenseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBulletinExpenseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BulletinExpense model
+   */
+  readonly fields: BulletinExpenseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BulletinExpense.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BulletinExpenseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    measurementBulletin<T extends MeasurementBulletinDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MeasurementBulletinDefaultArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BulletinExpense model
+   */
+  interface BulletinExpenseFieldRefs {
+    readonly id: FieldRef<"BulletinExpense", 'String'>
+    readonly measurementBulletinId: FieldRef<"BulletinExpense", 'String'>
+    readonly description: FieldRef<"BulletinExpense", 'String'>
+    readonly unit_value: FieldRef<"BulletinExpense", 'Decimal'>
+    readonly total_value: FieldRef<"BulletinExpense", 'Decimal'>
+    readonly created_at: FieldRef<"BulletinExpense", 'DateTime'>
+    readonly updated_at: FieldRef<"BulletinExpense", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BulletinExpense findUnique
+   */
+  export type BulletinExpenseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which BulletinExpense to fetch.
+     */
+    where: BulletinExpenseWhereUniqueInput
+  }
+
+  /**
+   * BulletinExpense findUniqueOrThrow
+   */
+  export type BulletinExpenseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which BulletinExpense to fetch.
+     */
+    where: BulletinExpenseWhereUniqueInput
+  }
+
+  /**
+   * BulletinExpense findFirst
+   */
+  export type BulletinExpenseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which BulletinExpense to fetch.
+     */
+    where?: BulletinExpenseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BulletinExpenses to fetch.
+     */
+    orderBy?: BulletinExpenseOrderByWithRelationInput | BulletinExpenseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BulletinExpenses.
+     */
+    cursor?: BulletinExpenseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BulletinExpenses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BulletinExpenses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BulletinExpenses.
+     */
+    distinct?: BulletinExpenseScalarFieldEnum | BulletinExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * BulletinExpense findFirstOrThrow
+   */
+  export type BulletinExpenseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which BulletinExpense to fetch.
+     */
+    where?: BulletinExpenseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BulletinExpenses to fetch.
+     */
+    orderBy?: BulletinExpenseOrderByWithRelationInput | BulletinExpenseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BulletinExpenses.
+     */
+    cursor?: BulletinExpenseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BulletinExpenses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BulletinExpenses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BulletinExpenses.
+     */
+    distinct?: BulletinExpenseScalarFieldEnum | BulletinExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * BulletinExpense findMany
+   */
+  export type BulletinExpenseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which BulletinExpenses to fetch.
+     */
+    where?: BulletinExpenseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BulletinExpenses to fetch.
+     */
+    orderBy?: BulletinExpenseOrderByWithRelationInput | BulletinExpenseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BulletinExpenses.
+     */
+    cursor?: BulletinExpenseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BulletinExpenses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BulletinExpenses.
+     */
+    skip?: number
+    distinct?: BulletinExpenseScalarFieldEnum | BulletinExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * BulletinExpense create
+   */
+  export type BulletinExpenseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BulletinExpense.
+     */
+    data: XOR<BulletinExpenseCreateInput, BulletinExpenseUncheckedCreateInput>
+  }
+
+  /**
+   * BulletinExpense createMany
+   */
+  export type BulletinExpenseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BulletinExpenses.
+     */
+    data: BulletinExpenseCreateManyInput | BulletinExpenseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BulletinExpense createManyAndReturn
+   */
+  export type BulletinExpenseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * The data used to create many BulletinExpenses.
+     */
+    data: BulletinExpenseCreateManyInput | BulletinExpenseCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BulletinExpense update
+   */
+  export type BulletinExpenseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BulletinExpense.
+     */
+    data: XOR<BulletinExpenseUpdateInput, BulletinExpenseUncheckedUpdateInput>
+    /**
+     * Choose, which BulletinExpense to update.
+     */
+    where: BulletinExpenseWhereUniqueInput
+  }
+
+  /**
+   * BulletinExpense updateMany
+   */
+  export type BulletinExpenseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BulletinExpenses.
+     */
+    data: XOR<BulletinExpenseUpdateManyMutationInput, BulletinExpenseUncheckedUpdateManyInput>
+    /**
+     * Filter which BulletinExpenses to update
+     */
+    where?: BulletinExpenseWhereInput
+    /**
+     * Limit how many BulletinExpenses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BulletinExpense updateManyAndReturn
+   */
+  export type BulletinExpenseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * The data used to update BulletinExpenses.
+     */
+    data: XOR<BulletinExpenseUpdateManyMutationInput, BulletinExpenseUncheckedUpdateManyInput>
+    /**
+     * Filter which BulletinExpenses to update
+     */
+    where?: BulletinExpenseWhereInput
+    /**
+     * Limit how many BulletinExpenses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BulletinExpense upsert
+   */
+  export type BulletinExpenseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BulletinExpense to update in case it exists.
+     */
+    where: BulletinExpenseWhereUniqueInput
+    /**
+     * In case the BulletinExpense found by the `where` argument doesn't exist, create a new BulletinExpense with this data.
+     */
+    create: XOR<BulletinExpenseCreateInput, BulletinExpenseUncheckedCreateInput>
+    /**
+     * In case the BulletinExpense was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BulletinExpenseUpdateInput, BulletinExpenseUncheckedUpdateInput>
+  }
+
+  /**
+   * BulletinExpense delete
+   */
+  export type BulletinExpenseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+    /**
+     * Filter which BulletinExpense to delete.
+     */
+    where: BulletinExpenseWhereUniqueInput
+  }
+
+  /**
+   * BulletinExpense deleteMany
+   */
+  export type BulletinExpenseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BulletinExpenses to delete
+     */
+    where?: BulletinExpenseWhereInput
+    /**
+     * Limit how many BulletinExpenses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BulletinExpense without action
+   */
+  export type BulletinExpenseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BulletinExpense
+     */
+    select?: BulletinExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BulletinExpense
+     */
+    omit?: BulletinExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BulletinExpenseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CompanySettings
+   */
+
+  export type AggregateCompanySettings = {
+    _count: CompanySettingsCountAggregateOutputType | null
+    _avg: CompanySettingsAvgAggregateOutputType | null
+    _sum: CompanySettingsSumAggregateOutputType | null
+    _min: CompanySettingsMinAggregateOutputType | null
+    _max: CompanySettingsMaxAggregateOutputType | null
+  }
+
+  export type CompanySettingsAvgAggregateOutputType = {
+    invoice_start_number: number | null
+  }
+
+  export type CompanySettingsSumAggregateOutputType = {
+    invoice_start_number: number | null
+  }
+
+  export type CompanySettingsMinAggregateOutputType = {
+    id: string | null
+    company_name: string | null
+    trading_name: string | null
+    cnpj: string | null
+    address: string | null
+    city: string | null
+    state: string | null
+    zip_code: string | null
+    phone: string | null
+    email: string | null
+    logo_url: string | null
+    invoice_start_number: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CompanySettingsMaxAggregateOutputType = {
+    id: string | null
+    company_name: string | null
+    trading_name: string | null
+    cnpj: string | null
+    address: string | null
+    city: string | null
+    state: string | null
+    zip_code: string | null
+    phone: string | null
+    email: string | null
+    logo_url: string | null
+    invoice_start_number: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CompanySettingsCountAggregateOutputType = {
+    id: number
+    company_name: number
+    trading_name: number
+    cnpj: number
+    address: number
+    city: number
+    state: number
+    zip_code: number
+    phone: number
+    email: number
+    logo_url: number
+    invoice_start_number: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type CompanySettingsAvgAggregateInputType = {
+    invoice_start_number?: true
+  }
+
+  export type CompanySettingsSumAggregateInputType = {
+    invoice_start_number?: true
+  }
+
+  export type CompanySettingsMinAggregateInputType = {
+    id?: true
+    company_name?: true
+    trading_name?: true
+    cnpj?: true
+    address?: true
+    city?: true
+    state?: true
+    zip_code?: true
+    phone?: true
+    email?: true
+    logo_url?: true
+    invoice_start_number?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CompanySettingsMaxAggregateInputType = {
+    id?: true
+    company_name?: true
+    trading_name?: true
+    cnpj?: true
+    address?: true
+    city?: true
+    state?: true
+    zip_code?: true
+    phone?: true
+    email?: true
+    logo_url?: true
+    invoice_start_number?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CompanySettingsCountAggregateInputType = {
+    id?: true
+    company_name?: true
+    trading_name?: true
+    cnpj?: true
+    address?: true
+    city?: true
+    state?: true
+    zip_code?: true
+    phone?: true
+    email?: true
+    logo_url?: true
+    invoice_start_number?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type CompanySettingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompanySettings to aggregate.
+     */
+    where?: CompanySettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanySettings to fetch.
+     */
+    orderBy?: CompanySettingsOrderByWithRelationInput | CompanySettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CompanySettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanySettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanySettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CompanySettings
+    **/
+    _count?: true | CompanySettingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CompanySettingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CompanySettingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CompanySettingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CompanySettingsMaxAggregateInputType
+  }
+
+  export type GetCompanySettingsAggregateType<T extends CompanySettingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompanySettings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompanySettings[P]>
+      : GetScalarType<T[P], AggregateCompanySettings[P]>
+  }
+
+
+
+
+  export type CompanySettingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanySettingsWhereInput
+    orderBy?: CompanySettingsOrderByWithAggregationInput | CompanySettingsOrderByWithAggregationInput[]
+    by: CompanySettingsScalarFieldEnum[] | CompanySettingsScalarFieldEnum
+    having?: CompanySettingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CompanySettingsCountAggregateInputType | true
+    _avg?: CompanySettingsAvgAggregateInputType
+    _sum?: CompanySettingsSumAggregateInputType
+    _min?: CompanySettingsMinAggregateInputType
+    _max?: CompanySettingsMaxAggregateInputType
+  }
+
+  export type CompanySettingsGroupByOutputType = {
+    id: string
+    company_name: string
+    trading_name: string | null
+    cnpj: string | null
+    address: string | null
+    city: string | null
+    state: string | null
+    zip_code: string | null
+    phone: string | null
+    email: string | null
+    logo_url: string | null
+    invoice_start_number: number
+    created_at: Date
+    updated_at: Date
+    _count: CompanySettingsCountAggregateOutputType | null
+    _avg: CompanySettingsAvgAggregateOutputType | null
+    _sum: CompanySettingsSumAggregateOutputType | null
+    _min: CompanySettingsMinAggregateOutputType | null
+    _max: CompanySettingsMaxAggregateOutputType | null
+  }
+
+  type GetCompanySettingsGroupByPayload<T extends CompanySettingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CompanySettingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CompanySettingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CompanySettingsGroupByOutputType[P]>
+            : GetScalarType<T[P], CompanySettingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CompanySettingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    company_name?: boolean
+    trading_name?: boolean
+    cnpj?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    zip_code?: boolean
+    phone?: boolean
+    email?: boolean
+    logo_url?: boolean
+    invoice_start_number?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["companySettings"]>
+
+  export type CompanySettingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    company_name?: boolean
+    trading_name?: boolean
+    cnpj?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    zip_code?: boolean
+    phone?: boolean
+    email?: boolean
+    logo_url?: boolean
+    invoice_start_number?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["companySettings"]>
+
+  export type CompanySettingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    company_name?: boolean
+    trading_name?: boolean
+    cnpj?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    zip_code?: boolean
+    phone?: boolean
+    email?: boolean
+    logo_url?: boolean
+    invoice_start_number?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["companySettings"]>
+
+  export type CompanySettingsSelectScalar = {
+    id?: boolean
+    company_name?: boolean
+    trading_name?: boolean
+    cnpj?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    zip_code?: boolean
+    phone?: boolean
+    email?: boolean
+    logo_url?: boolean
+    invoice_start_number?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type CompanySettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_name" | "trading_name" | "cnpj" | "address" | "city" | "state" | "zip_code" | "phone" | "email" | "logo_url" | "invoice_start_number" | "created_at" | "updated_at", ExtArgs["result"]["companySettings"]>
+
+  export type $CompanySettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CompanySettings"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      company_name: string
+      trading_name: string | null
+      cnpj: string | null
+      address: string | null
+      city: string | null
+      state: string | null
+      zip_code: string | null
+      phone: string | null
+      email: string | null
+      logo_url: string | null
+      invoice_start_number: number
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["companySettings"]>
+    composites: {}
+  }
+
+  type CompanySettingsGetPayload<S extends boolean | null | undefined | CompanySettingsDefaultArgs> = $Result.GetResult<Prisma.$CompanySettingsPayload, S>
+
+  type CompanySettingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CompanySettingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CompanySettingsCountAggregateInputType | true
+    }
+
+  export interface CompanySettingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CompanySettings'], meta: { name: 'CompanySettings' } }
+    /**
+     * Find zero or one CompanySettings that matches the filter.
+     * @param {CompanySettingsFindUniqueArgs} args - Arguments to find a CompanySettings
+     * @example
+     * // Get one CompanySettings
+     * const companySettings = await prisma.companySettings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CompanySettingsFindUniqueArgs>(args: SelectSubset<T, CompanySettingsFindUniqueArgs<ExtArgs>>): Prisma__CompanySettingsClient<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CompanySettings that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CompanySettingsFindUniqueOrThrowArgs} args - Arguments to find a CompanySettings
+     * @example
+     * // Get one CompanySettings
+     * const companySettings = await prisma.companySettings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CompanySettingsFindUniqueOrThrowArgs>(args: SelectSubset<T, CompanySettingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CompanySettingsClient<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CompanySettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySettingsFindFirstArgs} args - Arguments to find a CompanySettings
+     * @example
+     * // Get one CompanySettings
+     * const companySettings = await prisma.companySettings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CompanySettingsFindFirstArgs>(args?: SelectSubset<T, CompanySettingsFindFirstArgs<ExtArgs>>): Prisma__CompanySettingsClient<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CompanySettings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySettingsFindFirstOrThrowArgs} args - Arguments to find a CompanySettings
+     * @example
+     * // Get one CompanySettings
+     * const companySettings = await prisma.companySettings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CompanySettingsFindFirstOrThrowArgs>(args?: SelectSubset<T, CompanySettingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__CompanySettingsClient<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CompanySettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySettingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CompanySettings
+     * const companySettings = await prisma.companySettings.findMany()
+     * 
+     * // Get first 10 CompanySettings
+     * const companySettings = await prisma.companySettings.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const companySettingsWithIdOnly = await prisma.companySettings.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CompanySettingsFindManyArgs>(args?: SelectSubset<T, CompanySettingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CompanySettings.
+     * @param {CompanySettingsCreateArgs} args - Arguments to create a CompanySettings.
+     * @example
+     * // Create one CompanySettings
+     * const CompanySettings = await prisma.companySettings.create({
+     *   data: {
+     *     // ... data to create a CompanySettings
+     *   }
+     * })
+     * 
+     */
+    create<T extends CompanySettingsCreateArgs>(args: SelectSubset<T, CompanySettingsCreateArgs<ExtArgs>>): Prisma__CompanySettingsClient<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CompanySettings.
+     * @param {CompanySettingsCreateManyArgs} args - Arguments to create many CompanySettings.
+     * @example
+     * // Create many CompanySettings
+     * const companySettings = await prisma.companySettings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CompanySettingsCreateManyArgs>(args?: SelectSubset<T, CompanySettingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CompanySettings and returns the data saved in the database.
+     * @param {CompanySettingsCreateManyAndReturnArgs} args - Arguments to create many CompanySettings.
+     * @example
+     * // Create many CompanySettings
+     * const companySettings = await prisma.companySettings.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CompanySettings and only return the `id`
+     * const companySettingsWithIdOnly = await prisma.companySettings.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CompanySettingsCreateManyAndReturnArgs>(args?: SelectSubset<T, CompanySettingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CompanySettings.
+     * @param {CompanySettingsDeleteArgs} args - Arguments to delete one CompanySettings.
+     * @example
+     * // Delete one CompanySettings
+     * const CompanySettings = await prisma.companySettings.delete({
+     *   where: {
+     *     // ... filter to delete one CompanySettings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CompanySettingsDeleteArgs>(args: SelectSubset<T, CompanySettingsDeleteArgs<ExtArgs>>): Prisma__CompanySettingsClient<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CompanySettings.
+     * @param {CompanySettingsUpdateArgs} args - Arguments to update one CompanySettings.
+     * @example
+     * // Update one CompanySettings
+     * const companySettings = await prisma.companySettings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CompanySettingsUpdateArgs>(args: SelectSubset<T, CompanySettingsUpdateArgs<ExtArgs>>): Prisma__CompanySettingsClient<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CompanySettings.
+     * @param {CompanySettingsDeleteManyArgs} args - Arguments to filter CompanySettings to delete.
+     * @example
+     * // Delete a few CompanySettings
+     * const { count } = await prisma.companySettings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CompanySettingsDeleteManyArgs>(args?: SelectSubset<T, CompanySettingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CompanySettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySettingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CompanySettings
+     * const companySettings = await prisma.companySettings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CompanySettingsUpdateManyArgs>(args: SelectSubset<T, CompanySettingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CompanySettings and returns the data updated in the database.
+     * @param {CompanySettingsUpdateManyAndReturnArgs} args - Arguments to update many CompanySettings.
+     * @example
+     * // Update many CompanySettings
+     * const companySettings = await prisma.companySettings.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CompanySettings and only return the `id`
+     * const companySettingsWithIdOnly = await prisma.companySettings.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CompanySettingsUpdateManyAndReturnArgs>(args: SelectSubset<T, CompanySettingsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CompanySettings.
+     * @param {CompanySettingsUpsertArgs} args - Arguments to update or create a CompanySettings.
+     * @example
+     * // Update or create a CompanySettings
+     * const companySettings = await prisma.companySettings.upsert({
+     *   create: {
+     *     // ... data to create a CompanySettings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CompanySettings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CompanySettingsUpsertArgs>(args: SelectSubset<T, CompanySettingsUpsertArgs<ExtArgs>>): Prisma__CompanySettingsClient<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CompanySettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySettingsCountArgs} args - Arguments to filter CompanySettings to count.
+     * @example
+     * // Count the number of CompanySettings
+     * const count = await prisma.companySettings.count({
+     *   where: {
+     *     // ... the filter for the CompanySettings we want to count
+     *   }
+     * })
+    **/
+    count<T extends CompanySettingsCountArgs>(
+      args?: Subset<T, CompanySettingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CompanySettingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CompanySettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySettingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CompanySettingsAggregateArgs>(args: Subset<T, CompanySettingsAggregateArgs>): Prisma.PrismaPromise<GetCompanySettingsAggregateType<T>>
+
+    /**
+     * Group by CompanySettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySettingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CompanySettingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CompanySettingsGroupByArgs['orderBy'] }
+        : { orderBy?: CompanySettingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CompanySettingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompanySettingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CompanySettings model
+   */
+  readonly fields: CompanySettingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CompanySettings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CompanySettingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CompanySettings model
+   */
+  interface CompanySettingsFieldRefs {
+    readonly id: FieldRef<"CompanySettings", 'String'>
+    readonly company_name: FieldRef<"CompanySettings", 'String'>
+    readonly trading_name: FieldRef<"CompanySettings", 'String'>
+    readonly cnpj: FieldRef<"CompanySettings", 'String'>
+    readonly address: FieldRef<"CompanySettings", 'String'>
+    readonly city: FieldRef<"CompanySettings", 'String'>
+    readonly state: FieldRef<"CompanySettings", 'String'>
+    readonly zip_code: FieldRef<"CompanySettings", 'String'>
+    readonly phone: FieldRef<"CompanySettings", 'String'>
+    readonly email: FieldRef<"CompanySettings", 'String'>
+    readonly logo_url: FieldRef<"CompanySettings", 'String'>
+    readonly invoice_start_number: FieldRef<"CompanySettings", 'Int'>
+    readonly created_at: FieldRef<"CompanySettings", 'DateTime'>
+    readonly updated_at: FieldRef<"CompanySettings", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CompanySettings findUnique
+   */
+  export type CompanySettingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which CompanySettings to fetch.
+     */
+    where: CompanySettingsWhereUniqueInput
+  }
+
+  /**
+   * CompanySettings findUniqueOrThrow
+   */
+  export type CompanySettingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which CompanySettings to fetch.
+     */
+    where: CompanySettingsWhereUniqueInput
+  }
+
+  /**
+   * CompanySettings findFirst
+   */
+  export type CompanySettingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which CompanySettings to fetch.
+     */
+    where?: CompanySettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanySettings to fetch.
+     */
+    orderBy?: CompanySettingsOrderByWithRelationInput | CompanySettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompanySettings.
+     */
+    cursor?: CompanySettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanySettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanySettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompanySettings.
+     */
+    distinct?: CompanySettingsScalarFieldEnum | CompanySettingsScalarFieldEnum[]
+  }
+
+  /**
+   * CompanySettings findFirstOrThrow
+   */
+  export type CompanySettingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which CompanySettings to fetch.
+     */
+    where?: CompanySettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanySettings to fetch.
+     */
+    orderBy?: CompanySettingsOrderByWithRelationInput | CompanySettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompanySettings.
+     */
+    cursor?: CompanySettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanySettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanySettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompanySettings.
+     */
+    distinct?: CompanySettingsScalarFieldEnum | CompanySettingsScalarFieldEnum[]
+  }
+
+  /**
+   * CompanySettings findMany
+   */
+  export type CompanySettingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which CompanySettings to fetch.
+     */
+    where?: CompanySettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanySettings to fetch.
+     */
+    orderBy?: CompanySettingsOrderByWithRelationInput | CompanySettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CompanySettings.
+     */
+    cursor?: CompanySettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanySettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanySettings.
+     */
+    skip?: number
+    distinct?: CompanySettingsScalarFieldEnum | CompanySettingsScalarFieldEnum[]
+  }
+
+  /**
+   * CompanySettings create
+   */
+  export type CompanySettingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a CompanySettings.
+     */
+    data: XOR<CompanySettingsCreateInput, CompanySettingsUncheckedCreateInput>
+  }
+
+  /**
+   * CompanySettings createMany
+   */
+  export type CompanySettingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CompanySettings.
+     */
+    data: CompanySettingsCreateManyInput | CompanySettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CompanySettings createManyAndReturn
+   */
+  export type CompanySettingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * The data used to create many CompanySettings.
+     */
+    data: CompanySettingsCreateManyInput | CompanySettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CompanySettings update
+   */
+  export type CompanySettingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a CompanySettings.
+     */
+    data: XOR<CompanySettingsUpdateInput, CompanySettingsUncheckedUpdateInput>
+    /**
+     * Choose, which CompanySettings to update.
+     */
+    where: CompanySettingsWhereUniqueInput
+  }
+
+  /**
+   * CompanySettings updateMany
+   */
+  export type CompanySettingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CompanySettings.
+     */
+    data: XOR<CompanySettingsUpdateManyMutationInput, CompanySettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which CompanySettings to update
+     */
+    where?: CompanySettingsWhereInput
+    /**
+     * Limit how many CompanySettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CompanySettings updateManyAndReturn
+   */
+  export type CompanySettingsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * The data used to update CompanySettings.
+     */
+    data: XOR<CompanySettingsUpdateManyMutationInput, CompanySettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which CompanySettings to update
+     */
+    where?: CompanySettingsWhereInput
+    /**
+     * Limit how many CompanySettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CompanySettings upsert
+   */
+  export type CompanySettingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the CompanySettings to update in case it exists.
+     */
+    where: CompanySettingsWhereUniqueInput
+    /**
+     * In case the CompanySettings found by the `where` argument doesn't exist, create a new CompanySettings with this data.
+     */
+    create: XOR<CompanySettingsCreateInput, CompanySettingsUncheckedCreateInput>
+    /**
+     * In case the CompanySettings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CompanySettingsUpdateInput, CompanySettingsUncheckedUpdateInput>
+  }
+
+  /**
+   * CompanySettings delete
+   */
+  export type CompanySettingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Filter which CompanySettings to delete.
+     */
+    where: CompanySettingsWhereUniqueInput
+  }
+
+  /**
+   * CompanySettings deleteMany
+   */
+  export type CompanySettingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompanySettings to delete
+     */
+    where?: CompanySettingsWhereInput
+    /**
+     * Limit how many CompanySettings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CompanySettings without action
+   */
+  export type CompanySettingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
   }
 
 
@@ -12828,6 +18124,7 @@ export namespace Prisma {
     estimated_cost: 'estimated_cost',
     actual_cost: 'actual_cost',
     status: 'status',
+    equipment_inactive: 'equipment_inactive',
     notes: 'notes',
     created_at: 'created_at',
     updated_at: 'updated_at',
@@ -12898,6 +18195,79 @@ export namespace Prisma {
   };
 
   export type AssetMovementScalarFieldEnum = (typeof AssetMovementScalarFieldEnum)[keyof typeof AssetMovementScalarFieldEnum]
+
+
+  export const MeasurementBulletinScalarFieldEnum: {
+    id: 'id',
+    contractId: 'contractId',
+    assetMovementId: 'assetMovementId',
+    reference_start: 'reference_start',
+    reference_end: 'reference_end',
+    total_days: 'total_days',
+    inactive_days: 'inactive_days',
+    working_days: 'working_days',
+    daily_rate: 'daily_rate',
+    total_value: 'total_value',
+    status: 'status',
+    notes: 'notes',
+    is_active: 'is_active',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type MeasurementBulletinScalarFieldEnum = (typeof MeasurementBulletinScalarFieldEnum)[keyof typeof MeasurementBulletinScalarFieldEnum]
+
+
+  export const InvoiceScalarFieldEnum: {
+    id: 'id',
+    measurementBulletinId: 'measurementBulletinId',
+    invoice_number: 'invoice_number',
+    issue_date: 'issue_date',
+    due_date: 'due_date',
+    total_value: 'total_value',
+    is_paid: 'is_paid',
+    payment_date: 'payment_date',
+    status: 'status',
+    notes: 'notes',
+    is_active: 'is_active',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+  export const BulletinExpenseScalarFieldEnum: {
+    id: 'id',
+    measurementBulletinId: 'measurementBulletinId',
+    description: 'description',
+    unit_value: 'unit_value',
+    total_value: 'total_value',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type BulletinExpenseScalarFieldEnum = (typeof BulletinExpenseScalarFieldEnum)[keyof typeof BulletinExpenseScalarFieldEnum]
+
+
+  export const CompanySettingsScalarFieldEnum: {
+    id: 'id',
+    company_name: 'company_name',
+    trading_name: 'trading_name',
+    cnpj: 'cnpj',
+    address: 'address',
+    city: 'city',
+    state: 'state',
+    zip_code: 'zip_code',
+    phone: 'phone',
+    email: 'email',
+    logo_url: 'logo_url',
+    invoice_start_number: 'invoice_start_number',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type CompanySettingsScalarFieldEnum = (typeof CompanySettingsScalarFieldEnum)[keyof typeof CompanySettingsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13101,6 +18471,34 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MeasurementBulletinStatus'
+   */
+  export type EnumMeasurementBulletinStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MeasurementBulletinStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MeasurementBulletinStatus[]'
+   */
+  export type ListEnumMeasurementBulletinStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MeasurementBulletinStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'InvoiceStatus'
+   */
+  export type EnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'InvoiceStatus[]'
+   */
+  export type ListEnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceStatus[]'>
     
   /**
    * Deep Input Types
@@ -13541,6 +18939,7 @@ export namespace Prisma {
     estimated_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     actual_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFilter<"Maintenance"> | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFilter<"Maintenance"> | boolean
     notes?: StringNullableFilter<"Maintenance"> | string | null
     created_at?: DateTimeFilter<"Maintenance"> | Date | string
     updated_at?: DateTimeFilter<"Maintenance"> | Date | string
@@ -13566,6 +18965,7 @@ export namespace Prisma {
     estimated_cost?: SortOrderInput | SortOrder
     actual_cost?: SortOrderInput | SortOrder
     status?: SortOrder
+    equipment_inactive?: SortOrder
     notes?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -13594,6 +18994,7 @@ export namespace Prisma {
     estimated_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     actual_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFilter<"Maintenance"> | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFilter<"Maintenance"> | boolean
     notes?: StringNullableFilter<"Maintenance"> | string | null
     created_at?: DateTimeFilter<"Maintenance"> | Date | string
     updated_at?: DateTimeFilter<"Maintenance"> | Date | string
@@ -13619,6 +19020,7 @@ export namespace Prisma {
     estimated_cost?: SortOrderInput | SortOrder
     actual_cost?: SortOrderInput | SortOrder
     status?: SortOrder
+    equipment_inactive?: SortOrder
     notes?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -13647,6 +19049,7 @@ export namespace Prisma {
     estimated_cost?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     actual_cost?: DecimalNullableWithAggregatesFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusWithAggregatesFilter<"Maintenance"> | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolWithAggregatesFilter<"Maintenance"> | boolean
     notes?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
@@ -13754,6 +19157,7 @@ export namespace Prisma {
     client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     movements?: AssetMovementListRelationFilter
     maintenances?: MaintenanceListRelationFilter
+    measurementBulletins?: MeasurementBulletinListRelationFilter
   }
 
   export type ContractOrderByWithRelationInput = {
@@ -13776,6 +19180,7 @@ export namespace Prisma {
     client?: SupplierOrderByWithRelationInput
     movements?: AssetMovementOrderByRelationAggregateInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
+    measurementBulletins?: MeasurementBulletinOrderByRelationAggregateInput
   }
 
   export type ContractWhereUniqueInput = Prisma.AtLeast<{
@@ -13801,6 +19206,7 @@ export namespace Prisma {
     client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     movements?: AssetMovementListRelationFilter
     maintenances?: MaintenanceListRelationFilter
+    measurementBulletins?: MeasurementBulletinListRelationFilter
   }, "id" | "contract_number">
 
   export type ContractOrderByWithAggregationInput = {
@@ -13874,6 +19280,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"AssetMovement"> | Date | string
     contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
     asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
+    measurementBulletins?: MeasurementBulletinListRelationFilter
   }
 
   export type AssetMovementOrderByWithRelationInput = {
@@ -13898,6 +19305,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     contract?: ContractOrderByWithRelationInput
     asset?: AssetOrderByWithRelationInput
+    measurementBulletins?: MeasurementBulletinOrderByRelationAggregateInput
   }
 
   export type AssetMovementWhereUniqueInput = Prisma.AtLeast<{
@@ -13925,6 +19333,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"AssetMovement"> | Date | string
     contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
     asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
+    measurementBulletins?: MeasurementBulletinListRelationFilter
   }, "id">
 
   export type AssetMovementOrderByWithAggregationInput = {
@@ -13977,6 +19386,385 @@ export namespace Prisma {
     is_active?: BoolWithAggregatesFilter<"AssetMovement"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"AssetMovement"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"AssetMovement"> | Date | string
+  }
+
+  export type MeasurementBulletinWhereInput = {
+    AND?: MeasurementBulletinWhereInput | MeasurementBulletinWhereInput[]
+    OR?: MeasurementBulletinWhereInput[]
+    NOT?: MeasurementBulletinWhereInput | MeasurementBulletinWhereInput[]
+    id?: StringFilter<"MeasurementBulletin"> | string
+    contractId?: StringFilter<"MeasurementBulletin"> | string
+    assetMovementId?: StringFilter<"MeasurementBulletin"> | string
+    reference_start?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    reference_end?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    total_days?: IntFilter<"MeasurementBulletin"> | number
+    inactive_days?: IntFilter<"MeasurementBulletin"> | number
+    working_days?: IntFilter<"MeasurementBulletin"> | number
+    daily_rate?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFilter<"MeasurementBulletin"> | $Enums.MeasurementBulletinStatus
+    notes?: StringNullableFilter<"MeasurementBulletin"> | string | null
+    is_active?: BoolFilter<"MeasurementBulletin"> | boolean
+    created_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    updated_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
+    assetMovement?: XOR<AssetMovementScalarRelationFilter, AssetMovementWhereInput>
+    invoice?: XOR<InvoiceNullableScalarRelationFilter, InvoiceWhereInput> | null
+    expenses?: BulletinExpenseListRelationFilter
+  }
+
+  export type MeasurementBulletinOrderByWithRelationInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetMovementId?: SortOrder
+    reference_start?: SortOrder
+    reference_end?: SortOrder
+    total_days?: SortOrder
+    inactive_days?: SortOrder
+    working_days?: SortOrder
+    daily_rate?: SortOrder
+    total_value?: SortOrder
+    status?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    contract?: ContractOrderByWithRelationInput
+    assetMovement?: AssetMovementOrderByWithRelationInput
+    invoice?: InvoiceOrderByWithRelationInput
+    expenses?: BulletinExpenseOrderByRelationAggregateInput
+  }
+
+  export type MeasurementBulletinWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MeasurementBulletinWhereInput | MeasurementBulletinWhereInput[]
+    OR?: MeasurementBulletinWhereInput[]
+    NOT?: MeasurementBulletinWhereInput | MeasurementBulletinWhereInput[]
+    contractId?: StringFilter<"MeasurementBulletin"> | string
+    assetMovementId?: StringFilter<"MeasurementBulletin"> | string
+    reference_start?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    reference_end?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    total_days?: IntFilter<"MeasurementBulletin"> | number
+    inactive_days?: IntFilter<"MeasurementBulletin"> | number
+    working_days?: IntFilter<"MeasurementBulletin"> | number
+    daily_rate?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFilter<"MeasurementBulletin"> | $Enums.MeasurementBulletinStatus
+    notes?: StringNullableFilter<"MeasurementBulletin"> | string | null
+    is_active?: BoolFilter<"MeasurementBulletin"> | boolean
+    created_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    updated_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
+    assetMovement?: XOR<AssetMovementScalarRelationFilter, AssetMovementWhereInput>
+    invoice?: XOR<InvoiceNullableScalarRelationFilter, InvoiceWhereInput> | null
+    expenses?: BulletinExpenseListRelationFilter
+  }, "id">
+
+  export type MeasurementBulletinOrderByWithAggregationInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetMovementId?: SortOrder
+    reference_start?: SortOrder
+    reference_end?: SortOrder
+    total_days?: SortOrder
+    inactive_days?: SortOrder
+    working_days?: SortOrder
+    daily_rate?: SortOrder
+    total_value?: SortOrder
+    status?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: MeasurementBulletinCountOrderByAggregateInput
+    _avg?: MeasurementBulletinAvgOrderByAggregateInput
+    _max?: MeasurementBulletinMaxOrderByAggregateInput
+    _min?: MeasurementBulletinMinOrderByAggregateInput
+    _sum?: MeasurementBulletinSumOrderByAggregateInput
+  }
+
+  export type MeasurementBulletinScalarWhereWithAggregatesInput = {
+    AND?: MeasurementBulletinScalarWhereWithAggregatesInput | MeasurementBulletinScalarWhereWithAggregatesInput[]
+    OR?: MeasurementBulletinScalarWhereWithAggregatesInput[]
+    NOT?: MeasurementBulletinScalarWhereWithAggregatesInput | MeasurementBulletinScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MeasurementBulletin"> | string
+    contractId?: StringWithAggregatesFilter<"MeasurementBulletin"> | string
+    assetMovementId?: StringWithAggregatesFilter<"MeasurementBulletin"> | string
+    reference_start?: DateTimeWithAggregatesFilter<"MeasurementBulletin"> | Date | string
+    reference_end?: DateTimeWithAggregatesFilter<"MeasurementBulletin"> | Date | string
+    total_days?: IntWithAggregatesFilter<"MeasurementBulletin"> | number
+    inactive_days?: IntWithAggregatesFilter<"MeasurementBulletin"> | number
+    working_days?: IntWithAggregatesFilter<"MeasurementBulletin"> | number
+    daily_rate?: DecimalWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusWithAggregatesFilter<"MeasurementBulletin"> | $Enums.MeasurementBulletinStatus
+    notes?: StringNullableWithAggregatesFilter<"MeasurementBulletin"> | string | null
+    is_active?: BoolWithAggregatesFilter<"MeasurementBulletin"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"MeasurementBulletin"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"MeasurementBulletin"> | Date | string
+  }
+
+  export type InvoiceWhereInput = {
+    AND?: InvoiceWhereInput | InvoiceWhereInput[]
+    OR?: InvoiceWhereInput[]
+    NOT?: InvoiceWhereInput | InvoiceWhereInput[]
+    id?: StringFilter<"Invoice"> | string
+    measurementBulletinId?: StringFilter<"Invoice"> | string
+    invoice_number?: StringFilter<"Invoice"> | string
+    issue_date?: DateTimeFilter<"Invoice"> | Date | string
+    due_date?: DateTimeFilter<"Invoice"> | Date | string
+    total_value?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFilter<"Invoice"> | boolean
+    payment_date?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    notes?: StringNullableFilter<"Invoice"> | string | null
+    is_active?: BoolFilter<"Invoice"> | boolean
+    created_at?: DateTimeFilter<"Invoice"> | Date | string
+    updated_at?: DateTimeFilter<"Invoice"> | Date | string
+    measurementBulletin?: XOR<MeasurementBulletinScalarRelationFilter, MeasurementBulletinWhereInput>
+  }
+
+  export type InvoiceOrderByWithRelationInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    invoice_number?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
+    total_value?: SortOrder
+    is_paid?: SortOrder
+    payment_date?: SortOrderInput | SortOrder
+    status?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    measurementBulletin?: MeasurementBulletinOrderByWithRelationInput
+  }
+
+  export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    measurementBulletinId?: string
+    invoice_number?: string
+    AND?: InvoiceWhereInput | InvoiceWhereInput[]
+    OR?: InvoiceWhereInput[]
+    NOT?: InvoiceWhereInput | InvoiceWhereInput[]
+    issue_date?: DateTimeFilter<"Invoice"> | Date | string
+    due_date?: DateTimeFilter<"Invoice"> | Date | string
+    total_value?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFilter<"Invoice"> | boolean
+    payment_date?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    notes?: StringNullableFilter<"Invoice"> | string | null
+    is_active?: BoolFilter<"Invoice"> | boolean
+    created_at?: DateTimeFilter<"Invoice"> | Date | string
+    updated_at?: DateTimeFilter<"Invoice"> | Date | string
+    measurementBulletin?: XOR<MeasurementBulletinScalarRelationFilter, MeasurementBulletinWhereInput>
+  }, "id" | "measurementBulletinId" | "invoice_number">
+
+  export type InvoiceOrderByWithAggregationInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    invoice_number?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
+    total_value?: SortOrder
+    is_paid?: SortOrder
+    payment_date?: SortOrderInput | SortOrder
+    status?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: InvoiceCountOrderByAggregateInput
+    _avg?: InvoiceAvgOrderByAggregateInput
+    _max?: InvoiceMaxOrderByAggregateInput
+    _min?: InvoiceMinOrderByAggregateInput
+    _sum?: InvoiceSumOrderByAggregateInput
+  }
+
+  export type InvoiceScalarWhereWithAggregatesInput = {
+    AND?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
+    OR?: InvoiceScalarWhereWithAggregatesInput[]
+    NOT?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Invoice"> | string
+    measurementBulletinId?: StringWithAggregatesFilter<"Invoice"> | string
+    invoice_number?: StringWithAggregatesFilter<"Invoice"> | string
+    issue_date?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+    due_date?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+    total_value?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolWithAggregatesFilter<"Invoice"> | boolean
+    payment_date?: DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
+    status?: EnumInvoiceStatusWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus
+    notes?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    is_active?: BoolWithAggregatesFilter<"Invoice"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+  }
+
+  export type BulletinExpenseWhereInput = {
+    AND?: BulletinExpenseWhereInput | BulletinExpenseWhereInput[]
+    OR?: BulletinExpenseWhereInput[]
+    NOT?: BulletinExpenseWhereInput | BulletinExpenseWhereInput[]
+    id?: StringFilter<"BulletinExpense"> | string
+    measurementBulletinId?: StringFilter<"BulletinExpense"> | string
+    description?: StringFilter<"BulletinExpense"> | string
+    unit_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"BulletinExpense"> | Date | string
+    updated_at?: DateTimeFilter<"BulletinExpense"> | Date | string
+    measurementBulletin?: XOR<MeasurementBulletinScalarRelationFilter, MeasurementBulletinWhereInput>
+  }
+
+  export type BulletinExpenseOrderByWithRelationInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    description?: SortOrder
+    unit_value?: SortOrder
+    total_value?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    measurementBulletin?: MeasurementBulletinOrderByWithRelationInput
+  }
+
+  export type BulletinExpenseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BulletinExpenseWhereInput | BulletinExpenseWhereInput[]
+    OR?: BulletinExpenseWhereInput[]
+    NOT?: BulletinExpenseWhereInput | BulletinExpenseWhereInput[]
+    measurementBulletinId?: StringFilter<"BulletinExpense"> | string
+    description?: StringFilter<"BulletinExpense"> | string
+    unit_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"BulletinExpense"> | Date | string
+    updated_at?: DateTimeFilter<"BulletinExpense"> | Date | string
+    measurementBulletin?: XOR<MeasurementBulletinScalarRelationFilter, MeasurementBulletinWhereInput>
+  }, "id">
+
+  export type BulletinExpenseOrderByWithAggregationInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    description?: SortOrder
+    unit_value?: SortOrder
+    total_value?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: BulletinExpenseCountOrderByAggregateInput
+    _avg?: BulletinExpenseAvgOrderByAggregateInput
+    _max?: BulletinExpenseMaxOrderByAggregateInput
+    _min?: BulletinExpenseMinOrderByAggregateInput
+    _sum?: BulletinExpenseSumOrderByAggregateInput
+  }
+
+  export type BulletinExpenseScalarWhereWithAggregatesInput = {
+    AND?: BulletinExpenseScalarWhereWithAggregatesInput | BulletinExpenseScalarWhereWithAggregatesInput[]
+    OR?: BulletinExpenseScalarWhereWithAggregatesInput[]
+    NOT?: BulletinExpenseScalarWhereWithAggregatesInput | BulletinExpenseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BulletinExpense"> | string
+    measurementBulletinId?: StringWithAggregatesFilter<"BulletinExpense"> | string
+    description?: StringWithAggregatesFilter<"BulletinExpense"> | string
+    unit_value?: DecimalWithAggregatesFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalWithAggregatesFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeWithAggregatesFilter<"BulletinExpense"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"BulletinExpense"> | Date | string
+  }
+
+  export type CompanySettingsWhereInput = {
+    AND?: CompanySettingsWhereInput | CompanySettingsWhereInput[]
+    OR?: CompanySettingsWhereInput[]
+    NOT?: CompanySettingsWhereInput | CompanySettingsWhereInput[]
+    id?: StringFilter<"CompanySettings"> | string
+    company_name?: StringFilter<"CompanySettings"> | string
+    trading_name?: StringNullableFilter<"CompanySettings"> | string | null
+    cnpj?: StringNullableFilter<"CompanySettings"> | string | null
+    address?: StringNullableFilter<"CompanySettings"> | string | null
+    city?: StringNullableFilter<"CompanySettings"> | string | null
+    state?: StringNullableFilter<"CompanySettings"> | string | null
+    zip_code?: StringNullableFilter<"CompanySettings"> | string | null
+    phone?: StringNullableFilter<"CompanySettings"> | string | null
+    email?: StringNullableFilter<"CompanySettings"> | string | null
+    logo_url?: StringNullableFilter<"CompanySettings"> | string | null
+    invoice_start_number?: IntFilter<"CompanySettings"> | number
+    created_at?: DateTimeFilter<"CompanySettings"> | Date | string
+    updated_at?: DateTimeFilter<"CompanySettings"> | Date | string
+  }
+
+  export type CompanySettingsOrderByWithRelationInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    trading_name?: SortOrderInput | SortOrder
+    cnpj?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    zip_code?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    logo_url?: SortOrderInput | SortOrder
+    invoice_start_number?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CompanySettingsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CompanySettingsWhereInput | CompanySettingsWhereInput[]
+    OR?: CompanySettingsWhereInput[]
+    NOT?: CompanySettingsWhereInput | CompanySettingsWhereInput[]
+    company_name?: StringFilter<"CompanySettings"> | string
+    trading_name?: StringNullableFilter<"CompanySettings"> | string | null
+    cnpj?: StringNullableFilter<"CompanySettings"> | string | null
+    address?: StringNullableFilter<"CompanySettings"> | string | null
+    city?: StringNullableFilter<"CompanySettings"> | string | null
+    state?: StringNullableFilter<"CompanySettings"> | string | null
+    zip_code?: StringNullableFilter<"CompanySettings"> | string | null
+    phone?: StringNullableFilter<"CompanySettings"> | string | null
+    email?: StringNullableFilter<"CompanySettings"> | string | null
+    logo_url?: StringNullableFilter<"CompanySettings"> | string | null
+    invoice_start_number?: IntFilter<"CompanySettings"> | number
+    created_at?: DateTimeFilter<"CompanySettings"> | Date | string
+    updated_at?: DateTimeFilter<"CompanySettings"> | Date | string
+  }, "id">
+
+  export type CompanySettingsOrderByWithAggregationInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    trading_name?: SortOrderInput | SortOrder
+    cnpj?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    zip_code?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    logo_url?: SortOrderInput | SortOrder
+    invoice_start_number?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: CompanySettingsCountOrderByAggregateInput
+    _avg?: CompanySettingsAvgOrderByAggregateInput
+    _max?: CompanySettingsMaxOrderByAggregateInput
+    _min?: CompanySettingsMinOrderByAggregateInput
+    _sum?: CompanySettingsSumOrderByAggregateInput
+  }
+
+  export type CompanySettingsScalarWhereWithAggregatesInput = {
+    AND?: CompanySettingsScalarWhereWithAggregatesInput | CompanySettingsScalarWhereWithAggregatesInput[]
+    OR?: CompanySettingsScalarWhereWithAggregatesInput[]
+    NOT?: CompanySettingsScalarWhereWithAggregatesInput | CompanySettingsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CompanySettings"> | string
+    company_name?: StringWithAggregatesFilter<"CompanySettings"> | string
+    trading_name?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    cnpj?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    address?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    city?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    state?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    zip_code?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    email?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    logo_url?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
+    invoice_start_number?: IntWithAggregatesFilter<"CompanySettings"> | number
+    created_at?: DateTimeWithAggregatesFilter<"CompanySettings"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"CompanySettings"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -14481,6 +20269,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -14505,6 +20294,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -14523,6 +20313,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14547,6 +20338,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14568,6 +20360,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -14585,6 +20378,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14604,6 +20398,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14713,6 +20508,7 @@ export namespace Prisma {
     client: SupplierCreateNestedOneWithoutContractsInput
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateInput = {
@@ -14734,6 +20530,7 @@ export namespace Prisma {
     is_Active?: boolean
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractUpdateInput = {
@@ -14755,6 +20552,7 @@ export namespace Prisma {
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateInput = {
@@ -14776,6 +20574,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractCreateManyInput = {
@@ -14854,6 +20653,7 @@ export namespace Prisma {
     updated_at?: Date | string
     contract: ContractCreateNestedOneWithoutMovementsInput
     asset: AssetCreateNestedOneWithoutMovementsInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutAssetMovementInput
   }
 
   export type AssetMovementUncheckedCreateInput = {
@@ -14876,6 +20676,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutAssetMovementInput
   }
 
   export type AssetMovementUpdateInput = {
@@ -14898,6 +20699,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     contract?: ContractUpdateOneRequiredWithoutMovementsNestedInput
     asset?: AssetUpdateOneRequiredWithoutMovementsNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutAssetMovementNestedInput
   }
 
   export type AssetMovementUncheckedUpdateInput = {
@@ -14920,6 +20722,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutAssetMovementNestedInput
   }
 
   export type AssetMovementCreateManyInput = {
@@ -14982,6 +20785,437 @@ export namespace Prisma {
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeasurementBulletinCreateInput = {
+    id?: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
+    assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
+    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinInput
+    expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinUncheckedCreateInput = {
+    id?: string
+    contractId: string
+    assetMovementId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    invoice?: InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput
+    expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinNestedInput
+    expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetMovementId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice?: InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
+    expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinCreateManyInput = {
+    id?: string
+    contractId: string
+    assetMovementId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MeasurementBulletinUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeasurementBulletinUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetMovementId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceCreateInput = {
+    id?: string
+    invoice_number: string
+    issue_date: Date | string
+    due_date: Date | string
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    status?: $Enums.InvoiceStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    measurementBulletin: MeasurementBulletinCreateNestedOneWithoutInvoiceInput
+  }
+
+  export type InvoiceUncheckedCreateInput = {
+    id?: string
+    measurementBulletinId: string
+    invoice_number: string
+    issue_date: Date | string
+    due_date: Date | string
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    status?: $Enums.InvoiceStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: StringFieldUpdateOperationsInput | string
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementBulletin?: MeasurementBulletinUpdateOneRequiredWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: StringFieldUpdateOperationsInput | string
+    invoice_number?: StringFieldUpdateOperationsInput | string
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceCreateManyInput = {
+    id?: string
+    measurementBulletinId: string
+    invoice_number: string
+    issue_date: Date | string
+    due_date: Date | string
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    status?: $Enums.InvoiceStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: StringFieldUpdateOperationsInput | string
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: StringFieldUpdateOperationsInput | string
+    invoice_number?: StringFieldUpdateOperationsInput | string
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BulletinExpenseCreateInput = {
+    id?: string
+    description: string
+    unit_value: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    measurementBulletin: MeasurementBulletinCreateNestedOneWithoutExpensesInput
+  }
+
+  export type BulletinExpenseUncheckedCreateInput = {
+    id?: string
+    measurementBulletinId: string
+    description: string
+    unit_value: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type BulletinExpenseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementBulletin?: MeasurementBulletinUpdateOneRequiredWithoutExpensesNestedInput
+  }
+
+  export type BulletinExpenseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BulletinExpenseCreateManyInput = {
+    id?: string
+    measurementBulletinId: string
+    description: string
+    unit_value: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type BulletinExpenseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BulletinExpenseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySettingsCreateInput = {
+    id?: string
+    company_name: string
+    trading_name?: string | null
+    cnpj?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    zip_code?: string | null
+    phone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    invoice_start_number?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CompanySettingsUncheckedCreateInput = {
+    id?: string
+    company_name: string
+    trading_name?: string | null
+    cnpj?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    zip_code?: string | null
+    phone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    invoice_start_number?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CompanySettingsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_start_number?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySettingsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_start_number?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySettingsCreateManyInput = {
+    id?: string
+    company_name: string
+    trading_name?: string | null
+    cnpj?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    zip_code?: string | null
+    phone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    invoice_start_number?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CompanySettingsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_start_number?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySettingsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_start_number?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15512,6 +21746,7 @@ export namespace Prisma {
     estimated_cost?: SortOrder
     actual_cost?: SortOrder
     status?: SortOrder
+    equipment_inactive?: SortOrder
     notes?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -15537,6 +21772,7 @@ export namespace Prisma {
     estimated_cost?: SortOrder
     actual_cost?: SortOrder
     status?: SortOrder
+    equipment_inactive?: SortOrder
     notes?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -15557,6 +21793,7 @@ export namespace Prisma {
     estimated_cost?: SortOrder
     actual_cost?: SortOrder
     status?: SortOrder
+    equipment_inactive?: SortOrder
     notes?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -15700,6 +21937,16 @@ export namespace Prisma {
     in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumContractStatusFilter<$PrismaModel> | $Enums.ContractStatus
+  }
+
+  export type MeasurementBulletinListRelationFilter = {
+    every?: MeasurementBulletinWhereInput
+    some?: MeasurementBulletinWhereInput
+    none?: MeasurementBulletinWhereInput
+  }
+
+  export type MeasurementBulletinOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ContractCountOrderByAggregateInput = {
@@ -15933,6 +22180,290 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type EnumMeasurementBulletinStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeasurementBulletinStatus | EnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MeasurementBulletinStatus[] | ListEnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeasurementBulletinStatus[] | ListEnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeasurementBulletinStatusFilter<$PrismaModel> | $Enums.MeasurementBulletinStatus
+  }
+
+  export type AssetMovementScalarRelationFilter = {
+    is?: AssetMovementWhereInput
+    isNot?: AssetMovementWhereInput
+  }
+
+  export type InvoiceNullableScalarRelationFilter = {
+    is?: InvoiceWhereInput | null
+    isNot?: InvoiceWhereInput | null
+  }
+
+  export type BulletinExpenseListRelationFilter = {
+    every?: BulletinExpenseWhereInput
+    some?: BulletinExpenseWhereInput
+    none?: BulletinExpenseWhereInput
+  }
+
+  export type BulletinExpenseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MeasurementBulletinCountOrderByAggregateInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetMovementId?: SortOrder
+    reference_start?: SortOrder
+    reference_end?: SortOrder
+    total_days?: SortOrder
+    inactive_days?: SortOrder
+    working_days?: SortOrder
+    daily_rate?: SortOrder
+    total_value?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MeasurementBulletinAvgOrderByAggregateInput = {
+    total_days?: SortOrder
+    inactive_days?: SortOrder
+    working_days?: SortOrder
+    daily_rate?: SortOrder
+    total_value?: SortOrder
+  }
+
+  export type MeasurementBulletinMaxOrderByAggregateInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetMovementId?: SortOrder
+    reference_start?: SortOrder
+    reference_end?: SortOrder
+    total_days?: SortOrder
+    inactive_days?: SortOrder
+    working_days?: SortOrder
+    daily_rate?: SortOrder
+    total_value?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MeasurementBulletinMinOrderByAggregateInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    assetMovementId?: SortOrder
+    reference_start?: SortOrder
+    reference_end?: SortOrder
+    total_days?: SortOrder
+    inactive_days?: SortOrder
+    working_days?: SortOrder
+    daily_rate?: SortOrder
+    total_value?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MeasurementBulletinSumOrderByAggregateInput = {
+    total_days?: SortOrder
+    inactive_days?: SortOrder
+    working_days?: SortOrder
+    daily_rate?: SortOrder
+    total_value?: SortOrder
+  }
+
+  export type EnumMeasurementBulletinStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeasurementBulletinStatus | EnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MeasurementBulletinStatus[] | ListEnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeasurementBulletinStatus[] | ListEnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeasurementBulletinStatusWithAggregatesFilter<$PrismaModel> | $Enums.MeasurementBulletinStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMeasurementBulletinStatusFilter<$PrismaModel>
+    _max?: NestedEnumMeasurementBulletinStatusFilter<$PrismaModel>
+  }
+
+  export type EnumInvoiceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
+  }
+
+  export type MeasurementBulletinScalarRelationFilter = {
+    is?: MeasurementBulletinWhereInput
+    isNot?: MeasurementBulletinWhereInput
+  }
+
+  export type InvoiceCountOrderByAggregateInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    invoice_number?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
+    total_value?: SortOrder
+    is_paid?: SortOrder
+    payment_date?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type InvoiceAvgOrderByAggregateInput = {
+    total_value?: SortOrder
+  }
+
+  export type InvoiceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    invoice_number?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
+    total_value?: SortOrder
+    is_paid?: SortOrder
+    payment_date?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type InvoiceMinOrderByAggregateInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    invoice_number?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
+    total_value?: SortOrder
+    is_paid?: SortOrder
+    payment_date?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type InvoiceSumOrderByAggregateInput = {
+    total_value?: SortOrder
+  }
+
+  export type EnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvoiceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInvoiceStatusFilter<$PrismaModel>
+    _max?: NestedEnumInvoiceStatusFilter<$PrismaModel>
+  }
+
+  export type BulletinExpenseCountOrderByAggregateInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    description?: SortOrder
+    unit_value?: SortOrder
+    total_value?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type BulletinExpenseAvgOrderByAggregateInput = {
+    unit_value?: SortOrder
+    total_value?: SortOrder
+  }
+
+  export type BulletinExpenseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    description?: SortOrder
+    unit_value?: SortOrder
+    total_value?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type BulletinExpenseMinOrderByAggregateInput = {
+    id?: SortOrder
+    measurementBulletinId?: SortOrder
+    description?: SortOrder
+    unit_value?: SortOrder
+    total_value?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type BulletinExpenseSumOrderByAggregateInput = {
+    unit_value?: SortOrder
+    total_value?: SortOrder
+  }
+
+  export type CompanySettingsCountOrderByAggregateInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    trading_name?: SortOrder
+    cnpj?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    zip_code?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    logo_url?: SortOrder
+    invoice_start_number?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CompanySettingsAvgOrderByAggregateInput = {
+    invoice_start_number?: SortOrder
+  }
+
+  export type CompanySettingsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    trading_name?: SortOrder
+    cnpj?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    zip_code?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    logo_url?: SortOrder
+    invoice_start_number?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CompanySettingsMinOrderByAggregateInput = {
+    id?: SortOrder
+    company_name?: SortOrder
+    trading_name?: SortOrder
+    cnpj?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    zip_code?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    logo_url?: SortOrder
+    invoice_start_number?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CompanySettingsSumOrderByAggregateInput = {
+    invoice_start_number?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -16412,6 +22943,13 @@ export namespace Prisma {
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
   }
 
+  export type MeasurementBulletinCreateNestedManyWithoutContractInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutContractInput, MeasurementBulletinUncheckedCreateWithoutContractInput> | MeasurementBulletinCreateWithoutContractInput[] | MeasurementBulletinUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutContractInput | MeasurementBulletinCreateOrConnectWithoutContractInput[]
+    createMany?: MeasurementBulletinCreateManyContractInputEnvelope
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+  }
+
   export type AssetMovementUncheckedCreateNestedManyWithoutContractInput = {
     create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
@@ -16424,6 +22962,13 @@ export namespace Prisma {
     connectOrCreate?: MaintenanceCreateOrConnectWithoutContractInput | MaintenanceCreateOrConnectWithoutContractInput[]
     createMany?: MaintenanceCreateManyContractInputEnvelope
     connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutContractInput, MeasurementBulletinUncheckedCreateWithoutContractInput> | MeasurementBulletinCreateWithoutContractInput[] | MeasurementBulletinUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutContractInput | MeasurementBulletinCreateOrConnectWithoutContractInput[]
+    createMany?: MeasurementBulletinCreateManyContractInputEnvelope
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
   }
 
   export type EnumContractStatusFieldUpdateOperationsInput = {
@@ -16466,6 +23011,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
+  export type MeasurementBulletinUpdateManyWithoutContractNestedInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutContractInput, MeasurementBulletinUncheckedCreateWithoutContractInput> | MeasurementBulletinCreateWithoutContractInput[] | MeasurementBulletinUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutContractInput | MeasurementBulletinCreateOrConnectWithoutContractInput[]
+    upsert?: MeasurementBulletinUpsertWithWhereUniqueWithoutContractInput | MeasurementBulletinUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: MeasurementBulletinCreateManyContractInputEnvelope
+    set?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    disconnect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    delete?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    update?: MeasurementBulletinUpdateWithWhereUniqueWithoutContractInput | MeasurementBulletinUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: MeasurementBulletinUpdateManyWithWhereWithoutContractInput | MeasurementBulletinUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
+  }
+
   export type AssetMovementUncheckedUpdateManyWithoutContractNestedInput = {
     create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
@@ -16494,6 +23053,20 @@ export namespace Prisma {
     deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
+  export type MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutContractInput, MeasurementBulletinUncheckedCreateWithoutContractInput> | MeasurementBulletinCreateWithoutContractInput[] | MeasurementBulletinUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutContractInput | MeasurementBulletinCreateOrConnectWithoutContractInput[]
+    upsert?: MeasurementBulletinUpsertWithWhereUniqueWithoutContractInput | MeasurementBulletinUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: MeasurementBulletinCreateManyContractInputEnvelope
+    set?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    disconnect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    delete?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    update?: MeasurementBulletinUpdateWithWhereUniqueWithoutContractInput | MeasurementBulletinUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: MeasurementBulletinUpdateManyWithWhereWithoutContractInput | MeasurementBulletinUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
+  }
+
   export type ContractCreateNestedOneWithoutMovementsInput = {
     create?: XOR<ContractCreateWithoutMovementsInput, ContractUncheckedCreateWithoutMovementsInput>
     connectOrCreate?: ContractCreateOrConnectWithoutMovementsInput
@@ -16504,6 +23077,20 @@ export namespace Prisma {
     create?: XOR<AssetCreateWithoutMovementsInput, AssetUncheckedCreateWithoutMovementsInput>
     connectOrCreate?: AssetCreateOrConnectWithoutMovementsInput
     connect?: AssetWhereUniqueInput
+  }
+
+  export type MeasurementBulletinCreateNestedManyWithoutAssetMovementInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutAssetMovementInput, MeasurementBulletinUncheckedCreateWithoutAssetMovementInput> | MeasurementBulletinCreateWithoutAssetMovementInput[] | MeasurementBulletinUncheckedCreateWithoutAssetMovementInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutAssetMovementInput | MeasurementBulletinCreateOrConnectWithoutAssetMovementInput[]
+    createMany?: MeasurementBulletinCreateManyAssetMovementInputEnvelope
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+  }
+
+  export type MeasurementBulletinUncheckedCreateNestedManyWithoutAssetMovementInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutAssetMovementInput, MeasurementBulletinUncheckedCreateWithoutAssetMovementInput> | MeasurementBulletinCreateWithoutAssetMovementInput[] | MeasurementBulletinUncheckedCreateWithoutAssetMovementInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutAssetMovementInput | MeasurementBulletinCreateOrConnectWithoutAssetMovementInput[]
+    createMany?: MeasurementBulletinCreateManyAssetMovementInputEnvelope
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -16540,6 +23127,172 @@ export namespace Prisma {
     upsert?: AssetUpsertWithoutMovementsInput
     connect?: AssetWhereUniqueInput
     update?: XOR<XOR<AssetUpdateToOneWithWhereWithoutMovementsInput, AssetUpdateWithoutMovementsInput>, AssetUncheckedUpdateWithoutMovementsInput>
+  }
+
+  export type MeasurementBulletinUpdateManyWithoutAssetMovementNestedInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutAssetMovementInput, MeasurementBulletinUncheckedCreateWithoutAssetMovementInput> | MeasurementBulletinCreateWithoutAssetMovementInput[] | MeasurementBulletinUncheckedCreateWithoutAssetMovementInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutAssetMovementInput | MeasurementBulletinCreateOrConnectWithoutAssetMovementInput[]
+    upsert?: MeasurementBulletinUpsertWithWhereUniqueWithoutAssetMovementInput | MeasurementBulletinUpsertWithWhereUniqueWithoutAssetMovementInput[]
+    createMany?: MeasurementBulletinCreateManyAssetMovementInputEnvelope
+    set?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    disconnect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    delete?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    update?: MeasurementBulletinUpdateWithWhereUniqueWithoutAssetMovementInput | MeasurementBulletinUpdateWithWhereUniqueWithoutAssetMovementInput[]
+    updateMany?: MeasurementBulletinUpdateManyWithWhereWithoutAssetMovementInput | MeasurementBulletinUpdateManyWithWhereWithoutAssetMovementInput[]
+    deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
+  }
+
+  export type MeasurementBulletinUncheckedUpdateManyWithoutAssetMovementNestedInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutAssetMovementInput, MeasurementBulletinUncheckedCreateWithoutAssetMovementInput> | MeasurementBulletinCreateWithoutAssetMovementInput[] | MeasurementBulletinUncheckedCreateWithoutAssetMovementInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutAssetMovementInput | MeasurementBulletinCreateOrConnectWithoutAssetMovementInput[]
+    upsert?: MeasurementBulletinUpsertWithWhereUniqueWithoutAssetMovementInput | MeasurementBulletinUpsertWithWhereUniqueWithoutAssetMovementInput[]
+    createMany?: MeasurementBulletinCreateManyAssetMovementInputEnvelope
+    set?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    disconnect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    delete?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    update?: MeasurementBulletinUpdateWithWhereUniqueWithoutAssetMovementInput | MeasurementBulletinUpdateWithWhereUniqueWithoutAssetMovementInput[]
+    updateMany?: MeasurementBulletinUpdateManyWithWhereWithoutAssetMovementInput | MeasurementBulletinUpdateManyWithWhereWithoutAssetMovementInput[]
+    deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
+  }
+
+  export type ContractCreateNestedOneWithoutMeasurementBulletinsInput = {
+    create?: XOR<ContractCreateWithoutMeasurementBulletinsInput, ContractUncheckedCreateWithoutMeasurementBulletinsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutMeasurementBulletinsInput
+    connect?: ContractWhereUniqueInput
+  }
+
+  export type AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput = {
+    create?: XOR<AssetMovementCreateWithoutMeasurementBulletinsInput, AssetMovementUncheckedCreateWithoutMeasurementBulletinsInput>
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutMeasurementBulletinsInput
+    connect?: AssetMovementWhereUniqueInput
+  }
+
+  export type InvoiceCreateNestedOneWithoutMeasurementBulletinInput = {
+    create?: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinInput
+    connect?: InvoiceWhereUniqueInput
+  }
+
+  export type BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput = {
+    create?: XOR<BulletinExpenseCreateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput> | BulletinExpenseCreateWithoutMeasurementBulletinInput[] | BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput[]
+    connectOrCreate?: BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput | BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput[]
+    createMany?: BulletinExpenseCreateManyMeasurementBulletinInputEnvelope
+    connect?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput = {
+    create?: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinInput
+    connect?: InvoiceWhereUniqueInput
+  }
+
+  export type BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput = {
+    create?: XOR<BulletinExpenseCreateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput> | BulletinExpenseCreateWithoutMeasurementBulletinInput[] | BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput[]
+    connectOrCreate?: BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput | BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput[]
+    createMany?: BulletinExpenseCreateManyMeasurementBulletinInputEnvelope
+    connect?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+  }
+
+  export type EnumMeasurementBulletinStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MeasurementBulletinStatus
+  }
+
+  export type ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput = {
+    create?: XOR<ContractCreateWithoutMeasurementBulletinsInput, ContractUncheckedCreateWithoutMeasurementBulletinsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutMeasurementBulletinsInput
+    upsert?: ContractUpsertWithoutMeasurementBulletinsInput
+    connect?: ContractWhereUniqueInput
+    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutMeasurementBulletinsInput, ContractUpdateWithoutMeasurementBulletinsInput>, ContractUncheckedUpdateWithoutMeasurementBulletinsInput>
+  }
+
+  export type AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput = {
+    create?: XOR<AssetMovementCreateWithoutMeasurementBulletinsInput, AssetMovementUncheckedCreateWithoutMeasurementBulletinsInput>
+    connectOrCreate?: AssetMovementCreateOrConnectWithoutMeasurementBulletinsInput
+    upsert?: AssetMovementUpsertWithoutMeasurementBulletinsInput
+    connect?: AssetMovementWhereUniqueInput
+    update?: XOR<XOR<AssetMovementUpdateToOneWithWhereWithoutMeasurementBulletinsInput, AssetMovementUpdateWithoutMeasurementBulletinsInput>, AssetMovementUncheckedUpdateWithoutMeasurementBulletinsInput>
+  }
+
+  export type InvoiceUpdateOneWithoutMeasurementBulletinNestedInput = {
+    create?: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinInput
+    upsert?: InvoiceUpsertWithoutMeasurementBulletinInput
+    disconnect?: InvoiceWhereInput | boolean
+    delete?: InvoiceWhereInput | boolean
+    connect?: InvoiceWhereUniqueInput
+    update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutMeasurementBulletinInput, InvoiceUpdateWithoutMeasurementBulletinInput>, InvoiceUncheckedUpdateWithoutMeasurementBulletinInput>
+  }
+
+  export type BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput = {
+    create?: XOR<BulletinExpenseCreateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput> | BulletinExpenseCreateWithoutMeasurementBulletinInput[] | BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput[]
+    connectOrCreate?: BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput | BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput[]
+    upsert?: BulletinExpenseUpsertWithWhereUniqueWithoutMeasurementBulletinInput | BulletinExpenseUpsertWithWhereUniqueWithoutMeasurementBulletinInput[]
+    createMany?: BulletinExpenseCreateManyMeasurementBulletinInputEnvelope
+    set?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+    disconnect?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+    delete?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+    connect?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+    update?: BulletinExpenseUpdateWithWhereUniqueWithoutMeasurementBulletinInput | BulletinExpenseUpdateWithWhereUniqueWithoutMeasurementBulletinInput[]
+    updateMany?: BulletinExpenseUpdateManyWithWhereWithoutMeasurementBulletinInput | BulletinExpenseUpdateManyWithWhereWithoutMeasurementBulletinInput[]
+    deleteMany?: BulletinExpenseScalarWhereInput | BulletinExpenseScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput = {
+    create?: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinInput
+    upsert?: InvoiceUpsertWithoutMeasurementBulletinInput
+    disconnect?: InvoiceWhereInput | boolean
+    delete?: InvoiceWhereInput | boolean
+    connect?: InvoiceWhereUniqueInput
+    update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutMeasurementBulletinInput, InvoiceUpdateWithoutMeasurementBulletinInput>, InvoiceUncheckedUpdateWithoutMeasurementBulletinInput>
+  }
+
+  export type BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput = {
+    create?: XOR<BulletinExpenseCreateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput> | BulletinExpenseCreateWithoutMeasurementBulletinInput[] | BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput[]
+    connectOrCreate?: BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput | BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput[]
+    upsert?: BulletinExpenseUpsertWithWhereUniqueWithoutMeasurementBulletinInput | BulletinExpenseUpsertWithWhereUniqueWithoutMeasurementBulletinInput[]
+    createMany?: BulletinExpenseCreateManyMeasurementBulletinInputEnvelope
+    set?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+    disconnect?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+    delete?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+    connect?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+    update?: BulletinExpenseUpdateWithWhereUniqueWithoutMeasurementBulletinInput | BulletinExpenseUpdateWithWhereUniqueWithoutMeasurementBulletinInput[]
+    updateMany?: BulletinExpenseUpdateManyWithWhereWithoutMeasurementBulletinInput | BulletinExpenseUpdateManyWithWhereWithoutMeasurementBulletinInput[]
+    deleteMany?: BulletinExpenseScalarWhereInput | BulletinExpenseScalarWhereInput[]
+  }
+
+  export type MeasurementBulletinCreateNestedOneWithoutInvoiceInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput>
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput
+    connect?: MeasurementBulletinWhereUniqueInput
+  }
+
+  export type EnumInvoiceStatusFieldUpdateOperationsInput = {
+    set?: $Enums.InvoiceStatus
+  }
+
+  export type MeasurementBulletinUpdateOneRequiredWithoutInvoiceNestedInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput>
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput
+    upsert?: MeasurementBulletinUpsertWithoutInvoiceInput
+    connect?: MeasurementBulletinWhereUniqueInput
+    update?: XOR<XOR<MeasurementBulletinUpdateToOneWithWhereWithoutInvoiceInput, MeasurementBulletinUpdateWithoutInvoiceInput>, MeasurementBulletinUncheckedUpdateWithoutInvoiceInput>
+  }
+
+  export type MeasurementBulletinCreateNestedOneWithoutExpensesInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutExpensesInput, MeasurementBulletinUncheckedCreateWithoutExpensesInput>
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutExpensesInput
+    connect?: MeasurementBulletinWhereUniqueInput
+  }
+
+  export type MeasurementBulletinUpdateOneRequiredWithoutExpensesNestedInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutExpensesInput, MeasurementBulletinUncheckedCreateWithoutExpensesInput>
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutExpensesInput
+    upsert?: MeasurementBulletinUpsertWithoutExpensesInput
+    connect?: MeasurementBulletinWhereUniqueInput
+    update?: XOR<XOR<MeasurementBulletinUpdateToOneWithWhereWithoutExpensesInput, MeasurementBulletinUpdateWithoutExpensesInput>, MeasurementBulletinUncheckedUpdateWithoutExpensesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -16932,6 +23685,40 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumMeasurementBulletinStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeasurementBulletinStatus | EnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MeasurementBulletinStatus[] | ListEnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeasurementBulletinStatus[] | ListEnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeasurementBulletinStatusFilter<$PrismaModel> | $Enums.MeasurementBulletinStatus
+  }
+
+  export type NestedEnumMeasurementBulletinStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeasurementBulletinStatus | EnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MeasurementBulletinStatus[] | ListEnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeasurementBulletinStatus[] | ListEnumMeasurementBulletinStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeasurementBulletinStatusWithAggregatesFilter<$PrismaModel> | $Enums.MeasurementBulletinStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMeasurementBulletinStatusFilter<$PrismaModel>
+    _max?: NestedEnumMeasurementBulletinStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumInvoiceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
+  }
+
+  export type NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvoiceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInvoiceStatusFilter<$PrismaModel>
+    _max?: NestedEnumInvoiceStatusFilter<$PrismaModel>
+  }
+
   export type AssetCreateWithoutAssetCategoryInput = {
     id?: string
     brand: string
@@ -17046,6 +23833,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -17068,6 +23856,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -17105,6 +23894,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     contract: ContractCreateNestedOneWithoutMovementsInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutAssetMovementInput
   }
 
   export type AssetMovementUncheckedCreateWithoutAssetInput = {
@@ -17126,6 +23916,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutAssetMovementInput
   }
 
   export type AssetMovementCreateOrConnectWithoutAssetInput = {
@@ -17201,6 +23992,7 @@ export namespace Prisma {
     estimated_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     actual_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFilter<"Maintenance"> | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFilter<"Maintenance"> | boolean
     notes?: StringNullableFilter<"Maintenance"> | string | null
     created_at?: DateTimeFilter<"Maintenance"> | Date | string
     updated_at?: DateTimeFilter<"Maintenance"> | Date | string
@@ -17259,6 +24051,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -17281,6 +24074,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -17317,6 +24111,7 @@ export namespace Prisma {
     is_Active?: boolean
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutClientInput = {
@@ -17337,6 +24132,7 @@ export namespace Prisma {
     is_Active?: boolean
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutClientInput = {
@@ -17413,6 +24209,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -17435,6 +24232,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -17626,6 +24424,7 @@ export namespace Prisma {
     is_Active?: boolean
     client: SupplierCreateNestedOneWithoutContractsInput
     movements?: AssetMovementCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMaintenancesInput = {
@@ -17646,6 +24445,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMaintenancesInput = {
@@ -17838,6 +24638,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMaintenancesInput = {
@@ -17858,6 +24659,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type MaintenanceCreateWithoutDocumentsInput = {
@@ -17870,6 +24672,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -17893,6 +24696,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -17926,6 +24730,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17949,6 +24754,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18020,6 +24826,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     asset: AssetCreateNestedOneWithoutMovementsInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutAssetMovementInput
   }
 
   export type AssetMovementUncheckedCreateWithoutContractInput = {
@@ -18041,6 +24848,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutAssetMovementInput
   }
 
   export type AssetMovementCreateOrConnectWithoutContractInput = {
@@ -18063,6 +24871,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -18086,6 +24895,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -18100,6 +24910,54 @@ export namespace Prisma {
 
   export type MaintenanceCreateManyContractInputEnvelope = {
     data: MaintenanceCreateManyContractInput | MaintenanceCreateManyContractInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MeasurementBulletinCreateWithoutContractInput = {
+    id?: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
+    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinInput
+    expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinUncheckedCreateWithoutContractInput = {
+    id?: string
+    assetMovementId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    invoice?: InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput
+    expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinCreateOrConnectWithoutContractInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    create: XOR<MeasurementBulletinCreateWithoutContractInput, MeasurementBulletinUncheckedCreateWithoutContractInput>
+  }
+
+  export type MeasurementBulletinCreateManyContractInputEnvelope = {
+    data: MeasurementBulletinCreateManyContractInput | MeasurementBulletinCreateManyContractInput[]
     skipDuplicates?: boolean
   }
 
@@ -18186,6 +25044,43 @@ export namespace Prisma {
     data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutContractInput>
   }
 
+  export type MeasurementBulletinUpsertWithWhereUniqueWithoutContractInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    update: XOR<MeasurementBulletinUpdateWithoutContractInput, MeasurementBulletinUncheckedUpdateWithoutContractInput>
+    create: XOR<MeasurementBulletinCreateWithoutContractInput, MeasurementBulletinUncheckedCreateWithoutContractInput>
+  }
+
+  export type MeasurementBulletinUpdateWithWhereUniqueWithoutContractInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    data: XOR<MeasurementBulletinUpdateWithoutContractInput, MeasurementBulletinUncheckedUpdateWithoutContractInput>
+  }
+
+  export type MeasurementBulletinUpdateManyWithWhereWithoutContractInput = {
+    where: MeasurementBulletinScalarWhereInput
+    data: XOR<MeasurementBulletinUpdateManyMutationInput, MeasurementBulletinUncheckedUpdateManyWithoutContractInput>
+  }
+
+  export type MeasurementBulletinScalarWhereInput = {
+    AND?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
+    OR?: MeasurementBulletinScalarWhereInput[]
+    NOT?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
+    id?: StringFilter<"MeasurementBulletin"> | string
+    contractId?: StringFilter<"MeasurementBulletin"> | string
+    assetMovementId?: StringFilter<"MeasurementBulletin"> | string
+    reference_start?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    reference_end?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    total_days?: IntFilter<"MeasurementBulletin"> | number
+    inactive_days?: IntFilter<"MeasurementBulletin"> | number
+    working_days?: IntFilter<"MeasurementBulletin"> | number
+    daily_rate?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFilter<"MeasurementBulletin"> | $Enums.MeasurementBulletinStatus
+    notes?: StringNullableFilter<"MeasurementBulletin"> | string | null
+    is_active?: BoolFilter<"MeasurementBulletin"> | boolean
+    created_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    updated_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+  }
+
   export type ContractCreateWithoutMovementsInput = {
     id?: string
     contract_number: string
@@ -18204,6 +25099,7 @@ export namespace Prisma {
     is_Active?: boolean
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMovementsInput = {
@@ -18224,6 +25120,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMovementsInput = {
@@ -18270,6 +25167,54 @@ export namespace Prisma {
     create: XOR<AssetCreateWithoutMovementsInput, AssetUncheckedCreateWithoutMovementsInput>
   }
 
+  export type MeasurementBulletinCreateWithoutAssetMovementInput = {
+    id?: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
+    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinInput
+    expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinUncheckedCreateWithoutAssetMovementInput = {
+    id?: string
+    contractId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    invoice?: InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput
+    expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinCreateOrConnectWithoutAssetMovementInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    create: XOR<MeasurementBulletinCreateWithoutAssetMovementInput, MeasurementBulletinUncheckedCreateWithoutAssetMovementInput>
+  }
+
+  export type MeasurementBulletinCreateManyAssetMovementInputEnvelope = {
+    data: MeasurementBulletinCreateManyAssetMovementInput | MeasurementBulletinCreateManyAssetMovementInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ContractUpsertWithoutMovementsInput = {
     update: XOR<ContractUpdateWithoutMovementsInput, ContractUncheckedUpdateWithoutMovementsInput>
     create: XOR<ContractCreateWithoutMovementsInput, ContractUncheckedCreateWithoutMovementsInput>
@@ -18299,6 +25244,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMovementsInput = {
@@ -18319,6 +25265,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type AssetUpsertWithoutMovementsInput = {
@@ -18364,6 +25311,543 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     assetCategoryId?: StringFieldUpdateOperationsInput | string
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+  }
+
+  export type MeasurementBulletinUpsertWithWhereUniqueWithoutAssetMovementInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    update: XOR<MeasurementBulletinUpdateWithoutAssetMovementInput, MeasurementBulletinUncheckedUpdateWithoutAssetMovementInput>
+    create: XOR<MeasurementBulletinCreateWithoutAssetMovementInput, MeasurementBulletinUncheckedCreateWithoutAssetMovementInput>
+  }
+
+  export type MeasurementBulletinUpdateWithWhereUniqueWithoutAssetMovementInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    data: XOR<MeasurementBulletinUpdateWithoutAssetMovementInput, MeasurementBulletinUncheckedUpdateWithoutAssetMovementInput>
+  }
+
+  export type MeasurementBulletinUpdateManyWithWhereWithoutAssetMovementInput = {
+    where: MeasurementBulletinScalarWhereInput
+    data: XOR<MeasurementBulletinUpdateManyMutationInput, MeasurementBulletinUncheckedUpdateManyWithoutAssetMovementInput>
+  }
+
+  export type ContractCreateWithoutMeasurementBulletinsInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    client: SupplierCreateNestedOneWithoutContractsInput
+    movements?: AssetMovementCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUncheckedCreateWithoutMeasurementBulletinsInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractCreateOrConnectWithoutMeasurementBulletinsInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutMeasurementBulletinsInput, ContractUncheckedCreateWithoutMeasurementBulletinsInput>
+  }
+
+  export type AssetMovementCreateWithoutMeasurementBulletinsInput = {
+    id?: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutMovementsInput
+    asset: AssetCreateNestedOneWithoutMovementsInput
+  }
+
+  export type AssetMovementUncheckedCreateWithoutMeasurementBulletinsInput = {
+    id?: string
+    contractId: string
+    assetId: string
+    mobilization_date?: Date | string
+    integration_date?: Date | string | null
+    demobilization_date?: Date | string | null
+    mobilization_checklist_url?: string | null
+    demobilization_checklist_url?: string | null
+    rental_value: Decimal | DecimalJsLike | number | string
+    billing_cycle?: $Enums.BillingCycle
+    operator_name?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    delivery_location?: string | null
+    freight_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetMovementCreateOrConnectWithoutMeasurementBulletinsInput = {
+    where: AssetMovementWhereUniqueInput
+    create: XOR<AssetMovementCreateWithoutMeasurementBulletinsInput, AssetMovementUncheckedCreateWithoutMeasurementBulletinsInput>
+  }
+
+  export type InvoiceCreateWithoutMeasurementBulletinInput = {
+    id?: string
+    invoice_number: string
+    issue_date: Date | string
+    due_date: Date | string
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    status?: $Enums.InvoiceStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceUncheckedCreateWithoutMeasurementBulletinInput = {
+    id?: string
+    invoice_number: string
+    issue_date: Date | string
+    due_date: Date | string
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    status?: $Enums.InvoiceStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceCreateOrConnectWithoutMeasurementBulletinInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
+  }
+
+  export type BulletinExpenseCreateWithoutMeasurementBulletinInput = {
+    id?: string
+    description: string
+    unit_value: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput = {
+    id?: string
+    description: string
+    unit_value: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput = {
+    where: BulletinExpenseWhereUniqueInput
+    create: XOR<BulletinExpenseCreateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput>
+  }
+
+  export type BulletinExpenseCreateManyMeasurementBulletinInputEnvelope = {
+    data: BulletinExpenseCreateManyMeasurementBulletinInput | BulletinExpenseCreateManyMeasurementBulletinInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContractUpsertWithoutMeasurementBulletinsInput = {
+    update: XOR<ContractUpdateWithoutMeasurementBulletinsInput, ContractUncheckedUpdateWithoutMeasurementBulletinsInput>
+    create: XOR<ContractCreateWithoutMeasurementBulletinsInput, ContractUncheckedCreateWithoutMeasurementBulletinsInput>
+    where?: ContractWhereInput
+  }
+
+  export type ContractUpdateToOneWithWhereWithoutMeasurementBulletinsInput = {
+    where?: ContractWhereInput
+    data: XOR<ContractUpdateWithoutMeasurementBulletinsInput, ContractUncheckedUpdateWithoutMeasurementBulletinsInput>
+  }
+
+  export type ContractUpdateWithoutMeasurementBulletinsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
+    movements?: AssetMovementUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutMeasurementBulletinsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+  }
+
+  export type AssetMovementUpsertWithoutMeasurementBulletinsInput = {
+    update: XOR<AssetMovementUpdateWithoutMeasurementBulletinsInput, AssetMovementUncheckedUpdateWithoutMeasurementBulletinsInput>
+    create: XOR<AssetMovementCreateWithoutMeasurementBulletinsInput, AssetMovementUncheckedCreateWithoutMeasurementBulletinsInput>
+    where?: AssetMovementWhereInput
+  }
+
+  export type AssetMovementUpdateToOneWithWhereWithoutMeasurementBulletinsInput = {
+    where?: AssetMovementWhereInput
+    data: XOR<AssetMovementUpdateWithoutMeasurementBulletinsInput, AssetMovementUncheckedUpdateWithoutMeasurementBulletinsInput>
+  }
+
+  export type AssetMovementUpdateWithoutMeasurementBulletinsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutMovementsNestedInput
+    asset?: AssetUpdateOneRequiredWithoutMovementsNestedInput
+  }
+
+  export type AssetMovementUncheckedUpdateWithoutMeasurementBulletinsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    integration_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    demobilization_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
+    operator_name?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
+    freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceUpsertWithoutMeasurementBulletinInput = {
+    update: XOR<InvoiceUpdateWithoutMeasurementBulletinInput, InvoiceUncheckedUpdateWithoutMeasurementBulletinInput>
+    create: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
+    where?: InvoiceWhereInput
+  }
+
+  export type InvoiceUpdateToOneWithWhereWithoutMeasurementBulletinInput = {
+    where?: InvoiceWhereInput
+    data: XOR<InvoiceUpdateWithoutMeasurementBulletinInput, InvoiceUncheckedUpdateWithoutMeasurementBulletinInput>
+  }
+
+  export type InvoiceUpdateWithoutMeasurementBulletinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: StringFieldUpdateOperationsInput | string
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceUncheckedUpdateWithoutMeasurementBulletinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: StringFieldUpdateOperationsInput | string
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BulletinExpenseUpsertWithWhereUniqueWithoutMeasurementBulletinInput = {
+    where: BulletinExpenseWhereUniqueInput
+    update: XOR<BulletinExpenseUpdateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedUpdateWithoutMeasurementBulletinInput>
+    create: XOR<BulletinExpenseCreateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput>
+  }
+
+  export type BulletinExpenseUpdateWithWhereUniqueWithoutMeasurementBulletinInput = {
+    where: BulletinExpenseWhereUniqueInput
+    data: XOR<BulletinExpenseUpdateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedUpdateWithoutMeasurementBulletinInput>
+  }
+
+  export type BulletinExpenseUpdateManyWithWhereWithoutMeasurementBulletinInput = {
+    where: BulletinExpenseScalarWhereInput
+    data: XOR<BulletinExpenseUpdateManyMutationInput, BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinInput>
+  }
+
+  export type BulletinExpenseScalarWhereInput = {
+    AND?: BulletinExpenseScalarWhereInput | BulletinExpenseScalarWhereInput[]
+    OR?: BulletinExpenseScalarWhereInput[]
+    NOT?: BulletinExpenseScalarWhereInput | BulletinExpenseScalarWhereInput[]
+    id?: StringFilter<"BulletinExpense"> | string
+    measurementBulletinId?: StringFilter<"BulletinExpense"> | string
+    description?: StringFilter<"BulletinExpense"> | string
+    unit_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"BulletinExpense"> | Date | string
+    updated_at?: DateTimeFilter<"BulletinExpense"> | Date | string
+  }
+
+  export type MeasurementBulletinCreateWithoutInvoiceInput = {
+    id?: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
+    assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
+    expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinUncheckedCreateWithoutInvoiceInput = {
+    id?: string
+    contractId: string
+    assetMovementId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinCreateOrConnectWithoutInvoiceInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    create: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput>
+  }
+
+  export type MeasurementBulletinUpsertWithoutInvoiceInput = {
+    update: XOR<MeasurementBulletinUpdateWithoutInvoiceInput, MeasurementBulletinUncheckedUpdateWithoutInvoiceInput>
+    create: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput>
+    where?: MeasurementBulletinWhereInput
+  }
+
+  export type MeasurementBulletinUpdateToOneWithWhereWithoutInvoiceInput = {
+    where?: MeasurementBulletinWhereInput
+    data: XOR<MeasurementBulletinUpdateWithoutInvoiceInput, MeasurementBulletinUncheckedUpdateWithoutInvoiceInput>
+  }
+
+  export type MeasurementBulletinUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetMovementId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinCreateWithoutExpensesInput = {
+    id?: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
+    assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
+    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinUncheckedCreateWithoutExpensesInput = {
+    id?: string
+    contractId: string
+    assetMovementId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    invoice?: InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinCreateOrConnectWithoutExpensesInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    create: XOR<MeasurementBulletinCreateWithoutExpensesInput, MeasurementBulletinUncheckedCreateWithoutExpensesInput>
+  }
+
+  export type MeasurementBulletinUpsertWithoutExpensesInput = {
+    update: XOR<MeasurementBulletinUpdateWithoutExpensesInput, MeasurementBulletinUncheckedUpdateWithoutExpensesInput>
+    create: XOR<MeasurementBulletinCreateWithoutExpensesInput, MeasurementBulletinUncheckedCreateWithoutExpensesInput>
+    where?: MeasurementBulletinWhereInput
+  }
+
+  export type MeasurementBulletinUpdateToOneWithWhereWithoutExpensesInput = {
+    where?: MeasurementBulletinWhereInput
+    data: XOR<MeasurementBulletinUpdateWithoutExpensesInput, MeasurementBulletinUncheckedUpdateWithoutExpensesInput>
+  }
+
+  export type MeasurementBulletinUpdateWithoutExpensesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateWithoutExpensesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetMovementId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice?: InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type AssetCreateManyAssetCategoryInput = {
@@ -18442,6 +25926,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -18480,6 +25965,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18502,6 +25988,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18522,6 +26009,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18548,6 +26036,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     contract?: ContractUpdateOneRequiredWithoutMovementsNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutAssetMovementNestedInput
   }
 
   export type AssetMovementUncheckedUpdateWithoutAssetInput = {
@@ -18569,6 +26058,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutAssetMovementNestedInput
   }
 
   export type AssetMovementUncheckedUpdateManyWithoutAssetInput = {
@@ -18604,6 +26094,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -18639,6 +26130,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18661,6 +26153,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18681,6 +26174,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18706,6 +26200,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutClientInput = {
@@ -18726,6 +26221,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateManyWithoutClientInput = {
@@ -18758,6 +26254,7 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -18775,6 +26272,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18797,6 +26295,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18817,6 +26316,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18902,10 +26402,28 @@ export namespace Prisma {
     estimated_cost?: Decimal | DecimalJsLike | number | string | null
     actual_cost?: Decimal | DecimalJsLike | number | string | null
     status?: $Enums.MaintenanceStatus
+    equipment_inactive?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+  }
+
+  export type MeasurementBulletinCreateManyContractInput = {
+    id?: string
+    assetMovementId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type AssetMovementUpdateWithoutContractInput = {
@@ -18927,6 +26445,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     asset?: AssetUpdateOneRequiredWithoutMovementsNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutAssetMovementNestedInput
   }
 
   export type AssetMovementUncheckedUpdateWithoutContractInput = {
@@ -18948,6 +26467,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutAssetMovementNestedInput
   }
 
   export type AssetMovementUncheckedUpdateManyWithoutContractInput = {
@@ -18981,6 +26501,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19004,6 +26525,7 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19024,10 +26546,174 @@ export namespace Prisma {
     estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MeasurementBulletinUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinNestedInput
+    expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetMovementId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice?: InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
+    expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateManyWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetMovementId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeasurementBulletinCreateManyAssetMovementInput = {
+    id?: string
+    contractId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MeasurementBulletinUpdateWithoutAssetMovementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinNestedInput
+    expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateWithoutAssetMovementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice?: InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
+    expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateManyWithoutAssetMovementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BulletinExpenseCreateManyMeasurementBulletinInput = {
+    id?: string
+    description: string
+    unit_value: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type BulletinExpenseUpdateWithoutMeasurementBulletinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BulletinExpenseUncheckedUpdateWithoutMeasurementBulletinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    unit_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

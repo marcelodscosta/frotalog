@@ -83,6 +83,7 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
     const [items, totalItems] = await prisma.$transaction([
       prisma.assetMovement.findMany({
         where: { contractId },
+        include: { asset: true },
         skip,
         take: this.PAGE_SIZE,
         orderBy: { created_at: 'desc' },

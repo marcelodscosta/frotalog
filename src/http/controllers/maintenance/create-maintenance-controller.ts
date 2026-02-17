@@ -14,6 +14,7 @@ export async function createMaintenance(
     description: z.string().min(10),
     scheduled_date: z.coerce.date(),
     estimated_cost: z.number().positive().optional(),
+    equipment_inactive: z.boolean().optional(),
     notes: z.string().optional(),
   })
 
@@ -25,6 +26,7 @@ export async function createMaintenance(
     description,
     scheduled_date,
     estimated_cost,
+    equipment_inactive,
     notes,
   } = createBodySchema.parse(request.body)
 
@@ -37,6 +39,7 @@ export async function createMaintenance(
     description,
     scheduled_date,
     estimated_cost,
+    equipment_inactive,
     notes,
   })
 

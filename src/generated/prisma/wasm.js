@@ -200,6 +200,7 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   estimated_cost: 'estimated_cost',
   actual_cost: 'actual_cost',
   status: 'status',
+  equipment_inactive: 'equipment_inactive',
   notes: 'notes',
   created_at: 'created_at',
   updated_at: 'updated_at',
@@ -260,6 +261,67 @@ exports.Prisma.AssetMovementScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.MeasurementBulletinScalarFieldEnum = {
+  id: 'id',
+  contractId: 'contractId',
+  assetMovementId: 'assetMovementId',
+  reference_start: 'reference_start',
+  reference_end: 'reference_end',
+  total_days: 'total_days',
+  inactive_days: 'inactive_days',
+  working_days: 'working_days',
+  daily_rate: 'daily_rate',
+  total_value: 'total_value',
+  status: 'status',
+  notes: 'notes',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  measurementBulletinId: 'measurementBulletinId',
+  invoice_number: 'invoice_number',
+  issue_date: 'issue_date',
+  due_date: 'due_date',
+  total_value: 'total_value',
+  is_paid: 'is_paid',
+  payment_date: 'payment_date',
+  status: 'status',
+  notes: 'notes',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.BulletinExpenseScalarFieldEnum = {
+  id: 'id',
+  measurementBulletinId: 'measurementBulletinId',
+  description: 'description',
+  unit_value: 'unit_value',
+  total_value: 'total_value',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.CompanySettingsScalarFieldEnum = {
+  id: 'id',
+  company_name: 'company_name',
+  trading_name: 'trading_name',
+  cnpj: 'cnpj',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  zip_code: 'zip_code',
+  phone: 'phone',
+  email: 'email',
+  logo_url: 'logo_url',
+  invoice_start_number: 'invoice_start_number',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -315,6 +377,19 @@ exports.BillingCycle = exports.$Enums.BillingCycle = {
   WEEKLY: 'WEEKLY'
 };
 
+exports.MeasurementBulletinStatus = exports.$Enums.MeasurementBulletinStatus = {
+  DRAFT: 'DRAFT',
+  APPROVED: 'APPROVED',
+  INVOICED: 'INVOICED'
+};
+
+exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
+  CANCELLED: 'CANCELLED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   AssetCategory: 'AssetCategory',
@@ -324,7 +399,11 @@ exports.Prisma.ModelName = {
   Maintenance: 'Maintenance',
   MaintenanceDocument: 'MaintenanceDocument',
   Contract: 'Contract',
-  AssetMovement: 'AssetMovement'
+  AssetMovement: 'AssetMovement',
+  MeasurementBulletin: 'MeasurementBulletin',
+  Invoice: 'Invoice',
+  BulletinExpense: 'BulletinExpense',
+  CompanySettings: 'CompanySettings'
 };
 
 /**

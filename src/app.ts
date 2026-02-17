@@ -16,6 +16,10 @@ import fastifyCors from '@fastify/cors'
 import { serviceCategoryRoutes } from './http/controllers/serviceCategory/routes'
 import { contractRoutes } from './http/controllers/contract/routes'
 import { assetMovementRoutes } from './http/controllers/asset-moviment/routes'
+import { measurementBulletinRoutes } from './http/controllers/measurement-bulletin/routes'
+import { bulletinExpenseRoutes } from './http/controllers/measurement-bulletin/bulletin-expense-routes'
+import { invoiceRoutes } from './http/controllers/invoice/routes'
+import { companySettingsRoutes } from './http/controllers/company-settings/routes'
 
 export const app = fastify({
   logger: {
@@ -41,6 +45,20 @@ app.register(fastifyCors, {
   credentials: true,
 })
 
+import fastifyMultipart from '@fastify/multipart'
+import fastifyStatic from '@fastify/static'
+import path from 'node:path'
+
+app.register(fastifyMultipart, {
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB
+  },
+})
+app.register(fastifyStatic, {
+  root: path.join(__dirname, '..', 'uploads'),
+  prefix: '/uploads/',
+})
+
 app.register(authRoutes)
 app.register(assetCategoryRoutes)
 app.register(assetRoutes)
@@ -53,6 +71,10 @@ app.register(dashboardRoutes)
 app.register(serviceCategoryRoutes)
 app.register(contractRoutes)
 app.register(assetMovementRoutes)
+app.register(measurementBulletinRoutes)
+app.register(bulletinExpenseRoutes)
+app.register(invoiceRoutes)
+app.register(companySettingsRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   const requestId = request.id

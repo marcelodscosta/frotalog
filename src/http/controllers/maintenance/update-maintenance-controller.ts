@@ -76,6 +76,8 @@ export async function updateMaintenance(
     actual_cost: moneyPreprocess.optional(),
     estimated_cost: moneyPreprocess.optional(),
 
+    equipment_inactive: z.boolean().optional(),
+
     notes: z
       .string()
       .optional()
