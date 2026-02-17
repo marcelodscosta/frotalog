@@ -13,7 +13,10 @@ interface CreateMeasurementBulletinRequest {
   reference_start: Date
   reference_end: Date
   notes?: string | null
+  current_horometer?: number | null
+  current_odometer?: number | null
 }
+
 
 interface CreateMeasurementBulletinResponse {
   measurementBulletin: MeasurementBulletin
@@ -123,6 +126,8 @@ export class CreateMeasurementBulletinUseCase {
         daily_rate: new Prisma.Decimal(dailyRate.toFixed(2)),
         total_value: new Prisma.Decimal(totalValue.toFixed(2)),
         notes: data.notes,
+        current_horometer: data.current_horometer,
+        current_odometer: data.current_odometer,
       })
 
     return { measurementBulletin }

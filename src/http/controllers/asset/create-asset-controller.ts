@@ -18,6 +18,16 @@ export async function createAsset(
     ownership: AssetOwnershipSchema.default('OWN'),
     documentsUrl: z.url().nullable().optional(),
     notes: z.string().optional().nullable(),
+    
+    // Usage Tracking
+    initial_horometer: z.number().nullable().optional(),
+    current_horometer: z.number().nullable().optional(),
+    initial_odometer: z.number().nullable().optional(),
+    current_odometer: z.number().nullable().optional(),
+
+    // Maintenance Settings
+    maintenance_frequency_hours: z.number().nullable().optional(),
+    maintenance_frequency_km: z.number().nullable().optional(),
   })
 
   const {
@@ -30,6 +40,12 @@ export async function createAsset(
     ownership,
     documentsUrl,
     notes,
+    initial_horometer,
+    current_horometer,
+    initial_odometer,
+    current_odometer,
+    maintenance_frequency_hours,
+    maintenance_frequency_km,
   } = createBodySchema.parse(request.body)
 
   const normalizedPlate =
@@ -54,6 +70,12 @@ export async function createAsset(
     ownership,
     documentsUrl,
     notes,
+    initial_horometer,
+    current_horometer,
+    initial_odometer,
+    current_odometer,
+    maintenance_frequency_hours,
+    maintenance_frequency_km,
   })
   return reply.status(201).send({ asset })
 }

@@ -16,6 +16,13 @@ interface CreateAssetRequest {
   ownership?: AssetOwnership
   documentsUrl?: string | null
   notes?: string | null
+
+  initial_horometer?: number | null
+  current_horometer?: number | null
+  initial_odometer?: number | null
+  current_odometer?: number | null
+  maintenance_frequency_hours?: number | null
+  maintenance_frequency_km?: number | null
 }
 
 interface CreateAssetResponse {

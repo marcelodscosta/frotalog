@@ -12,6 +12,8 @@ export async function createMeasurementBulletin(
     reference_start: z.coerce.date(),
     reference_end: z.coerce.date(),
     notes: z.string().optional().nullable(),
+    current_horometer: z.number().optional().nullable(),
+    current_odometer: z.number().optional().nullable(),
   })
 
   const data = bodySchema.parse(request.body)

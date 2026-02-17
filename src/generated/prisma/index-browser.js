@@ -150,13 +150,34 @@ exports.Prisma.AssetScalarFieldEnum = {
   year: 'year',
   plate: 'plate',
   serial_number: 'serial_number',
-  ownership: 'ownership',
-  documentsUrl: 'documentsUrl',
-  notes: 'notes',
+  initial_horometer: 'initial_horometer',
+  current_horometer: 'current_horometer',
+  initial_odometer: 'initial_odometer',
+  current_odometer: 'current_odometer',
+  maintenance_frequency_hours: 'maintenance_frequency_hours',
+  maintenance_frequency_km: 'maintenance_frequency_km',
+  last_maintenance_date: 'last_maintenance_date',
+  last_maintenance_horometer: 'last_maintenance_horometer',
+  last_maintenance_odometer: 'last_maintenance_odometer',
   created_at: 'created_at',
   updated_at: 'updated_at',
   is_Active: 'is_Active',
-  assetCategoryId: 'assetCategoryId'
+  assetCategoryId: 'assetCategoryId',
+  documentsUrl: 'documentsUrl',
+  ownership: 'ownership',
+  notes: 'notes'
+};
+
+exports.Prisma.AssetReadingScalarFieldEnum = {
+  id: 'id',
+  assetId: 'assetId',
+  date: 'date',
+  horometer: 'horometer',
+  odometer: 'odometer',
+  notes: 'notes',
+  userId: 'userId',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SupplierScalarFieldEnum = {
@@ -167,7 +188,6 @@ exports.Prisma.SupplierScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   contact: 'contact',
-  isClient: 'isClient',
   address: 'address',
   city: 'city',
   state: 'state',
@@ -175,7 +195,8 @@ exports.Prisma.SupplierScalarFieldEnum = {
   service_types: 'service_types',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  is_Active: 'is_Active'
+  is_Active: 'is_Active',
+  isClient: 'isClient'
 };
 
 exports.Prisma.ServiceCategoryScalarFieldEnum = {
@@ -191,7 +212,6 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   id: 'id',
   assetId: 'assetId',
   supplierId: 'supplierId',
-  serviceCategoryId: 'serviceCategoryId',
   type: 'type',
   description: 'description',
   scheduled_date: 'scheduled_date',
@@ -200,12 +220,15 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   estimated_cost: 'estimated_cost',
   actual_cost: 'actual_cost',
   status: 'status',
-  equipment_inactive: 'equipment_inactive',
   notes: 'notes',
   created_at: 'created_at',
   updated_at: 'updated_at',
+  horometer: 'horometer',
+  odometer: 'odometer',
   is_Active: 'is_Active',
-  contractId: 'contractId'
+  serviceCategoryId: 'serviceCategoryId',
+  contractId: 'contractId',
+  equipment_inactive: 'equipment_inactive'
 };
 
 exports.Prisma.MaintenanceDocumentScalarFieldEnum = {
@@ -272,6 +295,8 @@ exports.Prisma.MeasurementBulletinScalarFieldEnum = {
   working_days: 'working_days',
   daily_rate: 'daily_rate',
   total_value: 'total_value',
+  current_horometer: 'current_horometer',
+  current_odometer: 'current_odometer',
   status: 'status',
   notes: 'notes',
   is_active: 'is_active',
@@ -299,11 +324,11 @@ exports.Prisma.BulletinExpenseScalarFieldEnum = {
   id: 'id',
   measurementBulletinId: 'measurementBulletinId',
   description: 'description',
-  quantity: 'quantity',
   unit_value: 'unit_value',
   total_value: 'total_value',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  quantity: 'quantity'
 };
 
 exports.Prisma.CompanySettingsScalarFieldEnum = {
@@ -395,6 +420,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   AssetCategory: 'AssetCategory',
   Asset: 'Asset',
+  AssetReading: 'AssetReading',
   Supplier: 'Supplier',
   ServiceCategory: 'ServiceCategory',
   Maintenance: 'Maintenance',

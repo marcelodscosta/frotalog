@@ -54,6 +54,9 @@ export interface IMaintenanceRepository {
   updateStatus(
     id: string,
     status: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED',
+    horometer?: number,
+    odometer?: number,
+    actualCost?: number,
   ): Promise<Maintenance>
   updateCosts(
     id: string,

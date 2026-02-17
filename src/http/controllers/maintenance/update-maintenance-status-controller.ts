@@ -13,13 +13,21 @@ export async function updateMaintenanceStatus(
   const bodySchema = z.object({
     status: z.enum(['SCHEDULED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED']),
     actual_cost: z.number().positive().optional(),
+    horometer: z.number().nonnegative().optional(), // ✅ NOVO
+    odometer: z.number().nonnegative().optional(), // ✅ NOVO
   })
 
   const { id } = paramsSchema.parse(request.params)
-  const { status, actual_cost } = bodySchema.parse(request.body)
+  const { status, actual_cost, horometer, odometer } = bodySchema.parse(request.body)
 
   const updateMaintenanceStatus = makeUpdateMaintenanceStatus()
-  const { maintenance } = await updateMaintenanceStatus.execute({ id, status, actual_cost })
+  const { maintenance } = await updateMaintenanceStatus.execute({ 
+    id, 
+    status, 
+    actual_cost,
+    horometer,
+    odometer
+  })
 
   return reply.send({ maintenance })
 }

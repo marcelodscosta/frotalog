@@ -18,6 +18,16 @@ const updateBodySchema = z.object({
 
   ownership: AssetOwnershipSchema.default('OWN'),
   documentsUrl: z.url().nullable().optional(),
+
+  // Usage Tracking
+  initial_horometer: z.number().nullable().optional(),
+  current_horometer: z.number().nullable().optional(),
+  initial_odometer: z.number().nullable().optional(),
+  current_odometer: z.number().nullable().optional(),
+
+  // Maintenance Settings
+  maintenance_frequency_hours: z.number().nullable().optional(),
+  maintenance_frequency_km: z.number().nullable().optional(),
 })
 
 const updateParamsSchema = z.object({

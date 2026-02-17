@@ -23,7 +23,9 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       data: {
         ...data,
         asset: { connect: { id: data.asset.connect?.id } },
-        supplier: { connect: { id: data.supplier.connect?.id } },
+        supplier: data.supplier?.connect?.id 
+            ? { connect: { id: data.supplier.connect.id } } 
+            : undefined,
         serviceCategory: data.serviceCategory?.connect?.id
           ? { connect: { id: data.serviceCategory.connect.id } }
           : undefined,
