@@ -498,7 +498,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   }
 
   async findMaintenancesByAssetPeriod(
-    assetId: string,
+    assetId: string | undefined,
     startDate: Date,
     endDate: Date,
   ): Promise<
@@ -510,48 +510,53 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       }
     >
   > {
+    const where: Prisma.MaintenanceWhereInput = {
+      is_Active: true,
+      status: { not: 'CANCELLED' },
+      OR: [
+        {
+          started_date: {
+            gte: startDate,
+            lte: endDate,
+          },
+        },
+        {
+          scheduled_date: {
+            gte: startDate,
+            lte: endDate,
+          },
+        },
+        {
+          completed_date: {
+            gte: startDate,
+            lte: endDate,
+          },
+        },
+        {
+          AND: [
+            {
+              OR: [
+                { started_date: { lte: startDate } },
+                { scheduled_date: { lte: startDate } },
+              ],
+            },
+            {
+              OR: [
+                { completed_date: { gte: startDate } },
+                { completed_date: null },
+              ],
+            },
+          ],
+        },
+      ],
+    }
+
+    if (assetId) {
+      where.assetId = assetId
+    }
+
     const maintenances = await prisma.maintenance.findMany({
-      where: {
-        is_Active: true,
-        assetId,
-        status: { not: 'CANCELLED' },
-        OR: [
-          {
-            started_date: {
-              gte: startDate,
-              lte: endDate,
-            },
-          },
-          {
-            scheduled_date: {
-              gte: startDate,
-              lte: endDate,
-            },
-          },
-          {
-            completed_date: {
-              gte: startDate,
-              lte: endDate,
-            },
-          },
-          {
-            AND: [
-              {
-                OR: [
-                  { started_date: { lte: startDate } },
-                  { scheduled_date: { lte: startDate } },
-                ],
-              },
-              {
-                OR: [
-                  { completed_date: { gte: startDate } },
-                  { completed_date: null },
-                ],
-              },
-            ],
-          },
-        ],
-      },
+      where,
       include: {
         supplier: {
           select: {

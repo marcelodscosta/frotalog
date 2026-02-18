@@ -2,7 +2,7 @@ import { Maintenance } from '../../generated/prisma'
 import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
 
 interface MaintenanceByAssetRequest {
-  assetId: string
+  assetId?: string
   startDate: Date
   endDate: Date
 }
@@ -34,12 +34,9 @@ export class MaintenanceByAssetUseCase {
       endDate: request.endDate.toISOString(),
     })
 
-    // Normaliza as datas de entrada para UTC 00:00:00.000 e 23:59:59.999
-    const startDate = new Date(request.startDate)
-    startDate.setUTCHours(0, 0, 0, 0)
-
-    const endDate = new Date(request.endDate)
-    endDate.setUTCHours(23, 59, 59, 999)
+    // Usa as datas diretamente (já ajustadas pelo controller para 03:00 UTC = 00:00 BRT)
+    const startDate = request.startDate
+    const endDate = request.endDate
 
     const maintenances =
       await this.maintenanceRepository.findMaintenancesByAssetPeriod(
@@ -49,18 +46,21 @@ export class MaintenanceByAssetUseCase {
       )
 
     const dailyStatus: MaintenanceByAssetResponse['dailyStatus'] = []
+    
+    // Inicia loop na data de início (ex: 03:00 UTC)
     const currentDate = new Date(startDate)
-    currentDate.setUTCHours(0, 0, 0, 0)
 
     console.log('📊 Gerando dailyStatus...')
     console.log('📋 Manutenções encontradas:', maintenances.length)
 
     while (currentDate <= endDate) {
+      // Define o início do dia atual (ex: 03:00 UTC)
       const currentDayStart = new Date(currentDate)
-      currentDayStart.setUTCHours(0, 0, 0, 0)
-
+      
+      // Define o fim do dia atual (ex: 02:59:59.999 UTC do dia seguinte)
       const currentDayEnd = new Date(currentDate)
-      currentDayEnd.setUTCHours(23, 59, 59, 999)
+      currentDayEnd.setUTCDate(currentDayEnd.getUTCDate() + 1)
+      currentDayEnd.setUTCMilliseconds(-1)
 
       // 🔑 LÓGICA CORRIGIDA: só considera inoperante se a manutenção FOI INICIADA
       const activeMaintenance = maintenances.find((m) => {
@@ -70,13 +70,13 @@ export class MaintenanceByAssetUseCase {
         }
 
         const maintenanceStart = new Date(m.started_date)
-        maintenanceStart.setUTCHours(0, 0, 0, 0)
+        // Se a manutenção começou antes do período do relatório, considera o início do período para cálculo
+        // Mas para verificação de range, usa a data real
 
         // ✅ Usa endDate do relatório (não "hoje") para manutenções em aberto
         const maintenanceEnd = m.completed_date
           ? new Date(m.completed_date)
-          : endDate // ← importante para consistência histórica
-        maintenanceEnd.setUTCHours(23, 59, 59, 999)
+          : endDate
 
         const isWithinRange =
           currentDayStart <= maintenanceEnd && currentDayEnd >= maintenanceStart
@@ -94,13 +94,19 @@ export class MaintenanceByAssetUseCase {
 
         return isWithinRange
       })
+      
+      // Ajusta a data para exibição (subtrai 3h para pegar o dia correto em PT-BR se necessário, ou usa UTC)
+      // Como o input já está deslocado (03:00), o dia UTC pode ser o dia correto se for 03:00 do dia X.
+      // 03:00 do dia 01/01 é 01/01.
+      const dateString = currentDate.toISOString().split('T')[0]
 
       dailyStatus.push({
-        date: currentDate.toISOString().split('T')[0], // ✅ Formato ISO apenas da data (sem hora)
+        date: dateString, 
         status: activeMaintenance ? 'INOPERATIVE' : 'OPERATIVE',
         maintenanceId: activeMaintenance?.id || null,
       })
 
+      // Avança 1 dia (mantendo o offset de horas, ex: 03:00 -> 03:00 do próx dia)
       currentDate.setUTCDate(currentDate.getUTCDate() + 1)
     }
 

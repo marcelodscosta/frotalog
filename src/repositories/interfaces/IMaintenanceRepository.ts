@@ -69,7 +69,7 @@ export interface IMaintenanceRepository {
   activateMaintenance(id: string): Promise<Maintenance>
 
   findMaintenancesByAssetPeriod(
-    assetId: string,
+    assetId: string | undefined,
     startDate: Date,
     endDate: Date,
   ): Promise<

@@ -4,6 +4,7 @@ import { getAssetsByWorksiteReport } from './get-assets-by-worksite-report-contr
 import { getMaintenancePredictionReport } from './maintenance-prediction-report-controller'
 import { getMaintenanceFinancialReport } from './maintenance-financial-report-controller'
 import { getAssetAvailabilityReport } from './asset-availability-report-controller'
+import { maintenanceReportByAsset } from './maintenance-report-by-asset-controller'
 
 export async function reportsRoutes(app: FastifyInstance) {
   app.get(
@@ -28,5 +29,11 @@ export async function reportsRoutes(app: FastifyInstance) {
     '/reports/assets-availability',
     { preHandler: [requireAuth()] },
     getAssetAvailabilityReport,
+  )
+
+  app.get(
+    '/reports/maintenance/asset',
+    { preHandler: [requireAuth()] },
+    maintenanceReportByAsset,
   )
 }
