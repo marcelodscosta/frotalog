@@ -11,8 +11,8 @@ interface CreateAssetMovementRequest {
   contractId: string
   assetId: string
   mobilization_date?: Date
-  integration_date?: Date
-  demobilization_date?: Date
+  integration_date?: Date | null
+  demobilization_date?: Date | null
   mobilization_checklist_url?: string | null
   demobilization_checklist_url?: string | null
   rental_value: number

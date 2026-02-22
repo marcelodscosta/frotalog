@@ -9,9 +9,9 @@ export async function createAssetMovement(
   const createBodySchema = z.object({
     contractId: z.string(),
     assetId: z.string(),
-    mobilization_date: z.coerce.date().optional(),
-    integration_date: z.coerce.date().optional(),
-    demobilization_date: z.coerce.date().optional(),
+    mobilization_date: z.preprocess((arg) => (arg ? new Date(arg as string | number | Date) : undefined), z.date().optional()),
+    integration_date: z.preprocess((arg) => (arg ? new Date(arg as string | number | Date) : null), z.date().nullable().optional()),
+    demobilization_date: z.preprocess((arg) => (arg ? new Date(arg as string | number | Date) : null), z.date().nullable().optional()),
     mobilization_checklist_url: z.string().url().nullable().optional(),
     demobilization_checklist_url: z.string().url().nullable().optional(),
     rental_value: z.number().nonnegative(),
