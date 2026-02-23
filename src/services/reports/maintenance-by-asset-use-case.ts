@@ -64,8 +64,8 @@ export class MaintenanceByAssetUseCase {
 
       // 🔑 LÓGICA CORRIGIDA: só considera inoperante se a manutenção FOI INICIADA
       const activeMaintenance = maintenances.find((m) => {
-        // ❌ Ignora manutenções que ainda não começaram
-        if (!m.started_date) {
+        // ❌ Ignora manutenções que ainda não começaram ou que não sinalizaram parada do equipamento
+        if (!m.started_date || !m.equipment_inactive) {
           return false
         }
 
