@@ -69,6 +69,13 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
   async findAllUnpaginated(): Promise<AssetMovement[]> {
     const assetMovements = await prisma.assetMovement.findMany({
       orderBy: { created_at: 'desc' },
+      include: {
+        asset: {
+          include: {
+            assetCategory: true,
+          },
+        },
+      },
     })
     return assetMovements
   }
@@ -83,7 +90,13 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
     const [items, totalItems] = await prisma.$transaction([
       prisma.assetMovement.findMany({
         where: { contractId },
-        include: { asset: true },
+        include: {
+          asset: {
+            include: {
+              assetCategory: true,
+            },
+          },
+        },
         skip,
         take: this.PAGE_SIZE,
         orderBy: { created_at: 'desc' },
