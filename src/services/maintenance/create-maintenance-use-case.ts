@@ -2,6 +2,7 @@ import { Maintenance } from '../../generated/prisma'
 import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
 import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository'
 import { ISupplierRepository } from '../../repositories/interfaces/ISupplierRepository'
+import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
 import { IServiceCategoryRepository } from '../../repositories/interfaces/IServiceCategoryRepository'
 import { AssetNotFoundError } from '../errors/asset-not-found-error'
 import { SupplierNotFoundError } from '../errors/supplier-not-found-error'
@@ -29,6 +30,7 @@ export class CreateMaintenanceUseCase {
     private assetRepository: IAssetRepository,
     private supplierRepository: ISupplierRepository,
     private serviceCategoryRepository: IServiceCategoryRepository,
+    private assetMovementRepository: IAssetMovementRepository,
   ) {}
 
   async execute(
@@ -54,12 +56,18 @@ export class CreateMaintenanceUseCase {
       }
     }
 
+    const activeMovement = await this.assetMovementRepository.findActiveNotDemobilizedByAssetId(data.assetId)
+
     const maintenance = await this.maintenanceRepository.create({
       asset: { connect: { id: data.assetId } },
       supplier: { connect: { id: data.supplierId } },
 
       ...(data.serviceCategoryId && {
         serviceCategory: { connect: { id: data.serviceCategoryId } },
+      }),
+
+      ...(activeMovement && {
+        contract: { connect: { id: activeMovement.contractId } },
       }),
 
       type: data.type,
