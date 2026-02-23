@@ -163,6 +163,9 @@ export class PrismaAssetRepository implements IAssetRepository {
   async findAllUnpaginated(): Promise<Asset[]> {
     return await prisma.asset.findMany({
       orderBy: { brand: 'asc' },
+      include: {
+        assetCategory: true,
+      },
     })
   }
 
