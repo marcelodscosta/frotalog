@@ -222,6 +222,7 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
         include: {
           asset: {
             include: {
+              assetCategory: true,
               Maintenance: {
                 where: {
                   contractId: filters.contractId,
