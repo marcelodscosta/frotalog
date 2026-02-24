@@ -302,6 +302,13 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
   ): Promise<AssetMovement[]> {
     const assetMovements = await prisma.assetMovement.findMany({
       where: { contractId },
+      include: {
+        asset: {
+          include: {
+            assetCategory: true,
+          },
+        },
+      },
       orderBy: { mobilization_date: 'desc' },
     })
     return assetMovements
