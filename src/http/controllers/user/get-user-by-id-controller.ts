@@ -10,7 +10,7 @@ export async function getUserById(
     id: z.string(),
   })
 
-  const { id } = paramsSchema.parse(request.query)
+  const { id } = paramsSchema.parse(request.params)
 
   const getUserById = makeGetUserById()
   const { user } = await getUserById.execute({ id })
