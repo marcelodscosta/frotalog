@@ -236,6 +236,7 @@ export class InMemoryAssetMovementRepository
     mobilizationDateFrom?: Date
     mobilizationDateTo?: Date
     page: number
+    unpaginated?: boolean
   }): Promise<PaginatedResult<AssetMovement>> {
     const PAGE_SIZE = 20
     let filtered = [...this.items]
@@ -273,15 +274,15 @@ export class InMemoryAssetMovementRepository
       )
     }
 
-    const skip = (params.page - 1) * PAGE_SIZE
-    const paged = filtered.slice(skip, skip + PAGE_SIZE)
+    const skip = params.unpaginated ? 0 : (params.page - 1) * PAGE_SIZE
+    const paged = params.unpaginated ? filtered : filtered.slice(skip, skip + PAGE_SIZE)
     const totalItems = filtered.length
-    const totalPages = Math.ceil(totalItems / PAGE_SIZE)
+    const totalPages = params.unpaginated ? 1 : Math.ceil(totalItems / PAGE_SIZE)
 
     return {
       items: paged,
-      currentPage: params.page,
-      pageSize: PAGE_SIZE,
+      currentPage: params.unpaginated ? 1 : params.page,
+      pageSize: params.unpaginated ? totalItems : PAGE_SIZE,
       totalItems,
       totalPages,
     }

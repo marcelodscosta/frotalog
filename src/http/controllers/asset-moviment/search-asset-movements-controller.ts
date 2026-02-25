@@ -8,6 +8,7 @@ export async function searchAssetMovements(
 ) {
   const searchQuerySchema = z.object({
     page: z.coerce.number().min(1).default(1),
+    unpaginated: z.coerce.boolean().optional(),
     assetId: z.string().optional(),
     contractId: z.string().optional(),
     billingCycle: z.enum(['DAILY', 'WEEKLY', 'MONTHLY']).optional(),
@@ -26,6 +27,7 @@ export async function searchAssetMovements(
 
   const {
     page,
+    unpaginated,
     assetId,
     contractId,
     billingCycle,
@@ -39,6 +41,7 @@ export async function searchAssetMovements(
 
   const { assetMovements } = await searchAssetMovementsUseCase.execute({
     page,
+    unpaginated,
     assetId,
     contractId,
     billingCycle,

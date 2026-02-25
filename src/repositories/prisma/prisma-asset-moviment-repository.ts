@@ -207,15 +207,18 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
     mobilizationDateFrom?: Date
     mobilizationDateTo?: Date
     page: number
+    unpaginated?: boolean
   }): Promise<PaginatedResult<AssetMovement>> {
     const {
       page,
+      unpaginated,
       mobilizationDateFrom,
       mobilizationDateTo,
       isActive,
       ...filters
     } = params
-    const skip = (page - 1) * this.PAGE_SIZE
+    const skip = unpaginated ? undefined : (page - 1) * this.PAGE_SIZE
+    const take = unpaginated ? undefined : this.PAGE_SIZE
 
     const where: Prisma.AssetMovementWhereInput = {
       ...filters,
@@ -230,7 +233,7 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
       prisma.assetMovement.findMany({
         where,
         skip,
-        take: this.PAGE_SIZE,
+        take,
         orderBy: { created_at: 'desc' },
         include: {
           asset: {
@@ -258,12 +261,12 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
       }),
     ])
 
-    const totalPages = Math.ceil(totalItems / this.PAGE_SIZE)
+    const totalPages = unpaginated ? 1 : Math.ceil(totalItems / this.PAGE_SIZE)
 
     return {
       items,
-      currentPage: page,
-      pageSize: this.PAGE_SIZE,
+      currentPage: unpaginated ? 1 : page,
+      pageSize: unpaginated ? totalItems : this.PAGE_SIZE,
       totalItems,
       totalPages,
     }

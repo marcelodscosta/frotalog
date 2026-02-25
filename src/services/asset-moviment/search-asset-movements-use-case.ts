@@ -11,6 +11,7 @@ interface SearchAssetMovementsUseCaseRequest {
   mobilizationDateFrom?: Date
   mobilizationDateTo?: Date
   page: number
+  unpaginated?: boolean
 }
 
 interface SearchAssetMovementsUseCaseResponse {

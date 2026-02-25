@@ -54,6 +54,7 @@ export interface IAssetMovementRepository {
     mobilizationDateFrom?: Date
     mobilizationDateTo?: Date
     page: number
+    unpaginated?: boolean
   }): Promise<PaginatedResult<AssetMovement>>
 
   // Operações específicas do domínio
