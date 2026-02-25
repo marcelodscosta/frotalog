@@ -34,4 +34,9 @@ export interface IContractRepository {
   getContractWithDetails(id: string): Promise<Contract | null>
 
   findActiveByAssetId(assetId: string): Promise<Contract | null>
+
+  getFinancialSummary(contractId: string): Promise<{
+    totalMaintenanceCost: number
+    totalOtherExpenses: number
+  } | null>
 }

@@ -10,6 +10,7 @@ import { getContractByNumber } from './get-contract-by-number-controller'
 import { searchContracts } from './search-contracts-controller'
 import { getContractWithDetails } from './get-contract-with-details-controller'
 import { getActiveContractByAsset } from './get-active-contract-by-asset-controller'
+import { getContractFinancialSummary } from './get-contract-financial-summary-controller'
 
 export async function contractRoutes(app: FastifyInstance) {
   app.post('/contract', createContract)
@@ -21,6 +22,7 @@ export async function contractRoutes(app: FastifyInstance) {
   app.get('/contract/search/', getContractByNumber)
   app.get('/contracts/search', searchContracts)
   app.get('/contract/:id/details', getContractWithDetails)
+  app.get('/contract/:id/financials', getContractFinancialSummary)
   app.get('/contract/asset/:assetId', getActiveContractByAsset)
 
   app.patch('/contract/:id/delete', deleteContract)

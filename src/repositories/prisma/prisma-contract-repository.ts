@@ -233,4 +233,55 @@ export class PrismaContractRepository implements IContractRepository {
     })
     return contract
   }
+
+  async getFinancialSummary(contractId: string): Promise<{ totalMaintenanceCost: number; totalOtherExpenses: number } | null> {
+    const contract = await prisma.contract.findUnique({
+      where: { id: contractId },
+    })
+
+    if (!contract) {
+      return null
+    }
+
+    const movements = await prisma.assetMovement.findMany({
+      where: { contractId },
+      select: { assetId: true },
+    })
+    const assetIds = movements.map((m) => m.assetId)
+
+    const maintenances = await prisma.maintenance.findMany({
+      where: {
+        assetId: { in: assetIds },
+        status: { in: ['COMPLETED', 'IN_PROGRESS'] },
+        OR: [
+          { contractId },
+          {
+            contractId: null,
+            scheduled_date: {
+              gte: contract.start_date,
+              ...(contract.end_date ? { lte: contract.end_date } : {}),
+            },
+          },
+        ],
+      },
+    })
+
+    const totalMaintenanceCost = maintenances.reduce((acc, curr) => {
+      return acc + (curr.actual_cost ? Number(curr.actual_cost) : 0)
+    }, 0)
+
+    const bulletinExpenses = await prisma.bulletinExpense.findMany({
+      where: {
+        measurementBulletin: {
+          contractId,
+        },
+      },
+    })
+    
+    const totalOtherExpenses = bulletinExpenses.reduce((acc, curr) => {
+      return acc + (curr.total_value ? Number(curr.total_value) : 0)
+    }, 0)
+
+    return { totalMaintenanceCost, totalOtherExpenses }
+  }
 }

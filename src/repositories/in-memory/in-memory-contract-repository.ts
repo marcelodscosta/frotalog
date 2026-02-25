@@ -223,4 +223,12 @@ export class InMemoryContractRepository implements IContractRepository {
       ) ?? null
     )
   }
+
+  public financialSummaryMockData: { totalMaintenanceCost: number; totalOtherExpenses: number } | null = null;
+
+  async getFinancialSummary(contractId: string): Promise<{ totalMaintenanceCost: number; totalOtherExpenses: number } | null> {
+    const contract = await this.findById(contractId)
+    if (!contract) return null
+    return this.financialSummaryMockData
+  }
 }
