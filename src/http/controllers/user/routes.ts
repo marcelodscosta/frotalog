@@ -9,6 +9,7 @@ import { updateUser } from './update-user-controller'
 import { toggleUserStatus } from './toggle-user-status-controller'
 import { requireAuth, requireAdmin } from '../../middleware/auth'
 import { me } from './me-controller'
+import { uploadAvatar } from './upload-avatar-controller'
 
 export async function userRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de usuários
@@ -17,6 +18,7 @@ export async function userRoutes(app: FastifyInstance) {
   app.get('/me', me)
 
   app.post('/user', createUser)
+  app.post('/user/avatar', uploadAvatar)
   app.get('/user/search', findAllUsers)
   app.get('/user/search/:id', getUserById)
   app.get('/user/search/email', getUserByEmail)
