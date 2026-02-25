@@ -229,6 +229,38 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
       },
     }
 
+    let maintenanceWhere: Prisma.MaintenanceWhereInput | undefined
+
+    if (filters.contractId) {
+      const contract = await prisma.contract.findUnique({
+        where: { id: filters.contractId },
+        select: { start_date: true, end_date: true },
+      })
+
+      if (contract) {
+        maintenanceWhere = {
+          OR: [
+            { contractId: filters.contractId },
+            {
+              contractId: null,
+              scheduled_date: {
+                gte: contract.start_date,
+                ...(contract.end_date ? { lte: contract.end_date } : {}),
+              },
+            },
+          ],
+          status: { in: ['COMPLETED', 'IN_PROGRESS'] },
+        }
+      } else {
+        maintenanceWhere = { contractId: filters.contractId }
+      }
+    } else {
+       // Only return maintenance explicitly linked to the asset generally if no contract context? 
+       // Often we don't want to load all maintenance history. We might just pass undefined if no contractId, but typically search is called per contract.
+       // For backward comp:
+       maintenanceWhere = undefined
+    }
+
     const [items, totalItems] = await prisma.$transaction([
       prisma.assetMovement.findMany({
         where,
@@ -240,9 +272,7 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
             include: {
               assetCategory: true,
               Maintenance: {
-                where: {
-                  contractId: filters.contractId,
-                },
+                where: maintenanceWhere,
                 include: {
                   serviceCategory: true,
                   supplier: true,
