@@ -19,8 +19,18 @@ export class InMemoryAssetRepository implements IAssetRepository {
       created_at: new Date(),
       updated_at: new Date(),
       is_Active: data.is_Active ?? true,
-      assetCategoryId: data.assetCategoryId,
-    }
+      assetCategoryId: data.assetCategoryId ?? null,
+      current_horometer: data.current_horometer ?? null,
+      current_odometer: data.current_odometer ?? null,
+      last_maintenance_date: data.last_maintenance_date ? new Date(data.last_maintenance_date) : null,
+      last_maintenance_horometer: data.last_maintenance_horometer ?? null,
+      last_maintenance_odometer: data.last_maintenance_odometer ?? null,
+      status: data.status ?? 'AVAILABLE',
+      acquisition_date: data.acquisition_date ? new Date(data.acquisition_date) : null,
+      acquisition_value: data.acquisition_value ?? null,
+      invoice_number: data.invoice_number ?? null,
+      notes: data.notes ?? null,
+    } as Asset
     this.items.push(asset)
     return asset
   }

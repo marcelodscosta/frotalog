@@ -55,6 +55,7 @@ export class InMemorySupplierRepository implements ISupplierRepository {
       updated_at: new Date(),
 
       is_Active: data.is_Active ?? true,
+      isClient: (data as any).isClient ?? false,
     }
     this.items.push(supplier)
 

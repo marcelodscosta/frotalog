@@ -19,8 +19,6 @@ export class FetchContractsByClientUseCase {
     page,
   }: FetchContractsByClientRequest): Promise<FetchContractsByClientResponse> {
     const contracts = await this.contractRepository.findByClient(client, page)
-    console.log(`Esse é o cliente: ${client}`)
-    console.log(`Esses são os contratos: ${JSON.stringify(contracts)}`)
     return {
       contracts,
     }

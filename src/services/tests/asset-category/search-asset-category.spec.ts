@@ -21,7 +21,7 @@ describe('Search AssetCategory', () => {
     }
     const result = await sut.execute({ page: 1, query: 'Caminhão' })
 
-    expect(result.assetCategory.length).toBe(20)
+    expect(result.assetCategories.length).toBe(20)
     expect(result.pageSize).toBe(20)
     expect(result.totalItems).toBe(30)
     expect(result.totalPages).toBe(2)
@@ -35,7 +35,7 @@ describe('Search AssetCategory', () => {
     })
     const result = await sut.execute({ page: 1, query: 'Não existe' })
 
-    expect(result.assetCategory.length).toBe(0)
+    expect(result.assetCategories.length).toBe(0)
     expect(result.currentPage).toBe(1)
     expect(result.totalItems).toBe(0)
   })

@@ -1,15 +1,24 @@
 import { Maintenance, Prisma } from '../../generated/prisma'
-import { IMaintenanceRepository } from '../interfaces/IMaintenanceRepository'
+import { IMaintenanceRepository, MaintenanceWithRelations } from '../interfaces/IMaintenanceRepository'
 import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
 export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
   public maintenances: Maintenance[] = []
 
+  private mapToWithRelations(maintenance: Maintenance): MaintenanceWithRelations {
+    return {
+      ...maintenance,
+      asset: { brand: 'Mock', model: 'Mock', plate: 'MOC-0000', serial_number: '123', year: 2024 },
+      supplier: { company_name: 'Mock Supplier', trading_name: null },
+      serviceCategory: { id: 'mock-category', name: 'Mock Category', description: null },
+    }
+  }
+
   async create(data: Prisma.MaintenanceCreateInput): Promise<Maintenance> {
     const maintenance: Maintenance = {
       id: crypto.randomUUID(),
       assetId: data.asset.connect?.id || '',
-      supplierId: data.supplier.connect?.id || '',
+      supplierId: data.supplier?.connect?.id || '',
       type: data.type,
       description: data.description,
       scheduled_date:
@@ -37,6 +46,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
       created_at: new Date(),
       updated_at: new Date(),
       is_Active: true,
+      equipment_inactive: (data as any).equipment_inactive ?? false,
       // @ts-ignore - These will be populated by includes
       asset: null,
       supplier: null,
@@ -70,17 +80,17 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     return updatedMaintenance as Maintenance
   }
 
-  async findById(id: string): Promise<Maintenance | null> {
+  async findById(id: string): Promise<MaintenanceWithRelations | null> {
     const maintenance = this.maintenances.find(
       (maintenance) => maintenance.id === id,
     )
-    return maintenance || null
+    return maintenance ? this.mapToWithRelations(maintenance) : null
   }
 
   async findByAssetId(
     assetId: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -92,6 +102,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     const maintenances = activeMaintenancesByAsset
       .sort((a, b) => b.scheduled_date.getTime() - a.scheduled_date.getTime())
       .slice(skip, skip + PAGE_SIZE)
+      .map(this.mapToWithRelations.bind(this))
 
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
@@ -107,7 +118,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
   async findBySupplierId(
     supplierId: string,
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -120,6 +131,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     const maintenances = activeMaintenancesBySupplier
       .sort((a, b) => b.scheduled_date.getTime() - a.scheduled_date.getTime())
       .slice(skip, skip + PAGE_SIZE)
+      .map(this.mapToWithRelations.bind(this))
 
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
@@ -133,9 +145,9 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
   }
 
   async findByStatus(
-    status: Prisma.MaintenanceStatus,
+    status: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED',
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -147,6 +159,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     const maintenances = activeMaintenancesByStatus
       .sort((a, b) => b.scheduled_date.getTime() - a.scheduled_date.getTime())
       .slice(skip, skip + PAGE_SIZE)
+      .map(this.mapToWithRelations.bind(this))
 
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
@@ -160,9 +173,9 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
   }
 
   async findByType(
-    type: Prisma.MaintenanceType,
+    type: 'PREVENTIVE' | 'CORRECTIVE' | 'EMERGENCY',
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -174,6 +187,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     const maintenances = activeMaintenancesByType
       .sort((a, b) => b.scheduled_date.getTime() - a.scheduled_date.getTime())
       .slice(skip, skip + PAGE_SIZE)
+      .map(this.mapToWithRelations.bind(this))
 
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
@@ -186,7 +200,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async findAll(page: number): Promise<PaginatedResult<Maintenance>> {
+  async findAll(page: number): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
@@ -198,6 +212,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     const maintenances = activeMaintenances
       .sort((a, b) => b.scheduled_date.getTime() - a.scheduled_date.getTime())
       .slice(skip, skip + PAGE_SIZE)
+      .map(this.mapToWithRelations.bind(this))
 
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
@@ -212,7 +227,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
 
   async findScheduledMaintenances(
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
     const now = new Date()
@@ -228,6 +243,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     const maintenances = scheduledMaintenances
       .sort((a, b) => a.scheduled_date.getTime() - b.scheduled_date.getTime())
       .slice(skip, skip + PAGE_SIZE)
+      .map(this.mapToWithRelations.bind(this))
 
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
@@ -242,7 +258,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
 
   async findOverdueMaintenances(
     page: number,
-  ): Promise<PaginatedResult<Maintenance>> {
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
     const now = new Date()
@@ -258,6 +274,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     const maintenances = overdueMaintenances
       .sort((a, b) => a.scheduled_date.getTime() - b.scheduled_date.getTime())
       .slice(skip, skip + PAGE_SIZE)
+      .map(this.mapToWithRelations.bind(this))
 
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
@@ -272,7 +289,10 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
 
   async updateStatus(
     id: string,
-    status: Prisma.MaintenanceStatus,
+    status: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED',
+    horometer?: number,
+    odometer?: number,
+    actualCost?: number,
   ): Promise<Maintenance> {
     const maintenanceIndex = this.maintenances.findIndex(
       (maintenance) => maintenance.id === id,
@@ -364,5 +384,69 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     }
 
     return this.maintenances[maintenanceIndex]
+  }
+
+  async findMaintenancesByAssetPeriod(
+    assetId: string | undefined,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<any[]> {
+    return this.maintenances.filter((m) => {
+      if (!m.is_Active) return false
+      if (assetId && m.assetId !== assetId) return false
+
+      const scheduledDate = m.scheduled_date
+      const completedDate = m.completed_date
+
+      // Check if maintenance overlaps with the period
+      const mStart = m.started_date || scheduledDate
+      const mEnd = completedDate || endDate
+
+      return mStart <= endDate && mEnd >= startDate
+    }).map((m) => ({
+      ...m,
+      supplier: { company_name: 'Test Supplier' },
+      asset: { brand: 'Test', model: 'Model', plate: 'ABC-1234', year: 2024 },
+      serviceCategory: null,
+    }))
+  }
+
+  async findScheduledOnly(params?: { startDate?: Date; endDate?: Date }): Promise<Maintenance[]> {
+    return this.maintenances.filter((m) => {
+      if (!m.is_Active) return false
+      if (m.status !== 'SCHEDULED') return false
+      if (params?.startDate && m.scheduled_date < params.startDate) return false
+      if (params?.endDate && m.scheduled_date > params.endDate) return false
+      return true
+    })
+  }
+
+  async updateCompletedDate(id: string): Promise<Maintenance> {
+    const index = this.maintenances.findIndex((m) => m.id === id)
+    if (index === -1) throw new Error('Maintenance not found')
+    this.maintenances[index] = {
+      ...this.maintenances[index],
+      completed_date: new Date(),
+      updated_at: new Date(),
+    }
+    return this.maintenances[index]
+  }
+
+  async findMaintenancesByPlate(
+    plate: string,
+    page: number,
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
+    const result = await this.findAll(page)
+    const filteredItems = result.items.filter(m => m.asset.plate === plate)
+    return { ...result, items: filteredItems, totalItems: filteredItems.length }
+  }
+
+  async findMaintenancesBySerialNumber(
+    serialNumber: string,
+    page: number,
+  ): Promise<PaginatedResult<MaintenanceWithRelations>> {
+    const result = await this.findAll(page)
+    const filteredItems = result.items.filter(m => m.asset.serial_number === serialNumber)
+    return { ...result, items: filteredItems, totalItems: filteredItems.length }
   }
 }

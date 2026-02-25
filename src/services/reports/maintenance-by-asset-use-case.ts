@@ -28,11 +28,6 @@ export class MaintenanceByAssetUseCase {
   async execute(
     request: MaintenanceByAssetRequest,
   ): Promise<MaintenanceByAssetResponse> {
-    console.log('🚀 Use Case recebeu:', {
-      assetId: request.assetId,
-      startDate: request.startDate.toISOString(),
-      endDate: request.endDate.toISOString(),
-    })
 
     // Usa as datas diretamente (já ajustadas pelo controller para 03:00 UTC = 00:00 BRT)
     const startDate = request.startDate
@@ -50,8 +45,6 @@ export class MaintenanceByAssetUseCase {
     // Inicia loop na data de início (ex: 03:00 UTC)
     const currentDate = new Date(startDate)
 
-    console.log('📊 Gerando dailyStatus...')
-    console.log('📋 Manutenções encontradas:', maintenances.length)
 
     while (currentDate <= endDate) {
       // Define o início do dia atual (ex: 03:00 UTC)
@@ -81,16 +74,6 @@ export class MaintenanceByAssetUseCase {
         const isWithinRange =
           currentDayStart <= maintenanceEnd && currentDayEnd >= maintenanceStart
 
-        if (isWithinRange) {
-          console.log(
-            `✅ Dia ${currentDate.toISOString().split('T')[0]} está em manutenção REAL:`,
-            {
-              maintenanceId: m.id,
-              started_date: m.started_date,
-              completed_date: m.completed_date,
-            },
-          )
-        }
 
         return isWithinRange
       })
@@ -117,13 +100,6 @@ export class MaintenanceByAssetUseCase {
     ).length
     const inoperativeDays = totalDays - operativeDays
 
-    console.log('📊 Resumo gerado:', {
-      totalMaintenances,
-      totalDays,
-      operativeDays,
-      inoperativeDays,
-      dailyStatusSample: dailyStatus.slice(0, 3),
-    })
 
     return {
       maintenances,

@@ -25,7 +25,6 @@ export class SearchAssetCategoryUseCase {
       query,
       page,
     )
-    console.log(result)
     return {
       assetCategories: result.items,
       currentPage: result.currentPage,

@@ -63,7 +63,7 @@ describe('Find Supplier by company name', () => {
     })
     const result = await sut.execute({ page: 1, query: 'loca' })
 
-    expect(result.suppliers).toHaveLength(2)
+    expect(result.supplier).toHaveLength(2)
     expect(result.totalItems).toBe(2)
     expect(result.currentPage).toBe(1)
     expect(result.totalPages).toBe(1)
@@ -120,8 +120,8 @@ describe('Find Supplier by company name', () => {
     })
     const result = await sut.execute({ page: 1, query: 'Não existe' })
 
-    expect(result.suppliers.length).toEqual(0)
-    expect(result.suppliers).toEqual([])
+    expect(result.supplier.length).toEqual(0)
+    expect(result.supplier).toEqual([])
     expect(result.currentPage).toBe(1)
   })
 })

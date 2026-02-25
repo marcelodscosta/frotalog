@@ -141,7 +141,22 @@ export class CreateMeasurementBulletinUseCase {
 
     const inactiveDays = inactiveDates.size
     const workingDays = Math.max(0, totalDays - inactiveDays)
-    const dailyRate = Number(assetMovement.rental_value) / 30
+
+    // Calculate daily rate based on billing cycle
+    let dailyRate: number
+    switch (assetMovement.billing_cycle) {
+      case 'DAILY':
+        dailyRate = Number(assetMovement.rental_value)
+        break
+      case 'WEEKLY':
+        dailyRate = Number(assetMovement.rental_value) / 7
+        break
+      case 'MONTHLY':
+      default:
+        dailyRate = Number(assetMovement.rental_value) / 30
+        break
+    }
+
     const totalValue = dailyRate * workingDays
 
     const measurementBulletin =

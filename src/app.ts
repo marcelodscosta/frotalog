@@ -23,20 +23,23 @@ import { companySettingsRoutes } from './http/controllers/company-settings/route
 import { operationalRoutes } from './http/controllers/operational/routes'
 
 export const app = fastify({
-  logger: {
-    level: env.NODE_ENV === 'dev' ? 'debug' : 'info',
-    transport:
-      env.NODE_ENV === 'dev'
-        ? {
-            target: 'pino-pretty',
-            options: {
-              colorize: true,
-              translateTime: 'HH:MM:ss Z',
-              ignore: 'pid,hostname',
-            },
-          }
-        : undefined,
-  },
+  logger:
+    env.NODE_ENV === 'test'
+      ? false
+      : {
+          level: env.NODE_ENV === 'dev' ? 'debug' : 'info',
+          transport:
+            env.NODE_ENV === 'dev'
+              ? {
+                  target: 'pino-pretty',
+                  options: {
+                    colorize: true,
+                    translateTime: 'HH:MM:ss Z',
+                    ignore: 'pid,hostname',
+                  },
+                }
+              : undefined,
+        },
 })
 
 app.register(fastifyCors, {

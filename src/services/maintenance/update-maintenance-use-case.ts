@@ -58,11 +58,6 @@ export class UpdateMaintenanceUseCase {
       updateData.completed_date = data.completed_date
     }
 
-    console.log(
-      'UpdateMaintenanceUseCase | Dados finais para persistência:',
-      JSON.stringify(updateData),
-    )
-
     const maintenance = await this.maintenanceRepository.updateMaintenance(
       id,
       updateData,
