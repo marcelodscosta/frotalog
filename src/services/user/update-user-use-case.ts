@@ -2,6 +2,7 @@ import { User } from '../../generated/prisma'
 import { IUserRepository } from '../../repositories/interfaces/IUserRepository'
 import { UserNotFoundError } from '../errors/user-not-found-error'
 import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
+import { hash } from 'bcryptjs'
 
 interface UpdateUserRequest {
   id: string
@@ -9,6 +10,7 @@ interface UpdateUserRequest {
   email?: string
   phone?: string
   role?: 'ADMIN' | 'EMPLOYEE'
+  password?: string
   avatar?: string
 }
 
@@ -33,12 +35,17 @@ export class UpdateUserUseCase {
         throw new UserAlreadyExistsError()
       }
     }
+    let password_hash = user.password_hash;
+    if (data.password && data.password.length >= 6) {
+      password_hash = await hash(data.password, 6);
+    }
 
     const updatedUser = await this.userRepository.updateUser(data.id, {
       name: data.name,
       email: data.email,
       phone: data.phone,
       role: data.role,
+      password_hash,
       avatar: data.avatar,
     })
 

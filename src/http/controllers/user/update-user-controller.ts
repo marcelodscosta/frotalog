@@ -15,6 +15,7 @@ export async function updateUser(
     email: z.string().email().optional(),
     phone: z.string().optional(),
     role: z.enum(['ADMIN', 'EMPLOYEE']).optional(),
+    password: z.string().min(6).optional().or(z.literal('')),
     avatar: z.string().optional(),
   })
 
