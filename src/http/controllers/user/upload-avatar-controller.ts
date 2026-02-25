@@ -22,7 +22,8 @@ export async function uploadAvatar(request: FastifyRequest, reply: FastifyReply)
     const extension = path.extname(filename)
     const uniqueFilename = `${randomUUID()}${extension}`
 
-    const uploadDir = path.resolve(__dirname, '../../../../uploads/avatars')
+    // Resolve upload dir using process.cwd() to ensure it's in the project root
+    const uploadDir = path.resolve(process.cwd(), 'uploads/avatars')
     
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true })

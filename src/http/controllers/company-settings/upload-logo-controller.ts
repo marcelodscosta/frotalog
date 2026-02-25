@@ -10,11 +10,12 @@ import util from 'node:util'
 const pump = util.promisify(pipeline)
 
 export async function uploadLogo(request: FastifyRequest, reply: FastifyReply) {
-    const data = await request.file()
+    try {
+        const data = await request.file()
 
-    if (!data) {
-        return reply.status(400).send({ message: 'No file uploaded.' })
-    }
+        if (!data) {
+            return reply.status(400).send({ message: 'No file uploaded.' })
+        }
 
     if (!data.mimetype.startsWith('image/')) {
         return reply.status(400).send({ message: 'Only images are allowed.' })
@@ -24,9 +25,8 @@ export async function uploadLogo(request: FastifyRequest, reply: FastifyReply) {
     const fileId = randomUUID()
     const fileName = `${fileId}${extension}`
     
-    // Ensure uploads/logos exists (created in task step, but good to be safe or just use root uploads)
-    // We configured static serving from 'uploads/' root in app.ts, so let's put it in uploads/logos/
-    const uploadDir = path.resolve(__dirname, '../../../../uploads/logos')
+    // Resolve upload dir using process.cwd() to ensure it's in the project root
+    const uploadDir = path.resolve(process.cwd(), 'uploads/logos')
     
     // Just in case
     if (!fs.existsSync(uploadDir)) {
@@ -59,5 +59,12 @@ export async function uploadLogo(request: FastifyRequest, reply: FastifyReply) {
         return reply.status(404).send({ message: 'Company settings not found. Please save settings first.' })
     }
 
-    return reply.status(200).send({ logoUrl })
+        return reply.status(200).send({ logoUrl })
+    } catch (error: any) {
+        console.error('Error uploading logo:', error)
+        return reply.status(500).send({ 
+            message: 'Internal server error during logo upload', 
+            details: error?.message || String(error) 
+        })
+    }
 }
