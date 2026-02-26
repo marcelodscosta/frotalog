@@ -274,6 +274,7 @@ export class PrismaContractRepository implements IContractRepository {
       where: {
         measurementBulletin: {
           contractId,
+          is_active: true,
         },
       },
     })
