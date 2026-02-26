@@ -270,18 +270,7 @@ export class PrismaContractRepository implements IContractRepository {
       return acc + (curr.actual_cost ? Number(curr.actual_cost) : 0)
     }, 0)
 
-    const bulletinExpenses = await prisma.bulletinExpense.findMany({
-      where: {
-        measurementBulletin: {
-          contractId,
-          is_active: true,
-        },
-      },
-    })
-    
-    const totalOtherExpenses = bulletinExpenses.reduce((acc, curr) => {
-      return acc + (curr.total_value ? Number(curr.total_value) : 0)
-    }, 0)
+    const totalOtherExpenses = 0
 
     return { totalMaintenanceCost, totalOtherExpenses }
   }
