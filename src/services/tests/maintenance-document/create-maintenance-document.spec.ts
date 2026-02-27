@@ -1,10 +1,10 @@
-import { beforeEach, it, expect, describe } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryMaintenanceDocumentRepository } from '../../../repositories/in-memory/in-memory-maintenance-document-repository'
 import { InMemoryMaintenanceRepository } from '../../../repositories/in-memory/in-memory-maintenance-repository'
-import { CreateMaintenanceDocumentUseCase } from '../../maintenance-document/create-maintenance-document-use-case'
-import { MaintenanceNotFoundError } from '../../errors/maintenance-not-found-error'
-import { InvalidFileTypeError } from '../../errors/invalid-file-type-error'
 import { FileTooLargeError } from '../../errors/file-too-large-error'
+import { InvalidFileTypeError } from '../../errors/invalid-file-type-error'
+import { MaintenanceNotFoundError } from '../../errors/maintenance-not-found-error'
+import { CreateMaintenanceDocumentUseCase } from '../../maintenance-document/create-maintenance-document-use-case'
 
 let maintenanceDocumentRepository: InMemoryMaintenanceDocumentRepository
 let maintenanceRepository: InMemoryMaintenanceRepository
@@ -95,7 +95,7 @@ describe('Create Maintenance Document', () => {
         filename: 'document.pdf',
         original_name: 'large-file.pdf',
         file_path: '/uploads/document.pdf',
-        file_size: 11 * 1024 * 1024, // 11MB
+        file_size: 51 * 1024 * 1024, // 51MB
         mime_type: 'application/pdf',
       }),
     ).rejects.toBeInstanceOf(FileTooLargeError)

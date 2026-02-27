@@ -1,9 +1,9 @@
 import { MaintenanceDocument } from '../../generated/prisma'
 import { IMaintenanceDocumentRepository } from '../../repositories/interfaces/IMaintenanceDocumentRepository'
 import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
-import { MaintenanceNotFoundError } from '../errors/maintenance-not-found-error'
-import { InvalidFileTypeError } from '../errors/invalid-file-type-error'
 import { FileTooLargeError } from '../errors/file-too-large-error'
+import { InvalidFileTypeError } from '../errors/invalid-file-type-error'
+import { MaintenanceNotFoundError } from '../errors/maintenance-not-found-error'
 
 interface CreateMaintenanceDocumentRequest {
   maintenanceId: string
@@ -42,14 +42,25 @@ export class CreateMaintenanceDocumentUseCase {
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       'application/vnd.ms-excel',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      // Video types (mobile app)
+      'video/mp4',
+      'video/quicktime',
+      'video/webm',
+      // Audio types (mobile app)
+      'audio/m4a',
+      'audio/mp4',
+      'audio/mpeg',
+      'audio/wav',
+      'audio/aac',
+      'audio/x-m4a',
     ]
 
     if (!allowedMimeTypes.includes(data.mime_type)) {
       throw new InvalidFileTypeError()
     }
 
-    // Validar tamanho do arquivo (10MB)
-    const maxFileSize = 10 * 1024 * 1024 // 10MB em bytes
+    // Validar tamanho do arquivo (50MB - increased for video support)
+    const maxFileSize = 50 * 1024 * 1024 // 50MB em bytes
     if (data.file_size > maxFileSize) {
       throw new FileTooLargeError()
     }
