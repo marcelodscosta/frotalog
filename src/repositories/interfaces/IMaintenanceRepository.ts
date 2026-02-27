@@ -1,9 +1,9 @@
 import {
-  Asset,
-  Maintenance,
-  Prisma,
-  Supplier,
-  ServiceCategory,
+    Asset,
+    Maintenance,
+    Prisma,
+    ServiceCategory,
+    Supplier,
 } from '../../generated/prisma'
 import { PaginatedResult } from './IPaginatedResult'
 
@@ -11,11 +11,13 @@ export type MaintenanceWithRelations = Maintenance & {
   supplier: Pick<Supplier, 'company_name' | 'trading_name'> | null
   asset: Pick<Asset, 'brand' | 'model' | 'plate' | 'serial_number' | 'year'>
   serviceCategory: Pick<ServiceCategory, 'id' | 'name' | 'description'> | null // ✅ NOVO
+  assigned_to: { id: string; name: string | null } | null
 }
 
 interface FindScheduledOnlyParams {
   startDate?: Date
   endDate?: Date
+  assignedToId?: string
 }
 
 export interface IMaintenanceRepository {

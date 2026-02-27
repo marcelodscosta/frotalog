@@ -4,6 +4,7 @@ import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenan
 interface GetScheduledMaintenancesRequest {
   startDate?: Date
   endDate?: Date
+  assignedToId?: string
 }
 
 interface MaintenanceCalendar extends Maintenance {
@@ -35,10 +36,12 @@ export class GetScheduledMaintenancesUseCase {
   async execute({
     startDate,
     endDate,
+    assignedToId,
   }: GetScheduledMaintenancesRequest = {}): Promise<GetScheduledMaintenancesResponse> {
     const maintenances = await this.maintenanceRepository.findScheduledOnly({
       startDate,
       endDate,
+      assignedToId,
     })
 
     const now = new Date()

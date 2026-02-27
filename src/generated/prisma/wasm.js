@@ -228,7 +228,8 @@ exports.Prisma.MaintenanceScalarFieldEnum = {
   is_Active: 'is_Active',
   serviceCategoryId: 'serviceCategoryId',
   contractId: 'contractId',
-  equipment_inactive: 'equipment_inactive'
+  equipment_inactive: 'equipment_inactive',
+  assignedToId: 'assignedToId'
 };
 
 exports.Prisma.MaintenanceDocumentScalarFieldEnum = {

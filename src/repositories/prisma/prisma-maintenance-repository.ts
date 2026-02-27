@@ -1,20 +1,21 @@
 import {
-  Prisma,
-  Maintenance,
-  Supplier,
-  Asset,
-  ServiceCategory,
+    Asset,
+    Maintenance,
+    Prisma,
+    ServiceCategory,
+    Supplier,
 } from '../../generated/prisma'
 import { prisma } from '../../lib/prisma'
 import {
-  IMaintenanceRepository,
-  MaintenanceWithRelations,
+    IMaintenanceRepository,
+    MaintenanceWithRelations,
 } from '../interfaces/IMaintenanceRepository'
 import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
 interface FindScheduledOnlyParams {
   startDate?: Date
   endDate?: Date
+  assignedToId?: string
 }
 
 export class PrismaMaintenanceRepository implements IMaintenanceRepository {
@@ -86,6 +87,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         },
         supplier: true,
         serviceCategory: true,
+        assigned_to: { select: { id: true, name: true } },
       },
     })
 
@@ -108,6 +110,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         supplier: true,
         serviceCategory: true,
         documents: true,
+        assigned_to: { select: { id: true, name: true } },
       },
     })
     return maintenance
@@ -138,6 +141,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
           supplier: true,
           serviceCategory: true,
+          assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
@@ -185,6 +189,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
           supplier: true,
           serviceCategory: true,
+          assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
@@ -231,6 +236,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
           supplier: true,
           serviceCategory: true,
+          assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
@@ -277,6 +283,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
           supplier: true,
           serviceCategory: true,
+          assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
@@ -322,6 +329,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
           supplier: true,
           serviceCategory: true,
+          assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
@@ -368,6 +376,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
           supplier: true,
           serviceCategory: true,
+          assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
@@ -415,6 +424,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
           supplier: true,
           serviceCategory: true,
+          assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
@@ -618,6 +628,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
           supplier: true,
           serviceCategory: true,
+          assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
@@ -673,6 +684,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           },
           supplier: true,
           serviceCategory: true,
+          assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
@@ -720,6 +732,10 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       }
     }
 
+    if (params?.assignedToId) {
+      where.assignedToId = params.assignedToId
+    }
+
     const maintenances = await prisma.maintenance.findMany({
       where,
       include: {
@@ -730,6 +746,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         },
         supplier: true,
         serviceCategory: true,
+        assigned_to: { select: { id: true, name: true } },
       },
       orderBy: {
         scheduled_date: 'asc',

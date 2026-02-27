@@ -1,4 +1,4 @@
-import { FastifyRequest, FastifyReply } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { makeCreateMaintenance } from '../../../services/factories/make-create-maintenance'
 
@@ -16,6 +16,7 @@ export async function createMaintenance(
     estimated_cost: z.number().positive().optional(),
     equipment_inactive: z.boolean().optional(),
     notes: z.string().optional(),
+    assignedToId: z.string().optional(),
   })
 
   const {
@@ -28,6 +29,7 @@ export async function createMaintenance(
     estimated_cost,
     equipment_inactive,
     notes,
+    assignedToId,
   } = createBodySchema.parse(request.body)
 
   const createMaintenance = makeCreateMaintenance()
@@ -41,6 +43,7 @@ export async function createMaintenance(
     estimated_cost,
     equipment_inactive,
     notes,
+    assignedToId,
   })
 
   return reply.status(201).send({ maintenance })

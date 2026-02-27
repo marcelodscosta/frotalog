@@ -2157,6 +2157,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    assignedMaintenances: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    assignedMaintenances?: boolean | UserCountOutputTypeCountAssignedMaintenancesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAssignedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+
+  /**
    * Count Type AssetCategoryCountOutputType
    */
 
@@ -2657,6 +2688,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
+    assignedMaintenances?: boolean | User$assignedMaintenancesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2699,10 +2732,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "password_hash" | "role" | "avatar" | "created_at" | "updated_at" | "is_Active", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    assignedMaintenances?: boolean | User$assignedMaintenancesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      assignedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
@@ -3108,6 +3149,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    assignedMaintenances<T extends User$assignedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3164,6 +3206,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -3182,6 +3228,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -3199,6 +3249,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -3248,6 +3302,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -3296,6 +3354,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -3338,6 +3400,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -3386,6 +3452,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -3453,6 +3523,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -3479,6 +3553,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -3499,6 +3577,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.assignedMaintenances
+   */
+  export type User$assignedMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3510,6 +3612,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -9555,6 +9661,7 @@ export namespace Prisma {
     serviceCategoryId: string | null
     contractId: string | null
     equipment_inactive: boolean | null
+    assignedToId: string | null
   }
 
   export type MaintenanceMaxAggregateOutputType = {
@@ -9578,6 +9685,7 @@ export namespace Prisma {
     serviceCategoryId: string | null
     contractId: string | null
     equipment_inactive: boolean | null
+    assignedToId: string | null
   }
 
   export type MaintenanceCountAggregateOutputType = {
@@ -9601,6 +9709,7 @@ export namespace Prisma {
     serviceCategoryId: number
     contractId: number
     equipment_inactive: number
+    assignedToId: number
     _all: number
   }
 
@@ -9640,6 +9749,7 @@ export namespace Prisma {
     serviceCategoryId?: true
     contractId?: true
     equipment_inactive?: true
+    assignedToId?: true
   }
 
   export type MaintenanceMaxAggregateInputType = {
@@ -9663,6 +9773,7 @@ export namespace Prisma {
     serviceCategoryId?: true
     contractId?: true
     equipment_inactive?: true
+    assignedToId?: true
   }
 
   export type MaintenanceCountAggregateInputType = {
@@ -9686,6 +9797,7 @@ export namespace Prisma {
     serviceCategoryId?: true
     contractId?: true
     equipment_inactive?: true
+    assignedToId?: true
     _all?: true
   }
 
@@ -9796,6 +9908,7 @@ export namespace Prisma {
     serviceCategoryId: string | null
     contractId: string | null
     equipment_inactive: boolean
+    assignedToId: string | null
     _count: MaintenanceCountAggregateOutputType | null
     _avg: MaintenanceAvgAggregateOutputType | null
     _sum: MaintenanceSumAggregateOutputType | null
@@ -9838,7 +9951,9 @@ export namespace Prisma {
     serviceCategoryId?: boolean
     contractId?: boolean
     equipment_inactive?: boolean
+    assignedToId?: boolean
     documents?: boolean | Maintenance$documentsArgs<ExtArgs>
+    assigned_to?: boolean | Maintenance$assigned_toArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     contract?: boolean | Maintenance$contractArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
@@ -9867,6 +9982,8 @@ export namespace Prisma {
     serviceCategoryId?: boolean
     contractId?: boolean
     equipment_inactive?: boolean
+    assignedToId?: boolean
+    assigned_to?: boolean | Maintenance$assigned_toArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     contract?: boolean | Maintenance$contractArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
@@ -9894,6 +10011,8 @@ export namespace Prisma {
     serviceCategoryId?: boolean
     contractId?: boolean
     equipment_inactive?: boolean
+    assignedToId?: boolean
+    assigned_to?: boolean | Maintenance$assigned_toArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     contract?: boolean | Maintenance$contractArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
@@ -9921,11 +10040,13 @@ export namespace Prisma {
     serviceCategoryId?: boolean
     contractId?: boolean
     equipment_inactive?: boolean
+    assignedToId?: boolean
   }
 
-  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "assetId" | "supplierId" | "type" | "description" | "scheduled_date" | "started_date" | "completed_date" | "estimated_cost" | "actual_cost" | "status" | "notes" | "created_at" | "updated_at" | "horometer" | "odometer" | "is_Active" | "serviceCategoryId" | "contractId" | "equipment_inactive", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "assetId" | "supplierId" | "type" | "description" | "scheduled_date" | "started_date" | "completed_date" | "estimated_cost" | "actual_cost" | "status" | "notes" | "created_at" | "updated_at" | "horometer" | "odometer" | "is_Active" | "serviceCategoryId" | "contractId" | "equipment_inactive" | "assignedToId", ExtArgs["result"]["maintenance"]>
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     documents?: boolean | Maintenance$documentsArgs<ExtArgs>
+    assigned_to?: boolean | Maintenance$assigned_toArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     contract?: boolean | Maintenance$contractArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
@@ -9933,12 +10054,14 @@ export namespace Prisma {
     _count?: boolean | MaintenanceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MaintenanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    assigned_to?: boolean | Maintenance$assigned_toArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     contract?: boolean | Maintenance$contractArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
     supplier?: boolean | Maintenance$supplierArgs<ExtArgs>
   }
   export type MaintenanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    assigned_to?: boolean | Maintenance$assigned_toArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     contract?: boolean | Maintenance$contractArgs<ExtArgs>
     serviceCategory?: boolean | Maintenance$serviceCategoryArgs<ExtArgs>
@@ -9949,6 +10072,7 @@ export namespace Prisma {
     name: "Maintenance"
     objects: {
       documents: Prisma.$MaintenanceDocumentPayload<ExtArgs>[]
+      assigned_to: Prisma.$UserPayload<ExtArgs> | null
       asset: Prisma.$AssetPayload<ExtArgs>
       contract: Prisma.$ContractPayload<ExtArgs> | null
       serviceCategory: Prisma.$ServiceCategoryPayload<ExtArgs> | null
@@ -9975,6 +10099,7 @@ export namespace Prisma {
       serviceCategoryId: string | null
       contractId: string | null
       equipment_inactive: boolean
+      assignedToId: string | null
     }, ExtArgs["result"]["maintenance"]>
     composites: {}
   }
@@ -10370,6 +10495,7 @@ export namespace Prisma {
   export interface Prisma__MaintenanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     documents<T extends Maintenance$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assigned_to<T extends Maintenance$assigned_toArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$assigned_toArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     asset<T extends AssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetDefaultArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     contract<T extends Maintenance$contractArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$contractArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     serviceCategory<T extends Maintenance$serviceCategoryArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$serviceCategoryArgs<ExtArgs>>): Prisma__ServiceCategoryClient<$Result.GetResult<Prisma.$ServiceCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -10423,6 +10549,7 @@ export namespace Prisma {
     readonly serviceCategoryId: FieldRef<"Maintenance", 'String'>
     readonly contractId: FieldRef<"Maintenance", 'String'>
     readonly equipment_inactive: FieldRef<"Maintenance", 'Boolean'>
+    readonly assignedToId: FieldRef<"Maintenance", 'String'>
   }
     
 
@@ -10840,6 +10967,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MaintenanceDocumentScalarFieldEnum | MaintenanceDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * Maintenance.assigned_to
+   */
+  export type Maintenance$assigned_toArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -19684,7 +19830,8 @@ export namespace Prisma {
     is_Active: 'is_Active',
     serviceCategoryId: 'serviceCategoryId',
     contractId: 'contractId',
-    equipment_inactive: 'equipment_inactive'
+    equipment_inactive: 'equipment_inactive',
+    assignedToId: 'assignedToId'
   };
 
   export type MaintenanceScalarFieldEnum = (typeof MaintenanceScalarFieldEnum)[keyof typeof MaintenanceScalarFieldEnum]
@@ -20077,6 +20224,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
     is_Active?: BoolFilter<"User"> | boolean
+    assignedMaintenances?: MaintenanceListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -20090,6 +20238,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    assignedMaintenances?: MaintenanceOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -20106,6 +20255,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
     is_Active?: BoolFilter<"User"> | boolean
+    assignedMaintenances?: MaintenanceListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -20630,7 +20780,9 @@ export namespace Prisma {
     serviceCategoryId?: StringNullableFilter<"Maintenance"> | string | null
     contractId?: StringNullableFilter<"Maintenance"> | string | null
     equipment_inactive?: BoolFilter<"Maintenance"> | boolean
+    assignedToId?: StringNullableFilter<"Maintenance"> | string | null
     documents?: MaintenanceDocumentListRelationFilter
+    assigned_to?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
     contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
     serviceCategory?: XOR<ServiceCategoryNullableScalarRelationFilter, ServiceCategoryWhereInput> | null
@@ -20658,7 +20810,9 @@ export namespace Prisma {
     serviceCategoryId?: SortOrderInput | SortOrder
     contractId?: SortOrderInput | SortOrder
     equipment_inactive?: SortOrder
+    assignedToId?: SortOrderInput | SortOrder
     documents?: MaintenanceDocumentOrderByRelationAggregateInput
+    assigned_to?: UserOrderByWithRelationInput
     asset?: AssetOrderByWithRelationInput
     contract?: ContractOrderByWithRelationInput
     serviceCategory?: ServiceCategoryOrderByWithRelationInput
@@ -20689,7 +20843,9 @@ export namespace Prisma {
     serviceCategoryId?: StringNullableFilter<"Maintenance"> | string | null
     contractId?: StringNullableFilter<"Maintenance"> | string | null
     equipment_inactive?: BoolFilter<"Maintenance"> | boolean
+    assignedToId?: StringNullableFilter<"Maintenance"> | string | null
     documents?: MaintenanceDocumentListRelationFilter
+    assigned_to?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
     contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
     serviceCategory?: XOR<ServiceCategoryNullableScalarRelationFilter, ServiceCategoryWhereInput> | null
@@ -20717,6 +20873,7 @@ export namespace Prisma {
     serviceCategoryId?: SortOrderInput | SortOrder
     contractId?: SortOrderInput | SortOrder
     equipment_inactive?: SortOrder
+    assignedToId?: SortOrderInput | SortOrder
     _count?: MaintenanceCountOrderByAggregateInput
     _avg?: MaintenanceAvgOrderByAggregateInput
     _max?: MaintenanceMaxOrderByAggregateInput
@@ -20748,6 +20905,7 @@ export namespace Prisma {
     serviceCategoryId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     contractId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     equipment_inactive?: BoolWithAggregatesFilter<"Maintenance"> | boolean
+    assignedToId?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
   }
 
   export type MaintenanceDocumentWhereInput = {
@@ -21486,6 +21644,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigned_toInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -21499,6 +21658,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigned_toInput
   }
 
   export type UserUpdateInput = {
@@ -21512,6 +21672,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigned_toNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -21525,6 +21686,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigned_toNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -22135,6 +22297,7 @@ export namespace Prisma {
     is_Active?: boolean
     equipment_inactive?: boolean
     documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    assigned_to?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset: AssetCreateNestedOneWithoutMaintenanceInput
     contract?: ContractCreateNestedOneWithoutMaintenancesInput
     serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
@@ -22162,6 +22325,7 @@ export namespace Prisma {
     serviceCategoryId?: string | null
     contractId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
     documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -22183,6 +22347,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    assigned_to?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
     contract?: ContractUpdateOneWithoutMaintenancesNestedInput
     serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
@@ -22210,6 +22375,7 @@ export namespace Prisma {
     serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -22234,6 +22400,7 @@ export namespace Prisma {
     serviceCategoryId?: string | null
     contractId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
   }
 
   export type MaintenanceUpdateManyMutationInput = {
@@ -22276,6 +22443,7 @@ export namespace Prisma {
     serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceDocumentCreateInput = {
@@ -23166,9 +23334,19 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type MaintenanceListRelationFilter = {
+    every?: MaintenanceWhereInput
+    some?: MaintenanceWhereInput
+    none?: MaintenanceWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type MaintenanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -23386,12 +23564,6 @@ export namespace Prisma {
     isNot?: AssetCategoryWhereInput
   }
 
-  export type MaintenanceListRelationFilter = {
-    every?: MaintenanceWhereInput
-    some?: MaintenanceWhereInput
-    none?: MaintenanceWhereInput
-  }
-
   export type AssetReadingListRelationFilter = {
     every?: AssetReadingWhereInput
     some?: AssetReadingWhereInput
@@ -23399,10 +23571,6 @@ export namespace Prisma {
   }
 
   export type AssetMovementOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type MaintenanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -23747,6 +23915,11 @@ export namespace Prisma {
     none?: MaintenanceDocumentWhereInput
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
   export type ContractNullableScalarRelationFilter = {
     is?: ContractWhereInput | null
     isNot?: ContractWhereInput | null
@@ -23787,6 +23960,7 @@ export namespace Prisma {
     serviceCategoryId?: SortOrder
     contractId?: SortOrder
     equipment_inactive?: SortOrder
+    assignedToId?: SortOrder
   }
 
   export type MaintenanceAvgOrderByAggregateInput = {
@@ -23817,6 +23991,7 @@ export namespace Prisma {
     serviceCategoryId?: SortOrder
     contractId?: SortOrder
     equipment_inactive?: SortOrder
+    assignedToId?: SortOrder
   }
 
   export type MaintenanceMinOrderByAggregateInput = {
@@ -23840,6 +24015,7 @@ export namespace Prisma {
     serviceCategoryId?: SortOrder
     contractId?: SortOrder
     equipment_inactive?: SortOrder
+    assignedToId?: SortOrder
   }
 
   export type MaintenanceSumOrderByAggregateInput = {
@@ -24488,6 +24664,20 @@ export namespace Prisma {
     invoice_start_number?: SortOrder
   }
 
+  export type MaintenanceCreateNestedManyWithoutAssigned_toInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigned_toInput, MaintenanceUncheckedCreateWithoutAssigned_toInput> | MaintenanceCreateWithoutAssigned_toInput[] | MaintenanceUncheckedCreateWithoutAssigned_toInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigned_toInput | MaintenanceCreateOrConnectWithoutAssigned_toInput[]
+    createMany?: MaintenanceCreateManyAssigned_toInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutAssigned_toInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigned_toInput, MaintenanceUncheckedCreateWithoutAssigned_toInput> | MaintenanceCreateWithoutAssigned_toInput[] | MaintenanceUncheckedCreateWithoutAssigned_toInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigned_toInput | MaintenanceCreateOrConnectWithoutAssigned_toInput[]
+    createMany?: MaintenanceCreateManyAssigned_toInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -24506,6 +24696,34 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type MaintenanceUpdateManyWithoutAssigned_toNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigned_toInput, MaintenanceUncheckedCreateWithoutAssigned_toInput> | MaintenanceCreateWithoutAssigned_toInput[] | MaintenanceUncheckedCreateWithoutAssigned_toInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigned_toInput | MaintenanceCreateOrConnectWithoutAssigned_toInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssigned_toInput | MaintenanceUpsertWithWhereUniqueWithoutAssigned_toInput[]
+    createMany?: MaintenanceCreateManyAssigned_toInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutAssigned_toInput | MaintenanceUpdateWithWhereUniqueWithoutAssigned_toInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssigned_toInput | MaintenanceUpdateManyWithWhereWithoutAssigned_toInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutAssigned_toNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutAssigned_toInput, MaintenanceUncheckedCreateWithoutAssigned_toInput> | MaintenanceCreateWithoutAssigned_toInput[] | MaintenanceUncheckedCreateWithoutAssigned_toInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigned_toInput | MaintenanceCreateOrConnectWithoutAssigned_toInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutAssigned_toInput | MaintenanceUpsertWithWhereUniqueWithoutAssigned_toInput[]
+    createMany?: MaintenanceCreateManyAssigned_toInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutAssigned_toInput | MaintenanceUpdateWithWhereUniqueWithoutAssigned_toInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutAssigned_toInput | MaintenanceUpdateManyWithWhereWithoutAssigned_toInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
   export type AssetCreateNestedManyWithoutAssetCategoryInput = {
@@ -24874,6 +25092,12 @@ export namespace Prisma {
     connect?: MaintenanceDocumentWhereUniqueInput | MaintenanceDocumentWhereUniqueInput[]
   }
 
+  export type UserCreateNestedOneWithoutAssignedMaintenancesInput = {
+    create?: XOR<UserCreateWithoutAssignedMaintenancesInput, UserUncheckedCreateWithoutAssignedMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedMaintenancesInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type AssetCreateNestedOneWithoutMaintenanceInput = {
     create?: XOR<AssetCreateWithoutMaintenanceInput, AssetUncheckedCreateWithoutMaintenanceInput>
     connectOrCreate?: AssetCreateOrConnectWithoutMaintenanceInput
@@ -24933,6 +25157,16 @@ export namespace Prisma {
     update?: MaintenanceDocumentUpdateWithWhereUniqueWithoutMaintenanceInput | MaintenanceDocumentUpdateWithWhereUniqueWithoutMaintenanceInput[]
     updateMany?: MaintenanceDocumentUpdateManyWithWhereWithoutMaintenanceInput | MaintenanceDocumentUpdateManyWithWhereWithoutMaintenanceInput[]
     deleteMany?: MaintenanceDocumentScalarWhereInput | MaintenanceDocumentScalarWhereInput[]
+  }
+
+  export type UserUpdateOneWithoutAssignedMaintenancesNestedInput = {
+    create?: XOR<UserCreateWithoutAssignedMaintenancesInput, UserUncheckedCreateWithoutAssignedMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedMaintenancesInput
+    upsert?: UserUpsertWithoutAssignedMaintenancesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedMaintenancesInput, UserUpdateWithoutAssignedMaintenancesInput>, UserUncheckedUpdateWithoutAssignedMaintenancesInput>
   }
 
   export type AssetUpdateOneRequiredWithoutMaintenanceNestedInput = {
@@ -25799,6 +26033,107 @@ export namespace Prisma {
     _max?: NestedEnumInvoiceStatusFilter<$PrismaModel>
   }
 
+  export type MaintenanceCreateWithoutAssigned_toInput = {
+    id?: string
+    type: $Enums.MaintenanceType
+    description: string
+    scheduled_date: Date | string
+    started_date?: Date | string | null
+    completed_date?: Date | string | null
+    estimated_cost?: Decimal | DecimalJsLike | number | string | null
+    actual_cost?: Decimal | DecimalJsLike | number | string | null
+    status?: $Enums.MaintenanceStatus
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    horometer?: number | null
+    odometer?: number | null
+    is_Active?: boolean
+    equipment_inactive?: boolean
+    documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    asset: AssetCreateNestedOneWithoutMaintenanceInput
+    contract?: ContractCreateNestedOneWithoutMaintenancesInput
+    serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
+    supplier?: SupplierCreateNestedOneWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutAssigned_toInput = {
+    id?: string
+    assetId: string
+    supplierId?: string | null
+    type: $Enums.MaintenanceType
+    description: string
+    scheduled_date: Date | string
+    started_date?: Date | string | null
+    completed_date?: Date | string | null
+    estimated_cost?: Decimal | DecimalJsLike | number | string | null
+    actual_cost?: Decimal | DecimalJsLike | number | string | null
+    status?: $Enums.MaintenanceStatus
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    horometer?: number | null
+    odometer?: number | null
+    is_Active?: boolean
+    serviceCategoryId?: string | null
+    contractId?: string | null
+    equipment_inactive?: boolean
+    documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutAssigned_toInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutAssigned_toInput, MaintenanceUncheckedCreateWithoutAssigned_toInput>
+  }
+
+  export type MaintenanceCreateManyAssigned_toInputEnvelope = {
+    data: MaintenanceCreateManyAssigned_toInput | MaintenanceCreateManyAssigned_toInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutAssigned_toInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutAssigned_toInput, MaintenanceUncheckedUpdateWithoutAssigned_toInput>
+    create: XOR<MaintenanceCreateWithoutAssigned_toInput, MaintenanceUncheckedCreateWithoutAssigned_toInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutAssigned_toInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutAssigned_toInput, MaintenanceUncheckedUpdateWithoutAssigned_toInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutAssigned_toInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutAssigned_toInput>
+  }
+
+  export type MaintenanceScalarWhereInput = {
+    AND?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+    OR?: MaintenanceScalarWhereInput[]
+    NOT?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+    id?: StringFilter<"Maintenance"> | string
+    assetId?: StringFilter<"Maintenance"> | string
+    supplierId?: StringNullableFilter<"Maintenance"> | string | null
+    type?: EnumMaintenanceTypeFilter<"Maintenance"> | $Enums.MaintenanceType
+    description?: StringFilter<"Maintenance"> | string
+    scheduled_date?: DateTimeFilter<"Maintenance"> | Date | string
+    started_date?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    completed_date?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
+    estimated_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    actual_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
+    status?: EnumMaintenanceStatusFilter<"Maintenance"> | $Enums.MaintenanceStatus
+    notes?: StringNullableFilter<"Maintenance"> | string | null
+    created_at?: DateTimeFilter<"Maintenance"> | Date | string
+    updated_at?: DateTimeFilter<"Maintenance"> | Date | string
+    horometer?: FloatNullableFilter<"Maintenance"> | number | null
+    odometer?: FloatNullableFilter<"Maintenance"> | number | null
+    is_Active?: BoolFilter<"Maintenance"> | boolean
+    serviceCategoryId?: StringNullableFilter<"Maintenance"> | string | null
+    contractId?: StringNullableFilter<"Maintenance"> | string | null
+    equipment_inactive?: BoolFilter<"Maintenance"> | boolean
+    assignedToId?: StringNullableFilter<"Maintenance"> | string | null
+  }
+
   export type AssetCreateWithoutAssetCategoryInput = {
     id?: string
     brand: string
@@ -26004,6 +26339,7 @@ export namespace Prisma {
     is_Active?: boolean
     equipment_inactive?: boolean
     documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    assigned_to?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     contract?: ContractCreateNestedOneWithoutMaintenancesInput
     serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
     supplier?: SupplierCreateNestedOneWithoutMaintenanceInput
@@ -26029,6 +26365,7 @@ export namespace Prisma {
     serviceCategoryId?: string | null
     contractId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
     documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -26160,32 +26497,6 @@ export namespace Prisma {
   export type MaintenanceUpdateManyWithWhereWithoutAssetInput = {
     where: MaintenanceScalarWhereInput
     data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutAssetInput>
-  }
-
-  export type MaintenanceScalarWhereInput = {
-    AND?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-    OR?: MaintenanceScalarWhereInput[]
-    NOT?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
-    id?: StringFilter<"Maintenance"> | string
-    assetId?: StringFilter<"Maintenance"> | string
-    supplierId?: StringNullableFilter<"Maintenance"> | string | null
-    type?: EnumMaintenanceTypeFilter<"Maintenance"> | $Enums.MaintenanceType
-    description?: StringFilter<"Maintenance"> | string
-    scheduled_date?: DateTimeFilter<"Maintenance"> | Date | string
-    started_date?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    completed_date?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
-    estimated_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    actual_cost?: DecimalNullableFilter<"Maintenance"> | Decimal | DecimalJsLike | number | string | null
-    status?: EnumMaintenanceStatusFilter<"Maintenance"> | $Enums.MaintenanceStatus
-    notes?: StringNullableFilter<"Maintenance"> | string | null
-    created_at?: DateTimeFilter<"Maintenance"> | Date | string
-    updated_at?: DateTimeFilter<"Maintenance"> | Date | string
-    horometer?: FloatNullableFilter<"Maintenance"> | number | null
-    odometer?: FloatNullableFilter<"Maintenance"> | number | null
-    is_Active?: BoolFilter<"Maintenance"> | boolean
-    serviceCategoryId?: StringNullableFilter<"Maintenance"> | string | null
-    contractId?: StringNullableFilter<"Maintenance"> | string | null
-    equipment_inactive?: BoolFilter<"Maintenance"> | boolean
   }
 
   export type AssetReadingUpsertWithWhereUniqueWithoutAssetInput = {
@@ -26413,6 +26724,7 @@ export namespace Prisma {
     is_Active?: boolean
     equipment_inactive?: boolean
     documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    assigned_to?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset: AssetCreateNestedOneWithoutMaintenanceInput
     contract?: ContractCreateNestedOneWithoutMaintenancesInput
     serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
@@ -26438,6 +26750,7 @@ export namespace Prisma {
     serviceCategoryId?: string | null
     contractId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
     documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -26523,6 +26836,7 @@ export namespace Prisma {
     is_Active?: boolean
     equipment_inactive?: boolean
     documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    assigned_to?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset: AssetCreateNestedOneWithoutMaintenanceInput
     contract?: ContractCreateNestedOneWithoutMaintenancesInput
     supplier?: SupplierCreateNestedOneWithoutMaintenanceInput
@@ -26548,6 +26862,7 @@ export namespace Prisma {
     is_Active?: boolean
     contractId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
     documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -26607,6 +26922,37 @@ export namespace Prisma {
   export type MaintenanceDocumentCreateManyMaintenanceInputEnvelope = {
     data: MaintenanceDocumentCreateManyMaintenanceInput | MaintenanceDocumentCreateManyMaintenanceInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutAssignedMaintenancesInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    avatar?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+  }
+
+  export type UserUncheckedCreateWithoutAssignedMaintenancesInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    avatar?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+  }
+
+  export type UserCreateOrConnectWithoutAssignedMaintenancesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAssignedMaintenancesInput, UserUncheckedCreateWithoutAssignedMaintenancesInput>
   }
 
   export type AssetCreateWithoutMaintenanceInput = {
@@ -26812,6 +27158,43 @@ export namespace Prisma {
     description?: StringNullableFilter<"MaintenanceDocument"> | string | null
     created_at?: DateTimeFilter<"MaintenanceDocument"> | Date | string
     maintenanceId?: StringNullableFilter<"MaintenanceDocument"> | string | null
+  }
+
+  export type UserUpsertWithoutAssignedMaintenancesInput = {
+    update: XOR<UserUpdateWithoutAssignedMaintenancesInput, UserUncheckedUpdateWithoutAssignedMaintenancesInput>
+    create: XOR<UserCreateWithoutAssignedMaintenancesInput, UserUncheckedCreateWithoutAssignedMaintenancesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAssignedMaintenancesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAssignedMaintenancesInput, UserUncheckedUpdateWithoutAssignedMaintenancesInput>
+  }
+
+  export type UserUpdateWithoutAssignedMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserUncheckedUpdateWithoutAssignedMaintenancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AssetUpsertWithoutMaintenanceInput = {
@@ -27029,6 +27412,7 @@ export namespace Prisma {
     odometer?: number | null
     is_Active?: boolean
     equipment_inactive?: boolean
+    assigned_to?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset: AssetCreateNestedOneWithoutMaintenanceInput
     contract?: ContractCreateNestedOneWithoutMaintenancesInput
     serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
@@ -27056,6 +27440,7 @@ export namespace Prisma {
     serviceCategoryId?: string | null
     contractId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
   }
 
   export type MaintenanceCreateOrConnectWithoutDocumentsInput = {
@@ -27091,6 +27476,7 @@ export namespace Prisma {
     odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assigned_to?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
     contract?: ContractUpdateOneWithoutMaintenancesNestedInput
     serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
@@ -27118,6 +27504,7 @@ export namespace Prisma {
     serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AssetMovementCreateWithoutContractInput = {
@@ -27237,6 +27624,7 @@ export namespace Prisma {
     is_Active?: boolean
     equipment_inactive?: boolean
     documents?: MaintenanceDocumentCreateNestedManyWithoutMaintenanceInput
+    assigned_to?: UserCreateNestedOneWithoutAssignedMaintenancesInput
     asset: AssetCreateNestedOneWithoutMaintenanceInput
     serviceCategory?: ServiceCategoryCreateNestedOneWithoutMaintenanceInput
     supplier?: SupplierCreateNestedOneWithoutMaintenanceInput
@@ -27262,6 +27650,7 @@ export namespace Prisma {
     is_Active?: boolean
     serviceCategoryId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
     documents?: MaintenanceDocumentUncheckedCreateNestedManyWithoutMaintenanceInput
   }
 
@@ -28281,6 +28670,100 @@ export namespace Prisma {
     invoice?: InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
+  export type MaintenanceCreateManyAssigned_toInput = {
+    id?: string
+    assetId: string
+    supplierId?: string | null
+    type: $Enums.MaintenanceType
+    description: string
+    scheduled_date: Date | string
+    started_date?: Date | string | null
+    completed_date?: Date | string | null
+    estimated_cost?: Decimal | DecimalJsLike | number | string | null
+    actual_cost?: Decimal | DecimalJsLike | number | string | null
+    status?: $Enums.MaintenanceStatus
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    horometer?: number | null
+    odometer?: number | null
+    is_Active?: boolean
+    serviceCategoryId?: string | null
+    contractId?: string | null
+    equipment_inactive?: boolean
+  }
+
+  export type MaintenanceUpdateWithoutAssigned_toInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    description?: StringFieldUpdateOperationsInput | string
+    scheduled_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    started_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
+    contract?: ContractUpdateOneWithoutMaintenancesNestedInput
+    serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
+    supplier?: SupplierUpdateOneWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutAssigned_toInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    description?: StringFieldUpdateOperationsInput | string
+    scheduled_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    started_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutAssigned_toInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    description?: StringFieldUpdateOperationsInput | string
+    scheduled_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    started_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimated_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    actual_cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: EnumMaintenanceStatusFieldUpdateOperationsInput | $Enums.MaintenanceStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type AssetCreateManyAssetCategoryInput = {
     id?: string
     brand: string
@@ -28424,6 +28907,7 @@ export namespace Prisma {
     serviceCategoryId?: string | null
     contractId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
   }
 
   export type AssetReadingCreateManyAssetInput = {
@@ -28520,6 +29004,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    assigned_to?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     contract?: ContractUpdateOneWithoutMaintenancesNestedInput
     serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
     supplier?: SupplierUpdateOneWithoutMaintenanceNestedInput
@@ -28545,6 +29030,7 @@ export namespace Prisma {
     serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -28568,6 +29054,7 @@ export namespace Prisma {
     serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AssetReadingUpdateWithoutAssetInput = {
@@ -28641,6 +29128,7 @@ export namespace Prisma {
     serviceCategoryId?: string | null
     contractId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
   }
 
   export type ContractUpdateWithoutClientInput = {
@@ -28721,6 +29209,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    assigned_to?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
     contract?: ContractUpdateOneWithoutMaintenancesNestedInput
     serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
@@ -28746,6 +29235,7 @@ export namespace Prisma {
     serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -28769,6 +29259,7 @@ export namespace Prisma {
     serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceCreateManyServiceCategoryInput = {
@@ -28791,6 +29282,7 @@ export namespace Prisma {
     is_Active?: boolean
     contractId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
   }
 
   export type MaintenanceUpdateWithoutServiceCategoryInput = {
@@ -28811,6 +29303,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    assigned_to?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
     contract?: ContractUpdateOneWithoutMaintenancesNestedInput
     supplier?: SupplierUpdateOneWithoutMaintenanceNestedInput
@@ -28836,6 +29329,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -28859,6 +29353,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceDocumentCreateManyMaintenanceInput = {
@@ -28946,6 +29441,7 @@ export namespace Prisma {
     is_Active?: boolean
     serviceCategoryId?: string | null
     equipment_inactive?: boolean
+    assignedToId?: string | null
   }
 
   export type MeasurementBulletinCreateManyContractInput = {
@@ -29050,6 +29546,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
     documents?: MaintenanceDocumentUpdateManyWithoutMaintenanceNestedInput
+    assigned_to?: UserUpdateOneWithoutAssignedMaintenancesNestedInput
     asset?: AssetUpdateOneRequiredWithoutMaintenanceNestedInput
     serviceCategory?: ServiceCategoryUpdateOneWithoutMaintenanceNestedInput
     supplier?: SupplierUpdateOneWithoutMaintenanceNestedInput
@@ -29075,6 +29572,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
@@ -29098,6 +29596,7 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     serviceCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
     equipment_inactive?: BoolFieldUpdateOperationsInput | boolean
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MeasurementBulletinUpdateWithoutContractInput = {

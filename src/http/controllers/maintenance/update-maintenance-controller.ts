@@ -1,4 +1,4 @@
-import { FastifyRequest, FastifyReply } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { makeUpdateMaintenance } from '../../../services/factories/make-update-maintenance'
 
@@ -77,6 +77,7 @@ export async function updateMaintenance(
     estimated_cost: moneyPreprocess.optional(),
 
     equipment_inactive: z.boolean().optional(),
+    assignedToId: z.string().optional().nullable(),
 
     notes: z
       .string()
@@ -99,13 +100,14 @@ export async function updateMaintenance(
     })
   }
 
-  const { serviceCategoryId, ...data } = parseResult.data
+  const { serviceCategoryId, assignedToId, ...data } = parseResult.data
   console.log(`Essa é o final da camada de controller: ${JSON.stringify(data)}`)
   const updateMaintenance = makeUpdateMaintenance()
   const { maintenance } = await updateMaintenance.execute({
     id,
     data,
     serviceCategoryId,
+    assignedToId,
   })
 
   return reply.status(200).send({ maintenance })

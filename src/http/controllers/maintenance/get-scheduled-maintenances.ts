@@ -1,4 +1,4 @@
-import { FastifyRequest, FastifyReply } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { makeGetScheduledMaintenancesUseCase } from '../../../services/factories/make-get-scheduled-maintenances-use-case'
 
@@ -11,9 +11,10 @@ export async function getScheduledMaintenances(
     month: z.coerce.number().min(1).max(12).optional(),
     startDate: z.coerce.date().optional(),
     endDate: z.coerce.date().optional(),
+    assignedToId: z.string().optional(),
   })
 
-  const { year, month, startDate, endDate } = querySchema.parse(request.query)
+  const { year, month, startDate, endDate, assignedToId } = querySchema.parse(request.query)
 
   let finalStartDate = startDate
   let finalEndDate = endDate
@@ -32,6 +33,7 @@ export async function getScheduledMaintenances(
   const result = await getScheduledMaintenances.execute({
     startDate: finalStartDate,
     endDate: finalEndDate,
+    assignedToId,
   })
 
   return reply.status(200).send({

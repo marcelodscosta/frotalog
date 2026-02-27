@@ -1,12 +1,12 @@
 import { Maintenance } from '../../generated/prisma'
-import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
-import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository'
-import { ISupplierRepository } from '../../repositories/interfaces/ISupplierRepository'
 import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
+import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository'
+import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
 import { IServiceCategoryRepository } from '../../repositories/interfaces/IServiceCategoryRepository'
+import { ISupplierRepository } from '../../repositories/interfaces/ISupplierRepository'
 import { AssetNotFoundError } from '../errors/asset-not-found-error'
-import { SupplierNotFoundError } from '../errors/supplier-not-found-error'
 import { ServiceCategoryNotFoundError } from '../errors/service-category-not-found-error'
+import { SupplierNotFoundError } from '../errors/supplier-not-found-error'
 
 interface CreateMaintenanceRequest {
   assetId: string
@@ -18,6 +18,7 @@ interface CreateMaintenanceRequest {
   estimated_cost?: number | null
   equipment_inactive?: boolean
   notes?: string | null
+  assignedToId?: string | null
 }
 
 interface CreateMaintenanceResponse {
@@ -64,6 +65,10 @@ export class CreateMaintenanceUseCase {
 
       ...(data.serviceCategoryId && {
         serviceCategory: { connect: { id: data.serviceCategoryId } },
+      }),
+
+      ...(data.assignedToId && {
+        assigned_to: { connect: { id: data.assignedToId } },
       }),
 
       ...(activeMovement && {

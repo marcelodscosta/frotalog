@@ -8,6 +8,7 @@ interface UpdateMaintenanceRequest {
   id: string
   data: Prisma.MaintenanceUpdateInput
   serviceCategoryId?: string | null
+  assignedToId?: string | null
 }
 
 interface UpdateMaintenanceResponse {
@@ -24,6 +25,7 @@ export class UpdateMaintenanceUseCase {
     id,
     data,
     serviceCategoryId,
+    assignedToId,
   }: UpdateMaintenanceRequest): Promise<UpdateMaintenanceResponse> {
     const existingMaintenance = await this.maintenanceRepository.findById(id)
 
@@ -56,6 +58,16 @@ export class UpdateMaintenanceUseCase {
 
     if (data.completed_date !== undefined) {
       updateData.completed_date = data.completed_date
+    }
+
+    if (assignedToId !== undefined) {
+      if (assignedToId === null || assignedToId === '') {
+        updateData.assigned_to = { disconnect: true }
+      } else {
+        updateData.assigned_to = {
+          connect: { id: assignedToId },
+        }
+      }
     }
 
     const maintenance = await this.maintenanceRepository.updateMaintenance(

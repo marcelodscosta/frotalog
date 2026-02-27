@@ -20,6 +20,7 @@ model User {
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
   is_Active     Boolean  @default(true)
+  assignedMaintenances Maintenance[]
 
   @@map("users")
 }
@@ -149,6 +150,8 @@ model Maintenance {
   contractId         String?
   equipment_inactive Boolean               @default(false)
   documents          MaintenanceDocument[]
+  assignedToId       String?
+  assigned_to        User?                 @relation(fields: [assignedToId], references: [id])
   asset              Asset                 @relation(fields: [assetId], references: [id])
   contract           Contract?             @relation(fields: [contractId], references: [id])
   serviceCategory    ServiceCategory?      @relation(fields: [serviceCategoryId], references: [id])
