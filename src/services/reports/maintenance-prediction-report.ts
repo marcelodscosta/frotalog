@@ -20,6 +20,7 @@ interface MaintenancePredictionItem {
   frequencyKm: number | null
   
   status: 'OK' | 'WARNING' | 'OVERDUE'
+  category: string
 }
 
 export class MaintenancePredictionReport {
@@ -94,7 +95,8 @@ export class MaintenancePredictionReport {
         remainingKm,
         frequencyKm: freqKm > 0 ? freqKm : null,
         
-        status
+        status,
+        category: asset.assetCategory?.name || 'Sem Categoria'
       }
     })
 
