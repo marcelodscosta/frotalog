@@ -1,5 +1,6 @@
 import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
 import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository'
+import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
 
 interface DashboardStatsResponse {
   totalMonthlyExpense: number
@@ -11,6 +12,8 @@ interface DashboardStatsResponse {
   costDifference: number
   equipmentsInMaintenance: number
   vehiclesUnavailable: number
+  totalVehicles: number
+  fleetAvailability: number
   dailyExpenses: Array<{
     date: string
     expense: number
@@ -23,6 +26,28 @@ interface DashboardStatsResponse {
   expensesByEquipment: Array<{
     name: string
     value: number
+  }>
+  expensesByType: Array<{
+    name: string
+    value: number
+  }>
+  equipmentMaintenanceDetails: Array<{
+    categoryName: string
+    assets: Array<{
+      name: string
+      plate?: string
+      contractName?: string
+      status: 'AVAILABLE' | 'RENTED' | 'IN_MAINTENANCE'
+    }>
+  }>
+  fleetAvailabilityDetails: Array<{
+    categoryName: string
+    assets: Array<{
+      name: string
+      plate?: string
+      status: 'AVAILABLE' | 'RENTED'
+      contractName?: string
+    }>
   }>
 }
 
@@ -37,6 +62,7 @@ export class GetDashboardStatsUseCase {
   constructor(
     private maintenanceRepository: IMaintenanceRepository,
     private assetRepository: IAssetRepository,
+    private assetMovementRepository: IAssetMovementRepository,
   ) {}
 
   async execute(
@@ -152,10 +178,12 @@ export class GetDashboardStatsUseCase {
     const costDifference = totalEstimatedCost - totalActualCost
 
     // Equipamentos em manutenção (status IN_PROGRESS) - contar equipamentos únicos
+    const inProgressMaintenances = allMaintenancesItems.filter(
+      (m) => m.status === 'IN_PROGRESS'
+    )
+    
     const uniqueEquipmentsInMaintenance = new Set(
-      allMaintenancesItems
-        .filter((m) => m.status === 'IN_PROGRESS')
-        .map((m) => m.assetId),
+      inProgressMaintenances.map((m) => m.assetId),
     )
     const equipmentsInMaintenance = uniqueEquipmentsInMaintenance.size
 
@@ -171,21 +199,115 @@ export class GetDashboardStatsUseCase {
       assetPage++
     }
 
-    // Equipamentos com manutenção agendada ou em progresso (IDs únicos)
+    // Equipamentos com manutenção em progresso (IDs únicos)
     const uniqueAssetsInMaintenance = new Set(
       allMaintenancesItems
-        .filter((m) => m.status === 'IN_PROGRESS' || m.status === 'SCHEDULED')
+        .filter((m) => m.status === 'IN_PROGRESS')
         .map((m) => m.assetId),
     )
 
     // Contar veículos (assets com tipo VEHICLE) em manutenção
+    let totalVehicles = 0
     const vehiclesUnavailable = allAssetsItems.filter((asset) => {
       const assetCategory = asset.assetCategory
-      return (
-        assetCategory?.type === 'VEHICLE' &&
-        uniqueAssetsInMaintenance.has(asset.id)
-      )
+      if (assetCategory?.type === 'VEHICLE') {
+        totalVehicles++
+        return uniqueAssetsInMaintenance.has(asset.id)
+      }
+      return false
     }).length
+
+    const fleetAvailability = totalVehicles > 0 ? ((totalVehicles - vehiclesUnavailable) / totalVehicles) * 100 : 0
+
+    // Modals Data
+    let allActiveMovementsItems: any[] = []
+    
+    // Fetch active movements using search
+    let movPage = 1
+    let hasMoreMovs = true
+    while (hasMoreMovs) {
+      if (typeof this.assetMovementRepository.search === 'function') {
+        const result = await this.assetMovementRepository.search({ isActive: true, page: movPage })
+        allActiveMovementsItems = [...allActiveMovementsItems, ...result.items]
+        hasMoreMovs = result.currentPage < result.totalPages
+      } else {
+        hasMoreMovs = false // safe fallback
+      }
+      movPage++
+    }
+
+    // 1. Equipment in Maintenance Details
+    const equipmentMaintenanceMap = new Map<string, Array<any>>()
+
+    Array.from(uniqueEquipmentsInMaintenance).forEach(assetId => {
+      const asset = allAssetsItems.find(a => a.id === assetId)
+      
+      const categoryName = asset?.assetCategory?.name || 'Sem Categoria'
+      
+      // Look for active movement to get contract
+      const activeMovement = allActiveMovementsItems.find(m => m.assetId === assetId && !m.demobilization_date)
+      let contractName = undefined
+      if (activeMovement && activeMovement.contract && activeMovement.contract.client) {
+        contractName = activeMovement.contract.client.company_name
+      } else if (activeMovement && activeMovement.contract) {
+         contractName = activeMovement.contract.contract_number // fallback if client not included
+      }
+
+      const equipDetail = {
+        name: asset ? `${asset.brand} ${asset.model}` : 'Desconhecido',
+        plate: asset?.plate || undefined,
+        status: 'IN_MAINTENANCE',
+        contractName
+      }
+
+      if (!equipmentMaintenanceMap.has(categoryName)) {
+        equipmentMaintenanceMap.set(categoryName, [])
+      }
+      equipmentMaintenanceMap.get(categoryName)!.push(equipDetail)
+    })
+
+    const equipmentMaintenanceDetails = Array.from(equipmentMaintenanceMap.entries()).map(([categoryName, assets]) => ({
+      categoryName,
+      assets
+    }))
+
+    // 2. Fleet Availability Details
+    const fleetAvailabilityMap = new Map<string, Array<any>>()
+
+    allAssetsItems.forEach(asset => {
+      if (!asset.is_Active) return
+      
+      const categoryName = asset.assetCategory?.name || 'Sem Categoria'
+      let status: 'AVAILABLE' | 'RENTED' = 'AVAILABLE'
+      let contractName = undefined
+
+      const activeMovement = allActiveMovementsItems.find(m => m.assetId === asset.id && !m.demobilization_date)
+      if (activeMovement) {
+        status = 'RENTED'
+        if (activeMovement.contract && activeMovement.contract.client) {
+          contractName = activeMovement.contract.client.company_name
+        } else if (activeMovement.contract) {
+          contractName = activeMovement.contract.contract_number
+        }
+      }
+
+      const assetDetail = {
+        name: `${asset.brand} ${asset.model}`,
+        plate: asset.plate || undefined,
+        status,
+        contractName
+      }
+
+      if (!fleetAvailabilityMap.has(categoryName)) {
+        fleetAvailabilityMap.set(categoryName, [])
+      }
+      fleetAvailabilityMap.get(categoryName)!.push(assetDetail)
+    })
+
+    const fleetAvailabilityDetails = Array.from(fleetAvailabilityMap.entries()).map(([categoryName, assets]) => ({
+      categoryName,
+      assets
+    }))
 
     // Despesas diárias do período selecionado (agrupando múltiplas manutenções por data)
     const dailyExpensesMap = new Map<
@@ -271,7 +393,15 @@ export class GetDashboardStatsUseCase {
     for (const m of currentMonthMaintenances) {
       const asset = allAssetsItems.find((a) => a.id === m.assetId)
       if (asset) {
-        const assetName = `${asset.brand} ${asset.model}`
+        let assetName = `${asset.brand} ${asset.model}`
+        const isVehicle = asset.assetCategory?.type === 'VEHICLE'
+        
+        if (isVehicle && asset.plate) {
+          assetName += ` - Placa: ${asset.plate}`
+        } else if (!isVehicle && asset.serial_number) {
+          assetName += ` - SN: ${asset.serial_number}`
+        }
+
         const cost = Number(m.actual_cost) || 0
         const current = expensesByEquipmentMap.get(assetName) || 0
         expensesByEquipmentMap.set(assetName, current + cost)
@@ -283,6 +413,25 @@ export class GetDashboardStatsUseCase {
       .sort((a, b) => b.value - a.value)
       .slice(0, 6)
 
+    // Despesas por tipo de manutenção
+    const expensesByTypeMap = new Map<string, number>()
+    expensesByTypeMap.set('PREVENTIVE', 0)
+    expensesByTypeMap.set('CORRECTIVE', 0)
+    expensesByTypeMap.set('EMERGENCY', 0)
+
+    for (const m of currentMonthMaintenances) {
+      if (m.type) {
+        const cost = Number(m.actual_cost) || 0
+        const current = expensesByTypeMap.get(m.type) || 0
+        expensesByTypeMap.set(m.type, current + cost)
+      }
+    }
+
+    const expensesByType = Array.from(expensesByTypeMap.entries()).map(([name, value]) => ({
+      name,
+      value: Number(value.toFixed(2))
+    }))
+
     return {
       totalMonthlyExpense,
       previousMonthExpense,
@@ -293,8 +442,13 @@ export class GetDashboardStatsUseCase {
       costDifference,
       equipmentsInMaintenance,
       vehiclesUnavailable,
+      totalVehicles,
+      fleetAvailability,
+      equipmentMaintenanceDetails,
+      fleetAvailabilityDetails,
       dailyExpenses,
       expensesByEquipment,
+      expensesByType,
     }
   }
 }
