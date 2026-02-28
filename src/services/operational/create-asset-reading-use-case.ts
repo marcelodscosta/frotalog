@@ -33,13 +33,13 @@ export class CreateAssetReadingUseCase {
 
     if (horometer !== undefined && horometer !== null && asset.current_horometer !== null) {
       if (horometer <= asset.current_horometer) {
-        throw new AppError('O horímetro informado não pode ser menor ou igual ao atual.')
+        throw new AppError(`O valor informado para o horímetro (${horometer}) não pode ser menor ou igual ao valor atual do equipamento (${asset.current_horometer}).`, 400)
       }
     }
 
     if (odometer !== undefined && odometer !== null && asset.current_odometer !== null) {
       if (odometer <= asset.current_odometer) {
-        throw new AppError('O odômetro informado não pode ser menor ou igual ao atual.')
+        throw new AppError(`O valor informado para o odômetro (${odometer}) não pode ser menor ou igual ao valor atual do equipamento (${asset.current_odometer}).`, 400)
       }
     }
 
