@@ -1,5 +1,6 @@
-import { prisma } from '../../lib/prisma'
 import { AppError } from '../errors/app-error'
+import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository'
+import { AssetReadingRepository } from '../../repositories/interfaces/asset-reading-repository'
 
 interface CreateAssetReadingRequest {
   assetId: string
@@ -11,6 +12,11 @@ interface CreateAssetReadingRequest {
 }
 
 export class CreateAssetReadingUseCase {
+  constructor(
+    private assetRepository: IAssetRepository,
+    private assetReadingsRepository: AssetReadingRepository,
+  ) {}
+
   async execute({
     assetId,
     date,
@@ -19,46 +25,46 @@ export class CreateAssetReadingUseCase {
     notes,
     userId,
   }: CreateAssetReadingRequest) {
-    const asset = await prisma.asset.findUnique({
-      where: { id: assetId },
-    })
+    const asset = await this.assetRepository.findById(assetId)
 
     if (!asset) {
       throw new AppError('Asset not found', 404)
     }
 
+    if (horometer !== undefined && horometer !== null && asset.current_horometer !== null) {
+      if (horometer <= asset.current_horometer) {
+        throw new AppError('O horímetro informado não pode ser menor ou igual ao atual.')
+      }
+    }
+
+    if (odometer !== undefined && odometer !== null && asset.current_odometer !== null) {
+      if (odometer <= asset.current_odometer) {
+        throw new AppError('O odômetro informado não pode ser menor ou igual ao atual.')
+      }
+    }
+
     // Create the reading record
-    const reading = await prisma.assetReading.create({
-      data: {
-        assetId,
-        date,
-        horometer,
-        odometer,
-        notes,
-        userId,
-      },
+    const reading = await this.assetReadingsRepository.create({
+      assetId,
+      date,
+      horometer,
+      odometer,
+      notes,
+      userId,
     })
 
-    // Update the Asset's current counters if new values are provided
-    // We update even if lower? Usually readings should increase.
-    // For now, let's just update to the new value, assuming operator knows best.
-    // Ideally we should warn if lower, but let's allow correction.
-    
     const dataToUpdate: any = {}
     
     if (horometer !== undefined && horometer !== null) {
-        dataToUpdate.current_horometer = horometer
+      dataToUpdate.current_horometer = horometer
     }
     
     if (odometer !== undefined && odometer !== null) {
-        dataToUpdate.current_odometer = odometer
+      dataToUpdate.current_odometer = odometer
     }
     
     if (Object.keys(dataToUpdate).length > 0) {
-        await prisma.asset.update({
-            where: { id: assetId },
-            data: dataToUpdate
-        })
+      await this.assetRepository.updateAsset(assetId, dataToUpdate)
     }
 
     return { reading }

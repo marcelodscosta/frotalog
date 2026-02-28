@@ -1,6 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { CreateAssetReadingUseCase } from '../../../services/operational/create-asset-reading-use-case'
+import { PrismaAssetRepository } from '../../../repositories/prisma/prisma-asset-repository'
+import { PrismaAssetReadingsRepository } from '../../../repositories/prisma/prisma-asset-readings-repository'
 
 export async function createAssetReading(
   request: FastifyRequest,
@@ -17,7 +19,12 @@ export async function createAssetReading(
   const { assetId, date, horometer, odometer, notes } =
     createAssetReadingBodySchema.parse(request.body)
 
-  const createAssetReadingUseCase = new CreateAssetReadingUseCase()
+  const assetRepository = new PrismaAssetRepository()
+  const assetReadingsRepository = new PrismaAssetReadingsRepository()
+  const createAssetReadingUseCase = new CreateAssetReadingUseCase(
+    assetRepository,
+    assetReadingsRepository
+  )
 
   const { reading } = await createAssetReadingUseCase.execute({
     assetId,
