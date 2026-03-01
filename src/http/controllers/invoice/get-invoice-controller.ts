@@ -2,10 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeGetInvoice } from '../../../services/factories/make-get-invoice'
 
-export async function getInvoice(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+export async function getInvoice(request: FastifyRequest, reply: FastifyReply) {
   const paramsSchema = z.object({
     id: z.string().uuid(),
   })
