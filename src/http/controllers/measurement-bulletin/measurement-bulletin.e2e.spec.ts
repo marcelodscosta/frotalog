@@ -96,7 +96,7 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
     // Clean up in reverse dependency order
     // Always use deleteMany where possible to handle soft-deleted records
     await prisma.invoice
-      .deleteMany({ where: { measurementBulletinId: { not: undefined } } })
+      .deleteMany({ where: { measurementBulletins: { some: { assetMovementId: movementId } } } })
       .catch(() => {})
     await prisma.measurementBulletin
       .deleteMany({ where: { assetMovementId: movementId } })
@@ -187,7 +187,7 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
       url: '/invoices',
       headers: { authorization: `Bearer ${token}` },
       payload: {
-        measurementBulletinId: bulletinId,
+        measurementBulletinIds: [bulletinId],
         issue_date: '2026-03-01',
         due_date: '2026-03-15',
       },
@@ -209,7 +209,7 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
       url: '/invoices',
       headers: { authorization: `Bearer ${token}` },
       payload: {
-        measurementBulletinId: bulletinId,
+        measurementBulletinIds: [bulletinId],
         issue_date: '2026-03-01',
         due_date: '2026-03-15',
       },
@@ -417,7 +417,7 @@ describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
 
   afterAll(async () => {
     await prisma.invoice
-      .deleteMany({ where: { measurementBulletin: { assetMovementId: dailyMovementId } } })
+      .deleteMany({ where: { measurementBulletins: { some: { assetMovementId: dailyMovementId } } } })
       .catch(() => {})
     await prisma.measurementBulletin
       .deleteMany({ where: { assetMovementId: dailyMovementId } })
@@ -471,7 +471,7 @@ describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
       url: '/invoices',
       headers: { authorization: `Bearer ${dailyToken}` },
       payload: {
-        measurementBulletinId: dailyBulletinId,
+        measurementBulletinIds: [dailyBulletinId],
         issue_date: '2026-01-15',
         due_date: '2026-01-20',
       },

@@ -247,8 +247,9 @@ model MeasurementBulletin {
   is_active       Boolean                   @default(true)
   created_at      DateTime                  @default(now())
   updated_at      DateTime                  @updatedAt
+  invoiceId       String?
   expenses        BulletinExpense[]
-  invoice         Invoice?
+  invoice         Invoice?                  @relation(fields: [invoiceId], references: [id])
   assetMovement   AssetMovement             @relation(fields: [assetMovementId], references: [id])
   contract        Contract                  @relation(fields: [contractId], references: [id])
 
@@ -257,7 +258,6 @@ model MeasurementBulletin {
 
 model Invoice {
   id                    String              @id @default(uuid())
-  measurementBulletinId String              @unique
   invoice_number        String              @unique
   issue_date            DateTime
   due_date              DateTime
@@ -269,7 +269,7 @@ model Invoice {
   is_active             Boolean             @default(true)
   created_at            DateTime            @default(now())
   updated_at            DateTime            @updatedAt
-  measurementBulletin   MeasurementBulletin @relation(fields: [measurementBulletinId], references: [id])
+  measurementBulletins  MeasurementBulletin[]
 
   @@map("invoices")
 }

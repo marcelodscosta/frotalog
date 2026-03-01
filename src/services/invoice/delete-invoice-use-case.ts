@@ -13,12 +13,21 @@ export class DeleteInvoiceUseCase {
     const existing = await this.invoiceRepository.findById(id)
     if (!existing) throw new ResourceNotFoundError()
 
-    // Revert bulletin status to APPROVED when invoice is deleted
-    if (existing.measurementBulletinId) {
-      await this.measurementBulletinRepository.update(
-        existing.measurementBulletinId,
-        { status: 'APPROVED' },
-      )
+    // Revert all associated bulletins status to APPROVED when invoice is deleted
+    const invoiceWithBulletins = await this.invoiceRepository.findByIdWithDetails(id)
+    
+    if (invoiceWithBulletins && 'measurementBulletins' in invoiceWithBulletins) {
+      const bulletins = (invoiceWithBulletins as any).measurementBulletins
+      if (Array.isArray(bulletins)) {
+        await Promise.all(
+          bulletins.map((b: any) =>
+            this.measurementBulletinRepository.update(b.id, {
+              status: 'APPROVED',
+              invoice: { disconnect: true },
+            }),
+          ),
+        )
+      }
     }
 
     return this.invoiceRepository.delete(id)

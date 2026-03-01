@@ -11,7 +11,6 @@ describe('Fetch Invoices', () => {
     sut = new FetchInvoicesUseCase(repo)
 
     await repo.create({
-      measurementBulletinId: 'bulletin-01',
       invoice_number: 'FAT-000001',
       issue_date: new Date('2026-01-01'),
       due_date: new Date('2026-02-01'),
@@ -20,7 +19,6 @@ describe('Fetch Invoices', () => {
     })
 
     await repo.create({
-      measurementBulletinId: 'bulletin-02',
       invoice_number: 'FAT-000002',
       issue_date: new Date('2026-02-01'),
       due_date: new Date('2026-03-01'),

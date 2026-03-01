@@ -14,7 +14,6 @@ describe('Get Invoice', () => {
 
   it('should return an invoice by id', async () => {
     const created = await repo.create({
-      measurementBulletinId: 'bulletin-01',
       invoice_number: 'FAT-000001',
       issue_date: new Date('2026-02-01'),
       due_date: new Date('2026-03-01'),

@@ -32,7 +32,9 @@ describe('Delete Invoice', () => {
 
   it('should delete an invoice and revert bulletin status to APPROVED', async () => {
     const invoice = await invoiceRepo.create({
-      measurementBulletinId: 'bulletin-01',
+      measurementBulletins: {
+        connect: [{ id: 'bulletin-01' }]
+      } as any,
       invoice_number: 'FAT-000001',
       issue_date: new Date('2026-02-01'),
       due_date: new Date('2026-03-01'),

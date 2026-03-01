@@ -18,7 +18,7 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
     return prisma.invoice.findUnique({
       where: { id },
       include: {
-        measurementBulletin: {
+        measurementBulletins: {
           include: {
             contract: { include: { client: true } },
             assetMovement: { include: { asset: true } },
@@ -39,7 +39,7 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
         take: this.PAGE_SIZE,
         orderBy: { created_at: 'desc' },
         include: {
-          measurementBulletin: {
+          measurementBulletins: {
             include: {
               contract: { include: { client: true } },
               assetMovement: { include: { asset: true } },
@@ -76,14 +76,18 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
       is_active: true,
       ...(status && { status }),
       ...(contractId && {
-        measurementBulletin: {
-          contractId,
+        measurementBulletins: {
+          some: {
+            contractId,
+          },
         },
       }),
       ...(assetId && {
-        measurementBulletin: {
-          assetMovement: {
-            assetId,
+        measurementBulletins: {
+          some: {
+            assetMovement: {
+              assetId,
+            },
           },
         },
       }),
@@ -96,7 +100,7 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
         take: this.PAGE_SIZE,
         orderBy: { created_at: 'desc' },
         include: {
-          measurementBulletin: {
+          measurementBulletins: {
             include: {
               contract: { include: { client: true } },
               assetMovement: { include: { asset: true } },
@@ -142,8 +146,11 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
   async findByMeasurementBulletinId(
     measurementBulletinId: string,
   ): Promise<Invoice | null> {
-    return prisma.invoice.findUnique({
-      where: { measurementBulletinId },
+    const bulletin = await prisma.measurementBulletin.findUnique({
+      where: { id: measurementBulletinId },
+      include: { invoice: true },
     })
+
+    return bulletin?.invoice || null
   }
 }

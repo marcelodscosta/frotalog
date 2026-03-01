@@ -7,7 +7,7 @@ export async function createInvoice(
   reply: FastifyReply,
 ) {
   const bodySchema = z.object({
-    measurementBulletinId: z.string().uuid(),
+    measurementBulletinIds: z.array(z.string().uuid()),
     invoice_number: z.string().optional(),
     issue_date: z.coerce.date(),
     due_date: z.coerce.date(),

@@ -302,12 +302,12 @@ exports.Prisma.MeasurementBulletinScalarFieldEnum = {
   notes: 'notes',
   is_active: 'is_active',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  invoiceId: 'invoiceId'
 };
 
 exports.Prisma.InvoiceScalarFieldEnum = {
   id: 'id',
-  measurementBulletinId: 'measurementBulletinId',
   invoice_number: 'invoice_number',
   issue_date: 'issue_date',
   due_date: 'due_date',

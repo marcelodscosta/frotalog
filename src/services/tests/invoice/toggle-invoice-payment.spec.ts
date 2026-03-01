@@ -14,7 +14,6 @@ describe('Toggle Invoice Payment', () => {
 
   it('should mark invoice as paid', async () => {
     const invoice = await repo.create({
-      measurementBulletinId: 'bulletin-01',
       invoice_number: 'FAT-000001',
       issue_date: new Date('2026-02-01'),
       due_date: new Date('2026-03-01'),
@@ -22,7 +21,6 @@ describe('Toggle Invoice Payment', () => {
       is_paid: false,
       status: 'PENDING',
     })
-
     const result = await sut.execute(invoice.id)
 
     expect(result.invoice.is_paid).toBe(true)
@@ -32,7 +30,6 @@ describe('Toggle Invoice Payment', () => {
 
   it('should mark invoice as unpaid (toggle back)', async () => {
     const invoice = await repo.create({
-      measurementBulletinId: 'bulletin-01',
       invoice_number: 'FAT-000001',
       issue_date: new Date('2026-02-01'),
       due_date: new Date('2026-03-01'),

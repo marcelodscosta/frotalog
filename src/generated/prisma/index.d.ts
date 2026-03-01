@@ -2481,6 +2481,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type InvoiceCountOutputType
+   */
+
+  export type InvoiceCountOutputType = {
+    measurementBulletins: number
+  }
+
+  export type InvoiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    measurementBulletins?: boolean | InvoiceCountOutputTypeCountMeasurementBulletinsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * InvoiceCountOutputType without action
+   */
+  export type InvoiceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceCountOutputType
+     */
+    select?: InvoiceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * InvoiceCountOutputType without action
+   */
+  export type InvoiceCountOutputTypeCountMeasurementBulletinsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeasurementBulletinWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -14926,6 +14957,7 @@ export namespace Prisma {
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    invoiceId: string | null
   }
 
   export type MeasurementBulletinMaxAggregateOutputType = {
@@ -14946,6 +14978,7 @@ export namespace Prisma {
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    invoiceId: string | null
   }
 
   export type MeasurementBulletinCountAggregateOutputType = {
@@ -14966,6 +14999,7 @@ export namespace Prisma {
     is_active: number
     created_at: number
     updated_at: number
+    invoiceId: number
     _all: number
   }
 
@@ -15008,6 +15042,7 @@ export namespace Prisma {
     is_active?: true
     created_at?: true
     updated_at?: true
+    invoiceId?: true
   }
 
   export type MeasurementBulletinMaxAggregateInputType = {
@@ -15028,6 +15063,7 @@ export namespace Prisma {
     is_active?: true
     created_at?: true
     updated_at?: true
+    invoiceId?: true
   }
 
   export type MeasurementBulletinCountAggregateInputType = {
@@ -15048,6 +15084,7 @@ export namespace Prisma {
     is_active?: true
     created_at?: true
     updated_at?: true
+    invoiceId?: true
     _all?: true
   }
 
@@ -15155,6 +15192,7 @@ export namespace Prisma {
     is_active: boolean
     created_at: Date
     updated_at: Date
+    invoiceId: string | null
     _count: MeasurementBulletinCountAggregateOutputType | null
     _avg: MeasurementBulletinAvgAggregateOutputType | null
     _sum: MeasurementBulletinSumAggregateOutputType | null
@@ -15194,6 +15232,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    invoiceId?: boolean
     expenses?: boolean | MeasurementBulletin$expensesArgs<ExtArgs>
     invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
     assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
@@ -15219,6 +15258,8 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    invoiceId?: boolean
+    invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
     assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
     contract?: boolean | ContractDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["measurementBulletin"]>
@@ -15241,6 +15282,8 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    invoiceId?: boolean
+    invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
     assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
     contract?: boolean | ContractDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["measurementBulletin"]>
@@ -15263,9 +15306,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    invoiceId?: boolean
   }
 
-  export type MeasurementBulletinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetMovementId" | "reference_start" | "reference_end" | "total_days" | "inactive_days" | "working_days" | "daily_rate" | "total_value" | "current_horometer" | "current_odometer" | "status" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["measurementBulletin"]>
+  export type MeasurementBulletinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetMovementId" | "reference_start" | "reference_end" | "total_days" | "inactive_days" | "working_days" | "daily_rate" | "total_value" | "current_horometer" | "current_odometer" | "status" | "notes" | "is_active" | "created_at" | "updated_at" | "invoiceId", ExtArgs["result"]["measurementBulletin"]>
   export type MeasurementBulletinInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     expenses?: boolean | MeasurementBulletin$expensesArgs<ExtArgs>
     invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
@@ -15274,10 +15318,12 @@ export namespace Prisma {
     _count?: boolean | MeasurementBulletinCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MeasurementBulletinIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
     assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
     contract?: boolean | ContractDefaultArgs<ExtArgs>
   }
   export type MeasurementBulletinIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
     assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
     contract?: boolean | ContractDefaultArgs<ExtArgs>
   }
@@ -15308,6 +15354,7 @@ export namespace Prisma {
       is_active: boolean
       created_at: Date
       updated_at: Date
+      invoiceId: string | null
     }, ExtArgs["result"]["measurementBulletin"]>
     composites: {}
   }
@@ -15752,6 +15799,7 @@ export namespace Prisma {
     readonly is_active: FieldRef<"MeasurementBulletin", 'Boolean'>
     readonly created_at: FieldRef<"MeasurementBulletin", 'DateTime'>
     readonly updated_at: FieldRef<"MeasurementBulletin", 'DateTime'>
+    readonly invoiceId: FieldRef<"MeasurementBulletin", 'String'>
   }
     
 
@@ -16231,7 +16279,6 @@ export namespace Prisma {
 
   export type InvoiceMinAggregateOutputType = {
     id: string | null
-    measurementBulletinId: string | null
     invoice_number: string | null
     issue_date: Date | null
     due_date: Date | null
@@ -16247,7 +16294,6 @@ export namespace Prisma {
 
   export type InvoiceMaxAggregateOutputType = {
     id: string | null
-    measurementBulletinId: string | null
     invoice_number: string | null
     issue_date: Date | null
     due_date: Date | null
@@ -16263,7 +16309,6 @@ export namespace Prisma {
 
   export type InvoiceCountAggregateOutputType = {
     id: number
-    measurementBulletinId: number
     invoice_number: number
     issue_date: number
     due_date: number
@@ -16289,7 +16334,6 @@ export namespace Prisma {
 
   export type InvoiceMinAggregateInputType = {
     id?: true
-    measurementBulletinId?: true
     invoice_number?: true
     issue_date?: true
     due_date?: true
@@ -16305,7 +16349,6 @@ export namespace Prisma {
 
   export type InvoiceMaxAggregateInputType = {
     id?: true
-    measurementBulletinId?: true
     invoice_number?: true
     issue_date?: true
     due_date?: true
@@ -16321,7 +16364,6 @@ export namespace Prisma {
 
   export type InvoiceCountAggregateInputType = {
     id?: true
-    measurementBulletinId?: true
     invoice_number?: true
     issue_date?: true
     due_date?: true
@@ -16424,7 +16466,6 @@ export namespace Prisma {
 
   export type InvoiceGroupByOutputType = {
     id: string
-    measurementBulletinId: string
     invoice_number: string
     issue_date: Date
     due_date: Date
@@ -16459,7 +16500,6 @@ export namespace Prisma {
 
   export type InvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    measurementBulletinId?: boolean
     invoice_number?: boolean
     issue_date?: boolean
     due_date?: boolean
@@ -16471,12 +16511,12 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
-    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+    measurementBulletins?: boolean | Invoice$measurementBulletinsArgs<ExtArgs>
+    _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    measurementBulletinId?: boolean
     invoice_number?: boolean
     issue_date?: boolean
     due_date?: boolean
@@ -16488,12 +16528,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
-    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    measurementBulletinId?: boolean
     invoice_number?: boolean
     issue_date?: boolean
     due_date?: boolean
@@ -16505,12 +16543,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
-    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectScalar = {
     id?: boolean
-    measurementBulletinId?: boolean
     invoice_number?: boolean
     issue_date?: boolean
     due_date?: boolean
@@ -16524,25 +16560,21 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "measurementBulletinId" | "invoice_number" | "issue_date" | "due_date" | "total_value" | "is_paid" | "payment_date" | "status" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["invoice"]>
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoice_number" | "issue_date" | "due_date" | "total_value" | "is_paid" | "payment_date" | "status" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["invoice"]>
   export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
+    measurementBulletins?: boolean | Invoice$measurementBulletinsArgs<ExtArgs>
+    _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
-  }
-  export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    measurementBulletin?: boolean | MeasurementBulletinDefaultArgs<ExtArgs>
-  }
+  export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Invoice"
     objects: {
-      measurementBulletin: Prisma.$MeasurementBulletinPayload<ExtArgs>
+      measurementBulletins: Prisma.$MeasurementBulletinPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      measurementBulletinId: string
       invoice_number: string
       issue_date: Date
       due_date: Date
@@ -16948,7 +16980,7 @@ export namespace Prisma {
    */
   export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    measurementBulletin<T extends MeasurementBulletinDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MeasurementBulletinDefaultArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    measurementBulletins<T extends Invoice$measurementBulletinsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$measurementBulletinsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16979,7 +17011,6 @@ export namespace Prisma {
    */
   interface InvoiceFieldRefs {
     readonly id: FieldRef<"Invoice", 'String'>
-    readonly measurementBulletinId: FieldRef<"Invoice", 'String'>
     readonly invoice_number: FieldRef<"Invoice", 'String'>
     readonly issue_date: FieldRef<"Invoice", 'DateTime'>
     readonly due_date: FieldRef<"Invoice", 'DateTime'>
@@ -17240,10 +17271,6 @@ export namespace Prisma {
      */
     data: InvoiceCreateManyInput | InvoiceCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: InvoiceIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -17314,10 +17341,6 @@ export namespace Prisma {
      * Limit how many Invoices to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: InvoiceIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -17384,6 +17407,30 @@ export namespace Prisma {
      * Limit how many Invoices to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Invoice.measurementBulletins
+   */
+  export type Invoice$measurementBulletinsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    where?: MeasurementBulletinWhereInput
+    orderBy?: MeasurementBulletinOrderByWithRelationInput | MeasurementBulletinOrderByWithRelationInput[]
+    cursor?: MeasurementBulletinWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeasurementBulletinScalarFieldEnum | MeasurementBulletinScalarFieldEnum[]
   }
 
   /**
@@ -19916,7 +19963,8 @@ export namespace Prisma {
     notes: 'notes',
     is_active: 'is_active',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    invoiceId: 'invoiceId'
   };
 
   export type MeasurementBulletinScalarFieldEnum = (typeof MeasurementBulletinScalarFieldEnum)[keyof typeof MeasurementBulletinScalarFieldEnum]
@@ -19924,7 +19972,6 @@ export namespace Prisma {
 
   export const InvoiceScalarFieldEnum: {
     id: 'id',
-    measurementBulletinId: 'measurementBulletinId',
     invoice_number: 'invoice_number',
     issue_date: 'issue_date',
     due_date: 'due_date',
@@ -21260,6 +21307,7 @@ export namespace Prisma {
     is_active?: BoolFilter<"MeasurementBulletin"> | boolean
     created_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
     updated_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    invoiceId?: StringNullableFilter<"MeasurementBulletin"> | string | null
     expenses?: BulletinExpenseListRelationFilter
     invoice?: XOR<InvoiceNullableScalarRelationFilter, InvoiceWhereInput> | null
     assetMovement?: XOR<AssetMovementScalarRelationFilter, AssetMovementWhereInput>
@@ -21284,6 +21332,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    invoiceId?: SortOrderInput | SortOrder
     expenses?: BulletinExpenseOrderByRelationAggregateInput
     invoice?: InvoiceOrderByWithRelationInput
     assetMovement?: AssetMovementOrderByWithRelationInput
@@ -21311,6 +21360,7 @@ export namespace Prisma {
     is_active?: BoolFilter<"MeasurementBulletin"> | boolean
     created_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
     updated_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    invoiceId?: StringNullableFilter<"MeasurementBulletin"> | string | null
     expenses?: BulletinExpenseListRelationFilter
     invoice?: XOR<InvoiceNullableScalarRelationFilter, InvoiceWhereInput> | null
     assetMovement?: XOR<AssetMovementScalarRelationFilter, AssetMovementWhereInput>
@@ -21335,6 +21385,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    invoiceId?: SortOrderInput | SortOrder
     _count?: MeasurementBulletinCountOrderByAggregateInput
     _avg?: MeasurementBulletinAvgOrderByAggregateInput
     _max?: MeasurementBulletinMaxOrderByAggregateInput
@@ -21363,6 +21414,7 @@ export namespace Prisma {
     is_active?: BoolWithAggregatesFilter<"MeasurementBulletin"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"MeasurementBulletin"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"MeasurementBulletin"> | Date | string
+    invoiceId?: StringNullableWithAggregatesFilter<"MeasurementBulletin"> | string | null
   }
 
   export type InvoiceWhereInput = {
@@ -21370,7 +21422,6 @@ export namespace Prisma {
     OR?: InvoiceWhereInput[]
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
     id?: StringFilter<"Invoice"> | string
-    measurementBulletinId?: StringFilter<"Invoice"> | string
     invoice_number?: StringFilter<"Invoice"> | string
     issue_date?: DateTimeFilter<"Invoice"> | Date | string
     due_date?: DateTimeFilter<"Invoice"> | Date | string
@@ -21382,12 +21433,11 @@ export namespace Prisma {
     is_active?: BoolFilter<"Invoice"> | boolean
     created_at?: DateTimeFilter<"Invoice"> | Date | string
     updated_at?: DateTimeFilter<"Invoice"> | Date | string
-    measurementBulletin?: XOR<MeasurementBulletinScalarRelationFilter, MeasurementBulletinWhereInput>
+    measurementBulletins?: MeasurementBulletinListRelationFilter
   }
 
   export type InvoiceOrderByWithRelationInput = {
     id?: SortOrder
-    measurementBulletinId?: SortOrder
     invoice_number?: SortOrder
     issue_date?: SortOrder
     due_date?: SortOrder
@@ -21399,12 +21449,11 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    measurementBulletin?: MeasurementBulletinOrderByWithRelationInput
+    measurementBulletins?: MeasurementBulletinOrderByRelationAggregateInput
   }
 
   export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    measurementBulletinId?: string
     invoice_number?: string
     AND?: InvoiceWhereInput | InvoiceWhereInput[]
     OR?: InvoiceWhereInput[]
@@ -21419,12 +21468,11 @@ export namespace Prisma {
     is_active?: BoolFilter<"Invoice"> | boolean
     created_at?: DateTimeFilter<"Invoice"> | Date | string
     updated_at?: DateTimeFilter<"Invoice"> | Date | string
-    measurementBulletin?: XOR<MeasurementBulletinScalarRelationFilter, MeasurementBulletinWhereInput>
-  }, "id" | "measurementBulletinId" | "invoice_number">
+    measurementBulletins?: MeasurementBulletinListRelationFilter
+  }, "id" | "invoice_number">
 
   export type InvoiceOrderByWithAggregationInput = {
     id?: SortOrder
-    measurementBulletinId?: SortOrder
     invoice_number?: SortOrder
     issue_date?: SortOrder
     due_date?: SortOrder
@@ -21448,7 +21496,6 @@ export namespace Prisma {
     OR?: InvoiceScalarWhereWithAggregatesInput[]
     NOT?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Invoice"> | string
-    measurementBulletinId?: StringWithAggregatesFilter<"Invoice"> | string
     invoice_number?: StringWithAggregatesFilter<"Invoice"> | string
     issue_date?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
     due_date?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
@@ -22846,7 +22893,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
-    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinInput
+    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinsInput
     assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
     contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
   }
@@ -22869,8 +22916,8 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    invoiceId?: string | null
     expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
-    invoice?: InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinUpdateInput = {
@@ -22890,7 +22937,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
-    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinNestedInput
+    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput
     assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
     contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
   }
@@ -22913,8 +22960,8 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
-    invoice?: InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinCreateManyInput = {
@@ -22935,6 +22982,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    invoiceId?: string | null
   }
 
   export type MeasurementBulletinUpdateManyMutationInput = {
@@ -22973,6 +23021,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvoiceCreateInput = {
@@ -22988,12 +23037,11 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    measurementBulletin: MeasurementBulletinCreateNestedOneWithoutInvoiceInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateInput = {
     id?: string
-    measurementBulletinId: string
     invoice_number: string
     issue_date: Date | string
     due_date: Date | string
@@ -23005,6 +23053,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUpdateInput = {
@@ -23020,12 +23069,11 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    measurementBulletin?: MeasurementBulletinUpdateOneRequiredWithoutInvoiceNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    measurementBulletinId?: StringFieldUpdateOperationsInput | string
     invoice_number?: StringFieldUpdateOperationsInput | string
     issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23037,11 +23085,11 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceCreateManyInput = {
     id?: string
-    measurementBulletinId: string
     invoice_number: string
     issue_date: Date | string
     due_date: Date | string
@@ -23072,7 +23120,6 @@ export namespace Prisma {
 
   export type InvoiceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    measurementBulletinId?: StringFieldUpdateOperationsInput | string
     invoice_number?: StringFieldUpdateOperationsInput | string
     issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24410,6 +24457,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    invoiceId?: SortOrder
   }
 
   export type MeasurementBulletinAvgOrderByAggregateInput = {
@@ -24440,6 +24488,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    invoiceId?: SortOrder
   }
 
   export type MeasurementBulletinMinOrderByAggregateInput = {
@@ -24460,6 +24509,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    invoiceId?: SortOrder
   }
 
   export type MeasurementBulletinSumOrderByAggregateInput = {
@@ -24489,14 +24539,8 @@ export namespace Prisma {
     not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
   }
 
-  export type MeasurementBulletinScalarRelationFilter = {
-    is?: MeasurementBulletinWhereInput
-    isNot?: MeasurementBulletinWhereInput
-  }
-
   export type InvoiceCountOrderByAggregateInput = {
     id?: SortOrder
-    measurementBulletinId?: SortOrder
     invoice_number?: SortOrder
     issue_date?: SortOrder
     due_date?: SortOrder
@@ -24516,7 +24560,6 @@ export namespace Prisma {
 
   export type InvoiceMaxOrderByAggregateInput = {
     id?: SortOrder
-    measurementBulletinId?: SortOrder
     invoice_number?: SortOrder
     issue_date?: SortOrder
     due_date?: SortOrder
@@ -24532,7 +24575,6 @@ export namespace Prisma {
 
   export type InvoiceMinOrderByAggregateInput = {
     id?: SortOrder
-    measurementBulletinId?: SortOrder
     invoice_number?: SortOrder
     issue_date?: SortOrder
     due_date?: SortOrder
@@ -24558,6 +24600,11 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumInvoiceStatusFilter<$PrismaModel>
     _max?: NestedEnumInvoiceStatusFilter<$PrismaModel>
+  }
+
+  export type MeasurementBulletinScalarRelationFilter = {
+    is?: MeasurementBulletinWhereInput
+    isNot?: MeasurementBulletinWhereInput
   }
 
   export type BulletinExpenseCountOrderByAggregateInput = {
@@ -25478,9 +25525,9 @@ export namespace Prisma {
     connect?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
   }
 
-  export type InvoiceCreateNestedOneWithoutMeasurementBulletinInput = {
-    create?: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
-    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinInput
+  export type InvoiceCreateNestedOneWithoutMeasurementBulletinsInput = {
+    create?: XOR<InvoiceCreateWithoutMeasurementBulletinsInput, InvoiceUncheckedCreateWithoutMeasurementBulletinsInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinsInput
     connect?: InvoiceWhereUniqueInput
   }
 
@@ -25503,12 +25550,6 @@ export namespace Prisma {
     connect?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
   }
 
-  export type InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput = {
-    create?: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
-    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinInput
-    connect?: InvoiceWhereUniqueInput
-  }
-
   export type EnumMeasurementBulletinStatusFieldUpdateOperationsInput = {
     set?: $Enums.MeasurementBulletinStatus
   }
@@ -25527,14 +25568,14 @@ export namespace Prisma {
     deleteMany?: BulletinExpenseScalarWhereInput | BulletinExpenseScalarWhereInput[]
   }
 
-  export type InvoiceUpdateOneWithoutMeasurementBulletinNestedInput = {
-    create?: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
-    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinInput
-    upsert?: InvoiceUpsertWithoutMeasurementBulletinInput
+  export type InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput = {
+    create?: XOR<InvoiceCreateWithoutMeasurementBulletinsInput, InvoiceUncheckedCreateWithoutMeasurementBulletinsInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinsInput
+    upsert?: InvoiceUpsertWithoutMeasurementBulletinsInput
     disconnect?: InvoiceWhereInput | boolean
     delete?: InvoiceWhereInput | boolean
     connect?: InvoiceWhereUniqueInput
-    update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutMeasurementBulletinInput, InvoiceUpdateWithoutMeasurementBulletinInput>, InvoiceUncheckedUpdateWithoutMeasurementBulletinInput>
+    update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutMeasurementBulletinsInput, InvoiceUpdateWithoutMeasurementBulletinsInput>, InvoiceUncheckedUpdateWithoutMeasurementBulletinsInput>
   }
 
   export type AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput = {
@@ -25567,32 +25608,50 @@ export namespace Prisma {
     deleteMany?: BulletinExpenseScalarWhereInput | BulletinExpenseScalarWhereInput[]
   }
 
-  export type InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput = {
-    create?: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
-    connectOrCreate?: InvoiceCreateOrConnectWithoutMeasurementBulletinInput
-    upsert?: InvoiceUpsertWithoutMeasurementBulletinInput
-    disconnect?: InvoiceWhereInput | boolean
-    delete?: InvoiceWhereInput | boolean
-    connect?: InvoiceWhereUniqueInput
-    update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutMeasurementBulletinInput, InvoiceUpdateWithoutMeasurementBulletinInput>, InvoiceUncheckedUpdateWithoutMeasurementBulletinInput>
+  export type MeasurementBulletinCreateNestedManyWithoutInvoiceInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput> | MeasurementBulletinCreateWithoutInvoiceInput[] | MeasurementBulletinUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput | MeasurementBulletinCreateOrConnectWithoutInvoiceInput[]
+    createMany?: MeasurementBulletinCreateManyInvoiceInputEnvelope
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
   }
 
-  export type MeasurementBulletinCreateNestedOneWithoutInvoiceInput = {
-    create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput>
-    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput
-    connect?: MeasurementBulletinWhereUniqueInput
+  export type MeasurementBulletinUncheckedCreateNestedManyWithoutInvoiceInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput> | MeasurementBulletinCreateWithoutInvoiceInput[] | MeasurementBulletinUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput | MeasurementBulletinCreateOrConnectWithoutInvoiceInput[]
+    createMany?: MeasurementBulletinCreateManyInvoiceInputEnvelope
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
   }
 
   export type EnumInvoiceStatusFieldUpdateOperationsInput = {
     set?: $Enums.InvoiceStatus
   }
 
-  export type MeasurementBulletinUpdateOneRequiredWithoutInvoiceNestedInput = {
-    create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput>
-    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput
-    upsert?: MeasurementBulletinUpsertWithoutInvoiceInput
-    connect?: MeasurementBulletinWhereUniqueInput
-    update?: XOR<XOR<MeasurementBulletinUpdateToOneWithWhereWithoutInvoiceInput, MeasurementBulletinUpdateWithoutInvoiceInput>, MeasurementBulletinUncheckedUpdateWithoutInvoiceInput>
+  export type MeasurementBulletinUpdateManyWithoutInvoiceNestedInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput> | MeasurementBulletinCreateWithoutInvoiceInput[] | MeasurementBulletinUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput | MeasurementBulletinCreateOrConnectWithoutInvoiceInput[]
+    upsert?: MeasurementBulletinUpsertWithWhereUniqueWithoutInvoiceInput | MeasurementBulletinUpsertWithWhereUniqueWithoutInvoiceInput[]
+    createMany?: MeasurementBulletinCreateManyInvoiceInputEnvelope
+    set?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    disconnect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    delete?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    update?: MeasurementBulletinUpdateWithWhereUniqueWithoutInvoiceInput | MeasurementBulletinUpdateWithWhereUniqueWithoutInvoiceInput[]
+    updateMany?: MeasurementBulletinUpdateManyWithWhereWithoutInvoiceInput | MeasurementBulletinUpdateManyWithWhereWithoutInvoiceInput[]
+    deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
+  }
+
+  export type MeasurementBulletinUncheckedUpdateManyWithoutInvoiceNestedInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput> | MeasurementBulletinCreateWithoutInvoiceInput[] | MeasurementBulletinUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput | MeasurementBulletinCreateOrConnectWithoutInvoiceInput[]
+    upsert?: MeasurementBulletinUpsertWithWhereUniqueWithoutInvoiceInput | MeasurementBulletinUpsertWithWhereUniqueWithoutInvoiceInput[]
+    createMany?: MeasurementBulletinCreateManyInvoiceInputEnvelope
+    set?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    disconnect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    delete?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+    update?: MeasurementBulletinUpdateWithWhereUniqueWithoutInvoiceInput | MeasurementBulletinUpdateWithWhereUniqueWithoutInvoiceInput[]
+    updateMany?: MeasurementBulletinUpdateManyWithWhereWithoutInvoiceInput | MeasurementBulletinUpdateManyWithWhereWithoutInvoiceInput[]
+    deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
   }
 
   export type MeasurementBulletinCreateNestedOneWithoutExpensesInput = {
@@ -27681,7 +27740,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
-    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinInput
+    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinsInput
     assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
   }
 
@@ -27702,8 +27761,8 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    invoiceId?: string | null
     expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
-    invoice?: InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinCreateOrConnectWithoutContractInput = {
@@ -27836,6 +27895,7 @@ export namespace Prisma {
     is_active?: BoolFilter<"MeasurementBulletin"> | boolean
     created_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
     updated_at?: DateTimeFilter<"MeasurementBulletin"> | Date | string
+    invoiceId?: StringNullableFilter<"MeasurementBulletin"> | string | null
   }
 
   export type AssetCreateWithoutMovementsInput = {
@@ -27961,7 +28021,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
-    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinInput
+    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinsInput
     contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
   }
 
@@ -27982,8 +28042,8 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    invoiceId?: string | null
     expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
-    invoice?: InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinCreateOrConnectWithoutAssetMovementInput = {
@@ -28160,7 +28220,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type InvoiceCreateWithoutMeasurementBulletinInput = {
+  export type InvoiceCreateWithoutMeasurementBulletinsInput = {
     id?: string
     invoice_number: string
     issue_date: Date | string
@@ -28175,7 +28235,7 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
-  export type InvoiceUncheckedCreateWithoutMeasurementBulletinInput = {
+  export type InvoiceUncheckedCreateWithoutMeasurementBulletinsInput = {
     id?: string
     invoice_number: string
     issue_date: Date | string
@@ -28190,9 +28250,9 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
-  export type InvoiceCreateOrConnectWithoutMeasurementBulletinInput = {
+  export type InvoiceCreateOrConnectWithoutMeasurementBulletinsInput = {
     where: InvoiceWhereUniqueInput
-    create: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
+    create: XOR<InvoiceCreateWithoutMeasurementBulletinsInput, InvoiceUncheckedCreateWithoutMeasurementBulletinsInput>
   }
 
   export type AssetMovementCreateWithoutMeasurementBulletinsInput = {
@@ -28321,18 +28381,18 @@ export namespace Prisma {
     quantity?: DecimalFilter<"BulletinExpense"> | Decimal | DecimalJsLike | number | string
   }
 
-  export type InvoiceUpsertWithoutMeasurementBulletinInput = {
-    update: XOR<InvoiceUpdateWithoutMeasurementBulletinInput, InvoiceUncheckedUpdateWithoutMeasurementBulletinInput>
-    create: XOR<InvoiceCreateWithoutMeasurementBulletinInput, InvoiceUncheckedCreateWithoutMeasurementBulletinInput>
+  export type InvoiceUpsertWithoutMeasurementBulletinsInput = {
+    update: XOR<InvoiceUpdateWithoutMeasurementBulletinsInput, InvoiceUncheckedUpdateWithoutMeasurementBulletinsInput>
+    create: XOR<InvoiceCreateWithoutMeasurementBulletinsInput, InvoiceUncheckedCreateWithoutMeasurementBulletinsInput>
     where?: InvoiceWhereInput
   }
 
-  export type InvoiceUpdateToOneWithWhereWithoutMeasurementBulletinInput = {
+  export type InvoiceUpdateToOneWithWhereWithoutMeasurementBulletinsInput = {
     where?: InvoiceWhereInput
-    data: XOR<InvoiceUpdateWithoutMeasurementBulletinInput, InvoiceUncheckedUpdateWithoutMeasurementBulletinInput>
+    data: XOR<InvoiceUpdateWithoutMeasurementBulletinsInput, InvoiceUncheckedUpdateWithoutMeasurementBulletinsInput>
   }
 
-  export type InvoiceUpdateWithoutMeasurementBulletinInput = {
+  export type InvoiceUpdateWithoutMeasurementBulletinsInput = {
     id?: StringFieldUpdateOperationsInput | string
     invoice_number?: StringFieldUpdateOperationsInput | string
     issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28347,7 +28407,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type InvoiceUncheckedUpdateWithoutMeasurementBulletinInput = {
+  export type InvoiceUncheckedUpdateWithoutMeasurementBulletinsInput = {
     id?: StringFieldUpdateOperationsInput | string
     invoice_number?: StringFieldUpdateOperationsInput | string
     issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28517,57 +28577,25 @@ export namespace Prisma {
     create: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput>
   }
 
-  export type MeasurementBulletinUpsertWithoutInvoiceInput = {
-    update: XOR<MeasurementBulletinUpdateWithoutInvoiceInput, MeasurementBulletinUncheckedUpdateWithoutInvoiceInput>
-    create: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput>
-    where?: MeasurementBulletinWhereInput
+  export type MeasurementBulletinCreateManyInvoiceInputEnvelope = {
+    data: MeasurementBulletinCreateManyInvoiceInput | MeasurementBulletinCreateManyInvoiceInput[]
+    skipDuplicates?: boolean
   }
 
-  export type MeasurementBulletinUpdateToOneWithWhereWithoutInvoiceInput = {
-    where?: MeasurementBulletinWhereInput
+  export type MeasurementBulletinUpsertWithWhereUniqueWithoutInvoiceInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    update: XOR<MeasurementBulletinUpdateWithoutInvoiceInput, MeasurementBulletinUncheckedUpdateWithoutInvoiceInput>
+    create: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput>
+  }
+
+  export type MeasurementBulletinUpdateWithWhereUniqueWithoutInvoiceInput = {
+    where: MeasurementBulletinWhereUniqueInput
     data: XOR<MeasurementBulletinUpdateWithoutInvoiceInput, MeasurementBulletinUncheckedUpdateWithoutInvoiceInput>
   }
 
-  export type MeasurementBulletinUpdateWithoutInvoiceInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
-    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
-    total_days?: IntFieldUpdateOperationsInput | number
-    inactive_days?: IntFieldUpdateOperationsInput | number
-    working_days?: IntFieldUpdateOperationsInput | number
-    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
-    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
-    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
-    assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
-    contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
-  }
-
-  export type MeasurementBulletinUncheckedUpdateWithoutInvoiceInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    contractId?: StringFieldUpdateOperationsInput | string
-    assetMovementId?: StringFieldUpdateOperationsInput | string
-    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
-    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
-    total_days?: IntFieldUpdateOperationsInput | number
-    inactive_days?: IntFieldUpdateOperationsInput | number
-    working_days?: IntFieldUpdateOperationsInput | number
-    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
-    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
-    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+  export type MeasurementBulletinUpdateManyWithWhereWithoutInvoiceInput = {
+    where: MeasurementBulletinScalarWhereInput
+    data: XOR<MeasurementBulletinUpdateManyMutationInput, MeasurementBulletinUncheckedUpdateManyWithoutInvoiceInput>
   }
 
   export type MeasurementBulletinCreateWithoutExpensesInput = {
@@ -28586,7 +28614,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinInput
+    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinsInput
     assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
     contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
   }
@@ -28609,7 +28637,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    invoice?: InvoiceUncheckedCreateNestedOneWithoutMeasurementBulletinInput
+    invoiceId?: string | null
   }
 
   export type MeasurementBulletinCreateOrConnectWithoutExpensesInput = {
@@ -28644,7 +28672,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinNestedInput
+    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput
     assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
     contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
   }
@@ -28667,7 +28695,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoice?: InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceCreateManyAssigned_toInput = {
@@ -29461,6 +29489,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    invoiceId?: string | null
   }
 
   export type AssetMovementUpdateWithoutContractInput = {
@@ -29616,7 +29645,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
-    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinNestedInput
+    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput
     assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
   }
 
@@ -29637,8 +29666,8 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
-    invoice?: InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateManyWithoutContractInput = {
@@ -29658,6 +29687,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MeasurementBulletinCreateManyAssetMovementInput = {
@@ -29677,6 +29707,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    invoiceId?: string | null
   }
 
   export type MeasurementBulletinUpdateWithoutAssetMovementInput = {
@@ -29696,7 +29727,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
-    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinNestedInput
+    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput
     contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
   }
 
@@ -29717,8 +29748,8 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
-    invoice?: InvoiceUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateManyWithoutAssetMovementInput = {
@@ -29738,6 +29769,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BulletinExpenseCreateManyMeasurementBulletinInput = {
@@ -29778,6 +29810,88 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type MeasurementBulletinCreateManyInvoiceInput = {
+    id?: string
+    contractId: string
+    assetMovementId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    current_horometer?: number | null
+    current_odometer?: number | null
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MeasurementBulletinUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
+    assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetMovementId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateManyWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetMovementId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

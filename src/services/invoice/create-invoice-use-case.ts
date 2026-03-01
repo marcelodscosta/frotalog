@@ -6,7 +6,7 @@ import { AppError } from '../errors/app-error'
 import { prisma } from '../../lib/prisma'
 
 interface CreateInvoiceRequest {
-  measurementBulletinId: string
+  measurementBulletinIds: string[]
   invoice_number?: string
   issue_date: Date
   due_date: Date
@@ -25,65 +25,57 @@ export class CreateInvoiceUseCase {
   ) {}
 
   async execute(data: CreateInvoiceRequest): Promise<CreateInvoiceResponse> {
-    const bulletin = await this.measurementBulletinRepository.findById(
-      data.measurementBulletinId,
+    const bulletins = await Promise.all(
+      data.measurementBulletinIds.map((id) =>
+        this.measurementBulletinRepository.findById(id),
+      ),
     )
-    if (!bulletin) throw new ResourceNotFoundError()
 
-    // Check if an invoice already exists for this bulletin
-    const existing = await this.invoiceRepository.findByMeasurementBulletinId(
-      data.measurementBulletinId,
-    )
-    if (existing && existing.is_active) {
-      throw new AppError(
-        'Já existe uma fatura para este boletim de medição.',
-        409,
-      )
+    if (bulletins.some((b) => !b)) {
+      throw new ResourceNotFoundError()
+    }
+
+    // Check if any bulletin already has an active invoice
+    for (const id of data.measurementBulletinIds) {
+      const existing = await this.invoiceRepository.findByMeasurementBulletinId(id)
+      if (existing && existing.is_active) {
+        throw new AppError(
+          `O boletim de medição ${id} já possui uma fatura ativa.`,
+          409,
+        )
+      }
     }
 
     // Auto-generate invoice number if not provided
     const invoiceNumber =
       data.invoice_number || (await this.generateNextInvoiceNumber())
 
-    // Use provided total_value or fallback to bulletin's value
-    const invoiceValue = data.total_value ?? bulletin.total_value
+    // Sum total value of all bulletins for calculation if not provided
+    const totalBulletinsValue = bulletins.reduce(
+      (acc, b) => acc + (b ? Number(b.total_value) : 0),
+      0,
+    )
+
+    const invoiceValue = data.total_value ?? totalBulletinsValue
 
     const result = await prisma.$transaction(async (tx) => {
-      let invoice: Invoice
-
-      if (existing && !existing.is_active) {
-        // Reactivate and update existing invoice
-        invoice = await tx.invoice.update({
-          where: { id: existing.id },
-          data: {
-            is_active: true,
-            status: 'PENDING', // Reset status
-            invoice_number: invoiceNumber,
-            issue_date: data.issue_date,
-            due_date: data.due_date,
-            total_value: invoiceValue,
-            notes: data.notes,
-            payment_date: null,
-            is_paid: false,
+      // Create new invoice
+      const invoice = await tx.invoice.create({
+        data: {
+          invoice_number: invoiceNumber,
+          issue_date: data.issue_date,
+          due_date: data.due_date,
+          total_value: invoiceValue,
+          notes: data.notes,
+          measurementBulletins: {
+            connect: data.measurementBulletinIds.map((id) => ({ id })),
           },
-        })
-      } else {
-        // Create new invoice
-        invoice = await tx.invoice.create({
-          data: {
-            measurementBulletinId: data.measurementBulletinId,
-            invoice_number: invoiceNumber,
-            issue_date: data.issue_date,
-            due_date: data.due_date,
-            total_value: invoiceValue,
-            notes: data.notes,
-          },
-        })
-      }
+        },
+      })
 
-      // Update bulletin status to INVOICED
-      await tx.measurementBulletin.update({
-        where: { id: data.measurementBulletinId },
+      // Update all bulletins status to INVOICED
+      await tx.measurementBulletin.updateMany({
+        where: { id: { in: data.measurementBulletinIds } },
         data: { status: 'INVOICED' },
       })
 
