@@ -20,11 +20,13 @@ interface GetScheduledMaintenancesResponse {
   delayed: MaintenanceCalendar[]
   today: MaintenanceCalendar[]
   future: MaintenanceCalendar[]
+  inProgress: MaintenanceCalendar[]
   summary: {
     total: number
     totalDelayed: number
     totalToday: number
     totalFuture: number
+    totalInProgress: number
     totalNext7Days: number
     totalNext30Days: number
   }
@@ -53,6 +55,7 @@ export class GetScheduledMaintenancesUseCase {
     const delayed: MaintenanceCalendar[] = []
     const todayList: MaintenanceCalendar[] = []
     const future: MaintenanceCalendar[] = []
+    const inProgressList: MaintenanceCalendar[] = []
 
     for (const maintenance of maintenances) {
       const scheduledDate = new Date(maintenance.scheduled_date)
@@ -97,7 +100,9 @@ export class GetScheduledMaintenancesUseCase {
 
       all.push(maintenanceWithMeta)
 
-      if (category === 'delayed') {
+      if (maintenance.status === 'IN_PROGRESS') {
+        inProgressList.push(maintenanceWithMeta)
+      } else if (category === 'delayed') {
         delayed.push(maintenanceWithMeta)
       } else if (category === 'today') {
         todayList.push(maintenanceWithMeta)
@@ -130,14 +135,16 @@ export class GetScheduledMaintenancesUseCase {
       delayed,
       today: todayList,
       future,
+      inProgress: inProgressList,
       summary: {
         total: all.length,
         totalDelayed: delayed.length,
         totalToday: todayList.length,
         totalFuture: future.length,
+        totalInProgress: inProgressList.length,
         totalNext7Days,
         totalNext30Days,
       },
     }
-  }
+}
 }

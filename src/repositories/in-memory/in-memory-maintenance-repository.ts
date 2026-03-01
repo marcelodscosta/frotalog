@@ -11,6 +11,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
       asset: { brand: 'Mock', model: 'Mock', plate: 'MOC-0000', serial_number: '123', year: 2024 },
       supplier: { company_name: 'Mock Supplier', trading_name: null },
       serviceCategory: { id: 'mock-category', name: 'Mock Category', description: null },
+      assigned_to: null,
     }
   }
 
@@ -411,13 +412,25 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     }))
   }
 
-  async findScheduledOnly(params?: { startDate?: Date; endDate?: Date }): Promise<Maintenance[]> {
+  async findScheduledOnly(params?: { startDate?: Date; endDate?: Date; assignedToId?: string }): Promise<Maintenance[]> {
+    const now = new Date()
     return this.maintenances.filter((m) => {
       if (!m.is_Active) return false
-      if (m.status !== 'SCHEDULED') return false
-      if (params?.startDate && m.scheduled_date < params.startDate) return false
-      if (params?.endDate && m.scheduled_date > params.endDate) return false
-      return true
+
+      if (params?.assignedToId && m.assignedToId !== params.assignedToId) return false
+
+      if (m.status === 'IN_PROGRESS') return true
+
+      if (m.status === 'SCHEDULED') {
+        const scheduledDate = new Date(m.scheduled_date)
+        if (scheduledDate < now) return true
+
+        if (params?.startDate && scheduledDate < params.startDate) return false
+        if (params?.endDate && scheduledDate > params.endDate) return false
+        return true
+      }
+
+      return false
     })
   }
 

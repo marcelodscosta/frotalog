@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
-import { GetScheduledMaintenancesUseCase } from '../../maintenance/get-scheduled-maintenances-use-case'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { InMemoryMaintenanceRepository } from '../../../repositories/in-memory/in-memory-maintenance-repository'
+import { GetScheduledMaintenancesUseCase } from '../../maintenance/get-scheduled-maintenances-use-case'
 
 let maintenanceRepository: InMemoryMaintenanceRepository
 let sut: GetScheduledMaintenancesUseCase
@@ -89,8 +89,55 @@ describe('Get Scheduled Maintenances Use Case', () => {
       totalDelayed: 1,
       totalToday: 1,
       totalFuture: 2,
+      totalInProgress: 0,
       totalNext7Days: 1, // Only the 'Future Task' (3 days away)
       totalNext30Days: 2, // Both 'Future Task' and 'Far Future Task'
     })
+  })
+
+  it('should include IN_PROGRESS maintenances in the results and summary', async () => {
+    // Mock current date
+    const mockedToday = new Date(2026, 1, 15, 12, 0, 0)
+    vi.setSystemTime(mockedToday)
+
+    // In Progress from last month (legacy)
+    await maintenanceRepository.create({
+      asset: { connect: { id: 'asset-1' } },
+      supplier: { connect: { id: 'supplier-1' } },
+      type: 'PREVENTIVE',
+      description: 'Old In Progress',
+      scheduled_date: new Date(2025, 11, 20, 10, 0, 0),
+      status: 'IN_PROGRESS',
+    })
+
+    // In Progress today
+    await maintenanceRepository.create({
+      asset: { connect: { id: 'asset-2' } },
+      supplier: { connect: { id: 'supplier-1' } },
+      type: 'PREVENTIVE',
+      description: 'Today In Progress',
+      scheduled_date: new Date(2026, 1, 15, 14, 0, 0),
+      status: 'IN_PROGRESS',
+    })
+
+    // Normal Scheduled today
+    await maintenanceRepository.create({
+      asset: { connect: { id: 'asset-3' } },
+      supplier: { connect: { id: 'supplier-1' } },
+      type: 'PREVENTIVE',
+      description: 'Today Scheduled',
+      scheduled_date: new Date(2026, 1, 15, 16, 0, 0),
+      status: 'SCHEDULED',
+    })
+
+    const response = await sut.execute()
+
+    expect(response.all).toHaveLength(3)
+    expect(response.inProgress).toHaveLength(2)
+    expect(response.today).toHaveLength(1)
+    
+    expect(response.summary.totalInProgress).toBe(2)
+    expect(response.summary.totalToday).toBe(1)
+    expect(response.summary.total).toBe(3)
   })
 })

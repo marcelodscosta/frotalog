@@ -25,9 +25,13 @@ export class CreateMaintenanceDocumentUseCase {
     private maintenanceRepository: IMaintenanceRepository,
   ) {}
 
-  async execute(data: CreateMaintenanceDocumentRequest): Promise<CreateMaintenanceDocumentResponse> {
+  async execute(
+    data: CreateMaintenanceDocumentRequest,
+  ): Promise<CreateMaintenanceDocumentResponse> {
     // Verificar se a manutenção existe
-    const maintenance = await this.maintenanceRepository.findById(data.maintenanceId)
+    const maintenance = await this.maintenanceRepository.findById(
+      data.maintenanceId,
+    )
     if (!maintenance) {
       throw new MaintenanceNotFoundError()
     }
@@ -36,8 +40,10 @@ export class CreateMaintenanceDocumentUseCase {
     const allowedMimeTypes = [
       'application/pdf',
       'image/jpeg',
+      'image/jpg',
       'image/png',
       'image/gif',
+      'image/webp',
       'application/msword',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       'application/vnd.ms-excel',

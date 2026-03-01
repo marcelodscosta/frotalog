@@ -1,14 +1,14 @@
 import {
-    Asset,
-    Maintenance,
-    Prisma,
-    ServiceCategory,
-    Supplier,
+  Asset,
+  Maintenance,
+  Prisma,
+  ServiceCategory,
+  Supplier,
 } from '../../generated/prisma'
 import { prisma } from '../../lib/prisma'
 import {
-    IMaintenanceRepository,
-    MaintenanceWithRelations,
+  IMaintenanceRepository,
+  MaintenanceWithRelations,
 } from '../interfaces/IMaintenanceRepository'
 import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
@@ -714,22 +714,33 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   async findScheduledOnly(
     params?: FindScheduledOnlyParams,
   ): Promise<Maintenance[]> {
+    const now = new Date()
     const where: Prisma.MaintenanceWhereInput = {
       is_Active: true,
-      status: 'SCHEDULED', // Apenas agendadas, não inclui IN_PROGRESS
-    }
-
-    // Filtro por período (opcional)
-    if (params?.startDate || params?.endDate) {
-      where.scheduled_date = {}
-
-      if (params.startDate) {
-        where.scheduled_date.gte = params.startDate
-      }
-
-      if (params.endDate) {
-        where.scheduled_date.lte = params.endDate
-      }
+      OR: [
+        {
+          status: 'IN_PROGRESS',
+        },
+        {
+          status: 'SCHEDULED',
+          // Se houver filtros de data, aplicamos aqui
+          ...(params?.startDate || params?.endDate
+            ? {
+                scheduled_date: {
+                  gte: params.startDate,
+                  lte: params.endDate,
+                },
+              }
+            : {}),
+        },
+        // Também incluímos as atrasadas (SCHEDULED no passado) mesmo que fora do range gte
+        {
+          status: 'SCHEDULED',
+          scheduled_date: {
+            lt: params?.startDate || now,
+          },
+        },
+      ],
     }
 
     if (params?.assignedToId) {
