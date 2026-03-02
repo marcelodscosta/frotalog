@@ -13,6 +13,7 @@
     "test:ui": "NODE_ENV=test vitest --ui",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate deploy",
+    "db:migrate:safe": "chmod +x prisma/migrate-safe.sh && ./prisma/migrate-safe.sh",
     "db:generate": "prisma generate",
     "db:studio": "prisma studio"
   },
