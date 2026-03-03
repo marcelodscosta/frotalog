@@ -129,6 +129,31 @@ describe('Maintenance E2E', () => {
     expect(response.json().id).toBe(createdMaintenanceId)
   })
 
+  it('GET /maintenance/search/:id - should get a CANCELLED maintenance by id', async () => {
+    // 1. Manually cancel the maintenance in the database for the test
+    await prisma.maintenance.update({
+      where: { id: createdMaintenanceId },
+      data: { status: 'CANCELLED' }
+    })
+
+    const response = await app.inject({
+      method: 'GET',
+      url: `/maintenance/search/${createdMaintenanceId}`,
+      headers: { Authorization: `Bearer ${maintenanceToken}` },
+    })
+
+    // 2. Before the fix, this would be 404. Now it should be 200.
+    expect(response.statusCode).toBe(200)
+    expect(response.json().id).toBe(createdMaintenanceId)
+    expect(response.json().status).toBe('CANCELLED')
+
+    // 3. Revert status to Scheduled for subsequent tests if needed (though next tests update it)
+    await prisma.maintenance.update({
+      where: { id: createdMaintenanceId },
+      data: { status: 'SCHEDULED' }
+    })
+  })
+
   it('PATCH /maintenance/:id - should update maintenance details', async () => {
     const response = await app.inject({
       method: 'PATCH',

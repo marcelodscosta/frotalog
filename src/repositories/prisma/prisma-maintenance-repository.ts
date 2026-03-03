@@ -99,7 +99,6 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       where: {
         id,
         is_Active: true,
-        status: { not: 'CANCELLED' },
       },
       include: {
         asset: {
