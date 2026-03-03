@@ -18,7 +18,7 @@ export async function createAsset(
     ownership: AssetOwnershipSchema.default('OWN'),
     documentsUrl: z.url().nullable().optional(),
     notes: z.string().optional().nullable(),
-    
+
     // Usage Tracking
     initial_horometer: z.number().nullable().optional(),
     current_horometer: z.number().nullable().optional(),
