@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
-import { app } from '../../../app'
-import { prisma } from '../../../lib/prisma'
 import jwt from 'jsonwebtoken'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { app } from '../../../app'
 import { env } from '../../../env'
+import { prisma } from '../../../lib/prisma'
 
 /**
  * E2E Tests for all report endpoints.
@@ -21,7 +21,7 @@ let maintenanceId: string
 
 function generateToken() {
   return jwt.sign(
-    { sub: 'e2e-report-user', email: 'e2e-report@test.com', role: 'ADMIN' },
+    { sub: 'e2e-report-user', email: `e2e-report-${Date.now()}@test.com`, role: 'ADMIN' },
     env.JWT_SECRET,
     { expiresIn: '1h' },
   )
@@ -54,8 +54,8 @@ describe('Reports E2E', () => {
     const client = await prisma.supplier.create({
       data: {
         company_name: `E2E Report Client ${Date.now()}`,
-        cnpj: `RC${Date.now()}`,
-        email: 'e2e-report-client@test.com',
+        cnpj: `RC${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        email: `e2e-report-client-${Date.now()}@test.com`,
         phone: '11999990000',
         contact: 'Tester',
         isClient: true,
@@ -66,8 +66,8 @@ describe('Reports E2E', () => {
     const supplier = await prisma.supplier.create({
       data: {
         company_name: `E2E Report Supplier ${Date.now()}`,
-        cnpj: `RS${Date.now()}`,
-        email: 'e2e-report-supplier@test.com',
+        cnpj: `RS${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        email: `e2e-report-supplier-${Date.now()}@test.com`,
         phone: '11999990001',
         contact: 'Supplier Tester',
         isClient: false,
@@ -116,13 +116,13 @@ describe('Reports E2E', () => {
   })
 
   afterAll(async () => {
-    await prisma.maintenance.deleteMany({ where: { assetId } }).catch(() => {})
-    await prisma.assetMovement.deleteMany({ where: { contractId } })
-    await prisma.contract.delete({ where: { id: contractId } })
-    await prisma.supplier.delete({ where: { id: clientId } })
-    await prisma.supplier.delete({ where: { id: supplierId } })
-    await prisma.asset.delete({ where: { id: assetId } })
-    await prisma.assetCategory.delete({ where: { id: categoryId } })
+    if (assetId) await prisma.maintenance.deleteMany({ where: { assetId } }).catch(() => {})
+    if (contractId) await prisma.assetMovement.deleteMany({ where: { contractId } }).catch(() => {})
+    if (contractId) await prisma.contract.delete({ where: { id: contractId } }).catch(() => {})
+    if (clientId) await prisma.supplier.delete({ where: { id: clientId } }).catch(() => {})
+    if (supplierId) await prisma.supplier.delete({ where: { id: supplierId } }).catch(() => {})
+    if (assetId) await prisma.asset.delete({ where: { id: assetId } }).catch(() => {})
+    if (categoryId) await prisma.assetCategory.delete({ where: { id: categoryId } }).catch(() => {})
     await app.close()
   })
 

@@ -11,6 +11,7 @@ import { getMaintenancesByStatus } from './get-maintenance-by-status-controller'
 import { getMaintenancesByPlate } from './get-maintenance-by-plate-controller'
 import { getMaintenancesBySerialNumber } from './get-maintenance-by-serial-number-controller'
 import { getScheduledMaintenances } from './get-scheduled-maintenances'
+import { getHistoryMaintenances } from './get-history-maintenances-controller'
 
 export async function maintenanceRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de manutenções
@@ -31,4 +32,5 @@ export async function maintenanceRoutes(app: FastifyInstance) {
   app.get('/maintenance/search/serial', getMaintenancesBySerialNumber)
 
   app.get('/maintenance/scheduled', getScheduledMaintenances)
+  app.get('/maintenance/history', getHistoryMaintenances)
 }

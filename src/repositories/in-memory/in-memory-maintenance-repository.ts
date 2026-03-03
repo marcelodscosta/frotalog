@@ -304,10 +304,19 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     }
 
     const updateData: any = { status }
-
+    
     if (status === 'IN_PROGRESS') {
       updateData.started_date = new Date()
-    } else if (status === 'COMPLETED') {
+      updateData.completed_date = null
+    } else if (['SCHEDULED', 'CANCELLED'].includes(status)) {
+      updateData.started_date = null
+    }
+
+    if (status === 'SCHEDULED') {
+      updateData.completed_date = null
+    }
+
+    if (status === 'COMPLETED') {
       updateData.completed_date = new Date()
     }
 
@@ -461,5 +470,25 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     const result = await this.findAll(page)
     const filteredItems = result.items.filter(m => m.asset.serial_number === serialNumber)
     return { ...result, items: filteredItems, totalItems: filteredItems.length }
+  }
+
+  async findCompletedByPeriod(
+    startDate: Date,
+    endDate: Date,
+    assignedToId?: string
+  ): Promise<MaintenanceWithRelations[]> {
+    const completedMaintenances = this.maintenances.filter(
+      (m) =>
+        m.is_Active &&
+        m.status === 'COMPLETED' &&
+        m.completed_date &&
+        m.completed_date >= startDate &&
+        m.completed_date <= endDate &&
+        (!assignedToId || m.assignedToId === assignedToId)
+    )
+
+    return completedMaintenances
+      .sort((a, b) => b.completed_date!.getTime() - a.completed_date!.getTime())
+      .map(this.mapToWithRelations.bind(this))
   }
 }

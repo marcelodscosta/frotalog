@@ -74,22 +74,10 @@ export class UpdateMaintenanceStatusUseCase {
     const updatedMaintenance = await this.maintenanceRepository.updateStatus(
       id,
       status,
-      // Pass extra data if repository supports it (need to check repo interface)
-      // Since repo.updateStatus only takes (id, status), we might need another call or update the repo method.
-      // But typically updateStatus just updates the status enum.
-      // Let's check IMaintenanceRepository.
+      horometer,
+      odometer,
+      actual_cost,
     )
-
-    // We need to persist the horometer/odometer/actual_cost on the maintenance record too.
-    // The current IMaintenanceRepository.updateStatus signature likely only accepts status.
-    // We should probably use a generic update or update the specific method.
-    // Checking previous file content... Repository likely exposes update() or similar.
-    // If not, we might need to update IMaintenanceRepository.
-    
-    // For now, let's assume we can update these fields via a separate call or changing updateStatus signature.
-    // Since I can't see IMaintenanceRepository right now, safe bet is to use a generic update if available, 
-    // or modify updateStatus.
-    // *Self-correction*: I need to modify IMaintenanceRepository to support updating these fields.
 
     return { maintenance: updatedMaintenance }
   }

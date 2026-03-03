@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
-import { app } from '../../../app'
-import { prisma } from '../../../lib/prisma'
 import jwt from 'jsonwebtoken'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { app } from '../../../app'
 import { env } from '../../../env'
+import { prisma } from '../../../lib/prisma'
 
 /**
  * E2E Test: Fluxo completo de Medição e Fatura
@@ -27,7 +27,7 @@ let invoiceId: string
 
 function generateToken() {
   return jwt.sign(
-    { sub: 'e2e-test-user', email: 'e2e@test.com', role: 'ADMIN' },
+    { sub: 'e2e-test-user', email: `e2e-${Date.now()}@test.com`, role: 'ADMIN' },
     env.JWT_SECRET,
     { expiresIn: '1h' },
   )
@@ -59,8 +59,8 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
     const client = await prisma.supplier.create({
       data: {
         company_name: `E2E Bulletin Client ${Date.now()}`,
-        cnpj: `${Date.now()}`,
-        email: 'e2e-bulletin@test.com',
+        cnpj: `BC${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        email: `e2e-bulletin-${Date.now()}@test.com`,
         phone: '11999999999',
         contact: 'Tester',
         isClient: true,
@@ -83,8 +83,8 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
       data: {
         contractId,
         assetId,
-        mobilization_date: new Date('2026-02-16'),
-        demobilization_date: new Date('2026-02-25'),
+        mobilization_date: new Date('2026-02-16T00:00:00Z'),
+        demobilization_date: new Date('2026-02-25T23:59:59Z'),
         rental_value: 15000,
         billing_cycle: 'MONTHLY',
       },
@@ -95,17 +95,23 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
   afterAll(async () => {
     // Clean up in reverse dependency order
     // Always use deleteMany where possible to handle soft-deleted records
-    await prisma.invoice
-      .deleteMany({ where: { measurementBulletins: { some: { assetMovementId: movementId } } } })
-      .catch(() => {})
-    await prisma.measurementBulletin
-      .deleteMany({ where: { assetMovementId: movementId } })
-      .catch(() => {})
-    await prisma.assetMovement.deleteMany({ where: { contractId } })
-    await prisma.contract.delete({ where: { id: contractId } })
-    await prisma.supplier.delete({ where: { id: clientId } })
-    await prisma.asset.delete({ where: { id: assetId } })
-    await prisma.assetCategory.delete({ where: { id: assetCategoryId } })
+    if (movementId) {
+      await prisma.invoice
+        .deleteMany({ where: { measurementBulletins: { some: { assetMovementId: movementId } } } })
+        .catch(() => {})
+      await prisma.measurementBulletin
+        .deleteMany({ where: { assetMovementId: movementId } })
+        .catch(() => {})
+    }
+    
+    if (contractId) {
+      await prisma.assetMovement.deleteMany({ where: { contractId } }).catch(() => {})
+      await prisma.contract.delete({ where: { id: contractId } }).catch(() => {})
+    }
+    
+    if (clientId) await prisma.supplier.delete({ where: { id: clientId } }).catch(() => {})
+    if (assetId) await prisma.asset.delete({ where: { id: assetId } }).catch(() => {})
+    if (assetCategoryId) await prisma.assetCategory.delete({ where: { id: assetCategoryId } }).catch(() => {})
   })
 
   // ─── Cenário 1: Período proporcional (16/fev a 25/fev) ───
@@ -357,7 +363,7 @@ describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
   beforeAll(async () => {
     await app.ready()
     dailyToken = jwt.sign(
-      { sub: 'e2e-daily-user', email: 'e2e-daily@test.com', role: 'ADMIN' },
+      { sub: 'e2e-daily-user', email: `e2e-daily-${Date.now()}@test.com`, role: 'ADMIN' },
       env.JWT_SECRET,
       { expiresIn: '1h' },
     )
@@ -382,8 +388,8 @@ describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
     const client = await prisma.supplier.create({
       data: {
         company_name: `E2E Daily Client ${Date.now()}`,
-        cnpj: `D${Date.now()}`,
-        email: 'e2e-daily@test.com',
+        cnpj: `DC${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        email: `e2e-daily-${Date.now()}@test.com`,
         phone: '11777777777',
         contact: 'Daily Tester',
         isClient: true,
@@ -416,17 +422,23 @@ describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
   })
 
   afterAll(async () => {
-    await prisma.invoice
-      .deleteMany({ where: { measurementBulletins: { some: { assetMovementId: dailyMovementId } } } })
-      .catch(() => {})
-    await prisma.measurementBulletin
-      .deleteMany({ where: { assetMovementId: dailyMovementId } })
-      .catch(() => {})
-    await prisma.assetMovement.deleteMany({ where: { contractId: dailyContractId } })
-    await prisma.contract.delete({ where: { id: dailyContractId } })
-    await prisma.supplier.delete({ where: { id: dailyClientId } })
-    await prisma.asset.delete({ where: { id: dailyAssetId } })
-    await prisma.assetCategory.delete({ where: { id: dailyCategoryId } })
+    if (dailyMovementId) {
+      await prisma.invoice
+        .deleteMany({ where: { measurementBulletins: { some: { assetMovementId: dailyMovementId } } } })
+        .catch(() => {})
+      await prisma.measurementBulletin
+        .deleteMany({ where: { assetMovementId: dailyMovementId } })
+        .catch(() => {})
+    }
+    
+    if (dailyContractId) {
+      await prisma.assetMovement.deleteMany({ where: { contractId: dailyContractId } }).catch(() => {})
+      await prisma.contract.delete({ where: { id: dailyContractId } }).catch(() => {})
+    }
+    
+    if (dailyClientId) await prisma.supplier.delete({ where: { id: dailyClientId } }).catch(() => {})
+    if (dailyAssetId) await prisma.asset.delete({ where: { id: dailyAssetId } }).catch(() => {})
+    if (dailyCategoryId) await prisma.assetCategory.delete({ where: { id: dailyCategoryId } }).catch(() => {})
     await app.close()
   })
 

@@ -95,4 +95,9 @@ export interface IMaintenanceRepository {
   ): Promise<PaginatedResult<MaintenanceWithRelations>>
 
   findScheduledOnly(params?: FindScheduledOnlyParams): Promise<Maintenance[]>
+  findCompletedByPeriod(
+    startDate: Date,
+    endDate: Date,
+    assignedToId?: string
+  ): Promise<MaintenanceWithRelations[]>
 }

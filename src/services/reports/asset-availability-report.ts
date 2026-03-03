@@ -42,6 +42,7 @@ export class AssetAvailabilityReportUseCase {
 
           // Check Allocation
           if (asset.Movements.length > 0) {
+              console.log(`[DEBUG] Asset ${asset.id} (${asset.plate}) has ${asset.Movements.length} active movements.`)
               status = 'ALLOCATED'
               const activeMovement = asset.Movements[0]
               contractInfo = {
@@ -49,6 +50,8 @@ export class AssetAvailabilityReportUseCase {
                   description: activeMovement.contract.description,
                   clientName: activeMovement.contract.client.trading_name || activeMovement.contract.client.company_name
               }
+          } else {
+              console.log(`[DEBUG] Asset ${asset.id} (${asset.plate}) has NO active movements.`)
           }
 
           // Check Maintenance

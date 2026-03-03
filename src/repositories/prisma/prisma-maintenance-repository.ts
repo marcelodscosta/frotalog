@@ -453,6 +453,19 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   ): Promise<Maintenance> {
     const updateData: Prisma.MaintenanceUpdateInput = { status }
 
+    if (status === 'IN_PROGRESS') {
+      updateData.started_date = new Date()
+      updateData.completed_date = null
+    } else if (['SCHEDULED', 'CANCELLED'].includes(status)) {
+      updateData.started_date = null
+    }
+
+    if (status === 'SCHEDULED') {
+      updateData.completed_date = null
+    } else if (status === 'COMPLETED') {
+      updateData.completed_date = new Date()
+    }
+
     const maintenance = await prisma.maintenance.update({
       where: { id },
       data: updateData,
@@ -501,7 +514,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const updateMaintenance = await prisma.maintenance.update({
       where: { id },
       data: {
-        completed_date: null,
+        completed_date: new Date(),
       },
     })
     return updateMaintenance
@@ -766,5 +779,58 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     })
 
     return maintenances
+  }
+
+  async findCompletedByPeriod(
+    startDate: Date,
+    endDate: Date,
+    assignedToId?: string
+  ): Promise<MaintenanceWithRelations[]> {
+    const where: Prisma.MaintenanceWhereInput = {
+      is_Active: true,
+      status: 'COMPLETED',
+      completed_date: {
+        gte: startDate,
+        lte: endDate,
+      },
+    }
+
+    if (assignedToId) {
+      where.assignedToId = assignedToId
+    }
+
+    const maintenances = await prisma.maintenance.findMany({
+      where,
+      include: {
+        asset: {
+          select: {
+            brand: true,
+            model: true,
+            plate: true,
+            year: true,
+            serial_number: true,
+          },
+        },
+        supplier: {
+          select: {
+            company_name: true,
+            trading_name: true,
+          },
+        },
+        serviceCategory: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+          },
+        },
+        assigned_to: { select: { id: true, name: true } },
+      },
+      orderBy: {
+        completed_date: 'desc',
+      },
+    })
+
+    return maintenances as any
   }
 }
