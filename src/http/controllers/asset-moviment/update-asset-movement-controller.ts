@@ -23,6 +23,7 @@ export async function updateAssetMovementController(
     current_odometer: z.number().nonnegative().nullable().optional(),
     delivery_location: z.string().nullable().optional(),
     freight_value: z.number().nonnegative().nullable().optional(),
+    calculation_rule: z.enum(['COMMERCIAL_30_DAYS', 'CALENDAR_DAYS']).optional(),
     notes: z.string().nullable().optional(),
     is_active: z.boolean().optional(),
   })

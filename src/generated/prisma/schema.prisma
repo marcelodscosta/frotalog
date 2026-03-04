@@ -201,27 +201,28 @@ model Contract {
 }
 
 model AssetMovement {
-  id                           String                @id @default(uuid())
+  id                           String                     @id @default(uuid())
   contractId                   String
   assetId                      String
-  mobilization_date            DateTime              @default(now())
+  mobilization_date            DateTime                   @default(now())
   integration_date             DateTime?
   demobilization_date          DateTime?
   mobilization_checklist_url   String?
   demobilization_checklist_url String?
-  rental_value                 Decimal               @db.Decimal(10, 2)
-  billing_cycle                BillingCycle          @default(MONTHLY)
+  rental_value                 Decimal                    @db.Decimal(10, 2)
+  billing_cycle                BillingCycle               @default(MONTHLY)
   operator_name                String?
   current_horometer            Float?
   current_odometer             Float?
   delivery_location            String?
-  freight_value                Decimal?              @db.Decimal(10, 2)
+  freight_value                Decimal?                   @db.Decimal(10, 2)
+  calculation_rule             MeasurementCalculationRule @default(COMMERCIAL_30_DAYS)
   notes                        String?
-  is_active                    Boolean               @default(true)
-  created_at                   DateTime              @default(now())
-  updated_at                   DateTime              @updatedAt
-  asset                        Asset                 @relation(fields: [assetId], references: [id])
-  contract                     Contract              @relation(fields: [contractId], references: [id])
+  is_active                    Boolean                    @default(true)
+  created_at                   DateTime                   @default(now())
+  updated_at                   DateTime                   @updatedAt
+  asset                        Asset                      @relation(fields: [assetId], references: [id])
+  contract                     Contract                   @relation(fields: [contractId], references: [id])
   measurementBulletins         MeasurementBulletin[]
 
   @@map("asset_movements")
@@ -359,4 +360,9 @@ enum InvoiceStatus {
   PAID
   OVERDUE
   CANCELLED
+}
+
+enum MeasurementCalculationRule {
+  COMMERCIAL_30_DAYS
+  CALENDAR_DAYS
 }

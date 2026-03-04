@@ -168,6 +168,14 @@ export const InvoiceStatus: {
 
 export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
 
+
+export const MeasurementCalculationRule: {
+  COMMERCIAL_30_DAYS: 'COMMERCIAL_30_DAYS',
+  CALENDAR_DAYS: 'CALENDAR_DAYS'
+};
+
+export type MeasurementCalculationRule = (typeof MeasurementCalculationRule)[keyof typeof MeasurementCalculationRule]
+
 }
 
 export type Role = $Enums.Role
@@ -205,6 +213,10 @@ export const MeasurementBulletinStatus: typeof $Enums.MeasurementBulletinStatus
 export type InvoiceStatus = $Enums.InvoiceStatus
 
 export const InvoiceStatus: typeof $Enums.InvoiceStatus
+
+export type MeasurementCalculationRule = $Enums.MeasurementCalculationRule
+
+export const MeasurementCalculationRule: typeof $Enums.MeasurementCalculationRule
 
 /**
  * ##  Prisma Client ʲˢ
@@ -13625,6 +13637,7 @@ export namespace Prisma {
     current_odometer: number | null
     delivery_location: string | null
     freight_value: Decimal | null
+    calculation_rule: $Enums.MeasurementCalculationRule | null
     notes: string | null
     is_active: boolean | null
     created_at: Date | null
@@ -13647,6 +13660,7 @@ export namespace Prisma {
     current_odometer: number | null
     delivery_location: string | null
     freight_value: Decimal | null
+    calculation_rule: $Enums.MeasurementCalculationRule | null
     notes: string | null
     is_active: boolean | null
     created_at: Date | null
@@ -13669,6 +13683,7 @@ export namespace Prisma {
     current_odometer: number
     delivery_location: number
     freight_value: number
+    calculation_rule: number
     notes: number
     is_active: number
     created_at: number
@@ -13707,6 +13722,7 @@ export namespace Prisma {
     current_odometer?: true
     delivery_location?: true
     freight_value?: true
+    calculation_rule?: true
     notes?: true
     is_active?: true
     created_at?: true
@@ -13729,6 +13745,7 @@ export namespace Prisma {
     current_odometer?: true
     delivery_location?: true
     freight_value?: true
+    calculation_rule?: true
     notes?: true
     is_active?: true
     created_at?: true
@@ -13751,6 +13768,7 @@ export namespace Prisma {
     current_odometer?: true
     delivery_location?: true
     freight_value?: true
+    calculation_rule?: true
     notes?: true
     is_active?: true
     created_at?: true
@@ -13860,6 +13878,7 @@ export namespace Prisma {
     current_odometer: number | null
     delivery_location: string | null
     freight_value: Decimal | null
+    calculation_rule: $Enums.MeasurementCalculationRule
     notes: string | null
     is_active: boolean
     created_at: Date
@@ -13901,6 +13920,7 @@ export namespace Prisma {
     current_odometer?: boolean
     delivery_location?: boolean
     freight_value?: boolean
+    calculation_rule?: boolean
     notes?: boolean
     is_active?: boolean
     created_at?: boolean
@@ -13927,6 +13947,7 @@ export namespace Prisma {
     current_odometer?: boolean
     delivery_location?: boolean
     freight_value?: boolean
+    calculation_rule?: boolean
     notes?: boolean
     is_active?: boolean
     created_at?: boolean
@@ -13951,6 +13972,7 @@ export namespace Prisma {
     current_odometer?: boolean
     delivery_location?: boolean
     freight_value?: boolean
+    calculation_rule?: boolean
     notes?: boolean
     is_active?: boolean
     created_at?: boolean
@@ -13975,13 +13997,14 @@ export namespace Prisma {
     current_odometer?: boolean
     delivery_location?: boolean
     freight_value?: boolean
+    calculation_rule?: boolean
     notes?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type AssetMovementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetId" | "mobilization_date" | "integration_date" | "demobilization_date" | "mobilization_checklist_url" | "demobilization_checklist_url" | "rental_value" | "billing_cycle" | "operator_name" | "current_horometer" | "current_odometer" | "delivery_location" | "freight_value" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["assetMovement"]>
+  export type AssetMovementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetId" | "mobilization_date" | "integration_date" | "demobilization_date" | "mobilization_checklist_url" | "demobilization_checklist_url" | "rental_value" | "billing_cycle" | "operator_name" | "current_horometer" | "current_odometer" | "delivery_location" | "freight_value" | "calculation_rule" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["assetMovement"]>
   export type AssetMovementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     contract?: boolean | ContractDefaultArgs<ExtArgs>
@@ -14020,6 +14043,7 @@ export namespace Prisma {
       current_odometer: number | null
       delivery_location: string | null
       freight_value: Prisma.Decimal | null
+      calculation_rule: $Enums.MeasurementCalculationRule
       notes: string | null
       is_active: boolean
       created_at: Date
@@ -14465,6 +14489,7 @@ export namespace Prisma {
     readonly current_odometer: FieldRef<"AssetMovement", 'Float'>
     readonly delivery_location: FieldRef<"AssetMovement", 'String'>
     readonly freight_value: FieldRef<"AssetMovement", 'Decimal'>
+    readonly calculation_rule: FieldRef<"AssetMovement", 'MeasurementCalculationRule'>
     readonly notes: FieldRef<"AssetMovement", 'String'>
     readonly is_active: FieldRef<"AssetMovement", 'Boolean'>
     readonly created_at: FieldRef<"AssetMovement", 'DateTime'>
@@ -19937,6 +19962,7 @@ export namespace Prisma {
     current_odometer: 'current_odometer',
     delivery_location: 'delivery_location',
     freight_value: 'freight_value',
+    calculation_rule: 'calculation_rule',
     notes: 'notes',
     is_active: 'is_active',
     created_at: 'created_at',
@@ -20223,6 +20249,20 @@ export namespace Prisma {
    * Reference to a field of type 'BillingCycle[]'
    */
   export type ListEnumBillingCycleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BillingCycle[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MeasurementCalculationRule'
+   */
+  export type EnumMeasurementCalculationRuleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MeasurementCalculationRule'>
+    
+
+
+  /**
+   * Reference to a field of type 'MeasurementCalculationRule[]'
+   */
+  export type ListEnumMeasurementCalculationRuleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MeasurementCalculationRule[]'>
     
 
 
@@ -21172,6 +21212,7 @@ export namespace Prisma {
     current_odometer?: FloatNullableFilter<"AssetMovement"> | number | null
     delivery_location?: StringNullableFilter<"AssetMovement"> | string | null
     freight_value?: DecimalNullableFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFilter<"AssetMovement"> | $Enums.MeasurementCalculationRule
     notes?: StringNullableFilter<"AssetMovement"> | string | null
     is_active?: BoolFilter<"AssetMovement"> | boolean
     created_at?: DateTimeFilter<"AssetMovement"> | Date | string
@@ -21197,6 +21238,7 @@ export namespace Prisma {
     current_odometer?: SortOrderInput | SortOrder
     delivery_location?: SortOrderInput | SortOrder
     freight_value?: SortOrderInput | SortOrder
+    calculation_rule?: SortOrder
     notes?: SortOrderInput | SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
@@ -21225,6 +21267,7 @@ export namespace Prisma {
     current_odometer?: FloatNullableFilter<"AssetMovement"> | number | null
     delivery_location?: StringNullableFilter<"AssetMovement"> | string | null
     freight_value?: DecimalNullableFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFilter<"AssetMovement"> | $Enums.MeasurementCalculationRule
     notes?: StringNullableFilter<"AssetMovement"> | string | null
     is_active?: BoolFilter<"AssetMovement"> | boolean
     created_at?: DateTimeFilter<"AssetMovement"> | Date | string
@@ -21250,6 +21293,7 @@ export namespace Prisma {
     current_odometer?: SortOrderInput | SortOrder
     delivery_location?: SortOrderInput | SortOrder
     freight_value?: SortOrderInput | SortOrder
+    calculation_rule?: SortOrder
     notes?: SortOrderInput | SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
@@ -21280,6 +21324,7 @@ export namespace Prisma {
     current_odometer?: FloatNullableWithAggregatesFilter<"AssetMovement"> | number | null
     delivery_location?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
     freight_value?: DecimalNullableWithAggregatesFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleWithAggregatesFilter<"AssetMovement"> | $Enums.MeasurementCalculationRule
     notes?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
     is_active?: BoolWithAggregatesFilter<"AssetMovement"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"AssetMovement"> | Date | string
@@ -22734,6 +22779,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -22759,6 +22805,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -22780,6 +22827,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22805,6 +22853,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22828,6 +22877,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -22848,6 +22898,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22870,6 +22921,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24301,6 +24353,13 @@ export namespace Prisma {
     not?: NestedEnumBillingCycleFilter<$PrismaModel> | $Enums.BillingCycle
   }
 
+  export type EnumMeasurementCalculationRuleFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeasurementCalculationRule | EnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    in?: $Enums.MeasurementCalculationRule[] | ListEnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeasurementCalculationRule[] | ListEnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeasurementCalculationRuleFilter<$PrismaModel> | $Enums.MeasurementCalculationRule
+  }
+
   export type ContractScalarRelationFilter = {
     is?: ContractWhereInput
     isNot?: ContractWhereInput
@@ -24322,6 +24381,7 @@ export namespace Prisma {
     current_odometer?: SortOrder
     delivery_location?: SortOrder
     freight_value?: SortOrder
+    calculation_rule?: SortOrder
     notes?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
@@ -24351,6 +24411,7 @@ export namespace Prisma {
     current_odometer?: SortOrder
     delivery_location?: SortOrder
     freight_value?: SortOrder
+    calculation_rule?: SortOrder
     notes?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
@@ -24373,6 +24434,7 @@ export namespace Prisma {
     current_odometer?: SortOrder
     delivery_location?: SortOrder
     freight_value?: SortOrder
+    calculation_rule?: SortOrder
     notes?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
@@ -24410,6 +24472,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBillingCycleFilter<$PrismaModel>
     _max?: NestedEnumBillingCycleFilter<$PrismaModel>
+  }
+
+  export type EnumMeasurementCalculationRuleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeasurementCalculationRule | EnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    in?: $Enums.MeasurementCalculationRule[] | ListEnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeasurementCalculationRule[] | ListEnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeasurementCalculationRuleWithAggregatesFilter<$PrismaModel> | $Enums.MeasurementCalculationRule
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMeasurementCalculationRuleFilter<$PrismaModel>
+    _max?: NestedEnumMeasurementCalculationRuleFilter<$PrismaModel>
   }
 
   export type EnumMeasurementBulletinStatusFilter<$PrismaModel = never> = {
@@ -25474,6 +25546,10 @@ export namespace Prisma {
     set?: $Enums.BillingCycle
   }
 
+  export type EnumMeasurementCalculationRuleFieldUpdateOperationsInput = {
+    set?: $Enums.MeasurementCalculationRule
+  }
+
   export type AssetUpdateOneRequiredWithoutMovementsNestedInput = {
     create?: XOR<AssetCreateWithoutMovementsInput, AssetUncheckedCreateWithoutMovementsInput>
     connectOrCreate?: AssetCreateOrConnectWithoutMovementsInput
@@ -26032,6 +26108,13 @@ export namespace Prisma {
     not?: NestedEnumBillingCycleFilter<$PrismaModel> | $Enums.BillingCycle
   }
 
+  export type NestedEnumMeasurementCalculationRuleFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeasurementCalculationRule | EnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    in?: $Enums.MeasurementCalculationRule[] | ListEnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeasurementCalculationRule[] | ListEnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeasurementCalculationRuleFilter<$PrismaModel> | $Enums.MeasurementCalculationRule
+  }
+
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -26056,6 +26139,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBillingCycleFilter<$PrismaModel>
     _max?: NestedEnumBillingCycleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMeasurementCalculationRuleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MeasurementCalculationRule | EnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    in?: $Enums.MeasurementCalculationRule[] | ListEnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MeasurementCalculationRule[] | ListEnumMeasurementCalculationRuleFieldRefInput<$PrismaModel>
+    not?: NestedEnumMeasurementCalculationRuleWithAggregatesFilter<$PrismaModel> | $Enums.MeasurementCalculationRule
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMeasurementCalculationRuleFilter<$PrismaModel>
+    _max?: NestedEnumMeasurementCalculationRuleFilter<$PrismaModel>
   }
 
   export type NestedEnumMeasurementBulletinStatusFilter<$PrismaModel = never> = {
@@ -26315,6 +26408,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -26338,6 +26432,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -26505,6 +26600,7 @@ export namespace Prisma {
     current_odometer?: FloatNullableFilter<"AssetMovement"> | number | null
     delivery_location?: StringNullableFilter<"AssetMovement"> | string | null
     freight_value?: DecimalNullableFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFilter<"AssetMovement"> | $Enums.MeasurementCalculationRule
     notes?: StringNullableFilter<"AssetMovement"> | string | null
     is_active?: BoolFilter<"AssetMovement"> | boolean
     created_at?: DateTimeFilter<"AssetMovement"> | Date | string
@@ -27580,6 +27676,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -27603,6 +27700,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -28269,6 +28367,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -28293,6 +28392,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -28447,6 +28547,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28471,6 +28572,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28909,6 +29011,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -28963,6 +29066,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28986,6 +29090,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29008,6 +29113,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29443,6 +29549,7 @@ export namespace Prisma {
     current_odometer?: number | null
     delivery_location?: string | null
     freight_value?: Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: $Enums.MeasurementCalculationRule
     notes?: string | null
     is_active?: boolean
     created_at?: Date | string
@@ -29506,6 +29613,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29529,6 +29637,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29551,6 +29660,7 @@ export namespace Prisma {
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery_location?: NullableStringFieldUpdateOperationsInput | string | null
     freight_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    calculation_rule?: EnumMeasurementCalculationRuleFieldUpdateOperationsInput | $Enums.MeasurementCalculationRule
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

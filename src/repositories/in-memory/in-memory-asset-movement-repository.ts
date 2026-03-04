@@ -50,6 +50,8 @@ export class InMemoryAssetMovementRepository
       freight_value: data.freight_value
         ? new Prisma.Decimal(data.freight_value.toString())
         : null,
+      calculation_rule:
+        data.calculation_rule ?? 'COMMERCIAL_30_DAYS',
       notes: data.notes ?? null,
       is_active: data.is_active ?? true,
       created_at: new Date(),

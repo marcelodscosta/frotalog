@@ -1,4 +1,4 @@
-import { AssetMovement, BillingCycle, Prisma } from '../../generated/prisma'
+import { AssetMovement, BillingCycle, Prisma, MeasurementCalculationRule } from '../../generated/prisma'
 import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
 import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository'
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
@@ -22,6 +22,7 @@ interface CreateAssetMovementRequest {
   current_odometer?: number | null
   delivery_location?: string | null
   freight_value?: number | null
+  calculation_rule?: MeasurementCalculationRule
   notes?: string | null
 }
 

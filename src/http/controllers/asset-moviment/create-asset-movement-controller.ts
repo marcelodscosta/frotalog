@@ -21,6 +21,7 @@ export async function createAssetMovement(
     current_odometer: z.number().nonnegative().nullable().optional(),
     delivery_location: z.string().nullable().optional(),
     freight_value: z.number().nonnegative().nullable().optional(),
+    calculation_rule: z.enum(['COMMERCIAL_30_DAYS', 'CALENDAR_DAYS']).default('COMMERCIAL_30_DAYS'),
     notes: z.string().nullable().optional(),
   })
 

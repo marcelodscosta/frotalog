@@ -279,6 +279,7 @@ exports.Prisma.AssetMovementScalarFieldEnum = {
   current_odometer: 'current_odometer',
   delivery_location: 'delivery_location',
   freight_value: 'freight_value',
+  calculation_rule: 'calculation_rule',
   notes: 'notes',
   is_active: 'is_active',
   created_at: 'created_at',
@@ -402,6 +403,11 @@ exports.BillingCycle = exports.$Enums.BillingCycle = {
   DAILY: 'DAILY',
   MONTHLY: 'MONTHLY',
   WEEKLY: 'WEEKLY'
+};
+
+exports.MeasurementCalculationRule = exports.$Enums.MeasurementCalculationRule = {
+  COMMERCIAL_30_DAYS: 'COMMERCIAL_30_DAYS',
+  CALENDAR_DAYS: 'CALENDAR_DAYS'
 };
 
 exports.MeasurementBulletinStatus = exports.$Enums.MeasurementBulletinStatus = {

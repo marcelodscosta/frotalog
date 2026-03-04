@@ -77,9 +77,18 @@ export class CreateMeasurementBulletinUseCase {
     )
 
     let totalDays: number
-    if (isFullMonth) {
-      totalDays = 30
+    const calculationRule = assetMovement.calculation_rule
+
+    if (calculationRule === 'COMMERCIAL_30_DAYS') {
+      // Commercial month: always 30 days regardless of actual calendar days if full month
+      totalDays = isFullMonth ? 30 : Math.max(
+        1,
+        Math.ceil(
+          (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+        ) + 1,
+      )
     } else {
+      // CALENDAR_DAYS: exactly how many days span the chosen dates
       totalDays = Math.max(
         1,
         Math.ceil(
@@ -142,7 +151,7 @@ export class CreateMeasurementBulletinUseCase {
     const inactiveDays = inactiveDates.size
     const workingDays = Math.max(0, totalDays - inactiveDays)
 
-    // Calculate daily rate based on billing cycle
+    // Calculate daily rate based on billing cycle and rule
     let dailyRate: number
     switch (assetMovement.billing_cycle) {
       case 'DAILY':
@@ -153,10 +162,18 @@ export class CreateMeasurementBulletinUseCase {
         break
       case 'MONTHLY':
       default:
-        dailyRate = Number(assetMovement.rental_value) / 30
+        // Use the total calendar days if it's CALENDAR_DAYS, otherwise classic 30 divisor
+        const monthlyDivisor = calculationRule === 'CALENDAR_DAYS' ? totalDays : 30
+        dailyRate = Number(assetMovement.rental_value) / monthlyDivisor
         break
     }
 
+    // Fix calculation bug: Ensure Daily Rate doesn't leak floating decimal precision 
+    // leading to total multiplier inconsistencies
+    // Pre-round the dailyRate exactly like how it will be stored and shown to the user on PDF
+    dailyRate = Math.round(dailyRate * 100) / 100
+    
+    // totalValue strictly matches workingDays * rounded dailyRate
     const totalValue = dailyRate * workingDays
 
     const measurementBulletin =
@@ -184,23 +201,26 @@ export class CreateMeasurementBulletinUseCase {
    * All full months are treated as 30 commercial days.
    */
   private isFullMonthPeriod(start: Date, end: Date): boolean {
-    const startDay = start.getUTCDate()
+    // Avoid UTC timezone shifts that move the day back to the previous month
+    // by using local getters when the date is instantiated from a YYYY-MM-DD string
+    const startDay = start.getDate()
     if (startDay !== 1) return false
 
     // Check they are in the same month and year
     if (
-      start.getUTCMonth() !== end.getUTCMonth() ||
-      start.getUTCFullYear() !== end.getUTCFullYear()
+      start.getMonth() !== end.getMonth() ||
+      start.getFullYear() !== end.getFullYear()
     ) {
       return false
     }
 
     // Check end is last day of the month
     const lastDay = new Date(
-      end.getUTCFullYear(),
-      end.getUTCMonth() + 1,
+      end.getFullYear(),
+      end.getMonth() + 1,
       0,
-    ).getUTCDate()
-    return end.getUTCDate() === lastDay
+    ).getDate()
+    
+    return end.getDate() === lastDay
   }
 }
