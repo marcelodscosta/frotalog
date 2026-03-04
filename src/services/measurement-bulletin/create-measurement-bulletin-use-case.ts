@@ -1,4 +1,4 @@
-import { MeasurementBulletin, Prisma } from '../../generated/prisma'
+import { MeasurementBulletin, Prisma, MaintenanceStatus } from '../../generated/prisma'
 import { IMeasurementBulletinRepository } from '../../repositories/interfaces/IMeasurementBulletinRepository'
 import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
@@ -104,6 +104,9 @@ export class CreateMeasurementBulletinUseCase {
         assetId: assetMovement.assetId,
         equipment_inactive: true,
         is_Active: true,
+        status: {
+          in: [MaintenanceStatus.IN_PROGRESS, MaintenanceStatus.COMPLETED]
+        },
         OR: [
           // Starts within period
           { started_date: { gte: startDate, lte: endDate } },
