@@ -222,7 +222,7 @@ export class GetDashboardStatsUseCase {
 
     const fleetAvailability = totalVehicles > 0 ? ((totalVehicles - vehiclesUnavailable) / totalVehicles) * 100 : 0
 
-    // Modals Data
+    // Buscar todos os movimentos ativos (usados nos modals e no filtro de intervenções por contrato)
     let allActiveMovementsItems: any[] = []
     
     // Fetch active movements using search
@@ -238,6 +238,16 @@ export class GetDashboardStatsUseCase {
       }
       movPage++
     }
+
+    // Mapa: assetId → Set de contractIds (via movimentos) para filtro de intervenções
+    const assetToContractsMap = new Map<string, Set<string>>()
+    allActiveMovementsItems.forEach((mov: any) => {
+      if (!mov.contractId) return
+      if (!assetToContractsMap.has(mov.assetId)) {
+        assetToContractsMap.set(mov.assetId, new Set())
+      }
+      assetToContractsMap.get(mov.assetId)!.add(mov.contractId)
+    })
 
     // 1. Equipment in Maintenance Details
     const equipmentMaintenanceMap = new Map<string, Array<any>>()
@@ -436,9 +446,16 @@ export class GetDashboardStatsUseCase {
     }))
 
     // Contagem de intervenções por tipo no período selecionado (com filtro opcional por contrato)
+    // O filtro considera TANTO o contractId direto na manutenção
+    // QUANTO se o asset está vinculado ao contrato via assetMovements (para manutenções sem contractId)
     const periodMaintenances = allMaintenancesItems.filter((m) => {
       if (!m.is_Active) return false
-      if (params?.contractId && m.contractId !== params.contractId) return false
+      if (params?.contractId) {
+        const directMatch = m.contractId === params.contractId
+        const assetContracts = assetToContractsMap.get(m.assetId)
+        const assetMatch = assetContracts?.has(params.contractId) ?? false
+        if (!directMatch && !assetMatch) return false
+      }
       const refDate = m.started_date
         ? new Date(m.started_date)
         : new Date(m.scheduled_date)
