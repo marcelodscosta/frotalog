@@ -177,15 +177,14 @@ export class GetDashboardStatsUseCase {
     // Diferença: positivo = economizou (gastou menos que o estimado), negativo = gastou mais
     const costDifference = totalEstimatedCost - totalActualCost
 
-    // Equipamentos em manutenção (status IN_PROGRESS) - contar equipamentos únicos
+    // Equipamentos em manutenção (status IN_PROGRESS e is_Active = true) - contar equipamentos únicos
     const inProgressMaintenances = allMaintenancesItems.filter(
-      (m) => m.status === 'IN_PROGRESS'
+      (m) => m.status === 'IN_PROGRESS' && m.is_Active === true
     )
     
-    const uniqueEquipmentsInMaintenance = new Set(
+    const uniqueAssetsInMaintenanceIds = new Set(
       inProgressMaintenances.map((m) => m.assetId),
     )
-    const equipmentsInMaintenance = uniqueEquipmentsInMaintenance.size
 
     // Buscar assets para contar veículos indisponíveis
     let allAssetsItems: any[] = []
@@ -199,23 +198,20 @@ export class GetDashboardStatsUseCase {
       assetPage++
     }
 
-    // Equipamentos com manutenção em progresso (IDs únicos)
-    const uniqueAssetsInMaintenance = new Set(
-      allMaintenancesItems
-        .filter((m) => m.status === 'IN_PROGRESS')
-        .map((m) => m.assetId),
-    )
-
-    // Contar veículos (assets com tipo VEHICLE) em manutenção
+    // Contar todos os assets ativos (veículos + equipamentos) em manutenção
+    // Cruzar com allAssetsItems para garantir que o asset ainda está ativo
     let totalVehicles = 0
     const vehiclesUnavailable = allAssetsItems.filter((asset) => {
-      const assetCategory = asset.assetCategory
-      if (assetCategory?.type === 'VEHICLE') {
+      if (asset.is_Active) {
         totalVehicles++
-        return uniqueAssetsInMaintenance.has(asset.id)
+        return uniqueAssetsInMaintenanceIds.has(asset.id)
       }
       return false
     }).length
+
+    // equipmentsInMaintenance = todos os assets com manutenção IN_PROGRESS ativa,
+    // independente de o asset estar ativo ou não (para bater com o modal)
+    const equipmentsInMaintenance = uniqueAssetsInMaintenanceIds.size
 
     const fleetAvailability = totalVehicles > 0 ? ((totalVehicles - vehiclesUnavailable) / totalVehicles) * 100 : 0
 
@@ -239,7 +235,7 @@ export class GetDashboardStatsUseCase {
     // 1. Equipment in Maintenance Details
     const equipmentMaintenanceMap = new Map<string, Array<any>>()
 
-    Array.from(uniqueEquipmentsInMaintenance).forEach(assetId => {
+    Array.from(uniqueAssetsInMaintenanceIds).forEach(assetId => {
       const asset = allAssetsItems.find(a => a.id === assetId)
       
       const categoryName = asset?.assetCategory?.name || 'Sem Categoria'
