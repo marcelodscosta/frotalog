@@ -40,6 +40,12 @@ interface DashboardStatsResponse {
       status: 'AVAILABLE' | 'RENTED' | 'IN_MAINTENANCE'
     }>
   }>
+  interventionsByType: {
+    preventive: number
+    corrective: number
+    emergency: number
+    total: number
+  }
   fleetAvailabilityDetails: Array<{
     categoryName: string
     assets: Array<{
@@ -56,6 +62,7 @@ interface GetDashboardStatsRequest {
   endDate?: string
   month?: number
   year?: number
+  contractId?: string
 }
 
 export class GetDashboardStatsUseCase {
@@ -428,6 +435,23 @@ export class GetDashboardStatsUseCase {
       value: Number(value.toFixed(2))
     }))
 
+    // Contagem de intervenções por tipo no período selecionado (com filtro opcional por contrato)
+    const periodMaintenances = allMaintenancesItems.filter((m) => {
+      if (!m.is_Active) return false
+      if (params?.contractId && m.contractId !== params.contractId) return false
+      const refDate = m.started_date
+        ? new Date(m.started_date)
+        : new Date(m.scheduled_date)
+      return refDate >= startOfMonth && refDate <= endOfMonth
+    })
+
+    const interventionsByType = {
+      preventive: periodMaintenances.filter((m) => m.type === 'PREVENTIVE').length,
+      corrective: periodMaintenances.filter((m) => m.type === 'CORRECTIVE').length,
+      emergency: periodMaintenances.filter((m) => m.type === 'EMERGENCY').length,
+      total: periodMaintenances.length,
+    }
+
     return {
       totalMonthlyExpense,
       previousMonthExpense,
@@ -440,6 +464,7 @@ export class GetDashboardStatsUseCase {
       vehiclesUnavailable,
       totalVehicles,
       fleetAvailability,
+      interventionsByType,
       equipmentMaintenanceDetails,
       fleetAvailabilityDetails,
       dailyExpenses,

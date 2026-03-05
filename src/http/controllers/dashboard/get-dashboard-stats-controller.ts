@@ -11,6 +11,7 @@ export async function getDashboardStats(
     endDate: z.string().optional(),
     month: z.coerce.number().min(1).max(12).optional(),
     year: z.coerce.number().min(2000).max(2100).optional(),
+    contractId: z.string().uuid().optional(),
   })
 
   const query = querySchema.parse(request.query)
@@ -21,6 +22,7 @@ export async function getDashboardStats(
     endDate: query.endDate,
     month: query.month,
     year: query.year,
+    contractId: query.contractId,
   })
 
   return reply.status(200).send(stats)
