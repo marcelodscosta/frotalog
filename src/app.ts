@@ -21,6 +21,7 @@ import { bulletinExpenseRoutes } from './http/controllers/measurement-bulletin/b
 import { invoiceRoutes } from './http/controllers/invoice/routes'
 import { companySettingsRoutes } from './http/controllers/company-settings/routes'
 import { operationalRoutes } from './http/controllers/operational/routes'
+import { checklistRoutes } from './http/controllers/checklist/routes'
 
 export const app = fastify({
   logger:
@@ -80,6 +81,7 @@ app.register(bulletinExpenseRoutes)
 app.register(invoiceRoutes)
 app.register(companySettingsRoutes)
 app.register(operationalRoutes)
+app.register(checklistRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   const requestId = request.id

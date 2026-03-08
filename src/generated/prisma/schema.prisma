@@ -70,6 +70,7 @@ model Asset {
   assetCategory              AssetCategory   @relation(fields: [assetCategoryId], references: [id])
   Maintenance                Maintenance[]
   Readings                   AssetReading[]
+  Checklists                 Checklist[]
 
   @@map("assets")
 }
@@ -109,6 +110,7 @@ model Supplier {
   isClient      Boolean       @default(false) @map("is_client")
   Contracts     Contract[]
   Maintenance   Maintenance[]
+  Checklists    Checklist[]
 
   @@map("suppliers")
 }
@@ -365,4 +367,87 @@ enum InvoiceStatus {
 enum MeasurementCalculationRule {
   COMMERCIAL_30_DAYS
   CALENDAR_DAYS
+}
+
+enum ChecklistType {
+  MOBILIZATION
+  PERIODIC
+  DEMOBILIZATION
+}
+
+enum ChecklistStatus {
+  PENDING
+  REVIEWING
+  APPROVED
+  REJECTED
+}
+
+model ChecklistParameter {
+  id          String                  @id @default(uuid())
+  name        String
+  description String?
+  imageUrl    String?
+  is_active   Boolean                 @default(true)
+  created_at  DateTime                @default(now())
+  updated_at  DateTime                @updatedAt
+  items       ChecklistItemTemplate[]
+  checklists  Checklist[]
+
+  @@map("checklist_parameters")
+}
+
+model ChecklistItemTemplate {
+  id                   String             @id @default(uuid())
+  checklistParameterId String
+  description          String
+  order                Int                @default(0)
+  requiresPhoto        Boolean            @default(false)
+  is_active            Boolean            @default(true)
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
+  checklistParameter   ChecklistParameter @relation(fields: [checklistParameterId], references: [id], onDelete: Cascade)
+  answers              ChecklistAnswer[]
+
+  @@map("checklist_item_templates")
+}
+
+model Checklist {
+  id                   String             @id @default(uuid())
+  checklistParameterId String
+  assetId              String
+  type                 ChecklistType
+  status               ChecklistStatus    @default(PENDING)
+  magicLinkId          String             @unique @default(uuid())
+  rejectionNotes       String?
+  completedAt          DateTime?
+  reviewedAt           DateTime?
+  reviewedBy           String?
+  is_active            Boolean            @default(true)
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
+  supplierId           String?
+  horometer            Float?
+  odometer             Float?
+  meterPhotoUrl        String?
+  checklistParameter   ChecklistParameter @relation(fields: [checklistParameterId], references: [id])
+  asset                Asset              @relation(fields: [assetId], references: [id])
+  supplier             Supplier?          @relation(fields: [supplierId], references: [id])
+  answers              ChecklistAnswer[]
+
+  @@map("checklists")
+}
+
+model ChecklistAnswer {
+  id                      String                @id @default(uuid())
+  checklistId             String
+  checklistItemTemplateId String
+  conforms                Boolean?
+  notes                   String?
+  photoUrl                String?
+  created_at              DateTime              @default(now())
+  updated_at              DateTime              @updatedAt
+  checklist               Checklist             @relation(fields: [checklistId], references: [id], onDelete: Cascade)
+  checklistItemTemplate   ChecklistItemTemplate @relation(fields: [checklistItemTemplateId], references: [id])
+
+  @@map("checklist_answers")
 }

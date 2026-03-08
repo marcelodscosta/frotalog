@@ -350,6 +350,58 @@ exports.Prisma.CompanySettingsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.ChecklistParameterScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ChecklistItemTemplateScalarFieldEnum = {
+  id: 'id',
+  checklistParameterId: 'checklistParameterId',
+  description: 'description',
+  order: 'order',
+  requiresPhoto: 'requiresPhoto',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ChecklistScalarFieldEnum = {
+  id: 'id',
+  checklistParameterId: 'checklistParameterId',
+  assetId: 'assetId',
+  type: 'type',
+  status: 'status',
+  magicLinkId: 'magicLinkId',
+  rejectionNotes: 'rejectionNotes',
+  completedAt: 'completedAt',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  supplierId: 'supplierId',
+  horometer: 'horometer',
+  odometer: 'odometer',
+  meterPhotoUrl: 'meterPhotoUrl'
+};
+
+exports.Prisma.ChecklistAnswerScalarFieldEnum = {
+  id: 'id',
+  checklistId: 'checklistId',
+  checklistItemTemplateId: 'checklistItemTemplateId',
+  conforms: 'conforms',
+  notes: 'notes',
+  photoUrl: 'photoUrl',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -423,6 +475,19 @@ exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.ChecklistType = exports.$Enums.ChecklistType = {
+  MOBILIZATION: 'MOBILIZATION',
+  PERIODIC: 'PERIODIC',
+  DEMOBILIZATION: 'DEMOBILIZATION'
+};
+
+exports.ChecklistStatus = exports.$Enums.ChecklistStatus = {
+  PENDING: 'PENDING',
+  REVIEWING: 'REVIEWING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   AssetCategory: 'AssetCategory',
@@ -437,7 +502,11 @@ exports.Prisma.ModelName = {
   MeasurementBulletin: 'MeasurementBulletin',
   Invoice: 'Invoice',
   BulletinExpense: 'BulletinExpense',
-  CompanySettings: 'CompanySettings'
+  CompanySettings: 'CompanySettings',
+  ChecklistParameter: 'ChecklistParameter',
+  ChecklistItemTemplate: 'ChecklistItemTemplate',
+  Checklist: 'Checklist',
+  ChecklistAnswer: 'ChecklistAnswer'
 };
 
 /**
