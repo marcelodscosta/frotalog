@@ -25,6 +25,7 @@ export interface IAssetRepository {
     serial_number?: string
     ownership?: 'OWN' | 'THIRD'
     assetCategoryId?: string
+    is_Active?: string
     page: number
   }): Promise<PaginatedResult<Asset>>
 }

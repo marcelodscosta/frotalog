@@ -8,6 +8,7 @@ interface SearchAssetRequest {
   serial_number?: string
   ownership?: 'OWN' | 'THIRD'
   assetCategoryId?: string
+  is_Active?: string
   page: number
 }
 
@@ -29,6 +30,7 @@ export class SearchAssetUseCase {
     serial_number,
     ownership,
     assetCategoryId,
+    is_Active,
     page,
   }: SearchAssetRequest): Promise<SearchAssetResponse> {
     const result = await this.assetRepository.search({
@@ -38,6 +40,7 @@ export class SearchAssetUseCase {
       serial_number,
       ownership,
       assetCategoryId,
+      is_Active,
       page,
     })
 

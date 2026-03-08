@@ -176,6 +176,7 @@ export class PrismaAssetRepository implements IAssetRepository {
     serial_number,
     ownership,
     assetCategoryId,
+    is_Active,
     page,
   }: {
     brand?: string
@@ -184,13 +185,21 @@ export class PrismaAssetRepository implements IAssetRepository {
     serial_number?: string
     ownership?: 'OWN' | 'THIRD'
     assetCategoryId?: string
+    is_Active?: string
     page: number
   }): Promise<PaginatedResult<Asset>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
-    const where: Prisma.AssetWhereInput = {
-      is_Active: true,
+    const where: Prisma.AssetWhereInput = {}
+    
+    if (is_Active === 'false') {
+      where.is_Active = false
+    } else if (is_Active === 'true') {
+      where.is_Active = true
+    } else if (is_Active === undefined) {
+      // Default behavior if not explicitly requested
+      where.is_Active = true
     }
 
     if (brand) {

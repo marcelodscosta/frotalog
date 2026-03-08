@@ -13,6 +13,7 @@ export async function searchAssets(
     serial_number: z.string().optional(),
     ownership: z.enum(['OWN', 'THIRD']).optional(),
     assetCategoryId: z.string().optional(),
+    is_Active: z.string().optional(),
     page: z.coerce.number().min(1).default(1),
   })
 
@@ -23,6 +24,7 @@ export async function searchAssets(
     serial_number,
     ownership,
     assetCategoryId,
+    is_Active,
     page,
   } = searchAssetQuerySchema.parse(request.query)
 
@@ -36,6 +38,7 @@ export async function searchAssets(
       serial_number,
       ownership,
       assetCategoryId,
+      is_Active,
       page,
     })
 
