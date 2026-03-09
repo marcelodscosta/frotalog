@@ -21,5 +21,8 @@ npx prisma migrate resolve --applied 20260216225846_add_measurement_bulletin_and
 npx prisma migrate resolve --applied 20260216235219_add_company_settings 2>/dev/null || true
 npx prisma migrate resolve --applied 20260217001327_add_bulletin_expenses 2>/dev/null || true
 
+# Recover if this migration was left in failed state (P3009 in production)
+npx prisma migrate resolve --rolled-back 20260308213440_create_checklist_tables 2>/dev/null || true
+
 echo "==> Running pending migrations..."
 npx prisma migrate deploy

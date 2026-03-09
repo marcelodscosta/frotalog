@@ -1,31 +1,42 @@
 -- CreateEnum
-CREATE TYPE "public"."ChecklistType" AS ENUM ('MOBILIZATION', 'PERIODIC', 'DEMOBILIZATION');
+DO $$
+BEGIN
+    CREATE TYPE "public"."ChecklistType" AS ENUM ('MOBILIZATION', 'PERIODIC', 'DEMOBILIZATION');
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- CreateEnum
-CREATE TYPE "public"."ChecklistStatus" AS ENUM ('PENDING', 'REVIEWING', 'APPROVED', 'REJECTED');
+DO $$
+BEGIN
+    CREATE TYPE "public"."ChecklistStatus" AS ENUM ('PENDING', 'REVIEWING', 'APPROVED', 'REJECTED');
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- DropForeignKey
 ALTER TABLE "public"."maintenances" DROP CONSTRAINT IF EXISTS "maintenances_supplierId_fkey";
 
 -- AlterTable
-ALTER TABLE "public"."assets" ADD COLUMN     "current_horometer" DOUBLE PRECISION DEFAULT 0,
-ADD COLUMN     "current_odometer" DOUBLE PRECISION DEFAULT 0,
-ADD COLUMN     "initial_horometer" DOUBLE PRECISION DEFAULT 0,
-ADD COLUMN     "initial_odometer" DOUBLE PRECISION DEFAULT 0,
-ADD COLUMN     "last_maintenance_date" TIMESTAMP(3),
-ADD COLUMN     "last_maintenance_horometer" DOUBLE PRECISION,
-ADD COLUMN     "last_maintenance_odometer" DOUBLE PRECISION,
-ADD COLUMN     "maintenance_frequency_hours" DOUBLE PRECISION,
-ADD COLUMN     "maintenance_frequency_km" DOUBLE PRECISION;
+ALTER TABLE "public"."assets"
+ADD COLUMN IF NOT EXISTS "current_horometer" DOUBLE PRECISION DEFAULT 0,
+ADD COLUMN IF NOT EXISTS "current_odometer" DOUBLE PRECISION DEFAULT 0,
+ADD COLUMN IF NOT EXISTS "initial_horometer" DOUBLE PRECISION DEFAULT 0,
+ADD COLUMN IF NOT EXISTS "initial_odometer" DOUBLE PRECISION DEFAULT 0,
+ADD COLUMN IF NOT EXISTS "last_maintenance_date" TIMESTAMP(3),
+ADD COLUMN IF NOT EXISTS "last_maintenance_horometer" DOUBLE PRECISION,
+ADD COLUMN IF NOT EXISTS "last_maintenance_odometer" DOUBLE PRECISION,
+ADD COLUMN IF NOT EXISTS "maintenance_frequency_hours" DOUBLE PRECISION,
+ADD COLUMN IF NOT EXISTS "maintenance_frequency_km" DOUBLE PRECISION;
 
 -- AlterTable
-ALTER TABLE "public"."maintenances" ADD COLUMN     "assignedToId" TEXT,
-ADD COLUMN     "horometer" DOUBLE PRECISION,
-ADD COLUMN     "odometer" DOUBLE PRECISION,
+ALTER TABLE "public"."maintenances" ADD COLUMN IF NOT EXISTS "assignedToId" TEXT,
+ADD COLUMN IF NOT EXISTS "horometer" DOUBLE PRECISION,
+ADD COLUMN IF NOT EXISTS "odometer" DOUBLE PRECISION,
 ALTER COLUMN "supplierId" DROP NOT NULL;
 
 -- CreateTable
-CREATE TABLE "public"."asset_readings" (
+CREATE TABLE IF NOT EXISTS "public"."asset_readings" (
     "id" TEXT NOT NULL,
     "assetId" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
@@ -40,7 +51,7 @@ CREATE TABLE "public"."asset_readings" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."checklist_parameters" (
+CREATE TABLE IF NOT EXISTS "public"."checklist_parameters" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
@@ -53,7 +64,7 @@ CREATE TABLE "public"."checklist_parameters" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."checklist_item_templates" (
+CREATE TABLE IF NOT EXISTS "public"."checklist_item_templates" (
     "id" TEXT NOT NULL,
     "checklistParameterId" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -67,7 +78,7 @@ CREATE TABLE "public"."checklist_item_templates" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."checklists" (
+CREATE TABLE IF NOT EXISTS "public"."checklists" (
     "id" TEXT NOT NULL,
     "checklistParameterId" TEXT NOT NULL,
     "assetId" TEXT NOT NULL,
@@ -90,7 +101,7 @@ CREATE TABLE "public"."checklists" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."checklist_answers" (
+CREATE TABLE IF NOT EXISTS "public"."checklist_answers" (
     "id" TEXT NOT NULL,
     "checklistId" TEXT NOT NULL,
     "checklistItemTemplateId" TEXT NOT NULL,
@@ -104,31 +115,76 @@ CREATE TABLE "public"."checklist_answers" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "checklists_magicLinkId_key" ON "public"."checklists"("magicLinkId");
+CREATE UNIQUE INDEX IF NOT EXISTS "checklists_magicLinkId_key" ON "public"."checklists"("magicLinkId");
 
 -- AddForeignKey
-ALTER TABLE "public"."asset_readings" ADD CONSTRAINT "asset_readings_assetId_fkey" FOREIGN KEY ("assetId") REFERENCES "public"."assets"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+DO $$
+BEGIN
+    ALTER TABLE "public"."asset_readings" ADD CONSTRAINT "asset_readings_assetId_fkey" FOREIGN KEY ("assetId") REFERENCES "public"."assets"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- AddForeignKey
-ALTER TABLE "public"."maintenances" ADD CONSTRAINT "maintenances_assignedToId_fkey" FOREIGN KEY ("assignedToId") REFERENCES "public"."users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+DO $$
+BEGIN
+    ALTER TABLE "public"."maintenances" ADD CONSTRAINT "maintenances_assignedToId_fkey" FOREIGN KEY ("assignedToId") REFERENCES "public"."users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- AddForeignKey
-ALTER TABLE "public"."maintenances" ADD CONSTRAINT "maintenances_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "public"."suppliers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+DO $$
+BEGIN
+    ALTER TABLE "public"."maintenances" ADD CONSTRAINT "maintenances_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "public"."suppliers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- AddForeignKey
-ALTER TABLE "public"."checklist_item_templates" ADD CONSTRAINT "checklist_item_templates_checklistParameterId_fkey" FOREIGN KEY ("checklistParameterId") REFERENCES "public"."checklist_parameters"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+DO $$
+BEGIN
+    ALTER TABLE "public"."checklist_item_templates" ADD CONSTRAINT "checklist_item_templates_checklistParameterId_fkey" FOREIGN KEY ("checklistParameterId") REFERENCES "public"."checklist_parameters"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- AddForeignKey
-ALTER TABLE "public"."checklists" ADD CONSTRAINT "checklists_checklistParameterId_fkey" FOREIGN KEY ("checklistParameterId") REFERENCES "public"."checklist_parameters"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+DO $$
+BEGIN
+    ALTER TABLE "public"."checklists" ADD CONSTRAINT "checklists_checklistParameterId_fkey" FOREIGN KEY ("checklistParameterId") REFERENCES "public"."checklist_parameters"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- AddForeignKey
-ALTER TABLE "public"."checklists" ADD CONSTRAINT "checklists_assetId_fkey" FOREIGN KEY ("assetId") REFERENCES "public"."assets"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+DO $$
+BEGIN
+    ALTER TABLE "public"."checklists" ADD CONSTRAINT "checklists_assetId_fkey" FOREIGN KEY ("assetId") REFERENCES "public"."assets"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- AddForeignKey
-ALTER TABLE "public"."checklists" ADD CONSTRAINT "checklists_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "public"."suppliers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+DO $$
+BEGIN
+    ALTER TABLE "public"."checklists" ADD CONSTRAINT "checklists_supplierId_fkey" FOREIGN KEY ("supplierId") REFERENCES "public"."suppliers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- AddForeignKey
-ALTER TABLE "public"."checklist_answers" ADD CONSTRAINT "checklist_answers_checklistId_fkey" FOREIGN KEY ("checklistId") REFERENCES "public"."checklists"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+DO $$
+BEGIN
+    ALTER TABLE "public"."checklist_answers" ADD CONSTRAINT "checklist_answers_checklistId_fkey" FOREIGN KEY ("checklistId") REFERENCES "public"."checklists"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 -- AddForeignKey
-ALTER TABLE "public"."checklist_answers" ADD CONSTRAINT "checklist_answers_checklistItemTemplateId_fkey" FOREIGN KEY ("checklistItemTemplateId") REFERENCES "public"."checklist_item_templates"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+DO $$
+BEGIN
+    ALTER TABLE "public"."checklist_answers" ADD CONSTRAINT "checklist_answers_checklistItemTemplateId_fkey" FOREIGN KEY ("checklistItemTemplateId") REFERENCES "public"."checklist_item_templates"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
