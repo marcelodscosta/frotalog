@@ -5,7 +5,7 @@ CREATE TYPE "public"."ChecklistType" AS ENUM ('MOBILIZATION', 'PERIODIC', 'DEMOB
 CREATE TYPE "public"."ChecklistStatus" AS ENUM ('PENDING', 'REVIEWING', 'APPROVED', 'REJECTED');
 
 -- DropForeignKey
-ALTER TABLE "public"."maintenances" DROP CONSTRAINT "maintenances_supplierId_fkey";
+ALTER TABLE "public"."maintenances" DROP CONSTRAINT IF EXISTS "maintenances_supplierId_fkey";
 
 -- AlterTable
 ALTER TABLE "public"."assets" ADD COLUMN     "current_horometer" DOUBLE PRECISION DEFAULT 0,
