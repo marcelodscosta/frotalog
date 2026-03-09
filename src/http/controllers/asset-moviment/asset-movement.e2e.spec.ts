@@ -18,7 +18,6 @@ function generateToken() {
     { expiresIn: '1h' },
   )
 }
-
 describe('Asset Movement E2E', () => {
   beforeAll(async () => {
     await app.ready()
