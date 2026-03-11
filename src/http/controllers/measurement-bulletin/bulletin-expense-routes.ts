@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify'
-import { requireAuth } from '../../middleware/auth'
 import { z } from 'zod'
 import { prisma } from '../../../lib/prisma'
+import { requireAuth } from '../../middleware/auth'
 
 export async function bulletinExpenseRoutes(app: FastifyInstance) {
   app.addHook('preHandler', requireAuth())
@@ -14,8 +14,8 @@ export async function bulletinExpenseRoutes(app: FastifyInstance) {
     const bodySchema = z.object({
       description: z.string().min(1),
       quantity: z.number().min(0).default(1),
-      unit_value: z.number().min(0),
-      total_value: z.number().min(0),
+      unit_value: z.number(),
+      total_value: z.number(),
     })
 
     const { bulletinId } = paramsSchema.parse(request.params)
