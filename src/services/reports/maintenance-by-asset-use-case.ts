@@ -1,4 +1,5 @@
-import { Maintenance } from '../../generated/prisma'
+import { AssetMovement, Maintenance } from '../../generated/prisma'
+import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
 import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
 
 interface MaintenanceByAssetRequest {
@@ -20,10 +21,14 @@ interface MaintenanceByAssetResponse {
     status: 'OPERATIVE' | 'INOPERATIVE'
     maintenanceId?: string | null
   }>
+  movements: AssetMovement[]
 }
 
 export class MaintenanceByAssetUseCase {
-  constructor(private maintenanceRepository: IMaintenanceRepository) {}
+  constructor(
+    private maintenanceRepository: IMaintenanceRepository,
+    private assetMovementRepository: IAssetMovementRepository
+  ) {}
 
   async execute(
     request: MaintenanceByAssetRequest,
@@ -39,6 +44,18 @@ export class MaintenanceByAssetUseCase {
         startDate,
         endDate,
       )
+
+    // Fetch active asset movements that overlap with the period
+    let movements: AssetMovement[] = []
+    if (request.assetId) {
+      const allMovements = await this.assetMovementRepository.getActiveMovementsByAsset(request.assetId)
+      movements = allMovements.filter(m => {
+        if (!m.integration_date) return false
+        const movStart = new Date(m.integration_date)
+        const movEnd = m.demobilization_date ? new Date(m.demobilization_date) : endDate
+        return movStart <= endDate && movEnd >= startDate
+      })
+    }
 
     const dailyStatus: MaintenanceByAssetResponse['dailyStatus'] = []
     
@@ -110,6 +127,7 @@ export class MaintenanceByAssetUseCase {
         inoperativeDays,
       },
       dailyStatus,
+      movements,
     }
   }
 }

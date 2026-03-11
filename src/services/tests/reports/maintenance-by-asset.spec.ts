@@ -1,14 +1,26 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-import { MaintenanceByAssetUseCase } from '../../reports/maintenance-by-asset-use-case'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { InMemoryAssetMovementRepository } from '../../../repositories/in-memory/in-memory-asset-movement-repository'
 import { InMemoryMaintenanceRepository } from '../../../repositories/in-memory/in-memory-maintenance-repository'
+import { MaintenanceByAssetUseCase } from '../../reports/maintenance-by-asset-use-case'
 
 let repo: InMemoryMaintenanceRepository
+let assetRepo: InMemoryAssetMovementRepository
 let sut: MaintenanceByAssetUseCase
 
 describe('Maintenance By Asset Report', () => {
   beforeEach(async () => {
     repo = new InMemoryMaintenanceRepository()
-    sut = new MaintenanceByAssetUseCase(repo)
+    assetRepo = new InMemoryAssetMovementRepository()
+    sut = new MaintenanceByAssetUseCase(repo, assetRepo)
+
+    // Create a movement for asset-01
+    await assetRepo.create({
+      assetId: 'asset-01',
+      contractId: 'contract-01',
+      billing_cycle: 'MONTHLY',
+      rental_value: 5000,
+      integration_date: new Date('2026-01-01')
+    })
 
     // Create maintenances: asset-01 had maintenance from Jan 10-15 (6 days inoperative)
     await repo.create({
@@ -62,6 +74,7 @@ describe('Maintenance By Asset Report', () => {
     expect(result.maintenances).toHaveLength(2)
     expect(result.summary.totalMaintenances).toBe(2)
     expect(result.summary.totalDays).toBe(31)
+    expect(result.movements).toHaveLength(1)
   })
 
   it('should calculate operative vs inoperative days', async () => {
