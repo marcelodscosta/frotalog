@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { InMemoryMeasurementBulletinRepository } from '../../../repositories/in-memory/in-memory-measurement-bulletin-repository'
+import { Prisma } from '../../../generated/prisma'
 import { InMemoryAssetMovementRepository } from '../../../repositories/in-memory/in-memory-asset-movement-repository'
 import { InMemoryContractRepository } from '../../../repositories/in-memory/in-memory-contract-repository'
+import { InMemoryMeasurementBulletinRepository } from '../../../repositories/in-memory/in-memory-measurement-bulletin-repository'
 import { CreateMeasurementBulletinUseCase } from '../../measurement-bulletin/create-measurement-bulletin-use-case'
-import { Prisma } from '../../../generated/prisma'
 
 let measurementBulletinRepository: InMemoryMeasurementBulletinRepository
 let assetMovementRepository: InMemoryAssetMovementRepository
@@ -81,7 +81,7 @@ describe('Create Measurement Bulletin Use Case', () => {
     // 39000 / 28 = 1392.85714... rounded = 1392.86
     expect(Number(measurementBulletin.daily_rate)).toBe(1392.86)
     
-    // total value strictly equals working days (28) * rate
-    expect(Number(measurementBulletin.total_value)).toBe(39000.08)
+    // total value strictly equals working days (28) * exact rate (1392.857...)
+    expect(Number(measurementBulletin.total_value)).toBe(39000)
   })
 })

@@ -136,14 +136,14 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
     bulletinId = bulletin.id
 
     // Verify proportional calculation:
-    // 10 days (Feb 16-25 inclusive)
+    // 9 days (Feb 16-24 inclusive, 25 is demobilization day/exclusive)
     // dailyRate = 15000 / 30 = 500.00
-    // totalValue = 500 * 10 = 5000.00
-    expect(bulletin.total_days).toBe(10)
+    // totalValue = 500 * 9 = 4500.00
+    expect(bulletin.total_days).toBe(9)
     expect(bulletin.inactive_days).toBe(0)
-    expect(bulletin.working_days).toBe(10)
+    expect(bulletin.working_days).toBe(9)
     expect(Number(bulletin.daily_rate)).toBeCloseTo(500, 2)
-    expect(Number(bulletin.total_value)).toBeCloseTo(5000, 2)
+    expect(Number(bulletin.total_value)).toBeCloseTo(4500, 2)
   })
 
   it('should get bulletin with correct proportional values', async () => {
@@ -156,9 +156,9 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
     expect(response.statusCode).toBe(200)
     const bulletin = response.json().measurementBulletin
 
-    expect(bulletin.working_days).toBe(10)
+    expect(bulletin.working_days).toBe(9)
     expect(Number(bulletin.daily_rate)).toBeCloseTo(500, 2)
-    expect(Number(bulletin.total_value)).toBeCloseTo(5000, 2)
+    expect(Number(bulletin.total_value)).toBeCloseTo(4500, 2)
   })
 
   it('should list bulletins filtered by contract', async () => {
@@ -203,8 +203,8 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
     const invoice = response.json().invoice
     invoiceId = invoice.id
 
-    // Invoice should inherit proportional value from bulletin: R$5.000
-    expect(Number(invoice.total_value)).toBeCloseTo(5000, 2)
+    // Invoice should inherit proportional value from bulletin: R$4.500
+    expect(Number(invoice.total_value)).toBeCloseTo(4500, 2)
     expect(invoice.status).toBe('PENDING')
     expect(invoice.is_paid).toBe(false)
   })
@@ -234,7 +234,7 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
     expect(response.statusCode).toBe(200)
     const invoice = response.json().invoice
 
-    expect(Number(invoice.total_value)).toBeCloseTo(5000, 2)
+    expect(Number(invoice.total_value)).toBeCloseTo(4500, 2)
     expect(invoice.invoice_number).toBeDefined()
   })
 
@@ -347,7 +347,7 @@ describe('Measurement Bulletin & Invoice E2E - Proportional Billing', () => {
 
 /**
  * Cenário: Aluguel DIÁRIO pontual
- * 5 dias × R$1.200/dia = R$6.000
+ * 4 dias × R$1.200/dia = R$4.800
  * billing_cycle = DAILY → rental_value É a diária
  */
 describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
@@ -442,7 +442,7 @@ describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
     await app.close()
   })
 
-  it('should create bulletin with daily rate (R$1,200/dia × 5 dias = R$6,000)', async () => {
+  it('should create bulletin with daily rate (R$1,200/dia × 4 dias = R$4,800)', async () => {
     const response = await app.inject({
       method: 'POST',
       url: '/measurement-bulletins',
@@ -460,15 +460,15 @@ describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
     dailyBulletinId = bulletin.id
 
     // DAILY billing: dailyRate = rental_value = R$1,200
-    // 5 days (Mar 10-14 inclusive)
-    // totalValue = 1200 × 5 = R$6,000
-    expect(bulletin.total_days).toBe(5)
-    expect(bulletin.working_days).toBe(5)
+    // 4 days (Jan 10-13 inclusive, 14 is exclusive demobilization)
+    // totalValue = 1200 × 4 = R$4,800
+    expect(bulletin.total_days).toBe(4)
+    expect(bulletin.working_days).toBe(4)
     expect(Number(bulletin.daily_rate)).toBeCloseTo(1200, 2)
-    expect(Number(bulletin.total_value)).toBeCloseTo(6000, 2)
+    expect(Number(bulletin.total_value)).toBeCloseTo(4800, 2)
   })
 
-  it('should approve and create invoice with daily value (R$6,000)', async () => {
+  it('should approve and create invoice with daily value (R$4,800)', async () => {
     // Approve   
     await app.inject({
       method: 'PATCH',
@@ -493,13 +493,13 @@ describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
     const invoice = response.json().invoice
     dailyInvoiceId = invoice.id
 
-    // Invoice inherits the R$6,000 from the daily bulletin
-    expect(Number(invoice.total_value)).toBeCloseTo(6000, 2)
+    // Invoice inherits the R$4,800 from the daily bulletin
+    expect(Number(invoice.total_value)).toBeCloseTo(4800, 2)
   })
 
   it('should verify daily rate is different from monthly calculation', async () => {
-    // If this were MONTHLY: dailyRate = 1200/30 = 40, totalValue = 40*5 = R$200
-    // With DAILY: dailyRate = 1200, totalValue = 1200*5 = R$6,000
+    // If this were MONTHLY: dailyRate = 1200/30 = 40, totalValue = 40*4 = R$160
+    // With DAILY: dailyRate = 1200, totalValue = 1200*4 = R$4,800
     // The difference proves the billing_cycle is being used correctly
     const response = await app.inject({
       method: 'GET',
@@ -513,7 +513,7 @@ describe('Measurement Bulletin E2E - Daily Billing Cycle', () => {
 
     // Daily rate should be R$1,200 (not R$40 as it would be with monthly)
     expect(dailyRate).toBe(1200)
-    expect(totalValue).toBe(6000)
+    expect(totalValue).toBe(4800)
     expect(dailyRate).not.toBe(1200 / 30) // Proves it's NOT dividing by 30
   })
 })

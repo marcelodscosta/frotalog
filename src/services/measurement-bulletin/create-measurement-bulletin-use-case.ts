@@ -1,11 +1,11 @@
-import { MeasurementBulletin, Prisma, MaintenanceStatus } from '../../generated/prisma'
-import { IMeasurementBulletinRepository } from '../../repositories/interfaces/IMeasurementBulletinRepository'
+import { MaintenanceStatus, MeasurementBulletin, Prisma } from '../../generated/prisma'
+import { prisma } from '../../lib/prisma'
 import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
-import { ContractNotFoundError } from '../errors/contract-not-fount-error'
-import { AssetMovimentNotFoundError } from '../errors/asset-moviment-not-found-error'
+import { IMeasurementBulletinRepository } from '../../repositories/interfaces/IMeasurementBulletinRepository'
 import { AppError } from '../errors/app-error'
-import { prisma } from '../../lib/prisma'
+import { AssetMovimentNotFoundError } from '../errors/asset-moviment-not-found-error'
+import { ContractNotFoundError } from '../errors/contract-not-fount-error'
 
 interface CreateMeasurementBulletinRequest {
   contractId: string
@@ -69,32 +69,48 @@ export class CreateMeasurementBulletinUseCase {
       endDate = today
     }
 
-    // Commercial month: always 30 days regardless of actual calendar days
-    // Full month = start is day 1 and end is last day of that month
-    const isFullMonth = this.isFullMonthPeriod(
-      new Date(data.reference_start),
-      new Date(data.reference_end),
+    // Determine exact limits based on integration and demobilization dates
+    const toUTCMidnight = (date: Date) => {
+        return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+    }
+
+    const bulletinStartUTC = toUTCMidnight(startDate)
+    let bulletinEndUTC = toUTCMidnight(endDate)
+
+    const integrationUTC = assetMovement.integration_date ? toUTCMidnight(assetMovement.integration_date) : 0
+    
+    // Demobilization is Exclusive for Billing (Day of return is not charged)
+    const rawDemobUTC = assetMovement.demobilization_date ? toUTCMidnight(assetMovement.demobilization_date) : Infinity
+    const demobUTC = rawDemobUTC === Infinity ? Infinity : rawDemobUTC - (24 * 60 * 60 * 1000)
+
+    const effectiveStartUTC = Math.max(bulletinStartUTC, integrationUTC)
+    const effectiveEndUTC = Math.min(bulletinEndUTC, demobUTC)
+
+    // Calculate the total days of the requested billing period (used as monthly divisor)
+    let periodDays = Math.max(
+      1,
+      Math.ceil((bulletinEndUTC - bulletinStartUTC) / (1000 * 60 * 60 * 24)) + 1
     )
 
-    let totalDays: number
-    const calculationRule = assetMovement.calculation_rule
+    const isFullMonth = this.isFullMonthPeriod(startDate, endDate)
+    const calculationRule = assetMovement.calculation_rule || 'COMMERCIAL_30_DAYS'
 
     if (calculationRule === 'COMMERCIAL_30_DAYS') {
-      // Commercial month: always 30 days regardless of actual calendar days if full month
-      totalDays = isFullMonth ? 30 : Math.max(
-        1,
-        Math.ceil(
-          (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
-        ) + 1,
-      )
-    } else {
-      // CALENDAR_DAYS: exactly how many days span the chosen dates
-      totalDays = Math.max(
-        1,
-        Math.ceil(
-          (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
-        ) + 1,
-      )
+      periodDays = 30
+    }
+
+    // CALENDAR_DAYS: exactly how many days span the chosen dates within the effective period
+    // If effective end is before effective start, then total days is 0.
+    let totalDays = effectiveEndUTC >= effectiveStartUTC 
+      ? Math.max(1, Math.ceil((effectiveEndUTC - effectiveStartUTC) / (1000 * 60 * 60 * 24)) + 1)
+      : 0
+
+    // For COMMERCIAL_30_DAYS, if the user requested a full month and the asset was available the entire time,
+    // force totalDays to 30 to reflect the 30-day commercial month KPI.
+    if (calculationRule === 'COMMERCIAL_30_DAYS' && isFullMonth) {
+      if (effectiveStartUTC <= bulletinStartUTC && effectiveEndUTC >= bulletinEndUTC) {
+        totalDays = 30
+      }
     }
 
     // Count inactive days: maintenance records with equipment_inactive = true
@@ -109,21 +125,21 @@ export class CreateMeasurementBulletinUseCase {
         },
         OR: [
           // Starts within period
-          { started_date: { gte: startDate, lte: endDate } },
+          { started_date: { gte: new Date(Math.max(startDate.getTime(), effectiveStartUTC)), lte: new Date(Math.min(endDate.getTime(), effectiveEndUTC)) } },
           // Ends within period
-          { completed_date: { gte: startDate, lte: endDate } },
+          { completed_date: { gte: new Date(Math.max(startDate.getTime(), effectiveStartUTC)), lte: new Date(Math.min(endDate.getTime(), effectiveEndUTC)) } },
           // Spans entire period
           {
             AND: [
-              { started_date: { lte: startDate } },
-              { OR: [{ completed_date: { gte: endDate } }, { completed_date: null }] },
+              { started_date: { lte: new Date(Math.max(startDate.getTime(), effectiveStartUTC)) } },
+              { OR: [{ completed_date: { gte: new Date(Math.min(endDate.getTime(), effectiveEndUTC)) } }, { completed_date: null }] },
             ],
           },
           // If not started but scheduled within period, count it
           {
             AND: [
               { started_date: null },
-              { scheduled_date: { gte: startDate, lte: endDate } },
+              { scheduled_date: { gte: new Date(Math.max(startDate.getTime(), effectiveStartUTC)), lte: new Date(Math.min(endDate.getTime(), effectiveEndUTC)) } },
             ],
           },
         ],
@@ -138,8 +154,9 @@ export class CreateMeasurementBulletinUseCase {
       const mEnd = m.completed_date ? new Date(m.completed_date) : (m.started_date ? new Date() : new Date(m.scheduled_date))
 
       // Iterate through each day of the maintenance that overlaps with the bulletin period
-      const iterDate = new Date(Math.max(mStart.getTime(), startDate.getTime()))
-      const iterEnd = new Date(Math.min(mEnd.getTime(), endDate.getTime()))
+      // BUT bounded by the actual effective Start/End
+      const iterDate = new Date(Math.max(mStart.getTime(), effectiveStartUTC))
+      const iterEnd = new Date(Math.min(mEnd.getTime(), effectiveEndUTC))
 
       // Normalise to beginning of day for iteration
       iterDate.setUTCHours(0, 0, 0, 0)
@@ -165,19 +182,21 @@ export class CreateMeasurementBulletinUseCase {
         break
       case 'MONTHLY':
       default:
-        // Use the total calendar days if it's CALENDAR_DAYS, otherwise classic 30 divisor
-        const monthlyDivisor = calculationRule === 'CALENDAR_DAYS' ? totalDays : 30
+        // Use the calendar days of the reference period to calculate the true proportion
+        const monthlyDivisor = periodDays
         dailyRate = Number(assetMovement.rental_value) / monthlyDivisor
         break
     }
 
-    // Fix calculation bug: Ensure Daily Rate doesn't leak floating decimal precision 
-    // leading to total multiplier inconsistencies
-    // Pre-round the dailyRate exactly like how it will be stored and shown to the user on PDF
-    dailyRate = Math.round(dailyRate * 100) / 100
-    
-    // totalValue strictly matches workingDays * rounded dailyRate
-    const totalValue = dailyRate * workingDays
+    // Fix calculation bug: calculate totalValue with exact dailyRate to prevent precision loss.
+    // Ensure the total value matches exactly without rounding errors.
+    const exactDailyRate = dailyRate
+
+    // totalValue strictly matches workingDays * exact dailyRate
+    const totalValue = exactDailyRate * workingDays
+
+    // Round the dailyRate exactly like how it will be stored and shown to the user on PDF
+    dailyRate = Math.round(exactDailyRate * 100) / 100
 
     const measurementBulletin =
       await this.measurementBulletinRepository.create({
@@ -204,8 +223,6 @@ export class CreateMeasurementBulletinUseCase {
    * All full months are treated as 30 commercial days.
    */
   private isFullMonthPeriod(start: Date, end: Date): boolean {
-    // Avoid UTC timezone shifts that move the day back to the previous month
-    // by using local getters when the date is instantiated from a YYYY-MM-DD string
     const startDay = start.getDate()
     if (startDay !== 1) return false
 
