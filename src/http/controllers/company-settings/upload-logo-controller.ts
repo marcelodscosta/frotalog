@@ -1,13 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { prisma } from '../../../lib/prisma'
-import { z } from 'zod'
-import { randomUUID } from 'node:crypto'
-import fs from 'node:fs'
-import path from 'node:path'
-import { pipeline } from 'node:stream'
-import util from 'node:util'
-
-const pump = util.promisify(pipeline)
+import { uploadToB2 } from '../../../lib/storage'
 
 export async function uploadLogo(request: FastifyRequest, reply: FastifyReply) {
     try {
@@ -17,49 +10,25 @@ export async function uploadLogo(request: FastifyRequest, reply: FastifyReply) {
             return reply.status(400).send({ message: 'No file uploaded.' })
         }
 
-    if (!data.mimetype.startsWith('image/')) {
-        return reply.status(400).send({ message: 'Only images are allowed.' })
-    }
+        if (!data.mimetype.startsWith('image/')) {
+            return reply.status(400).send({ message: 'Only images are allowed.' })
+        }
 
-    const extension = path.extname(data.filename)
-    const fileId = randomUUID()
-    const fileName = `${fileId}${extension}`
-    
-    // Resolve upload dir using process.cwd() to ensure it's in the project root
-    const uploadDir = path.resolve(process.cwd(), 'uploads/logos')
-    
-    // Just in case
-    if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true })
-    }
+        const buffer = await data.toBuffer()
+        const { url } = await uploadToB2(buffer, data.filename, data.mimetype, 'logos')
 
-    const filePath = path.resolve(uploadDir, fileName)
+        const existingSettings = await prisma.companySettings.findFirst()
 
-    await pump(data.file, fs.createWriteStream(filePath))
+        if (existingSettings) {
+            await prisma.companySettings.update({
+                where: { id: existingSettings.id },
+                data: { logo_url: url },
+            })
+        } else {
+            return reply.status(404).send({ message: 'Company settings not found. Please save settings first.' })
+        }
 
-    const logoUrl = `/uploads/logos/${fileName}`
-
-    // Update the first company settings found (singleton pattern usually)
-    // Or create if not exists
-    const existingSettings = await prisma.companySettings.findFirst()
-
-    let settings
-    if (existingSettings) {
-        settings = await prisma.companySettings.update({
-            where: { id: existingSettings.id },
-            data: { logo_url: logoUrl },
-        })
-    } else {
-        // Create with minimal required fields if it doesn't exist? 
-        // Usually settings should exist, but let's handle it.
-        // Prisma schema says company_name is required. 
-        // We might fail here if settings don't exist. 
-        // But the user is supposed to be in the settings page.
-        // Let's assume settings exist or we return error.
-        return reply.status(404).send({ message: 'Company settings not found. Please save settings first.' })
-    }
-
-        return reply.status(200).send({ logoUrl })
+        return reply.status(200).send({ logoUrl: url })
     } catch (error: any) {
         console.error('Error uploading logo:', error)
         return reply.status(500).send({ 

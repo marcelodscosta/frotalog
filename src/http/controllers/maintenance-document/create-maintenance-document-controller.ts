@@ -1,9 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeCreateMaintenanceDocument } from '../../../services/factories/make-create-maintenance-document'
-import { randomUUID } from 'crypto'
-import { promises as fs } from 'fs'
-import path from 'path'
+import { uploadToB2 } from '../../../lib/storage'
 
 export async function createMaintenanceDocument(
   request: FastifyRequest,
@@ -39,36 +37,27 @@ export async function createMaintenanceDocument(
     })
   }
 
+  const buffer = await data.toBuffer()
+
   // Validar tamanho do arquivo (10MB)
-  const maxFileSize = 10 * 1024 * 1024 // 10MB
-  if (data.file.bytesRead > maxFileSize) {
+  const maxFileSize = 10 * 1024 * 1024
+  if (buffer.length > maxFileSize) {
     return reply.status(400).send({ 
       message: 'File too large. Maximum size is 10MB' 
     })
   }
 
-  // Criar diretório de uploads se não existir
-  const uploadsDir = path.join(process.cwd(), 'uploads', 'maintenance-documents')
-  await fs.mkdir(uploadsDir, { recursive: true })
+  const { url, key } = await uploadToB2(buffer, data.filename, data.mimetype, 'maintenance-documents')
 
-  // Gerar nome único para o arquivo
-  const fileExtension = path.extname(data.filename)
-  const uniqueFilename = `${randomUUID()}${fileExtension}`
-  const filePath = path.join(uploadsDir, uniqueFilename)
-
-  // Salvar arquivo
-  const buffer = await data.toBuffer()
-  await fs.writeFile(filePath, buffer)
-
-  const createMaintenanceDocument = makeCreateMaintenanceDocument()
-  const { document } = await createMaintenanceDocument.execute({
+  const createMaintenanceDocumentService = makeCreateMaintenanceDocument()
+  const { document } = await createMaintenanceDocumentService.execute({
     maintenanceId,
-    filename: uniqueFilename,
+    filename: key.split('/').pop() || data.filename,
     original_name: data.filename,
-    file_path: filePath,
-    file_size: data.file.bytesRead,
+    file_path: url,
+    file_size: buffer.length,
     mime_type: data.mimetype,
-    description: data.fields?.description?.value as string,
+    description: (data.fields as any)?.description?.value as string,
   })
 
   return reply.status(201).send({ document })

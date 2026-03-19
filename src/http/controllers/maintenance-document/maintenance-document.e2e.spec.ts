@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
+import { describe, it, expect, beforeAll, afterAll, vitest } from 'vitest'
 import { app } from '../../../app'
 import { prisma } from '../../../lib/prisma'
 import jwt from 'jsonwebtoken'
@@ -25,6 +25,14 @@ function generateToken() {
 }
 
 describe('Maintenance Document (Uploads) E2E', () => {
+  vitest.mock('../../../lib/storage', () => ({
+    uploadToB2: vitest.fn().mockResolvedValue({
+      url: 'https://mock-b2-url.com/maintenance-documents/dummy.pdf',
+      key: 'maintenance-documents/dummy.pdf',
+    }),
+    deleteFromB2: vitest.fn().mockResolvedValue(true),
+    getKeyFromUrl: vitest.fn().mockReturnValue('maintenance-documents/dummy.pdf'),
+  }))
   beforeAll(async () => {
     await app.ready()
     maintenanceToken = generateToken()

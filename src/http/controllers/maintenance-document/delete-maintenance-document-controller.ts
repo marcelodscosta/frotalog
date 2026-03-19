@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeDeleteMaintenanceDocument } from '../../../services/factories/make-delete-maintenance-document'
 import { makeGetMaintenanceDocumentById } from '../../../services/factories/make-get-maintenance-document-by-id'
-import { promises as fs } from 'fs'
+import { deleteFromB2, getKeyFromUrl } from '../../../lib/storage'
 
 export async function deleteMaintenanceDocument(
   request: FastifyRequest,
@@ -19,15 +19,17 @@ export async function deleteMaintenanceDocument(
   const { document } = await getMaintenanceDocumentById.execute({ id })
 
   // Deletar do banco de dados
-  const deleteMaintenanceDocument = makeDeleteMaintenanceDocument()
-  await deleteMaintenanceDocument.execute({ id })
+  const deleteMaintenanceDocumentService = makeDeleteMaintenanceDocument()
+  await deleteMaintenanceDocumentService.execute({ id })
 
-  // Deletar arquivo físico
+  // Deletar arquivo do B2
   try {
-    await fs.unlink(document.file_path)
+    const key = getKeyFromUrl(document.file_path)
+    if (key) {
+      await deleteFromB2(key)
+    }
   } catch (error) {
-    // Log do erro mas não falha a operação se o arquivo não existir
-    console.warn(`Failed to delete file: ${document.file_path}`, error)
+    console.warn(`Failed to delete file from B2: ${document.file_path}`, error)
   }
 
   return reply.status(204).send()
