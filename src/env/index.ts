@@ -27,3 +27,18 @@ if (!_env.success) {
 }
 
 export const env = _env.data
+
+// Log warning if B2 is not configured
+const isB2Configured =
+  env.B2_ENDPOINT &&
+  env.B2_REGION &&
+  env.B2_BUCKET &&
+  env.B2_ACCESS_KEY_ID &&
+  env.B2_SECRET_ACCESS_KEY &&
+  env.B2_PUBLIC_BASE_URL
+
+if (!isB2Configured && env.NODE_ENV !== 'test') {
+  console.warn(
+    '⚠️ Configuração de armazenamento B2 incompleta. Uploads não funcionarão corretamente.',
+  )
+}

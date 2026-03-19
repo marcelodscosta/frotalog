@@ -39,8 +39,18 @@ export async function uploadToB2(
   contentType: string,
   folder: string = 'uploads',
 ): Promise<UploadResult> {
-  if (!s3Client || !BUCKET || !PUBLIC_BASE_URL) {
-    throw new Error('Armazenamento B2 não está configurado.')
+  const missingVars = []
+  if (!env.B2_ENDPOINT) missingVars.push('B2_ENDPOINT')
+  if (!env.B2_REGION) missingVars.push('B2_REGION')
+  if (!env.B2_BUCKET) missingVars.push('B2_BUCKET')
+  if (!env.B2_ACCESS_KEY_ID) missingVars.push('B2_ACCESS_KEY_ID')
+  if (!env.B2_SECRET_ACCESS_KEY) missingVars.push('B2_SECRET_ACCESS_KEY')
+  if (!env.B2_PUBLIC_BASE_URL) missingVars.push('B2_PUBLIC_BASE_URL')
+
+  if (missingVars.length > 0 || !s3Client || !BUCKET || !PUBLIC_BASE_URL) {
+    throw new Error(
+      `Armazenamento B2 não está configurado. Variáveis ausentes: ${missingVars.join(', ') || 'Desconhecida'}`,
+    )
   }
 
   const ext = path.extname(originalFilename)
@@ -65,7 +75,17 @@ export async function uploadToB2(
 
 export async function deleteFromB2(key: string): Promise<void> {
   if (!s3Client || !BUCKET) {
-    throw new Error('Armazenamento B2 não está configurado.')
+    const missingVars = []
+    if (!env.B2_ENDPOINT) missingVars.push('B2_ENDPOINT')
+    if (!env.B2_REGION) missingVars.push('B2_REGION')
+    if (!env.B2_BUCKET) missingVars.push('B2_BUCKET')
+    if (!env.B2_ACCESS_KEY_ID) missingVars.push('B2_ACCESS_KEY_ID')
+    if (!env.B2_SECRET_ACCESS_KEY) missingVars.push('B2_SECRET_ACCESS_KEY')
+    if (!env.B2_PUBLIC_BASE_URL) missingVars.push('B2_PUBLIC_BASE_URL')
+
+    throw new Error(
+      `Armazenamento B2 não está configurado. Variáveis ausentes: ${missingVars.join(', ') || 'Desconhecida'}`,
+    )
   }
 
   await s3Client.send(
