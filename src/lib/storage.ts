@@ -4,6 +4,7 @@ import { randomUUID } from 'crypto'
 import path from 'path'
 
 import { env } from '../env'
+import { AppError } from '../services/errors/app-error'
 
 const isStorageConfigured =
   env.B2_ENDPOINT &&
@@ -48,8 +49,9 @@ export async function uploadToB2(
   if (!env.B2_PUBLIC_BASE_URL) missingVars.push('B2_PUBLIC_BASE_URL')
 
   if (missingVars.length > 0 || !s3Client || !BUCKET || !PUBLIC_BASE_URL) {
-    throw new Error(
-      `Armazenamento B2 não está configurado. Variáveis ausentes: ${missingVars.join(', ') || 'Desconhecida'}`,
+    throw new AppError(
+      `Armazenamento B2 não está configurado. Variáveis ausentes: ${missingVars.join(', ') || 'Desconhecida'}. Verifique as 'Environment Variables' no painel do Render.`,
+      500,
     )
   }
 
@@ -83,8 +85,9 @@ export async function deleteFromB2(key: string): Promise<void> {
     if (!env.B2_SECRET_ACCESS_KEY) missingVars.push('B2_SECRET_ACCESS_KEY')
     if (!env.B2_PUBLIC_BASE_URL) missingVars.push('B2_PUBLIC_BASE_URL')
 
-    throw new Error(
-      `Armazenamento B2 não está configurado. Variáveis ausentes: ${missingVars.join(', ') || 'Desconhecida'}`,
+    throw new AppError(
+      `Armazenamento B2 não está configurado. Variáveis ausentes: ${missingVars.join(', ') || 'Desconhecida'}. Verifique as 'Environment Variables' no painel do Render.`,
+      500,
     )
   }
 

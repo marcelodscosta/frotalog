@@ -29,16 +29,16 @@ if (!_env.success) {
 export const env = _env.data
 
 // Log warning if B2 is not configured
-const isB2Configured =
-  env.B2_ENDPOINT &&
-  env.B2_REGION &&
-  env.B2_BUCKET &&
-  env.B2_ACCESS_KEY_ID &&
-  env.B2_SECRET_ACCESS_KEY &&
-  env.B2_PUBLIC_BASE_URL
+const missingB2Vars = []
+if (!env.B2_ENDPOINT) missingB2Vars.push('B2_ENDPOINT')
+if (!env.B2_REGION) missingB2Vars.push('B2_REGION')
+if (!env.B2_BUCKET) missingB2Vars.push('B2_BUCKET')
+if (!env.B2_ACCESS_KEY_ID) missingB2Vars.push('B2_ACCESS_KEY_ID')
+if (!env.B2_SECRET_ACCESS_KEY) missingB2Vars.push('B2_SECRET_ACCESS_KEY')
+if (!env.B2_PUBLIC_BASE_URL) missingB2Vars.push('B2_PUBLIC_BASE_URL')
 
-if (!isB2Configured && env.NODE_ENV !== 'test') {
+if (missingB2Vars.length > 0 && env.NODE_ENV !== 'test') {
   console.warn(
-    '⚠️ Configuração de armazenamento B2 incompleta. Uploads não funcionarão corretamente.',
+    `⚠️ Configuração de armazenamento B2 incompleta. Variáveis ausentes: ${missingB2Vars.join(', ')}. Uploads não funcionarão corretamente.`,
   )
 }
