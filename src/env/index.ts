@@ -8,12 +8,12 @@ const envSchema = z.object({
   JWT_SECRET: z
     .string()
     .min(32, 'JWT_SECRET deve ter pelo menos 32 caracteres'),
-  B2_ENDPOINT: z.string().min(1),
-  B2_REGION: z.string().min(1),
-  B2_BUCKET: z.string().min(1),
-  B2_ACCESS_KEY_ID: z.string().min(1),
-  B2_SECRET_ACCESS_KEY: z.string().min(1),
-  B2_PUBLIC_BASE_URL: z.string().min(1),
+  B2_ENDPOINT: z.string().optional(),
+  B2_REGION: z.string().optional(),
+  B2_BUCKET: z.string().optional(),
+  B2_ACCESS_KEY_ID: z.string().optional(),
+  B2_SECRET_ACCESS_KEY: z.string().optional(),
+  B2_PUBLIC_BASE_URL: z.string().optional(),
 })
 
 const _env = envSchema.safeParse(process.env)

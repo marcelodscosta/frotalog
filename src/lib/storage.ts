@@ -5,15 +5,25 @@ import path from 'path'
 
 import { env } from '../env'
 
-const s3Client = new S3Client({
-  endpoint: env.B2_ENDPOINT,
-  region: env.B2_REGION,
-  forcePathStyle: true,
-  credentials: {
-    accessKeyId: env.B2_ACCESS_KEY_ID,
-    secretAccessKey: env.B2_SECRET_ACCESS_KEY,
-  },
-})
+const isStorageConfigured =
+  env.B2_ENDPOINT &&
+  env.B2_REGION &&
+  env.B2_BUCKET &&
+  env.B2_ACCESS_KEY_ID &&
+  env.B2_SECRET_ACCESS_KEY &&
+  env.B2_PUBLIC_BASE_URL
+
+const s3Client = isStorageConfigured
+  ? new S3Client({
+      endpoint: env.B2_ENDPOINT,
+      region: env.B2_REGION,
+      forcePathStyle: true,
+      credentials: {
+        accessKeyId: env.B2_ACCESS_KEY_ID!,
+        secretAccessKey: env.B2_SECRET_ACCESS_KEY!,
+      },
+    })
+  : null
 
 const BUCKET = env.B2_BUCKET
 const PUBLIC_BASE_URL = env.B2_PUBLIC_BASE_URL
@@ -29,6 +39,10 @@ export async function uploadToB2(
   contentType: string,
   folder: string = 'uploads',
 ): Promise<UploadResult> {
+  if (!s3Client || !BUCKET || !PUBLIC_BASE_URL) {
+    throw new Error('Armazenamento B2 não está configurado.')
+  }
+
   const ext = path.extname(originalFilename)
   const key = `${folder}/${randomUUID()}${ext}`
 
@@ -50,6 +64,10 @@ export async function uploadToB2(
 }
 
 export async function deleteFromB2(key: string): Promise<void> {
+  if (!s3Client || !BUCKET) {
+    throw new Error('Armazenamento B2 não está configurado.')
+  }
+
   await s3Client.send(
     new DeleteObjectCommand({
       Bucket: BUCKET,
