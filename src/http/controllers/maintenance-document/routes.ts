@@ -7,6 +7,7 @@ import { downloadMaintenanceDocument } from './download-maintenance-document-con
 import { findAllMaintenanceDocuments } from './find-all-maintenance-document-controller'
 import { getMaintenanceDocumentById } from './get-maintenance-document-by-id-controller'
 import { getMaintenanceDocumentsByMaintenance } from './get-maintenance-documents-by-maintenance-controller'
+import { updateMaintenanceDocument } from './update-maintenance-document-controller'
 
 export async function maintenanceDocumentRoutes(app: FastifyInstance) {
   // Aplicar autenticação em todas as rotas de documentos
@@ -21,5 +22,6 @@ export async function maintenanceDocumentRoutes(app: FastifyInstance) {
     getMaintenanceDocumentsByMaintenance,
   )
   app.get('/maintenance-document/:id/download', downloadMaintenanceDocument)
+  app.patch('/maintenance-document/:id', updateMaintenanceDocument)
   app.delete('/maintenance-document/:id', deleteMaintenanceDocument)
 }
