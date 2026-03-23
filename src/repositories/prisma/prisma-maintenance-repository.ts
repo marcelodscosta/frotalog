@@ -375,16 +375,61 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
 
     if (params.contractStatus) {
       if (params.contractStatus === 'ACTIVE') {
-        where.contract = {
-          status: 'ACTIVE',
-        }
-      } else if (params.contractStatus === 'INACTIVE') {
+        const mobilizedAssetIds = (await prisma.assetMovement.findMany({
+          where: {
+            is_active: true,
+            demobilization_date: null,
+            contract: { status: 'ACTIVE' }
+          },
+          select: { assetId: true }
+        })).map(m => m.assetId);
+
         where.OR = [
-          { contractId: null },
-          { contract: { status: { not: 'ACTIVE' } } }
+          { contract: { status: 'ACTIVE' } },
+          { contractId: null, assetId: { in: mobilizedAssetIds } }
+        ]
+      } else if (params.contractStatus === 'INACTIVE') {
+        const mobilizedAssetIds = (await prisma.assetMovement.findMany({
+          where: {
+            is_active: true,
+            demobilization_date: null,
+            contract: { status: 'ACTIVE' }
+          },
+          select: { assetId: true }
+        })).map(m => m.assetId);
+
+        where.OR = [
+          { contract: { status: { not: 'ACTIVE' } } },
+          { contractId: null, assetId: { notIn: mobilizedAssetIds } }
         ]
       } else {
-        where.contractId = params.contractStatus
+        const contractId = params.contractStatus
+        const contract = await prisma.contract.findUnique({
+          where: { id: contractId },
+          select: { start_date: true, end_date: true },
+        })
+
+        if (contract) {
+          const movements = await prisma.assetMovement.findMany({
+            where: { contractId },
+            select: { assetId: true },
+          })
+          const assetIds = movements.map((m) => m.assetId)
+
+          where.OR = [
+            { contractId },
+            {
+              contractId: null,
+              assetId: { in: assetIds },
+              scheduled_date: {
+                gte: contract.start_date,
+                ...(contract.end_date ? { lte: contract.end_date } : {}),
+              },
+            },
+          ]
+        } else {
+          where.contractId = contractId
+        }
       }
     }
 
@@ -420,10 +465,46 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
       }),
     ])
 
+    // População automática de contrato para ativos que estão mobilizados no momento
+    const nullContractAssetIds = (maintenances as any[])
+      .filter((m) => !m.contract)
+      .map((m) => m.assetId)
+
+    const activeMovements = await prisma.assetMovement.findMany({
+      where: {
+        assetId: { in: nullContractAssetIds },
+        is_active: true,
+        demobilization_date: null,
+        contract: { status: 'ACTIVE' },
+      },
+      include: {
+        contract: {
+          select: {
+            contract_number: true,
+            client: { select: { company_name: true } },
+          },
+        },
+      },
+    })
+
+    const assetToContractMap = new Map(
+      activeMovements.map((am) => [am.assetId, am.contract]),
+    )
+
+    const items = (maintenances as any[]).map((m) => {
+      if (!m.contract) {
+        const activeContract = assetToContractMap.get(m.assetId)
+        if (activeContract) {
+          return { ...m, contract: activeContract }
+        }
+      }
+      return m
+    })
+
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances as any,
+      items: items as MaintenanceWithRelations[],
       currentPage: params.page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
