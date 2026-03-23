@@ -7,7 +7,7 @@ export async function createContract(
   reply: FastifyReply,
 ) {
   const createBodySchema = z.object({
-    contract_number: z.string().min(5, 'Contract number is required'),
+    contract_number: z.string().optional().default('AUTO'),
     description: z.string().nullable().optional(),
     clientId: z.string('Invalid client id'),
     responsible_name: z.string().nullable().optional(),
