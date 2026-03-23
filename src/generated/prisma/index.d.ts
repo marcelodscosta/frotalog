@@ -103,6 +103,16 @@ export type Checklist = $Result.DefaultSelection<Prisma.$ChecklistPayload>
  * 
  */
 export type ChecklistAnswer = $Result.DefaultSelection<Prisma.$ChecklistAnswerPayload>
+/**
+ * Model CommercialProposal
+ * 
+ */
+export type CommercialProposal = $Result.DefaultSelection<Prisma.$CommercialProposalPayload>
+/**
+ * Model ProposalItem
+ * 
+ */
+export type ProposalItem = $Result.DefaultSelection<Prisma.$ProposalItemPayload>
 
 /**
  * Enums
@@ -209,11 +219,23 @@ export type ChecklistType = (typeof ChecklistType)[keyof typeof ChecklistType]
 export const ChecklistStatus: {
   PENDING: 'PENDING',
   REVIEWING: 'REVIEWING',
+  IN_PROGRESS: 'IN_PROGRESS',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'
 };
 
 export type ChecklistStatus = (typeof ChecklistStatus)[keyof typeof ChecklistStatus]
+
+
+export const ProposalStatus: {
+  DRAFT: 'DRAFT',
+  SENT: 'SENT',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CONVERTED: 'CONVERTED'
+};
+
+export type ProposalStatus = (typeof ProposalStatus)[keyof typeof ProposalStatus]
 
 }
 
@@ -264,6 +286,10 @@ export const ChecklistType: typeof $Enums.ChecklistType
 export type ChecklistStatus = $Enums.ChecklistStatus
 
 export const ChecklistStatus: typeof $Enums.ChecklistStatus
+
+export type ProposalStatus = $Enums.ProposalStatus
+
+export const ProposalStatus: typeof $Enums.ProposalStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -562,6 +588,26 @@ export class PrismaClient<
     * ```
     */
   get checklistAnswer(): Prisma.ChecklistAnswerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.commercialProposal`: Exposes CRUD operations for the **CommercialProposal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommercialProposals
+    * const commercialProposals = await prisma.commercialProposal.findMany()
+    * ```
+    */
+  get commercialProposal(): Prisma.CommercialProposalDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.proposalItem`: Exposes CRUD operations for the **ProposalItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProposalItems
+    * const proposalItems = await prisma.proposalItem.findMany()
+    * ```
+    */
+  get proposalItem(): Prisma.ProposalItemDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1019,7 +1065,9 @@ export namespace Prisma {
     ChecklistParameter: 'ChecklistParameter',
     ChecklistItemTemplate: 'ChecklistItemTemplate',
     Checklist: 'Checklist',
-    ChecklistAnswer: 'ChecklistAnswer'
+    ChecklistAnswer: 'ChecklistAnswer',
+    CommercialProposal: 'CommercialProposal',
+    ProposalItem: 'ProposalItem'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1038,7 +1086,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "assetCategory" | "asset" | "assetReading" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement" | "measurementBulletin" | "invoice" | "bulletinExpense" | "companySettings" | "checklistParameter" | "checklistItemTemplate" | "checklist" | "checklistAnswer"
+      modelProps: "user" | "assetCategory" | "asset" | "assetReading" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement" | "measurementBulletin" | "invoice" | "bulletinExpense" | "companySettings" | "checklistParameter" | "checklistItemTemplate" | "checklist" | "checklistAnswer" | "commercialProposal" | "proposalItem"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2374,6 +2422,154 @@ export namespace Prisma {
           }
         }
       }
+      CommercialProposal: {
+        payload: Prisma.$CommercialProposalPayload<ExtArgs>
+        fields: Prisma.CommercialProposalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommercialProposalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommercialProposalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload>
+          }
+          findFirst: {
+            args: Prisma.CommercialProposalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommercialProposalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload>
+          }
+          findMany: {
+            args: Prisma.CommercialProposalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload>[]
+          }
+          create: {
+            args: Prisma.CommercialProposalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload>
+          }
+          createMany: {
+            args: Prisma.CommercialProposalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommercialProposalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload>[]
+          }
+          delete: {
+            args: Prisma.CommercialProposalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload>
+          }
+          update: {
+            args: Prisma.CommercialProposalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommercialProposalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommercialProposalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommercialProposalUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommercialProposalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommercialProposalPayload>
+          }
+          aggregate: {
+            args: Prisma.CommercialProposalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommercialProposal>
+          }
+          groupBy: {
+            args: Prisma.CommercialProposalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommercialProposalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommercialProposalCountArgs<ExtArgs>
+            result: $Utils.Optional<CommercialProposalCountAggregateOutputType> | number
+          }
+        }
+      }
+      ProposalItem: {
+        payload: Prisma.$ProposalItemPayload<ExtArgs>
+        fields: Prisma.ProposalItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProposalItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProposalItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload>
+          }
+          findFirst: {
+            args: Prisma.ProposalItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProposalItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload>
+          }
+          findMany: {
+            args: Prisma.ProposalItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload>[]
+          }
+          create: {
+            args: Prisma.ProposalItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload>
+          }
+          createMany: {
+            args: Prisma.ProposalItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProposalItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload>[]
+          }
+          delete: {
+            args: Prisma.ProposalItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload>
+          }
+          update: {
+            args: Prisma.ProposalItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProposalItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProposalItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProposalItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProposalItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProposalItemPayload>
+          }
+          aggregate: {
+            args: Prisma.ProposalItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProposalItem>
+          }
+          groupBy: {
+            args: Prisma.ProposalItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProposalItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProposalItemCountArgs<ExtArgs>
+            result: $Utils.Optional<ProposalItemCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2484,6 +2680,8 @@ export namespace Prisma {
     checklistItemTemplate?: ChecklistItemTemplateOmit
     checklist?: ChecklistOmit
     checklistAnswer?: ChecklistAnswerOmit
+    commercialProposal?: CommercialProposalOmit
+    proposalItem?: ProposalItemOmit
   }
 
   /* Types for Logging */
@@ -2596,10 +2794,12 @@ export namespace Prisma {
 
   export type AssetCategoryCountOutputType = {
     Asset: number
+    ProposalItems: number
   }
 
   export type AssetCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Asset?: boolean | AssetCategoryCountOutputTypeCountAssetArgs
+    ProposalItems?: boolean | AssetCategoryCountOutputTypeCountProposalItemsArgs
   }
 
   // Custom InputTypes
@@ -2620,6 +2820,13 @@ export namespace Prisma {
     where?: AssetWhereInput
   }
 
+  /**
+   * AssetCategoryCountOutputType without action
+   */
+  export type AssetCategoryCountOutputTypeCountProposalItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProposalItemWhereInput
+  }
+
 
   /**
    * Count Type AssetCountOutputType
@@ -2630,6 +2837,7 @@ export namespace Prisma {
     Maintenance: number
     Readings: number
     Checklists: number
+    ProposalItems: number
   }
 
   export type AssetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2637,6 +2845,7 @@ export namespace Prisma {
     Maintenance?: boolean | AssetCountOutputTypeCountMaintenanceArgs
     Readings?: boolean | AssetCountOutputTypeCountReadingsArgs
     Checklists?: boolean | AssetCountOutputTypeCountChecklistsArgs
+    ProposalItems?: boolean | AssetCountOutputTypeCountProposalItemsArgs
   }
 
   // Custom InputTypes
@@ -2678,6 +2887,13 @@ export namespace Prisma {
     where?: ChecklistWhereInput
   }
 
+  /**
+   * AssetCountOutputType without action
+   */
+  export type AssetCountOutputTypeCountProposalItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProposalItemWhereInput
+  }
+
 
   /**
    * Count Type SupplierCountOutputType
@@ -2687,12 +2903,14 @@ export namespace Prisma {
     Contracts: number
     Maintenance: number
     Checklists: number
+    CommercialProposals: number
   }
 
   export type SupplierCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Contracts?: boolean | SupplierCountOutputTypeCountContractsArgs
     Maintenance?: boolean | SupplierCountOutputTypeCountMaintenanceArgs
     Checklists?: boolean | SupplierCountOutputTypeCountChecklistsArgs
+    CommercialProposals?: boolean | SupplierCountOutputTypeCountCommercialProposalsArgs
   }
 
   // Custom InputTypes
@@ -2725,6 +2943,13 @@ export namespace Prisma {
    */
   export type SupplierCountOutputTypeCountChecklistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChecklistWhereInput
+  }
+
+  /**
+   * SupplierCountOutputType without action
+   */
+  export type SupplierCountOutputTypeCountCommercialProposalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommercialProposalWhereInput
   }
 
 
@@ -2933,6 +3158,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CompanySettingsCountOutputType
+   */
+
+  export type CompanySettingsCountOutputType = {
+    CommercialProposals: number
+  }
+
+  export type CompanySettingsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    CommercialProposals?: boolean | CompanySettingsCountOutputTypeCountCommercialProposalsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CompanySettingsCountOutputType without action
+   */
+  export type CompanySettingsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettingsCountOutputType
+     */
+    select?: CompanySettingsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CompanySettingsCountOutputType without action
+   */
+  export type CompanySettingsCountOutputTypeCountCommercialProposalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommercialProposalWhereInput
+  }
+
+
+  /**
    * Count Type ChecklistParameterCountOutputType
    */
 
@@ -3031,6 +3287,37 @@ export namespace Prisma {
    */
   export type ChecklistCountOutputTypeCountAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChecklistAnswerWhereInput
+  }
+
+
+  /**
+   * Count Type CommercialProposalCountOutputType
+   */
+
+  export type CommercialProposalCountOutputType = {
+    items: number
+  }
+
+  export type CommercialProposalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | CommercialProposalCountOutputTypeCountItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommercialProposalCountOutputType without action
+   */
+  export type CommercialProposalCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposalCountOutputType
+     */
+    select?: CommercialProposalCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommercialProposalCountOutputType without action
+   */
+  export type CommercialProposalCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProposalItemWhereInput
   }
 
 
@@ -4354,6 +4641,7 @@ export namespace Prisma {
     updated_at?: boolean
     is_Active?: boolean
     Asset?: boolean | AssetCategory$AssetArgs<ExtArgs>
+    ProposalItems?: boolean | AssetCategory$ProposalItemsArgs<ExtArgs>
     _count?: boolean | AssetCategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assetCategory"]>
 
@@ -4390,6 +4678,7 @@ export namespace Prisma {
   export type AssetCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "type" | "created_at" | "updated_at" | "is_Active", ExtArgs["result"]["assetCategory"]>
   export type AssetCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Asset?: boolean | AssetCategory$AssetArgs<ExtArgs>
+    ProposalItems?: boolean | AssetCategory$ProposalItemsArgs<ExtArgs>
     _count?: boolean | AssetCategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4399,6 +4688,7 @@ export namespace Prisma {
     name: "AssetCategory"
     objects: {
       Asset: Prisma.$AssetPayload<ExtArgs>[]
+      ProposalItems: Prisma.$ProposalItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4803,6 +5093,7 @@ export namespace Prisma {
   export interface Prisma__AssetCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     Asset<T extends AssetCategory$AssetArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategory$AssetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ProposalItems<T extends AssetCategory$ProposalItemsArgs<ExtArgs> = {}>(args?: Subset<T, AssetCategory$ProposalItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5251,6 +5542,30 @@ export namespace Prisma {
   }
 
   /**
+   * AssetCategory.ProposalItems
+   */
+  export type AssetCategory$ProposalItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    where?: ProposalItemWhereInput
+    orderBy?: ProposalItemOrderByWithRelationInput | ProposalItemOrderByWithRelationInput[]
+    cursor?: ProposalItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProposalItemScalarFieldEnum | ProposalItemScalarFieldEnum[]
+  }
+
+  /**
    * AssetCategory without action
    */
   export type AssetCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5640,6 +5955,7 @@ export namespace Prisma {
     Maintenance?: boolean | Asset$MaintenanceArgs<ExtArgs>
     Readings?: boolean | Asset$ReadingsArgs<ExtArgs>
     Checklists?: boolean | Asset$ChecklistsArgs<ExtArgs>
+    ProposalItems?: boolean | Asset$ProposalItemsArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
@@ -5727,6 +6043,7 @@ export namespace Prisma {
     Maintenance?: boolean | Asset$MaintenanceArgs<ExtArgs>
     Readings?: boolean | Asset$ReadingsArgs<ExtArgs>
     Checklists?: boolean | Asset$ChecklistsArgs<ExtArgs>
+    ProposalItems?: boolean | Asset$ProposalItemsArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5744,6 +6061,7 @@ export namespace Prisma {
       Maintenance: Prisma.$MaintenancePayload<ExtArgs>[]
       Readings: Prisma.$AssetReadingPayload<ExtArgs>[]
       Checklists: Prisma.$ChecklistPayload<ExtArgs>[]
+      ProposalItems: Prisma.$ProposalItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6167,6 +6485,7 @@ export namespace Prisma {
     Maintenance<T extends Asset$MaintenanceArgs<ExtArgs> = {}>(args?: Subset<T, Asset$MaintenanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Readings<T extends Asset$ReadingsArgs<ExtArgs> = {}>(args?: Subset<T, Asset$ReadingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetReadingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Checklists<T extends Asset$ChecklistsArgs<ExtArgs> = {}>(args?: Subset<T, Asset$ChecklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ProposalItems<T extends Asset$ProposalItemsArgs<ExtArgs> = {}>(args?: Subset<T, Asset$ProposalItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6707,6 +7026,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChecklistScalarFieldEnum | ChecklistScalarFieldEnum[]
+  }
+
+  /**
+   * Asset.ProposalItems
+   */
+  export type Asset$ProposalItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    where?: ProposalItemWhereInput
+    orderBy?: ProposalItemOrderByWithRelationInput | ProposalItemOrderByWithRelationInput[]
+    cursor?: ProposalItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProposalItemScalarFieldEnum | ProposalItemScalarFieldEnum[]
   }
 
   /**
@@ -8127,6 +8470,7 @@ export namespace Prisma {
     Contracts?: boolean | Supplier$ContractsArgs<ExtArgs>
     Maintenance?: boolean | Supplier$MaintenanceArgs<ExtArgs>
     Checklists?: boolean | Supplier$ChecklistsArgs<ExtArgs>
+    CommercialProposals?: boolean | Supplier$CommercialProposalsArgs<ExtArgs>
     _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["supplier"]>
 
@@ -8192,6 +8536,7 @@ export namespace Prisma {
     Contracts?: boolean | Supplier$ContractsArgs<ExtArgs>
     Maintenance?: boolean | Supplier$MaintenanceArgs<ExtArgs>
     Checklists?: boolean | Supplier$ChecklistsArgs<ExtArgs>
+    CommercialProposals?: boolean | Supplier$CommercialProposalsArgs<ExtArgs>
     _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SupplierIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8203,6 +8548,7 @@ export namespace Prisma {
       Contracts: Prisma.$ContractPayload<ExtArgs>[]
       Maintenance: Prisma.$MaintenancePayload<ExtArgs>[]
       Checklists: Prisma.$ChecklistPayload<ExtArgs>[]
+      CommercialProposals: Prisma.$CommercialProposalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8618,6 +8964,7 @@ export namespace Prisma {
     Contracts<T extends Supplier$ContractsArgs<ExtArgs> = {}>(args?: Subset<T, Supplier$ContractsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Maintenance<T extends Supplier$MaintenanceArgs<ExtArgs> = {}>(args?: Subset<T, Supplier$MaintenanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Checklists<T extends Supplier$ChecklistsArgs<ExtArgs> = {}>(args?: Subset<T, Supplier$ChecklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    CommercialProposals<T extends Supplier$CommercialProposalsArgs<ExtArgs> = {}>(args?: Subset<T, Supplier$CommercialProposalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9120,6 +9467,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChecklistScalarFieldEnum | ChecklistScalarFieldEnum[]
+  }
+
+  /**
+   * Supplier.CommercialProposals
+   */
+  export type Supplier$CommercialProposalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    where?: CommercialProposalWhereInput
+    orderBy?: CommercialProposalOrderByWithRelationInput | CommercialProposalOrderByWithRelationInput[]
+    cursor?: CommercialProposalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommercialProposalScalarFieldEnum | CommercialProposalScalarFieldEnum[]
   }
 
   /**
@@ -12876,6 +13247,8 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     is_Active: boolean | null
+    body_html: string | null
+    signed_contract_url: string | null
   }
 
   export type ContractMaxAggregateOutputType = {
@@ -12895,6 +13268,8 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     is_Active: boolean | null
+    body_html: string | null
+    signed_contract_url: string | null
   }
 
   export type ContractCountAggregateOutputType = {
@@ -12914,6 +13289,8 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     is_Active: number
+    body_html: number
+    signed_contract_url: number
     _all: number
   }
 
@@ -12945,6 +13322,8 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     is_Active?: true
+    body_html?: true
+    signed_contract_url?: true
   }
 
   export type ContractMaxAggregateInputType = {
@@ -12964,6 +13343,8 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     is_Active?: true
+    body_html?: true
+    signed_contract_url?: true
   }
 
   export type ContractCountAggregateInputType = {
@@ -12983,6 +13364,8 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     is_Active?: true
+    body_html?: true
+    signed_contract_url?: true
     _all?: true
   }
 
@@ -13089,6 +13472,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     is_Active: boolean
+    body_html: string | null
+    signed_contract_url: string | null
     _count: ContractCountAggregateOutputType | null
     _avg: ContractAvgAggregateOutputType | null
     _sum: ContractSumAggregateOutputType | null
@@ -13127,10 +13512,13 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
+    body_html?: boolean
+    signed_contract_url?: boolean
     movements?: boolean | Contract$movementsArgs<ExtArgs>
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     maintenances?: boolean | Contract$maintenancesArgs<ExtArgs>
     measurementBulletins?: boolean | Contract$measurementBulletinsArgs<ExtArgs>
+    CommercialProposal?: boolean | Contract$CommercialProposalArgs<ExtArgs>
     _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contract"]>
 
@@ -13151,6 +13539,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
+    body_html?: boolean
+    signed_contract_url?: boolean
     client?: boolean | SupplierDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contract"]>
 
@@ -13171,6 +13561,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
+    body_html?: boolean
+    signed_contract_url?: boolean
     client?: boolean | SupplierDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contract"]>
 
@@ -13191,14 +13583,17 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
+    body_html?: boolean
+    signed_contract_url?: boolean
   }
 
-  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contract_number" | "description" | "clientId" | "responsible_name" | "responsible_phone" | "responsible_email" | "start_date" | "end_date" | "status" | "total_value" | "billing_day" | "notes" | "created_at" | "updated_at" | "is_Active", ExtArgs["result"]["contract"]>
+  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contract_number" | "description" | "clientId" | "responsible_name" | "responsible_phone" | "responsible_email" | "start_date" | "end_date" | "status" | "total_value" | "billing_day" | "notes" | "created_at" | "updated_at" | "is_Active" | "body_html" | "signed_contract_url", ExtArgs["result"]["contract"]>
   export type ContractInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     movements?: boolean | Contract$movementsArgs<ExtArgs>
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     maintenances?: boolean | Contract$maintenancesArgs<ExtArgs>
     measurementBulletins?: boolean | Contract$measurementBulletinsArgs<ExtArgs>
+    CommercialProposal?: boolean | Contract$CommercialProposalArgs<ExtArgs>
     _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContractIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13215,6 +13610,7 @@ export namespace Prisma {
       client: Prisma.$SupplierPayload<ExtArgs>
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       measurementBulletins: Prisma.$MeasurementBulletinPayload<ExtArgs>[]
+      CommercialProposal: Prisma.$CommercialProposalPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13233,6 +13629,8 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       is_Active: boolean
+      body_html: string | null
+      signed_contract_url: string | null
     }, ExtArgs["result"]["contract"]>
     composites: {}
   }
@@ -13631,6 +14029,7 @@ export namespace Prisma {
     client<T extends SupplierDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SupplierDefaultArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     maintenances<T extends Contract$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Contract$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     measurementBulletins<T extends Contract$measurementBulletinsArgs<ExtArgs> = {}>(args?: Subset<T, Contract$measurementBulletinsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    CommercialProposal<T extends Contract$CommercialProposalArgs<ExtArgs> = {}>(args?: Subset<T, Contract$CommercialProposalArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13676,6 +14075,8 @@ export namespace Prisma {
     readonly created_at: FieldRef<"Contract", 'DateTime'>
     readonly updated_at: FieldRef<"Contract", 'DateTime'>
     readonly is_Active: FieldRef<"Contract", 'Boolean'>
+    readonly body_html: FieldRef<"Contract", 'String'>
+    readonly signed_contract_url: FieldRef<"Contract", 'String'>
   }
     
 
@@ -14141,6 +14542,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MeasurementBulletinScalarFieldEnum | MeasurementBulletinScalarFieldEnum[]
+  }
+
+  /**
+   * Contract.CommercialProposal
+   */
+  export type Contract$CommercialProposalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    where?: CommercialProposalWhereInput
   }
 
   /**
@@ -19453,6 +19873,8 @@ export namespace Prisma {
     invoice_start_number?: boolean
     created_at?: boolean
     updated_at?: boolean
+    CommercialProposals?: boolean | CompanySettings$CommercialProposalsArgs<ExtArgs>
+    _count?: boolean | CompanySettingsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["companySettings"]>
 
   export type CompanySettingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19507,10 +19929,18 @@ export namespace Prisma {
   }
 
   export type CompanySettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_name" | "trading_name" | "cnpj" | "address" | "city" | "state" | "zip_code" | "phone" | "email" | "logo_url" | "invoice_start_number" | "created_at" | "updated_at", ExtArgs["result"]["companySettings"]>
+  export type CompanySettingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    CommercialProposals?: boolean | CompanySettings$CommercialProposalsArgs<ExtArgs>
+    _count?: boolean | CompanySettingsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CompanySettingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CompanySettingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $CompanySettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CompanySettings"
-    objects: {}
+    objects: {
+      CommercialProposals: Prisma.$CommercialProposalPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       company_name: string
@@ -19920,6 +20350,7 @@ export namespace Prisma {
    */
   export interface Prisma__CompanySettingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    CommercialProposals<T extends CompanySettings$CommercialProposalsArgs<ExtArgs> = {}>(args?: Subset<T, CompanySettings$CommercialProposalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19980,6 +20411,10 @@ export namespace Prisma {
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
+    /**
      * Filter, which CompanySettings to fetch.
      */
     where: CompanySettingsWhereUniqueInput
@@ -19998,6 +20433,10 @@ export namespace Prisma {
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
+    /**
      * Filter, which CompanySettings to fetch.
      */
     where: CompanySettingsWhereUniqueInput
@@ -20015,6 +20454,10 @@ export namespace Prisma {
      * Omit specific fields from the CompanySettings
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
     /**
      * Filter, which CompanySettings to fetch.
      */
@@ -20064,6 +20507,10 @@ export namespace Prisma {
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
+    /**
      * Filter, which CompanySettings to fetch.
      */
     where?: CompanySettingsWhereInput
@@ -20112,6 +20559,10 @@ export namespace Prisma {
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
+    /**
      * Filter, which CompanySettings to fetch.
      */
     where?: CompanySettingsWhereInput
@@ -20154,6 +20605,10 @@ export namespace Prisma {
      * Omit specific fields from the CompanySettings
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
     /**
      * The data needed to create a CompanySettings.
      */
@@ -20202,6 +20657,10 @@ export namespace Prisma {
      * Omit specific fields from the CompanySettings
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
     /**
      * The data needed to update a CompanySettings.
      */
@@ -20269,6 +20728,10 @@ export namespace Prisma {
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
+    /**
      * The filter to search for the CompanySettings to update in case it exists.
      */
     where: CompanySettingsWhereUniqueInput
@@ -20295,6 +20758,10 @@ export namespace Prisma {
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
+    /**
      * Filter which CompanySettings to delete.
      */
     where: CompanySettingsWhereUniqueInput
@@ -20315,6 +20782,30 @@ export namespace Prisma {
   }
 
   /**
+   * CompanySettings.CommercialProposals
+   */
+  export type CompanySettings$CommercialProposalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    where?: CommercialProposalWhereInput
+    orderBy?: CommercialProposalOrderByWithRelationInput | CommercialProposalOrderByWithRelationInput[]
+    cursor?: CommercialProposalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommercialProposalScalarFieldEnum | CommercialProposalScalarFieldEnum[]
+  }
+
+  /**
    * CompanySettings without action
    */
   export type CompanySettingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -20326,6 +20817,10 @@ export namespace Prisma {
      * Omit specific fields from the CompanySettings
      */
     omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
   }
 
 
@@ -25037,6 +25532,2634 @@ export namespace Prisma {
 
 
   /**
+   * Model CommercialProposal
+   */
+
+  export type AggregateCommercialProposal = {
+    _count: CommercialProposalCountAggregateOutputType | null
+    _avg: CommercialProposalAvgAggregateOutputType | null
+    _sum: CommercialProposalSumAggregateOutputType | null
+    _min: CommercialProposalMinAggregateOutputType | null
+    _max: CommercialProposalMaxAggregateOutputType | null
+  }
+
+  export type CommercialProposalAvgAggregateOutputType = {
+    mobilization_value: Decimal | null
+    demobilization_value: Decimal | null
+    validity_days: number | null
+  }
+
+  export type CommercialProposalSumAggregateOutputType = {
+    mobilization_value: Decimal | null
+    demobilization_value: Decimal | null
+    validity_days: number | null
+  }
+
+  export type CommercialProposalMinAggregateOutputType = {
+    id: string | null
+    proposal_number: string | null
+    companySettingsId: string | null
+    clientId: string | null
+    contact_name: string | null
+    contact_phone: string | null
+    contact_email: string | null
+    mobilization_value: Decimal | null
+    demobilization_value: Decimal | null
+    payment_conditions: string | null
+    rental_period: string | null
+    technical_notes: string | null
+    validity_days: number | null
+    body_html: string | null
+    status: $Enums.ProposalStatus | null
+    created_at: Date | null
+    updated_at: Date | null
+    is_active: boolean | null
+    contractId: string | null
+  }
+
+  export type CommercialProposalMaxAggregateOutputType = {
+    id: string | null
+    proposal_number: string | null
+    companySettingsId: string | null
+    clientId: string | null
+    contact_name: string | null
+    contact_phone: string | null
+    contact_email: string | null
+    mobilization_value: Decimal | null
+    demobilization_value: Decimal | null
+    payment_conditions: string | null
+    rental_period: string | null
+    technical_notes: string | null
+    validity_days: number | null
+    body_html: string | null
+    status: $Enums.ProposalStatus | null
+    created_at: Date | null
+    updated_at: Date | null
+    is_active: boolean | null
+    contractId: string | null
+  }
+
+  export type CommercialProposalCountAggregateOutputType = {
+    id: number
+    proposal_number: number
+    companySettingsId: number
+    clientId: number
+    contact_name: number
+    contact_phone: number
+    contact_email: number
+    mobilization_value: number
+    demobilization_value: number
+    payment_conditions: number
+    rental_period: number
+    technical_notes: number
+    validity_days: number
+    body_html: number
+    status: number
+    created_at: number
+    updated_at: number
+    is_active: number
+    contractId: number
+    _all: number
+  }
+
+
+  export type CommercialProposalAvgAggregateInputType = {
+    mobilization_value?: true
+    demobilization_value?: true
+    validity_days?: true
+  }
+
+  export type CommercialProposalSumAggregateInputType = {
+    mobilization_value?: true
+    demobilization_value?: true
+    validity_days?: true
+  }
+
+  export type CommercialProposalMinAggregateInputType = {
+    id?: true
+    proposal_number?: true
+    companySettingsId?: true
+    clientId?: true
+    contact_name?: true
+    contact_phone?: true
+    contact_email?: true
+    mobilization_value?: true
+    demobilization_value?: true
+    payment_conditions?: true
+    rental_period?: true
+    technical_notes?: true
+    validity_days?: true
+    body_html?: true
+    status?: true
+    created_at?: true
+    updated_at?: true
+    is_active?: true
+    contractId?: true
+  }
+
+  export type CommercialProposalMaxAggregateInputType = {
+    id?: true
+    proposal_number?: true
+    companySettingsId?: true
+    clientId?: true
+    contact_name?: true
+    contact_phone?: true
+    contact_email?: true
+    mobilization_value?: true
+    demobilization_value?: true
+    payment_conditions?: true
+    rental_period?: true
+    technical_notes?: true
+    validity_days?: true
+    body_html?: true
+    status?: true
+    created_at?: true
+    updated_at?: true
+    is_active?: true
+    contractId?: true
+  }
+
+  export type CommercialProposalCountAggregateInputType = {
+    id?: true
+    proposal_number?: true
+    companySettingsId?: true
+    clientId?: true
+    contact_name?: true
+    contact_phone?: true
+    contact_email?: true
+    mobilization_value?: true
+    demobilization_value?: true
+    payment_conditions?: true
+    rental_period?: true
+    technical_notes?: true
+    validity_days?: true
+    body_html?: true
+    status?: true
+    created_at?: true
+    updated_at?: true
+    is_active?: true
+    contractId?: true
+    _all?: true
+  }
+
+  export type CommercialProposalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommercialProposal to aggregate.
+     */
+    where?: CommercialProposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommercialProposals to fetch.
+     */
+    orderBy?: CommercialProposalOrderByWithRelationInput | CommercialProposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommercialProposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommercialProposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommercialProposals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommercialProposals
+    **/
+    _count?: true | CommercialProposalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CommercialProposalAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommercialProposalSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommercialProposalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommercialProposalMaxAggregateInputType
+  }
+
+  export type GetCommercialProposalAggregateType<T extends CommercialProposalAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommercialProposal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommercialProposal[P]>
+      : GetScalarType<T[P], AggregateCommercialProposal[P]>
+  }
+
+
+
+
+  export type CommercialProposalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommercialProposalWhereInput
+    orderBy?: CommercialProposalOrderByWithAggregationInput | CommercialProposalOrderByWithAggregationInput[]
+    by: CommercialProposalScalarFieldEnum[] | CommercialProposalScalarFieldEnum
+    having?: CommercialProposalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommercialProposalCountAggregateInputType | true
+    _avg?: CommercialProposalAvgAggregateInputType
+    _sum?: CommercialProposalSumAggregateInputType
+    _min?: CommercialProposalMinAggregateInputType
+    _max?: CommercialProposalMaxAggregateInputType
+  }
+
+  export type CommercialProposalGroupByOutputType = {
+    id: string
+    proposal_number: string
+    companySettingsId: string | null
+    clientId: string
+    contact_name: string | null
+    contact_phone: string | null
+    contact_email: string | null
+    mobilization_value: Decimal | null
+    demobilization_value: Decimal | null
+    payment_conditions: string | null
+    rental_period: string | null
+    technical_notes: string | null
+    validity_days: number
+    body_html: string | null
+    status: $Enums.ProposalStatus
+    created_at: Date
+    updated_at: Date
+    is_active: boolean
+    contractId: string | null
+    _count: CommercialProposalCountAggregateOutputType | null
+    _avg: CommercialProposalAvgAggregateOutputType | null
+    _sum: CommercialProposalSumAggregateOutputType | null
+    _min: CommercialProposalMinAggregateOutputType | null
+    _max: CommercialProposalMaxAggregateOutputType | null
+  }
+
+  type GetCommercialProposalGroupByPayload<T extends CommercialProposalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommercialProposalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommercialProposalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommercialProposalGroupByOutputType[P]>
+            : GetScalarType<T[P], CommercialProposalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommercialProposalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proposal_number?: boolean
+    companySettingsId?: boolean
+    clientId?: boolean
+    contact_name?: boolean
+    contact_phone?: boolean
+    contact_email?: boolean
+    mobilization_value?: boolean
+    demobilization_value?: boolean
+    payment_conditions?: boolean
+    rental_period?: boolean
+    technical_notes?: boolean
+    validity_days?: boolean
+    body_html?: boolean
+    status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_active?: boolean
+    contractId?: boolean
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+    companySettings?: boolean | CommercialProposal$companySettingsArgs<ExtArgs>
+    contract?: boolean | CommercialProposal$contractArgs<ExtArgs>
+    items?: boolean | CommercialProposal$itemsArgs<ExtArgs>
+    _count?: boolean | CommercialProposalCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["commercialProposal"]>
+
+  export type CommercialProposalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proposal_number?: boolean
+    companySettingsId?: boolean
+    clientId?: boolean
+    contact_name?: boolean
+    contact_phone?: boolean
+    contact_email?: boolean
+    mobilization_value?: boolean
+    demobilization_value?: boolean
+    payment_conditions?: boolean
+    rental_period?: boolean
+    technical_notes?: boolean
+    validity_days?: boolean
+    body_html?: boolean
+    status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_active?: boolean
+    contractId?: boolean
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+    companySettings?: boolean | CommercialProposal$companySettingsArgs<ExtArgs>
+    contract?: boolean | CommercialProposal$contractArgs<ExtArgs>
+  }, ExtArgs["result"]["commercialProposal"]>
+
+  export type CommercialProposalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proposal_number?: boolean
+    companySettingsId?: boolean
+    clientId?: boolean
+    contact_name?: boolean
+    contact_phone?: boolean
+    contact_email?: boolean
+    mobilization_value?: boolean
+    demobilization_value?: boolean
+    payment_conditions?: boolean
+    rental_period?: boolean
+    technical_notes?: boolean
+    validity_days?: boolean
+    body_html?: boolean
+    status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_active?: boolean
+    contractId?: boolean
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+    companySettings?: boolean | CommercialProposal$companySettingsArgs<ExtArgs>
+    contract?: boolean | CommercialProposal$contractArgs<ExtArgs>
+  }, ExtArgs["result"]["commercialProposal"]>
+
+  export type CommercialProposalSelectScalar = {
+    id?: boolean
+    proposal_number?: boolean
+    companySettingsId?: boolean
+    clientId?: boolean
+    contact_name?: boolean
+    contact_phone?: boolean
+    contact_email?: boolean
+    mobilization_value?: boolean
+    demobilization_value?: boolean
+    payment_conditions?: boolean
+    rental_period?: boolean
+    technical_notes?: boolean
+    validity_days?: boolean
+    body_html?: boolean
+    status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_active?: boolean
+    contractId?: boolean
+  }
+
+  export type CommercialProposalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "proposal_number" | "companySettingsId" | "clientId" | "contact_name" | "contact_phone" | "contact_email" | "mobilization_value" | "demobilization_value" | "payment_conditions" | "rental_period" | "technical_notes" | "validity_days" | "body_html" | "status" | "created_at" | "updated_at" | "is_active" | "contractId", ExtArgs["result"]["commercialProposal"]>
+  export type CommercialProposalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+    companySettings?: boolean | CommercialProposal$companySettingsArgs<ExtArgs>
+    contract?: boolean | CommercialProposal$contractArgs<ExtArgs>
+    items?: boolean | CommercialProposal$itemsArgs<ExtArgs>
+    _count?: boolean | CommercialProposalCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CommercialProposalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+    companySettings?: boolean | CommercialProposal$companySettingsArgs<ExtArgs>
+    contract?: boolean | CommercialProposal$contractArgs<ExtArgs>
+  }
+  export type CommercialProposalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    client?: boolean | SupplierDefaultArgs<ExtArgs>
+    companySettings?: boolean | CommercialProposal$companySettingsArgs<ExtArgs>
+    contract?: boolean | CommercialProposal$contractArgs<ExtArgs>
+  }
+
+  export type $CommercialProposalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommercialProposal"
+    objects: {
+      client: Prisma.$SupplierPayload<ExtArgs>
+      companySettings: Prisma.$CompanySettingsPayload<ExtArgs> | null
+      contract: Prisma.$ContractPayload<ExtArgs> | null
+      items: Prisma.$ProposalItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      proposal_number: string
+      companySettingsId: string | null
+      clientId: string
+      contact_name: string | null
+      contact_phone: string | null
+      contact_email: string | null
+      mobilization_value: Prisma.Decimal | null
+      demobilization_value: Prisma.Decimal | null
+      payment_conditions: string | null
+      rental_period: string | null
+      technical_notes: string | null
+      validity_days: number
+      body_html: string | null
+      status: $Enums.ProposalStatus
+      created_at: Date
+      updated_at: Date
+      is_active: boolean
+      contractId: string | null
+    }, ExtArgs["result"]["commercialProposal"]>
+    composites: {}
+  }
+
+  type CommercialProposalGetPayload<S extends boolean | null | undefined | CommercialProposalDefaultArgs> = $Result.GetResult<Prisma.$CommercialProposalPayload, S>
+
+  type CommercialProposalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommercialProposalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommercialProposalCountAggregateInputType | true
+    }
+
+  export interface CommercialProposalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommercialProposal'], meta: { name: 'CommercialProposal' } }
+    /**
+     * Find zero or one CommercialProposal that matches the filter.
+     * @param {CommercialProposalFindUniqueArgs} args - Arguments to find a CommercialProposal
+     * @example
+     * // Get one CommercialProposal
+     * const commercialProposal = await prisma.commercialProposal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommercialProposalFindUniqueArgs>(args: SelectSubset<T, CommercialProposalFindUniqueArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommercialProposal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommercialProposalFindUniqueOrThrowArgs} args - Arguments to find a CommercialProposal
+     * @example
+     * // Get one CommercialProposal
+     * const commercialProposal = await prisma.commercialProposal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommercialProposalFindUniqueOrThrowArgs>(args: SelectSubset<T, CommercialProposalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommercialProposal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommercialProposalFindFirstArgs} args - Arguments to find a CommercialProposal
+     * @example
+     * // Get one CommercialProposal
+     * const commercialProposal = await prisma.commercialProposal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommercialProposalFindFirstArgs>(args?: SelectSubset<T, CommercialProposalFindFirstArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommercialProposal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommercialProposalFindFirstOrThrowArgs} args - Arguments to find a CommercialProposal
+     * @example
+     * // Get one CommercialProposal
+     * const commercialProposal = await prisma.commercialProposal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommercialProposalFindFirstOrThrowArgs>(args?: SelectSubset<T, CommercialProposalFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommercialProposals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommercialProposalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommercialProposals
+     * const commercialProposals = await prisma.commercialProposal.findMany()
+     * 
+     * // Get first 10 CommercialProposals
+     * const commercialProposals = await prisma.commercialProposal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const commercialProposalWithIdOnly = await prisma.commercialProposal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommercialProposalFindManyArgs>(args?: SelectSubset<T, CommercialProposalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommercialProposal.
+     * @param {CommercialProposalCreateArgs} args - Arguments to create a CommercialProposal.
+     * @example
+     * // Create one CommercialProposal
+     * const CommercialProposal = await prisma.commercialProposal.create({
+     *   data: {
+     *     // ... data to create a CommercialProposal
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommercialProposalCreateArgs>(args: SelectSubset<T, CommercialProposalCreateArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommercialProposals.
+     * @param {CommercialProposalCreateManyArgs} args - Arguments to create many CommercialProposals.
+     * @example
+     * // Create many CommercialProposals
+     * const commercialProposal = await prisma.commercialProposal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommercialProposalCreateManyArgs>(args?: SelectSubset<T, CommercialProposalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommercialProposals and returns the data saved in the database.
+     * @param {CommercialProposalCreateManyAndReturnArgs} args - Arguments to create many CommercialProposals.
+     * @example
+     * // Create many CommercialProposals
+     * const commercialProposal = await prisma.commercialProposal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommercialProposals and only return the `id`
+     * const commercialProposalWithIdOnly = await prisma.commercialProposal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommercialProposalCreateManyAndReturnArgs>(args?: SelectSubset<T, CommercialProposalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommercialProposal.
+     * @param {CommercialProposalDeleteArgs} args - Arguments to delete one CommercialProposal.
+     * @example
+     * // Delete one CommercialProposal
+     * const CommercialProposal = await prisma.commercialProposal.delete({
+     *   where: {
+     *     // ... filter to delete one CommercialProposal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommercialProposalDeleteArgs>(args: SelectSubset<T, CommercialProposalDeleteArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommercialProposal.
+     * @param {CommercialProposalUpdateArgs} args - Arguments to update one CommercialProposal.
+     * @example
+     * // Update one CommercialProposal
+     * const commercialProposal = await prisma.commercialProposal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommercialProposalUpdateArgs>(args: SelectSubset<T, CommercialProposalUpdateArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommercialProposals.
+     * @param {CommercialProposalDeleteManyArgs} args - Arguments to filter CommercialProposals to delete.
+     * @example
+     * // Delete a few CommercialProposals
+     * const { count } = await prisma.commercialProposal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommercialProposalDeleteManyArgs>(args?: SelectSubset<T, CommercialProposalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommercialProposals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommercialProposalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommercialProposals
+     * const commercialProposal = await prisma.commercialProposal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommercialProposalUpdateManyArgs>(args: SelectSubset<T, CommercialProposalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommercialProposals and returns the data updated in the database.
+     * @param {CommercialProposalUpdateManyAndReturnArgs} args - Arguments to update many CommercialProposals.
+     * @example
+     * // Update many CommercialProposals
+     * const commercialProposal = await prisma.commercialProposal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommercialProposals and only return the `id`
+     * const commercialProposalWithIdOnly = await prisma.commercialProposal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommercialProposalUpdateManyAndReturnArgs>(args: SelectSubset<T, CommercialProposalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommercialProposal.
+     * @param {CommercialProposalUpsertArgs} args - Arguments to update or create a CommercialProposal.
+     * @example
+     * // Update or create a CommercialProposal
+     * const commercialProposal = await prisma.commercialProposal.upsert({
+     *   create: {
+     *     // ... data to create a CommercialProposal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommercialProposal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommercialProposalUpsertArgs>(args: SelectSubset<T, CommercialProposalUpsertArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommercialProposals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommercialProposalCountArgs} args - Arguments to filter CommercialProposals to count.
+     * @example
+     * // Count the number of CommercialProposals
+     * const count = await prisma.commercialProposal.count({
+     *   where: {
+     *     // ... the filter for the CommercialProposals we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommercialProposalCountArgs>(
+      args?: Subset<T, CommercialProposalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommercialProposalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommercialProposal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommercialProposalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommercialProposalAggregateArgs>(args: Subset<T, CommercialProposalAggregateArgs>): Prisma.PrismaPromise<GetCommercialProposalAggregateType<T>>
+
+    /**
+     * Group by CommercialProposal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommercialProposalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommercialProposalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommercialProposalGroupByArgs['orderBy'] }
+        : { orderBy?: CommercialProposalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommercialProposalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommercialProposalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommercialProposal model
+   */
+  readonly fields: CommercialProposalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommercialProposal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommercialProposalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    client<T extends SupplierDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SupplierDefaultArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    companySettings<T extends CommercialProposal$companySettingsArgs<ExtArgs> = {}>(args?: Subset<T, CommercialProposal$companySettingsArgs<ExtArgs>>): Prisma__CompanySettingsClient<$Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    contract<T extends CommercialProposal$contractArgs<ExtArgs> = {}>(args?: Subset<T, CommercialProposal$contractArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    items<T extends CommercialProposal$itemsArgs<ExtArgs> = {}>(args?: Subset<T, CommercialProposal$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommercialProposal model
+   */
+  interface CommercialProposalFieldRefs {
+    readonly id: FieldRef<"CommercialProposal", 'String'>
+    readonly proposal_number: FieldRef<"CommercialProposal", 'String'>
+    readonly companySettingsId: FieldRef<"CommercialProposal", 'String'>
+    readonly clientId: FieldRef<"CommercialProposal", 'String'>
+    readonly contact_name: FieldRef<"CommercialProposal", 'String'>
+    readonly contact_phone: FieldRef<"CommercialProposal", 'String'>
+    readonly contact_email: FieldRef<"CommercialProposal", 'String'>
+    readonly mobilization_value: FieldRef<"CommercialProposal", 'Decimal'>
+    readonly demobilization_value: FieldRef<"CommercialProposal", 'Decimal'>
+    readonly payment_conditions: FieldRef<"CommercialProposal", 'String'>
+    readonly rental_period: FieldRef<"CommercialProposal", 'String'>
+    readonly technical_notes: FieldRef<"CommercialProposal", 'String'>
+    readonly validity_days: FieldRef<"CommercialProposal", 'Int'>
+    readonly body_html: FieldRef<"CommercialProposal", 'String'>
+    readonly status: FieldRef<"CommercialProposal", 'ProposalStatus'>
+    readonly created_at: FieldRef<"CommercialProposal", 'DateTime'>
+    readonly updated_at: FieldRef<"CommercialProposal", 'DateTime'>
+    readonly is_active: FieldRef<"CommercialProposal", 'Boolean'>
+    readonly contractId: FieldRef<"CommercialProposal", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommercialProposal findUnique
+   */
+  export type CommercialProposalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which CommercialProposal to fetch.
+     */
+    where: CommercialProposalWhereUniqueInput
+  }
+
+  /**
+   * CommercialProposal findUniqueOrThrow
+   */
+  export type CommercialProposalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which CommercialProposal to fetch.
+     */
+    where: CommercialProposalWhereUniqueInput
+  }
+
+  /**
+   * CommercialProposal findFirst
+   */
+  export type CommercialProposalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which CommercialProposal to fetch.
+     */
+    where?: CommercialProposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommercialProposals to fetch.
+     */
+    orderBy?: CommercialProposalOrderByWithRelationInput | CommercialProposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommercialProposals.
+     */
+    cursor?: CommercialProposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommercialProposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommercialProposals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommercialProposals.
+     */
+    distinct?: CommercialProposalScalarFieldEnum | CommercialProposalScalarFieldEnum[]
+  }
+
+  /**
+   * CommercialProposal findFirstOrThrow
+   */
+  export type CommercialProposalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which CommercialProposal to fetch.
+     */
+    where?: CommercialProposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommercialProposals to fetch.
+     */
+    orderBy?: CommercialProposalOrderByWithRelationInput | CommercialProposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommercialProposals.
+     */
+    cursor?: CommercialProposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommercialProposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommercialProposals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommercialProposals.
+     */
+    distinct?: CommercialProposalScalarFieldEnum | CommercialProposalScalarFieldEnum[]
+  }
+
+  /**
+   * CommercialProposal findMany
+   */
+  export type CommercialProposalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which CommercialProposals to fetch.
+     */
+    where?: CommercialProposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommercialProposals to fetch.
+     */
+    orderBy?: CommercialProposalOrderByWithRelationInput | CommercialProposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommercialProposals.
+     */
+    cursor?: CommercialProposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommercialProposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommercialProposals.
+     */
+    skip?: number
+    distinct?: CommercialProposalScalarFieldEnum | CommercialProposalScalarFieldEnum[]
+  }
+
+  /**
+   * CommercialProposal create
+   */
+  export type CommercialProposalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommercialProposal.
+     */
+    data: XOR<CommercialProposalCreateInput, CommercialProposalUncheckedCreateInput>
+  }
+
+  /**
+   * CommercialProposal createMany
+   */
+  export type CommercialProposalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommercialProposals.
+     */
+    data: CommercialProposalCreateManyInput | CommercialProposalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommercialProposal createManyAndReturn
+   */
+  export type CommercialProposalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommercialProposals.
+     */
+    data: CommercialProposalCreateManyInput | CommercialProposalCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommercialProposal update
+   */
+  export type CommercialProposalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommercialProposal.
+     */
+    data: XOR<CommercialProposalUpdateInput, CommercialProposalUncheckedUpdateInput>
+    /**
+     * Choose, which CommercialProposal to update.
+     */
+    where: CommercialProposalWhereUniqueInput
+  }
+
+  /**
+   * CommercialProposal updateMany
+   */
+  export type CommercialProposalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommercialProposals.
+     */
+    data: XOR<CommercialProposalUpdateManyMutationInput, CommercialProposalUncheckedUpdateManyInput>
+    /**
+     * Filter which CommercialProposals to update
+     */
+    where?: CommercialProposalWhereInput
+    /**
+     * Limit how many CommercialProposals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommercialProposal updateManyAndReturn
+   */
+  export type CommercialProposalUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * The data used to update CommercialProposals.
+     */
+    data: XOR<CommercialProposalUpdateManyMutationInput, CommercialProposalUncheckedUpdateManyInput>
+    /**
+     * Filter which CommercialProposals to update
+     */
+    where?: CommercialProposalWhereInput
+    /**
+     * Limit how many CommercialProposals to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommercialProposal upsert
+   */
+  export type CommercialProposalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommercialProposal to update in case it exists.
+     */
+    where: CommercialProposalWhereUniqueInput
+    /**
+     * In case the CommercialProposal found by the `where` argument doesn't exist, create a new CommercialProposal with this data.
+     */
+    create: XOR<CommercialProposalCreateInput, CommercialProposalUncheckedCreateInput>
+    /**
+     * In case the CommercialProposal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommercialProposalUpdateInput, CommercialProposalUncheckedUpdateInput>
+  }
+
+  /**
+   * CommercialProposal delete
+   */
+  export type CommercialProposalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+    /**
+     * Filter which CommercialProposal to delete.
+     */
+    where: CommercialProposalWhereUniqueInput
+  }
+
+  /**
+   * CommercialProposal deleteMany
+   */
+  export type CommercialProposalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommercialProposals to delete
+     */
+    where?: CommercialProposalWhereInput
+    /**
+     * Limit how many CommercialProposals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommercialProposal.companySettings
+   */
+  export type CommercialProposal$companySettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySettings
+     */
+    select?: CompanySettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySettings
+     */
+    omit?: CompanySettingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySettingsInclude<ExtArgs> | null
+    where?: CompanySettingsWhereInput
+  }
+
+  /**
+   * CommercialProposal.contract
+   */
+  export type CommercialProposal$contractArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    where?: ContractWhereInput
+  }
+
+  /**
+   * CommercialProposal.items
+   */
+  export type CommercialProposal$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    where?: ProposalItemWhereInput
+    orderBy?: ProposalItemOrderByWithRelationInput | ProposalItemOrderByWithRelationInput[]
+    cursor?: ProposalItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProposalItemScalarFieldEnum | ProposalItemScalarFieldEnum[]
+  }
+
+  /**
+   * CommercialProposal without action
+   */
+  export type CommercialProposalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommercialProposal
+     */
+    select?: CommercialProposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommercialProposal
+     */
+    omit?: CommercialProposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommercialProposalInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ProposalItem
+   */
+
+  export type AggregateProposalItem = {
+    _count: ProposalItemCountAggregateOutputType | null
+    _avg: ProposalItemAvgAggregateOutputType | null
+    _sum: ProposalItemSumAggregateOutputType | null
+    _min: ProposalItemMinAggregateOutputType | null
+    _max: ProposalItemMaxAggregateOutputType | null
+  }
+
+  export type ProposalItemAvgAggregateOutputType = {
+    quantity: Decimal | null
+    monthly_value: Decimal | null
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
+  }
+
+  export type ProposalItemSumAggregateOutputType = {
+    quantity: Decimal | null
+    monthly_value: Decimal | null
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
+  }
+
+  export type ProposalItemMinAggregateOutputType = {
+    id: string | null
+    commercialProposalId: string | null
+    assetId: string | null
+    assetCategoryId: string | null
+    description: string | null
+    unit: string | null
+    quantity: Decimal | null
+    monthly_value: Decimal | null
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ProposalItemMaxAggregateOutputType = {
+    id: string | null
+    commercialProposalId: string | null
+    assetId: string | null
+    assetCategoryId: string | null
+    description: string | null
+    unit: string | null
+    quantity: Decimal | null
+    monthly_value: Decimal | null
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ProposalItemCountAggregateOutputType = {
+    id: number
+    commercialProposalId: number
+    assetId: number
+    assetCategoryId: number
+    description: number
+    unit: number
+    quantity: number
+    monthly_value: number
+    franchise_hours: number
+    extra_hour_value: number
+    notes: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ProposalItemAvgAggregateInputType = {
+    quantity?: true
+    monthly_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
+  }
+
+  export type ProposalItemSumAggregateInputType = {
+    quantity?: true
+    monthly_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
+  }
+
+  export type ProposalItemMinAggregateInputType = {
+    id?: true
+    commercialProposalId?: true
+    assetId?: true
+    assetCategoryId?: true
+    description?: true
+    unit?: true
+    quantity?: true
+    monthly_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ProposalItemMaxAggregateInputType = {
+    id?: true
+    commercialProposalId?: true
+    assetId?: true
+    assetCategoryId?: true
+    description?: true
+    unit?: true
+    quantity?: true
+    monthly_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ProposalItemCountAggregateInputType = {
+    id?: true
+    commercialProposalId?: true
+    assetId?: true
+    assetCategoryId?: true
+    description?: true
+    unit?: true
+    quantity?: true
+    monthly_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ProposalItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProposalItem to aggregate.
+     */
+    where?: ProposalItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProposalItems to fetch.
+     */
+    orderBy?: ProposalItemOrderByWithRelationInput | ProposalItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProposalItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProposalItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProposalItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProposalItems
+    **/
+    _count?: true | ProposalItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProposalItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProposalItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProposalItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProposalItemMaxAggregateInputType
+  }
+
+  export type GetProposalItemAggregateType<T extends ProposalItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateProposalItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProposalItem[P]>
+      : GetScalarType<T[P], AggregateProposalItem[P]>
+  }
+
+
+
+
+  export type ProposalItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProposalItemWhereInput
+    orderBy?: ProposalItemOrderByWithAggregationInput | ProposalItemOrderByWithAggregationInput[]
+    by: ProposalItemScalarFieldEnum[] | ProposalItemScalarFieldEnum
+    having?: ProposalItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProposalItemCountAggregateInputType | true
+    _avg?: ProposalItemAvgAggregateInputType
+    _sum?: ProposalItemSumAggregateInputType
+    _min?: ProposalItemMinAggregateInputType
+    _max?: ProposalItemMaxAggregateInputType
+  }
+
+  export type ProposalItemGroupByOutputType = {
+    id: string
+    commercialProposalId: string
+    assetId: string | null
+    assetCategoryId: string | null
+    description: string | null
+    unit: string | null
+    quantity: Decimal
+    monthly_value: Decimal
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
+    notes: string | null
+    created_at: Date
+    updated_at: Date
+    _count: ProposalItemCountAggregateOutputType | null
+    _avg: ProposalItemAvgAggregateOutputType | null
+    _sum: ProposalItemSumAggregateOutputType | null
+    _min: ProposalItemMinAggregateOutputType | null
+    _max: ProposalItemMaxAggregateOutputType | null
+  }
+
+  type GetProposalItemGroupByPayload<T extends ProposalItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProposalItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProposalItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProposalItemGroupByOutputType[P]>
+            : GetScalarType<T[P], ProposalItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProposalItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    commercialProposalId?: boolean
+    assetId?: boolean
+    assetCategoryId?: boolean
+    description?: boolean
+    unit?: boolean
+    quantity?: boolean
+    monthly_value?: boolean
+    franchise_hours?: boolean
+    extra_hour_value?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    commercialProposal?: boolean | CommercialProposalDefaultArgs<ExtArgs>
+    asset?: boolean | ProposalItem$assetArgs<ExtArgs>
+    assetCategory?: boolean | ProposalItem$assetCategoryArgs<ExtArgs>
+  }, ExtArgs["result"]["proposalItem"]>
+
+  export type ProposalItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    commercialProposalId?: boolean
+    assetId?: boolean
+    assetCategoryId?: boolean
+    description?: boolean
+    unit?: boolean
+    quantity?: boolean
+    monthly_value?: boolean
+    franchise_hours?: boolean
+    extra_hour_value?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    commercialProposal?: boolean | CommercialProposalDefaultArgs<ExtArgs>
+    asset?: boolean | ProposalItem$assetArgs<ExtArgs>
+    assetCategory?: boolean | ProposalItem$assetCategoryArgs<ExtArgs>
+  }, ExtArgs["result"]["proposalItem"]>
+
+  export type ProposalItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    commercialProposalId?: boolean
+    assetId?: boolean
+    assetCategoryId?: boolean
+    description?: boolean
+    unit?: boolean
+    quantity?: boolean
+    monthly_value?: boolean
+    franchise_hours?: boolean
+    extra_hour_value?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    commercialProposal?: boolean | CommercialProposalDefaultArgs<ExtArgs>
+    asset?: boolean | ProposalItem$assetArgs<ExtArgs>
+    assetCategory?: boolean | ProposalItem$assetCategoryArgs<ExtArgs>
+  }, ExtArgs["result"]["proposalItem"]>
+
+  export type ProposalItemSelectScalar = {
+    id?: boolean
+    commercialProposalId?: boolean
+    assetId?: boolean
+    assetCategoryId?: boolean
+    description?: boolean
+    unit?: boolean
+    quantity?: boolean
+    monthly_value?: boolean
+    franchise_hours?: boolean
+    extra_hour_value?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type ProposalItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "commercialProposalId" | "assetId" | "assetCategoryId" | "description" | "unit" | "quantity" | "monthly_value" | "franchise_hours" | "extra_hour_value" | "notes" | "created_at" | "updated_at", ExtArgs["result"]["proposalItem"]>
+  export type ProposalItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    commercialProposal?: boolean | CommercialProposalDefaultArgs<ExtArgs>
+    asset?: boolean | ProposalItem$assetArgs<ExtArgs>
+    assetCategory?: boolean | ProposalItem$assetCategoryArgs<ExtArgs>
+  }
+  export type ProposalItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    commercialProposal?: boolean | CommercialProposalDefaultArgs<ExtArgs>
+    asset?: boolean | ProposalItem$assetArgs<ExtArgs>
+    assetCategory?: boolean | ProposalItem$assetCategoryArgs<ExtArgs>
+  }
+  export type ProposalItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    commercialProposal?: boolean | CommercialProposalDefaultArgs<ExtArgs>
+    asset?: boolean | ProposalItem$assetArgs<ExtArgs>
+    assetCategory?: boolean | ProposalItem$assetCategoryArgs<ExtArgs>
+  }
+
+  export type $ProposalItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProposalItem"
+    objects: {
+      commercialProposal: Prisma.$CommercialProposalPayload<ExtArgs>
+      asset: Prisma.$AssetPayload<ExtArgs> | null
+      assetCategory: Prisma.$AssetCategoryPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      commercialProposalId: string
+      assetId: string | null
+      assetCategoryId: string | null
+      description: string | null
+      unit: string | null
+      quantity: Prisma.Decimal
+      monthly_value: Prisma.Decimal
+      franchise_hours: number | null
+      extra_hour_value: Prisma.Decimal | null
+      notes: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["proposalItem"]>
+    composites: {}
+  }
+
+  type ProposalItemGetPayload<S extends boolean | null | undefined | ProposalItemDefaultArgs> = $Result.GetResult<Prisma.$ProposalItemPayload, S>
+
+  type ProposalItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProposalItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProposalItemCountAggregateInputType | true
+    }
+
+  export interface ProposalItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProposalItem'], meta: { name: 'ProposalItem' } }
+    /**
+     * Find zero or one ProposalItem that matches the filter.
+     * @param {ProposalItemFindUniqueArgs} args - Arguments to find a ProposalItem
+     * @example
+     * // Get one ProposalItem
+     * const proposalItem = await prisma.proposalItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProposalItemFindUniqueArgs>(args: SelectSubset<T, ProposalItemFindUniqueArgs<ExtArgs>>): Prisma__ProposalItemClient<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProposalItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProposalItemFindUniqueOrThrowArgs} args - Arguments to find a ProposalItem
+     * @example
+     * // Get one ProposalItem
+     * const proposalItem = await prisma.proposalItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProposalItemFindUniqueOrThrowArgs>(args: SelectSubset<T, ProposalItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProposalItemClient<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProposalItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProposalItemFindFirstArgs} args - Arguments to find a ProposalItem
+     * @example
+     * // Get one ProposalItem
+     * const proposalItem = await prisma.proposalItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProposalItemFindFirstArgs>(args?: SelectSubset<T, ProposalItemFindFirstArgs<ExtArgs>>): Prisma__ProposalItemClient<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProposalItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProposalItemFindFirstOrThrowArgs} args - Arguments to find a ProposalItem
+     * @example
+     * // Get one ProposalItem
+     * const proposalItem = await prisma.proposalItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProposalItemFindFirstOrThrowArgs>(args?: SelectSubset<T, ProposalItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProposalItemClient<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProposalItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProposalItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProposalItems
+     * const proposalItems = await prisma.proposalItem.findMany()
+     * 
+     * // Get first 10 ProposalItems
+     * const proposalItems = await prisma.proposalItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const proposalItemWithIdOnly = await prisma.proposalItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProposalItemFindManyArgs>(args?: SelectSubset<T, ProposalItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProposalItem.
+     * @param {ProposalItemCreateArgs} args - Arguments to create a ProposalItem.
+     * @example
+     * // Create one ProposalItem
+     * const ProposalItem = await prisma.proposalItem.create({
+     *   data: {
+     *     // ... data to create a ProposalItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProposalItemCreateArgs>(args: SelectSubset<T, ProposalItemCreateArgs<ExtArgs>>): Prisma__ProposalItemClient<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProposalItems.
+     * @param {ProposalItemCreateManyArgs} args - Arguments to create many ProposalItems.
+     * @example
+     * // Create many ProposalItems
+     * const proposalItem = await prisma.proposalItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProposalItemCreateManyArgs>(args?: SelectSubset<T, ProposalItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProposalItems and returns the data saved in the database.
+     * @param {ProposalItemCreateManyAndReturnArgs} args - Arguments to create many ProposalItems.
+     * @example
+     * // Create many ProposalItems
+     * const proposalItem = await prisma.proposalItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProposalItems and only return the `id`
+     * const proposalItemWithIdOnly = await prisma.proposalItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProposalItemCreateManyAndReturnArgs>(args?: SelectSubset<T, ProposalItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProposalItem.
+     * @param {ProposalItemDeleteArgs} args - Arguments to delete one ProposalItem.
+     * @example
+     * // Delete one ProposalItem
+     * const ProposalItem = await prisma.proposalItem.delete({
+     *   where: {
+     *     // ... filter to delete one ProposalItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProposalItemDeleteArgs>(args: SelectSubset<T, ProposalItemDeleteArgs<ExtArgs>>): Prisma__ProposalItemClient<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProposalItem.
+     * @param {ProposalItemUpdateArgs} args - Arguments to update one ProposalItem.
+     * @example
+     * // Update one ProposalItem
+     * const proposalItem = await prisma.proposalItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProposalItemUpdateArgs>(args: SelectSubset<T, ProposalItemUpdateArgs<ExtArgs>>): Prisma__ProposalItemClient<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProposalItems.
+     * @param {ProposalItemDeleteManyArgs} args - Arguments to filter ProposalItems to delete.
+     * @example
+     * // Delete a few ProposalItems
+     * const { count } = await prisma.proposalItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProposalItemDeleteManyArgs>(args?: SelectSubset<T, ProposalItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProposalItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProposalItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProposalItems
+     * const proposalItem = await prisma.proposalItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProposalItemUpdateManyArgs>(args: SelectSubset<T, ProposalItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProposalItems and returns the data updated in the database.
+     * @param {ProposalItemUpdateManyAndReturnArgs} args - Arguments to update many ProposalItems.
+     * @example
+     * // Update many ProposalItems
+     * const proposalItem = await prisma.proposalItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProposalItems and only return the `id`
+     * const proposalItemWithIdOnly = await prisma.proposalItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProposalItemUpdateManyAndReturnArgs>(args: SelectSubset<T, ProposalItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProposalItem.
+     * @param {ProposalItemUpsertArgs} args - Arguments to update or create a ProposalItem.
+     * @example
+     * // Update or create a ProposalItem
+     * const proposalItem = await prisma.proposalItem.upsert({
+     *   create: {
+     *     // ... data to create a ProposalItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProposalItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProposalItemUpsertArgs>(args: SelectSubset<T, ProposalItemUpsertArgs<ExtArgs>>): Prisma__ProposalItemClient<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProposalItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProposalItemCountArgs} args - Arguments to filter ProposalItems to count.
+     * @example
+     * // Count the number of ProposalItems
+     * const count = await prisma.proposalItem.count({
+     *   where: {
+     *     // ... the filter for the ProposalItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProposalItemCountArgs>(
+      args?: Subset<T, ProposalItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProposalItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProposalItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProposalItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProposalItemAggregateArgs>(args: Subset<T, ProposalItemAggregateArgs>): Prisma.PrismaPromise<GetProposalItemAggregateType<T>>
+
+    /**
+     * Group by ProposalItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProposalItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProposalItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProposalItemGroupByArgs['orderBy'] }
+        : { orderBy?: ProposalItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProposalItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProposalItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProposalItem model
+   */
+  readonly fields: ProposalItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProposalItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProposalItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    commercialProposal<T extends CommercialProposalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommercialProposalDefaultArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    asset<T extends ProposalItem$assetArgs<ExtArgs> = {}>(args?: Subset<T, ProposalItem$assetArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    assetCategory<T extends ProposalItem$assetCategoryArgs<ExtArgs> = {}>(args?: Subset<T, ProposalItem$assetCategoryArgs<ExtArgs>>): Prisma__AssetCategoryClient<$Result.GetResult<Prisma.$AssetCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProposalItem model
+   */
+  interface ProposalItemFieldRefs {
+    readonly id: FieldRef<"ProposalItem", 'String'>
+    readonly commercialProposalId: FieldRef<"ProposalItem", 'String'>
+    readonly assetId: FieldRef<"ProposalItem", 'String'>
+    readonly assetCategoryId: FieldRef<"ProposalItem", 'String'>
+    readonly description: FieldRef<"ProposalItem", 'String'>
+    readonly unit: FieldRef<"ProposalItem", 'String'>
+    readonly quantity: FieldRef<"ProposalItem", 'Decimal'>
+    readonly monthly_value: FieldRef<"ProposalItem", 'Decimal'>
+    readonly franchise_hours: FieldRef<"ProposalItem", 'Float'>
+    readonly extra_hour_value: FieldRef<"ProposalItem", 'Decimal'>
+    readonly notes: FieldRef<"ProposalItem", 'String'>
+    readonly created_at: FieldRef<"ProposalItem", 'DateTime'>
+    readonly updated_at: FieldRef<"ProposalItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProposalItem findUnique
+   */
+  export type ProposalItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProposalItem to fetch.
+     */
+    where: ProposalItemWhereUniqueInput
+  }
+
+  /**
+   * ProposalItem findUniqueOrThrow
+   */
+  export type ProposalItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProposalItem to fetch.
+     */
+    where: ProposalItemWhereUniqueInput
+  }
+
+  /**
+   * ProposalItem findFirst
+   */
+  export type ProposalItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProposalItem to fetch.
+     */
+    where?: ProposalItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProposalItems to fetch.
+     */
+    orderBy?: ProposalItemOrderByWithRelationInput | ProposalItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProposalItems.
+     */
+    cursor?: ProposalItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProposalItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProposalItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProposalItems.
+     */
+    distinct?: ProposalItemScalarFieldEnum | ProposalItemScalarFieldEnum[]
+  }
+
+  /**
+   * ProposalItem findFirstOrThrow
+   */
+  export type ProposalItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProposalItem to fetch.
+     */
+    where?: ProposalItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProposalItems to fetch.
+     */
+    orderBy?: ProposalItemOrderByWithRelationInput | ProposalItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProposalItems.
+     */
+    cursor?: ProposalItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProposalItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProposalItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProposalItems.
+     */
+    distinct?: ProposalItemScalarFieldEnum | ProposalItemScalarFieldEnum[]
+  }
+
+  /**
+   * ProposalItem findMany
+   */
+  export type ProposalItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProposalItems to fetch.
+     */
+    where?: ProposalItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProposalItems to fetch.
+     */
+    orderBy?: ProposalItemOrderByWithRelationInput | ProposalItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProposalItems.
+     */
+    cursor?: ProposalItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProposalItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProposalItems.
+     */
+    skip?: number
+    distinct?: ProposalItemScalarFieldEnum | ProposalItemScalarFieldEnum[]
+  }
+
+  /**
+   * ProposalItem create
+   */
+  export type ProposalItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProposalItem.
+     */
+    data: XOR<ProposalItemCreateInput, ProposalItemUncheckedCreateInput>
+  }
+
+  /**
+   * ProposalItem createMany
+   */
+  export type ProposalItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProposalItems.
+     */
+    data: ProposalItemCreateManyInput | ProposalItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProposalItem createManyAndReturn
+   */
+  export type ProposalItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProposalItems.
+     */
+    data: ProposalItemCreateManyInput | ProposalItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProposalItem update
+   */
+  export type ProposalItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProposalItem.
+     */
+    data: XOR<ProposalItemUpdateInput, ProposalItemUncheckedUpdateInput>
+    /**
+     * Choose, which ProposalItem to update.
+     */
+    where: ProposalItemWhereUniqueInput
+  }
+
+  /**
+   * ProposalItem updateMany
+   */
+  export type ProposalItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProposalItems.
+     */
+    data: XOR<ProposalItemUpdateManyMutationInput, ProposalItemUncheckedUpdateManyInput>
+    /**
+     * Filter which ProposalItems to update
+     */
+    where?: ProposalItemWhereInput
+    /**
+     * Limit how many ProposalItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProposalItem updateManyAndReturn
+   */
+  export type ProposalItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * The data used to update ProposalItems.
+     */
+    data: XOR<ProposalItemUpdateManyMutationInput, ProposalItemUncheckedUpdateManyInput>
+    /**
+     * Filter which ProposalItems to update
+     */
+    where?: ProposalItemWhereInput
+    /**
+     * Limit how many ProposalItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProposalItem upsert
+   */
+  export type ProposalItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProposalItem to update in case it exists.
+     */
+    where: ProposalItemWhereUniqueInput
+    /**
+     * In case the ProposalItem found by the `where` argument doesn't exist, create a new ProposalItem with this data.
+     */
+    create: XOR<ProposalItemCreateInput, ProposalItemUncheckedCreateInput>
+    /**
+     * In case the ProposalItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProposalItemUpdateInput, ProposalItemUncheckedUpdateInput>
+  }
+
+  /**
+   * ProposalItem delete
+   */
+  export type ProposalItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+    /**
+     * Filter which ProposalItem to delete.
+     */
+    where: ProposalItemWhereUniqueInput
+  }
+
+  /**
+   * ProposalItem deleteMany
+   */
+  export type ProposalItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProposalItems to delete
+     */
+    where?: ProposalItemWhereInput
+    /**
+     * Limit how many ProposalItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProposalItem.asset
+   */
+  export type ProposalItem$assetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Asset
+     */
+    select?: AssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Asset
+     */
+    omit?: AssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
+  }
+
+  /**
+   * ProposalItem.assetCategory
+   */
+  export type ProposalItem$assetCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetCategory
+     */
+    select?: AssetCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetCategory
+     */
+    omit?: AssetCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetCategoryInclude<ExtArgs> | null
+    where?: AssetCategoryWhereInput
+  }
+
+  /**
+   * ProposalItem without action
+   */
+  export type ProposalItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProposalItem
+     */
+    select?: ProposalItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProposalItem
+     */
+    omit?: ProposalItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProposalItemInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -25214,7 +28337,9 @@ export namespace Prisma {
     notes: 'notes',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    is_Active: 'is_Active'
+    is_Active: 'is_Active',
+    body_html: 'body_html',
+    signed_contract_url: 'signed_contract_url'
   };
 
   export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
@@ -25384,6 +28509,50 @@ export namespace Prisma {
   };
 
   export type ChecklistAnswerScalarFieldEnum = (typeof ChecklistAnswerScalarFieldEnum)[keyof typeof ChecklistAnswerScalarFieldEnum]
+
+
+  export const CommercialProposalScalarFieldEnum: {
+    id: 'id',
+    proposal_number: 'proposal_number',
+    companySettingsId: 'companySettingsId',
+    clientId: 'clientId',
+    contact_name: 'contact_name',
+    contact_phone: 'contact_phone',
+    contact_email: 'contact_email',
+    mobilization_value: 'mobilization_value',
+    demobilization_value: 'demobilization_value',
+    payment_conditions: 'payment_conditions',
+    rental_period: 'rental_period',
+    technical_notes: 'technical_notes',
+    validity_days: 'validity_days',
+    body_html: 'body_html',
+    status: 'status',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    is_active: 'is_active',
+    contractId: 'contractId'
+  };
+
+  export type CommercialProposalScalarFieldEnum = (typeof CommercialProposalScalarFieldEnum)[keyof typeof CommercialProposalScalarFieldEnum]
+
+
+  export const ProposalItemScalarFieldEnum: {
+    id: 'id',
+    commercialProposalId: 'commercialProposalId',
+    assetId: 'assetId',
+    assetCategoryId: 'assetCategoryId',
+    description: 'description',
+    unit: 'unit',
+    quantity: 'quantity',
+    monthly_value: 'monthly_value',
+    franchise_hours: 'franchise_hours',
+    extra_hour_value: 'extra_hour_value',
+    notes: 'notes',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ProposalItemScalarFieldEnum = (typeof ProposalItemScalarFieldEnum)[keyof typeof ProposalItemScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -25658,6 +28827,20 @@ export namespace Prisma {
    */
   export type ListEnumChecklistStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChecklistStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'ProposalStatus'
+   */
+  export type EnumProposalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProposalStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProposalStatus[]'
+   */
+  export type ListEnumProposalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProposalStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -25755,6 +28938,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"AssetCategory"> | Date | string
     is_Active?: BoolFilter<"AssetCategory"> | boolean
     Asset?: AssetListRelationFilter
+    ProposalItems?: ProposalItemListRelationFilter
   }
 
   export type AssetCategoryOrderByWithRelationInput = {
@@ -25766,6 +28950,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     is_Active?: SortOrder
     Asset?: AssetOrderByRelationAggregateInput
+    ProposalItems?: ProposalItemOrderByRelationAggregateInput
   }
 
   export type AssetCategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -25780,6 +28965,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"AssetCategory"> | Date | string
     is_Active?: BoolFilter<"AssetCategory"> | boolean
     Asset?: AssetListRelationFilter
+    ProposalItems?: ProposalItemListRelationFilter
   }, "id" | "name">
 
   export type AssetCategoryOrderByWithAggregationInput = {
@@ -25839,6 +29025,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceListRelationFilter
     Readings?: AssetReadingListRelationFilter
     Checklists?: ChecklistListRelationFilter
+    ProposalItems?: ProposalItemListRelationFilter
   }
 
   export type AssetOrderByWithRelationInput = {
@@ -25869,6 +29056,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceOrderByRelationAggregateInput
     Readings?: AssetReadingOrderByRelationAggregateInput
     Checklists?: ChecklistOrderByRelationAggregateInput
+    ProposalItems?: ProposalItemOrderByRelationAggregateInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -25902,6 +29090,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceListRelationFilter
     Readings?: AssetReadingListRelationFilter
     Checklists?: ChecklistListRelationFilter
+    ProposalItems?: ProposalItemListRelationFilter
   }, "id" | "plate" | "serial_number">
 
   export type AssetOrderByWithAggregationInput = {
@@ -26062,6 +29251,7 @@ export namespace Prisma {
     Contracts?: ContractListRelationFilter
     Maintenance?: MaintenanceListRelationFilter
     Checklists?: ChecklistListRelationFilter
+    CommercialProposals?: CommercialProposalListRelationFilter
   }
 
   export type SupplierOrderByWithRelationInput = {
@@ -26084,6 +29274,7 @@ export namespace Prisma {
     Contracts?: ContractOrderByRelationAggregateInput
     Maintenance?: MaintenanceOrderByRelationAggregateInput
     Checklists?: ChecklistOrderByRelationAggregateInput
+    CommercialProposals?: CommercialProposalOrderByRelationAggregateInput
   }
 
   export type SupplierWhereUniqueInput = Prisma.AtLeast<{
@@ -26109,6 +29300,7 @@ export namespace Prisma {
     Contracts?: ContractListRelationFilter
     Maintenance?: MaintenanceListRelationFilter
     Checklists?: ChecklistListRelationFilter
+    CommercialProposals?: CommercialProposalListRelationFilter
   }, "id" | "cnpj">
 
   export type SupplierOrderByWithAggregationInput = {
@@ -26464,10 +29656,13 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Contract"> | Date | string
     updated_at?: DateTimeFilter<"Contract"> | Date | string
     is_Active?: BoolFilter<"Contract"> | boolean
+    body_html?: StringNullableFilter<"Contract"> | string | null
+    signed_contract_url?: StringNullableFilter<"Contract"> | string | null
     movements?: AssetMovementListRelationFilter
     client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     maintenances?: MaintenanceListRelationFilter
     measurementBulletins?: MeasurementBulletinListRelationFilter
+    CommercialProposal?: XOR<CommercialProposalNullableScalarRelationFilter, CommercialProposalWhereInput> | null
   }
 
   export type ContractOrderByWithRelationInput = {
@@ -26487,10 +29682,13 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    body_html?: SortOrderInput | SortOrder
+    signed_contract_url?: SortOrderInput | SortOrder
     movements?: AssetMovementOrderByRelationAggregateInput
     client?: SupplierOrderByWithRelationInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     measurementBulletins?: MeasurementBulletinOrderByRelationAggregateInput
+    CommercialProposal?: CommercialProposalOrderByWithRelationInput
   }
 
   export type ContractWhereUniqueInput = Prisma.AtLeast<{
@@ -26513,10 +29711,13 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Contract"> | Date | string
     updated_at?: DateTimeFilter<"Contract"> | Date | string
     is_Active?: BoolFilter<"Contract"> | boolean
+    body_html?: StringNullableFilter<"Contract"> | string | null
+    signed_contract_url?: StringNullableFilter<"Contract"> | string | null
     movements?: AssetMovementListRelationFilter
     client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     maintenances?: MaintenanceListRelationFilter
     measurementBulletins?: MeasurementBulletinListRelationFilter
+    CommercialProposal?: XOR<CommercialProposalNullableScalarRelationFilter, CommercialProposalWhereInput> | null
   }, "id" | "contract_number">
 
   export type ContractOrderByWithAggregationInput = {
@@ -26536,6 +29737,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    body_html?: SortOrderInput | SortOrder
+    signed_contract_url?: SortOrderInput | SortOrder
     _count?: ContractCountOrderByAggregateInput
     _avg?: ContractAvgOrderByAggregateInput
     _max?: ContractMaxOrderByAggregateInput
@@ -26563,6 +29766,8 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
     is_Active?: BoolWithAggregatesFilter<"Contract"> | boolean
+    body_html?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    signed_contract_url?: StringNullableWithAggregatesFilter<"Contract"> | string | null
   }
 
   export type AssetMovementWhereInput = {
@@ -27016,6 +30221,7 @@ export namespace Prisma {
     invoice_start_number?: IntFilter<"CompanySettings"> | number
     created_at?: DateTimeFilter<"CompanySettings"> | Date | string
     updated_at?: DateTimeFilter<"CompanySettings"> | Date | string
+    CommercialProposals?: CommercialProposalListRelationFilter
   }
 
   export type CompanySettingsOrderByWithRelationInput = {
@@ -27033,6 +30239,7 @@ export namespace Prisma {
     invoice_start_number?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    CommercialProposals?: CommercialProposalOrderByRelationAggregateInput
   }
 
   export type CompanySettingsWhereUniqueInput = Prisma.AtLeast<{
@@ -27053,6 +30260,7 @@ export namespace Prisma {
     invoice_start_number?: IntFilter<"CompanySettings"> | number
     created_at?: DateTimeFilter<"CompanySettings"> | Date | string
     updated_at?: DateTimeFilter<"CompanySettings"> | Date | string
+    CommercialProposals?: CommercialProposalListRelationFilter
   }, "id">
 
   export type CompanySettingsOrderByWithAggregationInput = {
@@ -27439,6 +30647,245 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"ChecklistAnswer"> | Date | string
   }
 
+  export type CommercialProposalWhereInput = {
+    AND?: CommercialProposalWhereInput | CommercialProposalWhereInput[]
+    OR?: CommercialProposalWhereInput[]
+    NOT?: CommercialProposalWhereInput | CommercialProposalWhereInput[]
+    id?: StringFilter<"CommercialProposal"> | string
+    proposal_number?: StringFilter<"CommercialProposal"> | string
+    companySettingsId?: StringNullableFilter<"CommercialProposal"> | string | null
+    clientId?: StringFilter<"CommercialProposal"> | string
+    contact_name?: StringNullableFilter<"CommercialProposal"> | string | null
+    contact_phone?: StringNullableFilter<"CommercialProposal"> | string | null
+    contact_email?: StringNullableFilter<"CommercialProposal"> | string | null
+    mobilization_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: StringNullableFilter<"CommercialProposal"> | string | null
+    rental_period?: StringNullableFilter<"CommercialProposal"> | string | null
+    technical_notes?: StringNullableFilter<"CommercialProposal"> | string | null
+    validity_days?: IntFilter<"CommercialProposal"> | number
+    body_html?: StringNullableFilter<"CommercialProposal"> | string | null
+    status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
+    created_at?: DateTimeFilter<"CommercialProposal"> | Date | string
+    updated_at?: DateTimeFilter<"CommercialProposal"> | Date | string
+    is_active?: BoolFilter<"CommercialProposal"> | boolean
+    contractId?: StringNullableFilter<"CommercialProposal"> | string | null
+    client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
+    companySettings?: XOR<CompanySettingsNullableScalarRelationFilter, CompanySettingsWhereInput> | null
+    contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
+    items?: ProposalItemListRelationFilter
+  }
+
+  export type CommercialProposalOrderByWithRelationInput = {
+    id?: SortOrder
+    proposal_number?: SortOrder
+    companySettingsId?: SortOrderInput | SortOrder
+    clientId?: SortOrder
+    contact_name?: SortOrderInput | SortOrder
+    contact_phone?: SortOrderInput | SortOrder
+    contact_email?: SortOrderInput | SortOrder
+    mobilization_value?: SortOrderInput | SortOrder
+    demobilization_value?: SortOrderInput | SortOrder
+    payment_conditions?: SortOrderInput | SortOrder
+    rental_period?: SortOrderInput | SortOrder
+    technical_notes?: SortOrderInput | SortOrder
+    validity_days?: SortOrder
+    body_html?: SortOrderInput | SortOrder
+    status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+    contractId?: SortOrderInput | SortOrder
+    client?: SupplierOrderByWithRelationInput
+    companySettings?: CompanySettingsOrderByWithRelationInput
+    contract?: ContractOrderByWithRelationInput
+    items?: ProposalItemOrderByRelationAggregateInput
+  }
+
+  export type CommercialProposalWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    proposal_number?: string
+    contractId?: string
+    AND?: CommercialProposalWhereInput | CommercialProposalWhereInput[]
+    OR?: CommercialProposalWhereInput[]
+    NOT?: CommercialProposalWhereInput | CommercialProposalWhereInput[]
+    companySettingsId?: StringNullableFilter<"CommercialProposal"> | string | null
+    clientId?: StringFilter<"CommercialProposal"> | string
+    contact_name?: StringNullableFilter<"CommercialProposal"> | string | null
+    contact_phone?: StringNullableFilter<"CommercialProposal"> | string | null
+    contact_email?: StringNullableFilter<"CommercialProposal"> | string | null
+    mobilization_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: StringNullableFilter<"CommercialProposal"> | string | null
+    rental_period?: StringNullableFilter<"CommercialProposal"> | string | null
+    technical_notes?: StringNullableFilter<"CommercialProposal"> | string | null
+    validity_days?: IntFilter<"CommercialProposal"> | number
+    body_html?: StringNullableFilter<"CommercialProposal"> | string | null
+    status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
+    created_at?: DateTimeFilter<"CommercialProposal"> | Date | string
+    updated_at?: DateTimeFilter<"CommercialProposal"> | Date | string
+    is_active?: BoolFilter<"CommercialProposal"> | boolean
+    client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
+    companySettings?: XOR<CompanySettingsNullableScalarRelationFilter, CompanySettingsWhereInput> | null
+    contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
+    items?: ProposalItemListRelationFilter
+  }, "id" | "proposal_number" | "contractId">
+
+  export type CommercialProposalOrderByWithAggregationInput = {
+    id?: SortOrder
+    proposal_number?: SortOrder
+    companySettingsId?: SortOrderInput | SortOrder
+    clientId?: SortOrder
+    contact_name?: SortOrderInput | SortOrder
+    contact_phone?: SortOrderInput | SortOrder
+    contact_email?: SortOrderInput | SortOrder
+    mobilization_value?: SortOrderInput | SortOrder
+    demobilization_value?: SortOrderInput | SortOrder
+    payment_conditions?: SortOrderInput | SortOrder
+    rental_period?: SortOrderInput | SortOrder
+    technical_notes?: SortOrderInput | SortOrder
+    validity_days?: SortOrder
+    body_html?: SortOrderInput | SortOrder
+    status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+    contractId?: SortOrderInput | SortOrder
+    _count?: CommercialProposalCountOrderByAggregateInput
+    _avg?: CommercialProposalAvgOrderByAggregateInput
+    _max?: CommercialProposalMaxOrderByAggregateInput
+    _min?: CommercialProposalMinOrderByAggregateInput
+    _sum?: CommercialProposalSumOrderByAggregateInput
+  }
+
+  export type CommercialProposalScalarWhereWithAggregatesInput = {
+    AND?: CommercialProposalScalarWhereWithAggregatesInput | CommercialProposalScalarWhereWithAggregatesInput[]
+    OR?: CommercialProposalScalarWhereWithAggregatesInput[]
+    NOT?: CommercialProposalScalarWhereWithAggregatesInput | CommercialProposalScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CommercialProposal"> | string
+    proposal_number?: StringWithAggregatesFilter<"CommercialProposal"> | string
+    companySettingsId?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+    clientId?: StringWithAggregatesFilter<"CommercialProposal"> | string
+    contact_name?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+    contact_phone?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+    contact_email?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+    mobilization_value?: DecimalNullableWithAggregatesFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: DecimalNullableWithAggregatesFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+    rental_period?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+    technical_notes?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+    validity_days?: IntWithAggregatesFilter<"CommercialProposal"> | number
+    body_html?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+    status?: EnumProposalStatusWithAggregatesFilter<"CommercialProposal"> | $Enums.ProposalStatus
+    created_at?: DateTimeWithAggregatesFilter<"CommercialProposal"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"CommercialProposal"> | Date | string
+    is_active?: BoolWithAggregatesFilter<"CommercialProposal"> | boolean
+    contractId?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+  }
+
+  export type ProposalItemWhereInput = {
+    AND?: ProposalItemWhereInput | ProposalItemWhereInput[]
+    OR?: ProposalItemWhereInput[]
+    NOT?: ProposalItemWhereInput | ProposalItemWhereInput[]
+    id?: StringFilter<"ProposalItem"> | string
+    commercialProposalId?: StringFilter<"ProposalItem"> | string
+    assetId?: StringNullableFilter<"ProposalItem"> | string | null
+    assetCategoryId?: StringNullableFilter<"ProposalItem"> | string | null
+    description?: StringNullableFilter<"ProposalItem"> | string | null
+    unit?: StringNullableFilter<"ProposalItem"> | string | null
+    quantity?: DecimalFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string
+    franchise_hours?: FloatNullableFilter<"ProposalItem"> | number | null
+    extra_hour_value?: DecimalNullableFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string | null
+    notes?: StringNullableFilter<"ProposalItem"> | string | null
+    created_at?: DateTimeFilter<"ProposalItem"> | Date | string
+    updated_at?: DateTimeFilter<"ProposalItem"> | Date | string
+    commercialProposal?: XOR<CommercialProposalScalarRelationFilter, CommercialProposalWhereInput>
+    asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
+    assetCategory?: XOR<AssetCategoryNullableScalarRelationFilter, AssetCategoryWhereInput> | null
+  }
+
+  export type ProposalItemOrderByWithRelationInput = {
+    id?: SortOrder
+    commercialProposalId?: SortOrder
+    assetId?: SortOrderInput | SortOrder
+    assetCategoryId?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    unit?: SortOrderInput | SortOrder
+    quantity?: SortOrder
+    monthly_value?: SortOrder
+    franchise_hours?: SortOrderInput | SortOrder
+    extra_hour_value?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    commercialProposal?: CommercialProposalOrderByWithRelationInput
+    asset?: AssetOrderByWithRelationInput
+    assetCategory?: AssetCategoryOrderByWithRelationInput
+  }
+
+  export type ProposalItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ProposalItemWhereInput | ProposalItemWhereInput[]
+    OR?: ProposalItemWhereInput[]
+    NOT?: ProposalItemWhereInput | ProposalItemWhereInput[]
+    commercialProposalId?: StringFilter<"ProposalItem"> | string
+    assetId?: StringNullableFilter<"ProposalItem"> | string | null
+    assetCategoryId?: StringNullableFilter<"ProposalItem"> | string | null
+    description?: StringNullableFilter<"ProposalItem"> | string | null
+    unit?: StringNullableFilter<"ProposalItem"> | string | null
+    quantity?: DecimalFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string
+    franchise_hours?: FloatNullableFilter<"ProposalItem"> | number | null
+    extra_hour_value?: DecimalNullableFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string | null
+    notes?: StringNullableFilter<"ProposalItem"> | string | null
+    created_at?: DateTimeFilter<"ProposalItem"> | Date | string
+    updated_at?: DateTimeFilter<"ProposalItem"> | Date | string
+    commercialProposal?: XOR<CommercialProposalScalarRelationFilter, CommercialProposalWhereInput>
+    asset?: XOR<AssetNullableScalarRelationFilter, AssetWhereInput> | null
+    assetCategory?: XOR<AssetCategoryNullableScalarRelationFilter, AssetCategoryWhereInput> | null
+  }, "id">
+
+  export type ProposalItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    commercialProposalId?: SortOrder
+    assetId?: SortOrderInput | SortOrder
+    assetCategoryId?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    unit?: SortOrderInput | SortOrder
+    quantity?: SortOrder
+    monthly_value?: SortOrder
+    franchise_hours?: SortOrderInput | SortOrder
+    extra_hour_value?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: ProposalItemCountOrderByAggregateInput
+    _avg?: ProposalItemAvgOrderByAggregateInput
+    _max?: ProposalItemMaxOrderByAggregateInput
+    _min?: ProposalItemMinOrderByAggregateInput
+    _sum?: ProposalItemSumOrderByAggregateInput
+  }
+
+  export type ProposalItemScalarWhereWithAggregatesInput = {
+    AND?: ProposalItemScalarWhereWithAggregatesInput | ProposalItemScalarWhereWithAggregatesInput[]
+    OR?: ProposalItemScalarWhereWithAggregatesInput[]
+    NOT?: ProposalItemScalarWhereWithAggregatesInput | ProposalItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ProposalItem"> | string
+    commercialProposalId?: StringWithAggregatesFilter<"ProposalItem"> | string
+    assetId?: StringNullableWithAggregatesFilter<"ProposalItem"> | string | null
+    assetCategoryId?: StringNullableWithAggregatesFilter<"ProposalItem"> | string | null
+    description?: StringNullableWithAggregatesFilter<"ProposalItem"> | string | null
+    unit?: StringNullableWithAggregatesFilter<"ProposalItem"> | string | null
+    quantity?: DecimalWithAggregatesFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalWithAggregatesFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string
+    franchise_hours?: FloatNullableWithAggregatesFilter<"ProposalItem"> | number | null
+    extra_hour_value?: DecimalNullableWithAggregatesFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string | null
+    notes?: StringNullableWithAggregatesFilter<"ProposalItem"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"ProposalItem"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"ProposalItem"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name: string
@@ -27543,6 +30990,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     Asset?: AssetCreateNestedManyWithoutAssetCategoryInput
+    ProposalItems?: ProposalItemCreateNestedManyWithoutAssetCategoryInput
   }
 
   export type AssetCategoryUncheckedCreateInput = {
@@ -27554,6 +31002,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     Asset?: AssetUncheckedCreateNestedManyWithoutAssetCategoryInput
+    ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetCategoryInput
   }
 
   export type AssetCategoryUpdateInput = {
@@ -27565,6 +31014,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     Asset?: AssetUpdateManyWithoutAssetCategoryNestedInput
+    ProposalItems?: ProposalItemUpdateManyWithoutAssetCategoryNestedInput
   }
 
   export type AssetCategoryUncheckedUpdateInput = {
@@ -27576,6 +31026,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     Asset?: AssetUncheckedUpdateManyWithoutAssetCategoryNestedInput
+    ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetCategoryNestedInput
   }
 
   export type AssetCategoryCreateManyInput = {
@@ -27635,6 +31086,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateInput = {
@@ -27664,6 +31116,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUpdateInput = {
@@ -27693,6 +31146,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateInput = {
@@ -27722,6 +31176,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetCreateManyInput = {
@@ -27901,6 +31356,7 @@ export namespace Prisma {
     Contracts?: ContractCreateNestedManyWithoutClientInput
     Maintenance?: MaintenanceCreateNestedManyWithoutSupplierInput
     Checklists?: ChecklistCreateNestedManyWithoutSupplierInput
+    CommercialProposals?: CommercialProposalCreateNestedManyWithoutClientInput
   }
 
   export type SupplierUncheckedCreateInput = {
@@ -27923,6 +31379,7 @@ export namespace Prisma {
     Contracts?: ContractUncheckedCreateNestedManyWithoutClientInput
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutSupplierInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutSupplierInput
+    CommercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type SupplierUpdateInput = {
@@ -27945,6 +31402,7 @@ export namespace Prisma {
     Contracts?: ContractUpdateManyWithoutClientNestedInput
     Maintenance?: MaintenanceUpdateManyWithoutSupplierNestedInput
     Checklists?: ChecklistUpdateManyWithoutSupplierNestedInput
+    CommercialProposals?: CommercialProposalUpdateManyWithoutClientNestedInput
   }
 
   export type SupplierUncheckedUpdateInput = {
@@ -27967,6 +31425,7 @@ export namespace Prisma {
     Contracts?: ContractUncheckedUpdateManyWithoutClientNestedInput
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutSupplierNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutSupplierNestedInput
+    CommercialProposals?: CommercialProposalUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type SupplierCreateManyInput = {
@@ -28359,10 +31818,13 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
   }
 
   export type ContractUncheckedCreateInput = {
@@ -28382,9 +31844,12 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
   }
 
   export type ContractUpdateInput = {
@@ -28403,10 +31868,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateInput = {
@@ -28426,9 +31894,12 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
   }
 
   export type ContractCreateManyInput = {
@@ -28448,6 +31919,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
   }
 
   export type ContractUpdateManyMutationInput = {
@@ -28466,6 +31939,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ContractUncheckedUpdateManyInput = {
@@ -28485,6 +31960,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AssetMovementCreateInput = {
@@ -28998,6 +32475,7 @@ export namespace Prisma {
     invoice_start_number?: number
     created_at?: Date | string
     updated_at?: Date | string
+    CommercialProposals?: CommercialProposalCreateNestedManyWithoutCompanySettingsInput
   }
 
   export type CompanySettingsUncheckedCreateInput = {
@@ -29015,6 +32493,7 @@ export namespace Prisma {
     invoice_start_number?: number
     created_at?: Date | string
     updated_at?: Date | string
+    CommercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutCompanySettingsInput
   }
 
   export type CompanySettingsUpdateInput = {
@@ -29032,6 +32511,7 @@ export namespace Prisma {
     invoice_start_number?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    CommercialProposals?: CommercialProposalUpdateManyWithoutCompanySettingsNestedInput
   }
 
   export type CompanySettingsUncheckedUpdateInput = {
@@ -29049,6 +32529,7 @@ export namespace Prisma {
     invoice_start_number?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    CommercialProposals?: CommercialProposalUncheckedUpdateManyWithoutCompanySettingsNestedInput
   }
 
   export type CompanySettingsCreateManyInput = {
@@ -29476,6 +32957,270 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CommercialProposalCreateInput = {
+    id?: string
+    proposal_number: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    client: SupplierCreateNestedOneWithoutCommercialProposalsInput
+    companySettings?: CompanySettingsCreateNestedOneWithoutCommercialProposalsInput
+    contract?: ContractCreateNestedOneWithoutCommercialProposalInput
+    items?: ProposalItemCreateNestedManyWithoutCommercialProposalInput
+  }
+
+  export type CommercialProposalUncheckedCreateInput = {
+    id?: string
+    proposal_number: string
+    companySettingsId?: string | null
+    clientId: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    contractId?: string | null
+    items?: ProposalItemUncheckedCreateNestedManyWithoutCommercialProposalInput
+  }
+
+  export type CommercialProposalUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    client?: SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput
+    companySettings?: CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput
+    contract?: ContractUpdateOneWithoutCommercialProposalNestedInput
+    items?: ProposalItemUpdateManyWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    companySettingsId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: ProposalItemUncheckedUpdateManyWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalCreateManyInput = {
+    id?: string
+    proposal_number: string
+    companySettingsId?: string | null
+    clientId: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    contractId?: string | null
+  }
+
+  export type CommercialProposalUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CommercialProposalUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    companySettingsId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProposalItemCreateInput = {
+    id?: string
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    commercialProposal: CommercialProposalCreateNestedOneWithoutItemsInput
+    asset?: AssetCreateNestedOneWithoutProposalItemsInput
+    assetCategory?: AssetCategoryCreateNestedOneWithoutProposalItemsInput
+  }
+
+  export type ProposalItemUncheckedCreateInput = {
+    id?: string
+    commercialProposalId: string
+    assetId?: string | null
+    assetCategoryId?: string | null
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ProposalItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commercialProposal?: CommercialProposalUpdateOneRequiredWithoutItemsNestedInput
+    asset?: AssetUpdateOneWithoutProposalItemsNestedInput
+    assetCategory?: AssetCategoryUpdateOneWithoutProposalItemsNestedInput
+  }
+
+  export type ProposalItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    commercialProposalId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProposalItemCreateManyInput = {
+    id?: string
+    commercialProposalId: string
+    assetId?: string | null
+    assetCategoryId?: string | null
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ProposalItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProposalItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    commercialProposalId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -29664,7 +33409,17 @@ export namespace Prisma {
     none?: AssetWhereInput
   }
 
+  export type ProposalItemListRelationFilter = {
+    every?: ProposalItemWhereInput
+    some?: ProposalItemWhereInput
+    none?: ProposalItemWhereInput
+  }
+
   export type AssetOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProposalItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -30003,7 +33758,17 @@ export namespace Prisma {
     none?: ContractWhereInput
   }
 
+  export type CommercialProposalListRelationFilter = {
+    every?: CommercialProposalWhereInput
+    some?: CommercialProposalWhereInput
+    none?: CommercialProposalWhereInput
+  }
+
   export type ContractOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommercialProposalOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -30360,6 +34125,11 @@ export namespace Prisma {
     none?: MeasurementBulletinWhereInput
   }
 
+  export type CommercialProposalNullableScalarRelationFilter = {
+    is?: CommercialProposalWhereInput | null
+    isNot?: CommercialProposalWhereInput | null
+  }
+
   export type MeasurementBulletinOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -30381,6 +34151,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    body_html?: SortOrder
+    signed_contract_url?: SortOrder
   }
 
   export type ContractAvgOrderByAggregateInput = {
@@ -30405,6 +34177,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    body_html?: SortOrder
+    signed_contract_url?: SortOrder
   }
 
   export type ContractMinOrderByAggregateInput = {
@@ -30424,6 +34198,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
+    body_html?: SortOrder
+    signed_contract_url?: SortOrder
   }
 
   export type ContractSumOrderByAggregateInput = {
@@ -31145,6 +34921,183 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
+  export type EnumProposalStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProposalStatus | EnumProposalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ProposalStatus[] | ListEnumProposalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProposalStatus[] | ListEnumProposalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumProposalStatusFilter<$PrismaModel> | $Enums.ProposalStatus
+  }
+
+  export type CompanySettingsNullableScalarRelationFilter = {
+    is?: CompanySettingsWhereInput | null
+    isNot?: CompanySettingsWhereInput | null
+  }
+
+  export type CommercialProposalCountOrderByAggregateInput = {
+    id?: SortOrder
+    proposal_number?: SortOrder
+    companySettingsId?: SortOrder
+    clientId?: SortOrder
+    contact_name?: SortOrder
+    contact_phone?: SortOrder
+    contact_email?: SortOrder
+    mobilization_value?: SortOrder
+    demobilization_value?: SortOrder
+    payment_conditions?: SortOrder
+    rental_period?: SortOrder
+    technical_notes?: SortOrder
+    validity_days?: SortOrder
+    body_html?: SortOrder
+    status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+    contractId?: SortOrder
+  }
+
+  export type CommercialProposalAvgOrderByAggregateInput = {
+    mobilization_value?: SortOrder
+    demobilization_value?: SortOrder
+    validity_days?: SortOrder
+  }
+
+  export type CommercialProposalMaxOrderByAggregateInput = {
+    id?: SortOrder
+    proposal_number?: SortOrder
+    companySettingsId?: SortOrder
+    clientId?: SortOrder
+    contact_name?: SortOrder
+    contact_phone?: SortOrder
+    contact_email?: SortOrder
+    mobilization_value?: SortOrder
+    demobilization_value?: SortOrder
+    payment_conditions?: SortOrder
+    rental_period?: SortOrder
+    technical_notes?: SortOrder
+    validity_days?: SortOrder
+    body_html?: SortOrder
+    status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+    contractId?: SortOrder
+  }
+
+  export type CommercialProposalMinOrderByAggregateInput = {
+    id?: SortOrder
+    proposal_number?: SortOrder
+    companySettingsId?: SortOrder
+    clientId?: SortOrder
+    contact_name?: SortOrder
+    contact_phone?: SortOrder
+    contact_email?: SortOrder
+    mobilization_value?: SortOrder
+    demobilization_value?: SortOrder
+    payment_conditions?: SortOrder
+    rental_period?: SortOrder
+    technical_notes?: SortOrder
+    validity_days?: SortOrder
+    body_html?: SortOrder
+    status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+    contractId?: SortOrder
+  }
+
+  export type CommercialProposalSumOrderByAggregateInput = {
+    mobilization_value?: SortOrder
+    demobilization_value?: SortOrder
+    validity_days?: SortOrder
+  }
+
+  export type EnumProposalStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProposalStatus | EnumProposalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ProposalStatus[] | ListEnumProposalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProposalStatus[] | ListEnumProposalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumProposalStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProposalStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProposalStatusFilter<$PrismaModel>
+    _max?: NestedEnumProposalStatusFilter<$PrismaModel>
+  }
+
+  export type CommercialProposalScalarRelationFilter = {
+    is?: CommercialProposalWhereInput
+    isNot?: CommercialProposalWhereInput
+  }
+
+  export type AssetNullableScalarRelationFilter = {
+    is?: AssetWhereInput | null
+    isNot?: AssetWhereInput | null
+  }
+
+  export type AssetCategoryNullableScalarRelationFilter = {
+    is?: AssetCategoryWhereInput | null
+    isNot?: AssetCategoryWhereInput | null
+  }
+
+  export type ProposalItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    commercialProposalId?: SortOrder
+    assetId?: SortOrder
+    assetCategoryId?: SortOrder
+    description?: SortOrder
+    unit?: SortOrder
+    quantity?: SortOrder
+    monthly_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ProposalItemAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    monthly_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
+  }
+
+  export type ProposalItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    commercialProposalId?: SortOrder
+    assetId?: SortOrder
+    assetCategoryId?: SortOrder
+    description?: SortOrder
+    unit?: SortOrder
+    quantity?: SortOrder
+    monthly_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ProposalItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    commercialProposalId?: SortOrder
+    assetId?: SortOrder
+    assetCategoryId?: SortOrder
+    description?: SortOrder
+    unit?: SortOrder
+    quantity?: SortOrder
+    monthly_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ProposalItemSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    monthly_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
+  }
+
   export type MaintenanceCreateNestedManyWithoutAssigned_toInput = {
     create?: XOR<MaintenanceCreateWithoutAssigned_toInput, MaintenanceUncheckedCreateWithoutAssigned_toInput> | MaintenanceCreateWithoutAssigned_toInput[] | MaintenanceUncheckedCreateWithoutAssigned_toInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigned_toInput | MaintenanceCreateOrConnectWithoutAssigned_toInput[]
@@ -31214,11 +35167,25 @@ export namespace Prisma {
     connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
   }
 
+  export type ProposalItemCreateNestedManyWithoutAssetCategoryInput = {
+    create?: XOR<ProposalItemCreateWithoutAssetCategoryInput, ProposalItemUncheckedCreateWithoutAssetCategoryInput> | ProposalItemCreateWithoutAssetCategoryInput[] | ProposalItemUncheckedCreateWithoutAssetCategoryInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutAssetCategoryInput | ProposalItemCreateOrConnectWithoutAssetCategoryInput[]
+    createMany?: ProposalItemCreateManyAssetCategoryInputEnvelope
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+  }
+
   export type AssetUncheckedCreateNestedManyWithoutAssetCategoryInput = {
     create?: XOR<AssetCreateWithoutAssetCategoryInput, AssetUncheckedCreateWithoutAssetCategoryInput> | AssetCreateWithoutAssetCategoryInput[] | AssetUncheckedCreateWithoutAssetCategoryInput[]
     connectOrCreate?: AssetCreateOrConnectWithoutAssetCategoryInput | AssetCreateOrConnectWithoutAssetCategoryInput[]
     createMany?: AssetCreateManyAssetCategoryInputEnvelope
     connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+  }
+
+  export type ProposalItemUncheckedCreateNestedManyWithoutAssetCategoryInput = {
+    create?: XOR<ProposalItemCreateWithoutAssetCategoryInput, ProposalItemUncheckedCreateWithoutAssetCategoryInput> | ProposalItemCreateWithoutAssetCategoryInput[] | ProposalItemUncheckedCreateWithoutAssetCategoryInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutAssetCategoryInput | ProposalItemCreateOrConnectWithoutAssetCategoryInput[]
+    createMany?: ProposalItemCreateManyAssetCategoryInputEnvelope
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
   }
 
   export type EnumAssetTypeFieldUpdateOperationsInput = {
@@ -31239,6 +35206,20 @@ export namespace Prisma {
     deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
   }
 
+  export type ProposalItemUpdateManyWithoutAssetCategoryNestedInput = {
+    create?: XOR<ProposalItemCreateWithoutAssetCategoryInput, ProposalItemUncheckedCreateWithoutAssetCategoryInput> | ProposalItemCreateWithoutAssetCategoryInput[] | ProposalItemUncheckedCreateWithoutAssetCategoryInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutAssetCategoryInput | ProposalItemCreateOrConnectWithoutAssetCategoryInput[]
+    upsert?: ProposalItemUpsertWithWhereUniqueWithoutAssetCategoryInput | ProposalItemUpsertWithWhereUniqueWithoutAssetCategoryInput[]
+    createMany?: ProposalItemCreateManyAssetCategoryInputEnvelope
+    set?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    disconnect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    delete?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    update?: ProposalItemUpdateWithWhereUniqueWithoutAssetCategoryInput | ProposalItemUpdateWithWhereUniqueWithoutAssetCategoryInput[]
+    updateMany?: ProposalItemUpdateManyWithWhereWithoutAssetCategoryInput | ProposalItemUpdateManyWithWhereWithoutAssetCategoryInput[]
+    deleteMany?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
+  }
+
   export type AssetUncheckedUpdateManyWithoutAssetCategoryNestedInput = {
     create?: XOR<AssetCreateWithoutAssetCategoryInput, AssetUncheckedCreateWithoutAssetCategoryInput> | AssetCreateWithoutAssetCategoryInput[] | AssetUncheckedCreateWithoutAssetCategoryInput[]
     connectOrCreate?: AssetCreateOrConnectWithoutAssetCategoryInput | AssetCreateOrConnectWithoutAssetCategoryInput[]
@@ -31251,6 +35232,20 @@ export namespace Prisma {
     update?: AssetUpdateWithWhereUniqueWithoutAssetCategoryInput | AssetUpdateWithWhereUniqueWithoutAssetCategoryInput[]
     updateMany?: AssetUpdateManyWithWhereWithoutAssetCategoryInput | AssetUpdateManyWithWhereWithoutAssetCategoryInput[]
     deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
+  }
+
+  export type ProposalItemUncheckedUpdateManyWithoutAssetCategoryNestedInput = {
+    create?: XOR<ProposalItemCreateWithoutAssetCategoryInput, ProposalItemUncheckedCreateWithoutAssetCategoryInput> | ProposalItemCreateWithoutAssetCategoryInput[] | ProposalItemUncheckedCreateWithoutAssetCategoryInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutAssetCategoryInput | ProposalItemCreateOrConnectWithoutAssetCategoryInput[]
+    upsert?: ProposalItemUpsertWithWhereUniqueWithoutAssetCategoryInput | ProposalItemUpsertWithWhereUniqueWithoutAssetCategoryInput[]
+    createMany?: ProposalItemCreateManyAssetCategoryInputEnvelope
+    set?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    disconnect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    delete?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    update?: ProposalItemUpdateWithWhereUniqueWithoutAssetCategoryInput | ProposalItemUpdateWithWhereUniqueWithoutAssetCategoryInput[]
+    updateMany?: ProposalItemUpdateManyWithWhereWithoutAssetCategoryInput | ProposalItemUpdateManyWithWhereWithoutAssetCategoryInput[]
+    deleteMany?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
   }
 
   export type AssetMovementCreateNestedManyWithoutAssetInput = {
@@ -31287,6 +35282,13 @@ export namespace Prisma {
     connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
   }
 
+  export type ProposalItemCreateNestedManyWithoutAssetInput = {
+    create?: XOR<ProposalItemCreateWithoutAssetInput, ProposalItemUncheckedCreateWithoutAssetInput> | ProposalItemCreateWithoutAssetInput[] | ProposalItemUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutAssetInput | ProposalItemCreateOrConnectWithoutAssetInput[]
+    createMany?: ProposalItemCreateManyAssetInputEnvelope
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+  }
+
   export type AssetMovementUncheckedCreateNestedManyWithoutAssetInput = {
     create?: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput> | AssetMovementCreateWithoutAssetInput[] | AssetMovementUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutAssetInput | AssetMovementCreateOrConnectWithoutAssetInput[]
@@ -31313,6 +35315,13 @@ export namespace Prisma {
     connectOrCreate?: ChecklistCreateOrConnectWithoutAssetInput | ChecklistCreateOrConnectWithoutAssetInput[]
     createMany?: ChecklistCreateManyAssetInputEnvelope
     connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+  }
+
+  export type ProposalItemUncheckedCreateNestedManyWithoutAssetInput = {
+    create?: XOR<ProposalItemCreateWithoutAssetInput, ProposalItemUncheckedCreateWithoutAssetInput> | ProposalItemCreateWithoutAssetInput[] | ProposalItemUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutAssetInput | ProposalItemCreateOrConnectWithoutAssetInput[]
+    createMany?: ProposalItemCreateManyAssetInputEnvelope
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -31403,6 +35412,20 @@ export namespace Prisma {
     deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
   }
 
+  export type ProposalItemUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<ProposalItemCreateWithoutAssetInput, ProposalItemUncheckedCreateWithoutAssetInput> | ProposalItemCreateWithoutAssetInput[] | ProposalItemUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutAssetInput | ProposalItemCreateOrConnectWithoutAssetInput[]
+    upsert?: ProposalItemUpsertWithWhereUniqueWithoutAssetInput | ProposalItemUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: ProposalItemCreateManyAssetInputEnvelope
+    set?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    disconnect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    delete?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    update?: ProposalItemUpdateWithWhereUniqueWithoutAssetInput | ProposalItemUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: ProposalItemUpdateManyWithWhereWithoutAssetInput | ProposalItemUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
+  }
+
   export type AssetMovementUncheckedUpdateManyWithoutAssetNestedInput = {
     create?: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput> | AssetMovementCreateWithoutAssetInput[] | AssetMovementUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutAssetInput | AssetMovementCreateOrConnectWithoutAssetInput[]
@@ -31459,6 +35482,20 @@ export namespace Prisma {
     deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
   }
 
+  export type ProposalItemUncheckedUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<ProposalItemCreateWithoutAssetInput, ProposalItemUncheckedCreateWithoutAssetInput> | ProposalItemCreateWithoutAssetInput[] | ProposalItemUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutAssetInput | ProposalItemCreateOrConnectWithoutAssetInput[]
+    upsert?: ProposalItemUpsertWithWhereUniqueWithoutAssetInput | ProposalItemUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: ProposalItemCreateManyAssetInputEnvelope
+    set?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    disconnect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    delete?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    update?: ProposalItemUpdateWithWhereUniqueWithoutAssetInput | ProposalItemUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: ProposalItemUpdateManyWithWhereWithoutAssetInput | ProposalItemUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
+  }
+
   export type AssetCreateNestedOneWithoutReadingsInput = {
     create?: XOR<AssetCreateWithoutReadingsInput, AssetUncheckedCreateWithoutReadingsInput>
     connectOrCreate?: AssetCreateOrConnectWithoutReadingsInput
@@ -31498,6 +35535,13 @@ export namespace Prisma {
     connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
   }
 
+  export type CommercialProposalCreateNestedManyWithoutClientInput = {
+    create?: XOR<CommercialProposalCreateWithoutClientInput, CommercialProposalUncheckedCreateWithoutClientInput> | CommercialProposalCreateWithoutClientInput[] | CommercialProposalUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutClientInput | CommercialProposalCreateOrConnectWithoutClientInput[]
+    createMany?: CommercialProposalCreateManyClientInputEnvelope
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+  }
+
   export type ContractUncheckedCreateNestedManyWithoutClientInput = {
     create?: XOR<ContractCreateWithoutClientInput, ContractUncheckedCreateWithoutClientInput> | ContractCreateWithoutClientInput[] | ContractUncheckedCreateWithoutClientInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutClientInput | ContractCreateOrConnectWithoutClientInput[]
@@ -31517,6 +35561,13 @@ export namespace Prisma {
     connectOrCreate?: ChecklistCreateOrConnectWithoutSupplierInput | ChecklistCreateOrConnectWithoutSupplierInput[]
     createMany?: ChecklistCreateManySupplierInputEnvelope
     connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+  }
+
+  export type CommercialProposalUncheckedCreateNestedManyWithoutClientInput = {
+    create?: XOR<CommercialProposalCreateWithoutClientInput, CommercialProposalUncheckedCreateWithoutClientInput> | CommercialProposalCreateWithoutClientInput[] | CommercialProposalUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutClientInput | CommercialProposalCreateOrConnectWithoutClientInput[]
+    createMany?: CommercialProposalCreateManyClientInputEnvelope
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
   }
 
   export type SupplierUpdateservice_typesInput = {
@@ -31566,6 +35617,20 @@ export namespace Prisma {
     deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
   }
 
+  export type CommercialProposalUpdateManyWithoutClientNestedInput = {
+    create?: XOR<CommercialProposalCreateWithoutClientInput, CommercialProposalUncheckedCreateWithoutClientInput> | CommercialProposalCreateWithoutClientInput[] | CommercialProposalUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutClientInput | CommercialProposalCreateOrConnectWithoutClientInput[]
+    upsert?: CommercialProposalUpsertWithWhereUniqueWithoutClientInput | CommercialProposalUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: CommercialProposalCreateManyClientInputEnvelope
+    set?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    disconnect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    delete?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    update?: CommercialProposalUpdateWithWhereUniqueWithoutClientInput | CommercialProposalUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: CommercialProposalUpdateManyWithWhereWithoutClientInput | CommercialProposalUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
+  }
+
   export type ContractUncheckedUpdateManyWithoutClientNestedInput = {
     create?: XOR<ContractCreateWithoutClientInput, ContractUncheckedCreateWithoutClientInput> | ContractCreateWithoutClientInput[] | ContractUncheckedCreateWithoutClientInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutClientInput | ContractCreateOrConnectWithoutClientInput[]
@@ -31606,6 +35671,20 @@ export namespace Prisma {
     update?: ChecklistUpdateWithWhereUniqueWithoutSupplierInput | ChecklistUpdateWithWhereUniqueWithoutSupplierInput[]
     updateMany?: ChecklistUpdateManyWithWhereWithoutSupplierInput | ChecklistUpdateManyWithWhereWithoutSupplierInput[]
     deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
+  }
+
+  export type CommercialProposalUncheckedUpdateManyWithoutClientNestedInput = {
+    create?: XOR<CommercialProposalCreateWithoutClientInput, CommercialProposalUncheckedCreateWithoutClientInput> | CommercialProposalCreateWithoutClientInput[] | CommercialProposalUncheckedCreateWithoutClientInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutClientInput | CommercialProposalCreateOrConnectWithoutClientInput[]
+    upsert?: CommercialProposalUpsertWithWhereUniqueWithoutClientInput | CommercialProposalUpsertWithWhereUniqueWithoutClientInput[]
+    createMany?: CommercialProposalCreateManyClientInputEnvelope
+    set?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    disconnect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    delete?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    update?: CommercialProposalUpdateWithWhereUniqueWithoutClientInput | CommercialProposalUpdateWithWhereUniqueWithoutClientInput[]
+    updateMany?: CommercialProposalUpdateManyWithWhereWithoutClientInput | CommercialProposalUpdateManyWithWhereWithoutClientInput[]
+    deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
   }
 
   export type MaintenanceCreateNestedManyWithoutServiceCategoryInput = {
@@ -31837,6 +35916,12 @@ export namespace Prisma {
     connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
   }
 
+  export type CommercialProposalCreateNestedOneWithoutContractInput = {
+    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput
+    connect?: CommercialProposalWhereUniqueInput
+  }
+
   export type AssetMovementUncheckedCreateNestedManyWithoutContractInput = {
     create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
@@ -31856,6 +35941,12 @@ export namespace Prisma {
     connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutContractInput | MeasurementBulletinCreateOrConnectWithoutContractInput[]
     createMany?: MeasurementBulletinCreateManyContractInputEnvelope
     connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+  }
+
+  export type CommercialProposalUncheckedCreateNestedOneWithoutContractInput = {
+    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput
+    connect?: CommercialProposalWhereUniqueInput
   }
 
   export type EnumContractStatusFieldUpdateOperationsInput = {
@@ -31912,6 +36003,16 @@ export namespace Prisma {
     deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
   }
 
+  export type CommercialProposalUpdateOneWithoutContractNestedInput = {
+    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput
+    upsert?: CommercialProposalUpsertWithoutContractInput
+    disconnect?: CommercialProposalWhereInput | boolean
+    delete?: CommercialProposalWhereInput | boolean
+    connect?: CommercialProposalWhereUniqueInput
+    update?: XOR<XOR<CommercialProposalUpdateToOneWithWhereWithoutContractInput, CommercialProposalUpdateWithoutContractInput>, CommercialProposalUncheckedUpdateWithoutContractInput>
+  }
+
   export type AssetMovementUncheckedUpdateManyWithoutContractNestedInput = {
     create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
@@ -31952,6 +36053,16 @@ export namespace Prisma {
     update?: MeasurementBulletinUpdateWithWhereUniqueWithoutContractInput | MeasurementBulletinUpdateWithWhereUniqueWithoutContractInput[]
     updateMany?: MeasurementBulletinUpdateManyWithWhereWithoutContractInput | MeasurementBulletinUpdateManyWithWhereWithoutContractInput[]
     deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
+  }
+
+  export type CommercialProposalUncheckedUpdateOneWithoutContractNestedInput = {
+    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput
+    upsert?: CommercialProposalUpsertWithoutContractInput
+    disconnect?: CommercialProposalWhereInput | boolean
+    delete?: CommercialProposalWhereInput | boolean
+    connect?: CommercialProposalWhereUniqueInput
+    update?: XOR<XOR<CommercialProposalUpdateToOneWithWhereWithoutContractInput, CommercialProposalUpdateWithoutContractInput>, CommercialProposalUncheckedUpdateWithoutContractInput>
   }
 
   export type AssetCreateNestedOneWithoutMovementsInput = {
@@ -32188,6 +36299,48 @@ export namespace Prisma {
     upsert?: MeasurementBulletinUpsertWithoutExpensesInput
     connect?: MeasurementBulletinWhereUniqueInput
     update?: XOR<XOR<MeasurementBulletinUpdateToOneWithWhereWithoutExpensesInput, MeasurementBulletinUpdateWithoutExpensesInput>, MeasurementBulletinUncheckedUpdateWithoutExpensesInput>
+  }
+
+  export type CommercialProposalCreateNestedManyWithoutCompanySettingsInput = {
+    create?: XOR<CommercialProposalCreateWithoutCompanySettingsInput, CommercialProposalUncheckedCreateWithoutCompanySettingsInput> | CommercialProposalCreateWithoutCompanySettingsInput[] | CommercialProposalUncheckedCreateWithoutCompanySettingsInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutCompanySettingsInput | CommercialProposalCreateOrConnectWithoutCompanySettingsInput[]
+    createMany?: CommercialProposalCreateManyCompanySettingsInputEnvelope
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+  }
+
+  export type CommercialProposalUncheckedCreateNestedManyWithoutCompanySettingsInput = {
+    create?: XOR<CommercialProposalCreateWithoutCompanySettingsInput, CommercialProposalUncheckedCreateWithoutCompanySettingsInput> | CommercialProposalCreateWithoutCompanySettingsInput[] | CommercialProposalUncheckedCreateWithoutCompanySettingsInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutCompanySettingsInput | CommercialProposalCreateOrConnectWithoutCompanySettingsInput[]
+    createMany?: CommercialProposalCreateManyCompanySettingsInputEnvelope
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+  }
+
+  export type CommercialProposalUpdateManyWithoutCompanySettingsNestedInput = {
+    create?: XOR<CommercialProposalCreateWithoutCompanySettingsInput, CommercialProposalUncheckedCreateWithoutCompanySettingsInput> | CommercialProposalCreateWithoutCompanySettingsInput[] | CommercialProposalUncheckedCreateWithoutCompanySettingsInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutCompanySettingsInput | CommercialProposalCreateOrConnectWithoutCompanySettingsInput[]
+    upsert?: CommercialProposalUpsertWithWhereUniqueWithoutCompanySettingsInput | CommercialProposalUpsertWithWhereUniqueWithoutCompanySettingsInput[]
+    createMany?: CommercialProposalCreateManyCompanySettingsInputEnvelope
+    set?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    disconnect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    delete?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    update?: CommercialProposalUpdateWithWhereUniqueWithoutCompanySettingsInput | CommercialProposalUpdateWithWhereUniqueWithoutCompanySettingsInput[]
+    updateMany?: CommercialProposalUpdateManyWithWhereWithoutCompanySettingsInput | CommercialProposalUpdateManyWithWhereWithoutCompanySettingsInput[]
+    deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
+  }
+
+  export type CommercialProposalUncheckedUpdateManyWithoutCompanySettingsNestedInput = {
+    create?: XOR<CommercialProposalCreateWithoutCompanySettingsInput, CommercialProposalUncheckedCreateWithoutCompanySettingsInput> | CommercialProposalCreateWithoutCompanySettingsInput[] | CommercialProposalUncheckedCreateWithoutCompanySettingsInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutCompanySettingsInput | CommercialProposalCreateOrConnectWithoutCompanySettingsInput[]
+    upsert?: CommercialProposalUpsertWithWhereUniqueWithoutCompanySettingsInput | CommercialProposalUpsertWithWhereUniqueWithoutCompanySettingsInput[]
+    createMany?: CommercialProposalCreateManyCompanySettingsInputEnvelope
+    set?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    disconnect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    delete?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    update?: CommercialProposalUpdateWithWhereUniqueWithoutCompanySettingsInput | CommercialProposalUpdateWithWhereUniqueWithoutCompanySettingsInput[]
+    updateMany?: CommercialProposalUpdateManyWithWhereWithoutCompanySettingsInput | CommercialProposalUpdateManyWithWhereWithoutCompanySettingsInput[]
+    deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
   }
 
   export type ChecklistItemTemplateCreateNestedManyWithoutChecklistParameterInput = {
@@ -32454,6 +36607,144 @@ export namespace Prisma {
     upsert?: ChecklistItemTemplateUpsertWithoutAnswersInput
     connect?: ChecklistItemTemplateWhereUniqueInput
     update?: XOR<XOR<ChecklistItemTemplateUpdateToOneWithWhereWithoutAnswersInput, ChecklistItemTemplateUpdateWithoutAnswersInput>, ChecklistItemTemplateUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type SupplierCreateNestedOneWithoutCommercialProposalsInput = {
+    create?: XOR<SupplierCreateWithoutCommercialProposalsInput, SupplierUncheckedCreateWithoutCommercialProposalsInput>
+    connectOrCreate?: SupplierCreateOrConnectWithoutCommercialProposalsInput
+    connect?: SupplierWhereUniqueInput
+  }
+
+  export type CompanySettingsCreateNestedOneWithoutCommercialProposalsInput = {
+    create?: XOR<CompanySettingsCreateWithoutCommercialProposalsInput, CompanySettingsUncheckedCreateWithoutCommercialProposalsInput>
+    connectOrCreate?: CompanySettingsCreateOrConnectWithoutCommercialProposalsInput
+    connect?: CompanySettingsWhereUniqueInput
+  }
+
+  export type ContractCreateNestedOneWithoutCommercialProposalInput = {
+    create?: XOR<ContractCreateWithoutCommercialProposalInput, ContractUncheckedCreateWithoutCommercialProposalInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutCommercialProposalInput
+    connect?: ContractWhereUniqueInput
+  }
+
+  export type ProposalItemCreateNestedManyWithoutCommercialProposalInput = {
+    create?: XOR<ProposalItemCreateWithoutCommercialProposalInput, ProposalItemUncheckedCreateWithoutCommercialProposalInput> | ProposalItemCreateWithoutCommercialProposalInput[] | ProposalItemUncheckedCreateWithoutCommercialProposalInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutCommercialProposalInput | ProposalItemCreateOrConnectWithoutCommercialProposalInput[]
+    createMany?: ProposalItemCreateManyCommercialProposalInputEnvelope
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+  }
+
+  export type ProposalItemUncheckedCreateNestedManyWithoutCommercialProposalInput = {
+    create?: XOR<ProposalItemCreateWithoutCommercialProposalInput, ProposalItemUncheckedCreateWithoutCommercialProposalInput> | ProposalItemCreateWithoutCommercialProposalInput[] | ProposalItemUncheckedCreateWithoutCommercialProposalInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutCommercialProposalInput | ProposalItemCreateOrConnectWithoutCommercialProposalInput[]
+    createMany?: ProposalItemCreateManyCommercialProposalInputEnvelope
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+  }
+
+  export type EnumProposalStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ProposalStatus
+  }
+
+  export type SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput = {
+    create?: XOR<SupplierCreateWithoutCommercialProposalsInput, SupplierUncheckedCreateWithoutCommercialProposalsInput>
+    connectOrCreate?: SupplierCreateOrConnectWithoutCommercialProposalsInput
+    upsert?: SupplierUpsertWithoutCommercialProposalsInput
+    connect?: SupplierWhereUniqueInput
+    update?: XOR<XOR<SupplierUpdateToOneWithWhereWithoutCommercialProposalsInput, SupplierUpdateWithoutCommercialProposalsInput>, SupplierUncheckedUpdateWithoutCommercialProposalsInput>
+  }
+
+  export type CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput = {
+    create?: XOR<CompanySettingsCreateWithoutCommercialProposalsInput, CompanySettingsUncheckedCreateWithoutCommercialProposalsInput>
+    connectOrCreate?: CompanySettingsCreateOrConnectWithoutCommercialProposalsInput
+    upsert?: CompanySettingsUpsertWithoutCommercialProposalsInput
+    disconnect?: CompanySettingsWhereInput | boolean
+    delete?: CompanySettingsWhereInput | boolean
+    connect?: CompanySettingsWhereUniqueInput
+    update?: XOR<XOR<CompanySettingsUpdateToOneWithWhereWithoutCommercialProposalsInput, CompanySettingsUpdateWithoutCommercialProposalsInput>, CompanySettingsUncheckedUpdateWithoutCommercialProposalsInput>
+  }
+
+  export type ContractUpdateOneWithoutCommercialProposalNestedInput = {
+    create?: XOR<ContractCreateWithoutCommercialProposalInput, ContractUncheckedCreateWithoutCommercialProposalInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutCommercialProposalInput
+    upsert?: ContractUpsertWithoutCommercialProposalInput
+    disconnect?: ContractWhereInput | boolean
+    delete?: ContractWhereInput | boolean
+    connect?: ContractWhereUniqueInput
+    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutCommercialProposalInput, ContractUpdateWithoutCommercialProposalInput>, ContractUncheckedUpdateWithoutCommercialProposalInput>
+  }
+
+  export type ProposalItemUpdateManyWithoutCommercialProposalNestedInput = {
+    create?: XOR<ProposalItemCreateWithoutCommercialProposalInput, ProposalItemUncheckedCreateWithoutCommercialProposalInput> | ProposalItemCreateWithoutCommercialProposalInput[] | ProposalItemUncheckedCreateWithoutCommercialProposalInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutCommercialProposalInput | ProposalItemCreateOrConnectWithoutCommercialProposalInput[]
+    upsert?: ProposalItemUpsertWithWhereUniqueWithoutCommercialProposalInput | ProposalItemUpsertWithWhereUniqueWithoutCommercialProposalInput[]
+    createMany?: ProposalItemCreateManyCommercialProposalInputEnvelope
+    set?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    disconnect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    delete?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    update?: ProposalItemUpdateWithWhereUniqueWithoutCommercialProposalInput | ProposalItemUpdateWithWhereUniqueWithoutCommercialProposalInput[]
+    updateMany?: ProposalItemUpdateManyWithWhereWithoutCommercialProposalInput | ProposalItemUpdateManyWithWhereWithoutCommercialProposalInput[]
+    deleteMany?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
+  }
+
+  export type ProposalItemUncheckedUpdateManyWithoutCommercialProposalNestedInput = {
+    create?: XOR<ProposalItemCreateWithoutCommercialProposalInput, ProposalItemUncheckedCreateWithoutCommercialProposalInput> | ProposalItemCreateWithoutCommercialProposalInput[] | ProposalItemUncheckedCreateWithoutCommercialProposalInput[]
+    connectOrCreate?: ProposalItemCreateOrConnectWithoutCommercialProposalInput | ProposalItemCreateOrConnectWithoutCommercialProposalInput[]
+    upsert?: ProposalItemUpsertWithWhereUniqueWithoutCommercialProposalInput | ProposalItemUpsertWithWhereUniqueWithoutCommercialProposalInput[]
+    createMany?: ProposalItemCreateManyCommercialProposalInputEnvelope
+    set?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    disconnect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    delete?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+    update?: ProposalItemUpdateWithWhereUniqueWithoutCommercialProposalInput | ProposalItemUpdateWithWhereUniqueWithoutCommercialProposalInput[]
+    updateMany?: ProposalItemUpdateManyWithWhereWithoutCommercialProposalInput | ProposalItemUpdateManyWithWhereWithoutCommercialProposalInput[]
+    deleteMany?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
+  }
+
+  export type CommercialProposalCreateNestedOneWithoutItemsInput = {
+    create?: XOR<CommercialProposalCreateWithoutItemsInput, CommercialProposalUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutItemsInput
+    connect?: CommercialProposalWhereUniqueInput
+  }
+
+  export type AssetCreateNestedOneWithoutProposalItemsInput = {
+    create?: XOR<AssetCreateWithoutProposalItemsInput, AssetUncheckedCreateWithoutProposalItemsInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutProposalItemsInput
+    connect?: AssetWhereUniqueInput
+  }
+
+  export type AssetCategoryCreateNestedOneWithoutProposalItemsInput = {
+    create?: XOR<AssetCategoryCreateWithoutProposalItemsInput, AssetCategoryUncheckedCreateWithoutProposalItemsInput>
+    connectOrCreate?: AssetCategoryCreateOrConnectWithoutProposalItemsInput
+    connect?: AssetCategoryWhereUniqueInput
+  }
+
+  export type CommercialProposalUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<CommercialProposalCreateWithoutItemsInput, CommercialProposalUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutItemsInput
+    upsert?: CommercialProposalUpsertWithoutItemsInput
+    connect?: CommercialProposalWhereUniqueInput
+    update?: XOR<XOR<CommercialProposalUpdateToOneWithWhereWithoutItemsInput, CommercialProposalUpdateWithoutItemsInput>, CommercialProposalUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type AssetUpdateOneWithoutProposalItemsNestedInput = {
+    create?: XOR<AssetCreateWithoutProposalItemsInput, AssetUncheckedCreateWithoutProposalItemsInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutProposalItemsInput
+    upsert?: AssetUpsertWithoutProposalItemsInput
+    disconnect?: AssetWhereInput | boolean
+    delete?: AssetWhereInput | boolean
+    connect?: AssetWhereUniqueInput
+    update?: XOR<XOR<AssetUpdateToOneWithWhereWithoutProposalItemsInput, AssetUpdateWithoutProposalItemsInput>, AssetUncheckedUpdateWithoutProposalItemsInput>
+  }
+
+  export type AssetCategoryUpdateOneWithoutProposalItemsNestedInput = {
+    create?: XOR<AssetCategoryCreateWithoutProposalItemsInput, AssetCategoryUncheckedCreateWithoutProposalItemsInput>
+    connectOrCreate?: AssetCategoryCreateOrConnectWithoutProposalItemsInput
+    upsert?: AssetCategoryUpsertWithoutProposalItemsInput
+    disconnect?: AssetCategoryWhereInput | boolean
+    delete?: AssetCategoryWhereInput | boolean
+    connect?: AssetCategoryWhereUniqueInput
+    update?: XOR<XOR<AssetCategoryUpdateToOneWithWhereWithoutProposalItemsInput, AssetCategoryUpdateWithoutProposalItemsInput>, AssetCategoryUncheckedUpdateWithoutProposalItemsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -32944,6 +37235,23 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumProposalStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProposalStatus | EnumProposalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ProposalStatus[] | ListEnumProposalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProposalStatus[] | ListEnumProposalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumProposalStatusFilter<$PrismaModel> | $Enums.ProposalStatus
+  }
+
+  export type NestedEnumProposalStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProposalStatus | EnumProposalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ProposalStatus[] | ListEnumProposalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProposalStatus[] | ListEnumProposalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumProposalStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProposalStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProposalStatusFilter<$PrismaModel>
+    _max?: NestedEnumProposalStatusFilter<$PrismaModel>
+  }
+
   export type MaintenanceCreateWithoutAssigned_toInput = {
     id?: string
     type: $Enums.MaintenanceType
@@ -33071,6 +37379,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutAssetCategoryInput = {
@@ -33099,6 +37408,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutAssetCategoryInput = {
@@ -33108,6 +37418,46 @@ export namespace Prisma {
 
   export type AssetCreateManyAssetCategoryInputEnvelope = {
     data: AssetCreateManyAssetCategoryInput | AssetCreateManyAssetCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProposalItemCreateWithoutAssetCategoryInput = {
+    id?: string
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    commercialProposal: CommercialProposalCreateNestedOneWithoutItemsInput
+    asset?: AssetCreateNestedOneWithoutProposalItemsInput
+  }
+
+  export type ProposalItemUncheckedCreateWithoutAssetCategoryInput = {
+    id?: string
+    commercialProposalId: string
+    assetId?: string | null
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ProposalItemCreateOrConnectWithoutAssetCategoryInput = {
+    where: ProposalItemWhereUniqueInput
+    create: XOR<ProposalItemCreateWithoutAssetCategoryInput, ProposalItemUncheckedCreateWithoutAssetCategoryInput>
+  }
+
+  export type ProposalItemCreateManyAssetCategoryInputEnvelope = {
+    data: ProposalItemCreateManyAssetCategoryInput | ProposalItemCreateManyAssetCategoryInput[]
     skipDuplicates?: boolean
   }
 
@@ -33153,6 +37503,41 @@ export namespace Prisma {
     documentsUrl?: StringNullableFilter<"Asset"> | string | null
     ownership?: EnumAssetOwnershipFilter<"Asset"> | $Enums.AssetOwnership
     notes?: StringNullableFilter<"Asset"> | string | null
+  }
+
+  export type ProposalItemUpsertWithWhereUniqueWithoutAssetCategoryInput = {
+    where: ProposalItemWhereUniqueInput
+    update: XOR<ProposalItemUpdateWithoutAssetCategoryInput, ProposalItemUncheckedUpdateWithoutAssetCategoryInput>
+    create: XOR<ProposalItemCreateWithoutAssetCategoryInput, ProposalItemUncheckedCreateWithoutAssetCategoryInput>
+  }
+
+  export type ProposalItemUpdateWithWhereUniqueWithoutAssetCategoryInput = {
+    where: ProposalItemWhereUniqueInput
+    data: XOR<ProposalItemUpdateWithoutAssetCategoryInput, ProposalItemUncheckedUpdateWithoutAssetCategoryInput>
+  }
+
+  export type ProposalItemUpdateManyWithWhereWithoutAssetCategoryInput = {
+    where: ProposalItemScalarWhereInput
+    data: XOR<ProposalItemUpdateManyMutationInput, ProposalItemUncheckedUpdateManyWithoutAssetCategoryInput>
+  }
+
+  export type ProposalItemScalarWhereInput = {
+    AND?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
+    OR?: ProposalItemScalarWhereInput[]
+    NOT?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
+    id?: StringFilter<"ProposalItem"> | string
+    commercialProposalId?: StringFilter<"ProposalItem"> | string
+    assetId?: StringNullableFilter<"ProposalItem"> | string | null
+    assetCategoryId?: StringNullableFilter<"ProposalItem"> | string | null
+    description?: StringNullableFilter<"ProposalItem"> | string | null
+    unit?: StringNullableFilter<"ProposalItem"> | string | null
+    quantity?: DecimalFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string
+    franchise_hours?: FloatNullableFilter<"ProposalItem"> | number | null
+    extra_hour_value?: DecimalNullableFilter<"ProposalItem"> | Decimal | DecimalJsLike | number | string | null
+    notes?: StringNullableFilter<"ProposalItem"> | string | null
+    created_at?: DateTimeFilter<"ProposalItem"> | Date | string
+    updated_at?: DateTimeFilter<"ProposalItem"> | Date | string
   }
 
   export type AssetMovementCreateWithoutAssetInput = {
@@ -33219,6 +37604,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    ProposalItems?: ProposalItemCreateNestedManyWithoutAssetCategoryInput
   }
 
   export type AssetCategoryUncheckedCreateWithoutAssetInput = {
@@ -33229,6 +37615,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetCategoryInput
   }
 
   export type AssetCategoryCreateOrConnectWithoutAssetInput = {
@@ -33376,6 +37763,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProposalItemCreateWithoutAssetInput = {
+    id?: string
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    commercialProposal: CommercialProposalCreateNestedOneWithoutItemsInput
+    assetCategory?: AssetCategoryCreateNestedOneWithoutProposalItemsInput
+  }
+
+  export type ProposalItemUncheckedCreateWithoutAssetInput = {
+    id?: string
+    commercialProposalId: string
+    assetCategoryId?: string | null
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ProposalItemCreateOrConnectWithoutAssetInput = {
+    where: ProposalItemWhereUniqueInput
+    create: XOR<ProposalItemCreateWithoutAssetInput, ProposalItemUncheckedCreateWithoutAssetInput>
+  }
+
+  export type ProposalItemCreateManyAssetInputEnvelope = {
+    data: ProposalItemCreateManyAssetInput | ProposalItemCreateManyAssetInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AssetMovementUpsertWithWhereUniqueWithoutAssetInput = {
     where: AssetMovementWhereUniqueInput
     update: XOR<AssetMovementUpdateWithoutAssetInput, AssetMovementUncheckedUpdateWithoutAssetInput>
@@ -33437,6 +37864,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    ProposalItems?: ProposalItemUpdateManyWithoutAssetCategoryNestedInput
   }
 
   export type AssetCategoryUncheckedUpdateWithoutAssetInput = {
@@ -33447,6 +37875,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetCategoryNestedInput
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutAssetInput = {
@@ -33535,6 +37964,22 @@ export namespace Prisma {
     meterPhotoUrl?: StringNullableFilter<"Checklist"> | string | null
   }
 
+  export type ProposalItemUpsertWithWhereUniqueWithoutAssetInput = {
+    where: ProposalItemWhereUniqueInput
+    update: XOR<ProposalItemUpdateWithoutAssetInput, ProposalItemUncheckedUpdateWithoutAssetInput>
+    create: XOR<ProposalItemCreateWithoutAssetInput, ProposalItemUncheckedCreateWithoutAssetInput>
+  }
+
+  export type ProposalItemUpdateWithWhereUniqueWithoutAssetInput = {
+    where: ProposalItemWhereUniqueInput
+    data: XOR<ProposalItemUpdateWithoutAssetInput, ProposalItemUncheckedUpdateWithoutAssetInput>
+  }
+
+  export type ProposalItemUpdateManyWithWhereWithoutAssetInput = {
+    where: ProposalItemScalarWhereInput
+    data: XOR<ProposalItemUpdateManyMutationInput, ProposalItemUncheckedUpdateManyWithoutAssetInput>
+  }
+
   export type AssetCreateWithoutReadingsInput = {
     id?: string
     brand: string
@@ -33561,6 +38006,7 @@ export namespace Prisma {
     assetCategory: AssetCategoryCreateNestedOneWithoutAssetInput
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutReadingsInput = {
@@ -33589,6 +38035,7 @@ export namespace Prisma {
     Movements?: AssetMovementUncheckedCreateNestedManyWithoutAssetInput
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutReadingsInput = {
@@ -33633,6 +38080,7 @@ export namespace Prisma {
     assetCategory?: AssetCategoryUpdateOneRequiredWithoutAssetNestedInput
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutReadingsInput = {
@@ -33661,6 +38109,7 @@ export namespace Prisma {
     Movements?: AssetMovementUncheckedUpdateManyWithoutAssetNestedInput
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type ContractCreateWithoutClientInput = {
@@ -33679,9 +38128,12 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutClientInput = {
@@ -33700,9 +38152,12 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutClientInput = {
@@ -33823,6 +38278,60 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CommercialProposalCreateWithoutClientInput = {
+    id?: string
+    proposal_number: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    companySettings?: CompanySettingsCreateNestedOneWithoutCommercialProposalsInput
+    contract?: ContractCreateNestedOneWithoutCommercialProposalInput
+    items?: ProposalItemCreateNestedManyWithoutCommercialProposalInput
+  }
+
+  export type CommercialProposalUncheckedCreateWithoutClientInput = {
+    id?: string
+    proposal_number: string
+    companySettingsId?: string | null
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    contractId?: string | null
+    items?: ProposalItemUncheckedCreateNestedManyWithoutCommercialProposalInput
+  }
+
+  export type CommercialProposalCreateOrConnectWithoutClientInput = {
+    where: CommercialProposalWhereUniqueInput
+    create: XOR<CommercialProposalCreateWithoutClientInput, CommercialProposalUncheckedCreateWithoutClientInput>
+  }
+
+  export type CommercialProposalCreateManyClientInputEnvelope = {
+    data: CommercialProposalCreateManyClientInput | CommercialProposalCreateManyClientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ContractUpsertWithWhereUniqueWithoutClientInput = {
     where: ContractWhereUniqueInput
     update: XOR<ContractUpdateWithoutClientInput, ContractUncheckedUpdateWithoutClientInput>
@@ -33859,6 +38368,8 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Contract"> | Date | string
     updated_at?: DateTimeFilter<"Contract"> | Date | string
     is_Active?: BoolFilter<"Contract"> | boolean
+    body_html?: StringNullableFilter<"Contract"> | string | null
+    signed_contract_url?: StringNullableFilter<"Contract"> | string | null
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutSupplierInput = {
@@ -33891,6 +38402,47 @@ export namespace Prisma {
   export type ChecklistUpdateManyWithWhereWithoutSupplierInput = {
     where: ChecklistScalarWhereInput
     data: XOR<ChecklistUpdateManyMutationInput, ChecklistUncheckedUpdateManyWithoutSupplierInput>
+  }
+
+  export type CommercialProposalUpsertWithWhereUniqueWithoutClientInput = {
+    where: CommercialProposalWhereUniqueInput
+    update: XOR<CommercialProposalUpdateWithoutClientInput, CommercialProposalUncheckedUpdateWithoutClientInput>
+    create: XOR<CommercialProposalCreateWithoutClientInput, CommercialProposalUncheckedCreateWithoutClientInput>
+  }
+
+  export type CommercialProposalUpdateWithWhereUniqueWithoutClientInput = {
+    where: CommercialProposalWhereUniqueInput
+    data: XOR<CommercialProposalUpdateWithoutClientInput, CommercialProposalUncheckedUpdateWithoutClientInput>
+  }
+
+  export type CommercialProposalUpdateManyWithWhereWithoutClientInput = {
+    where: CommercialProposalScalarWhereInput
+    data: XOR<CommercialProposalUpdateManyMutationInput, CommercialProposalUncheckedUpdateManyWithoutClientInput>
+  }
+
+  export type CommercialProposalScalarWhereInput = {
+    AND?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
+    OR?: CommercialProposalScalarWhereInput[]
+    NOT?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
+    id?: StringFilter<"CommercialProposal"> | string
+    proposal_number?: StringFilter<"CommercialProposal"> | string
+    companySettingsId?: StringNullableFilter<"CommercialProposal"> | string | null
+    clientId?: StringFilter<"CommercialProposal"> | string
+    contact_name?: StringNullableFilter<"CommercialProposal"> | string | null
+    contact_phone?: StringNullableFilter<"CommercialProposal"> | string | null
+    contact_email?: StringNullableFilter<"CommercialProposal"> | string | null
+    mobilization_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: StringNullableFilter<"CommercialProposal"> | string | null
+    rental_period?: StringNullableFilter<"CommercialProposal"> | string | null
+    technical_notes?: StringNullableFilter<"CommercialProposal"> | string | null
+    validity_days?: IntFilter<"CommercialProposal"> | number
+    body_html?: StringNullableFilter<"CommercialProposal"> | string | null
+    status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
+    created_at?: DateTimeFilter<"CommercialProposal"> | Date | string
+    updated_at?: DateTimeFilter<"CommercialProposal"> | Date | string
+    is_active?: BoolFilter<"CommercialProposal"> | boolean
+    contractId?: StringNullableFilter<"CommercialProposal"> | string | null
   }
 
   export type MaintenanceCreateWithoutServiceCategoryInput = {
@@ -34056,6 +38608,7 @@ export namespace Prisma {
     assetCategory: AssetCategoryCreateNestedOneWithoutAssetInput
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutMaintenanceInput = {
@@ -34084,6 +38637,7 @@ export namespace Prisma {
     Movements?: AssetMovementUncheckedCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutMaintenanceInput = {
@@ -34107,9 +38661,12 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMaintenancesInput = {
@@ -34129,8 +38686,11 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMaintenancesInput = {
@@ -34180,6 +38740,7 @@ export namespace Prisma {
     isClient?: boolean
     Contracts?: ContractCreateNestedManyWithoutClientInput
     Checklists?: ChecklistCreateNestedManyWithoutSupplierInput
+    CommercialProposals?: CommercialProposalCreateNestedManyWithoutClientInput
   }
 
   export type SupplierUncheckedCreateWithoutMaintenanceInput = {
@@ -34201,6 +38762,7 @@ export namespace Prisma {
     isClient?: boolean
     Contracts?: ContractUncheckedCreateNestedManyWithoutClientInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutSupplierInput
+    CommercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type SupplierCreateOrConnectWithoutMaintenanceInput = {
@@ -34313,6 +38875,7 @@ export namespace Prisma {
     assetCategory?: AssetCategoryUpdateOneRequiredWithoutAssetNestedInput
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutMaintenanceInput = {
@@ -34341,6 +38904,7 @@ export namespace Prisma {
     Movements?: AssetMovementUncheckedUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type ContractUpsertWithoutMaintenancesInput = {
@@ -34370,9 +38934,12 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMaintenancesInput = {
@@ -34392,8 +38959,11 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
   }
 
   export type ServiceCategoryUpsertWithoutMaintenanceInput = {
@@ -34455,6 +39025,7 @@ export namespace Prisma {
     isClient?: BoolFieldUpdateOperationsInput | boolean
     Contracts?: ContractUpdateManyWithoutClientNestedInput
     Checklists?: ChecklistUpdateManyWithoutSupplierNestedInput
+    CommercialProposals?: CommercialProposalUpdateManyWithoutClientNestedInput
   }
 
   export type SupplierUncheckedUpdateWithoutMaintenanceInput = {
@@ -34476,6 +39047,7 @@ export namespace Prisma {
     isClient?: BoolFieldUpdateOperationsInput | boolean
     Contracts?: ContractUncheckedUpdateManyWithoutClientNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutSupplierNestedInput
+    CommercialProposals?: CommercialProposalUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type MaintenanceCreateWithoutDocumentsInput = {
@@ -34665,6 +39237,7 @@ export namespace Prisma {
     isClient?: boolean
     Maintenance?: MaintenanceCreateNestedManyWithoutSupplierInput
     Checklists?: ChecklistCreateNestedManyWithoutSupplierInput
+    CommercialProposals?: CommercialProposalCreateNestedManyWithoutClientInput
   }
 
   export type SupplierUncheckedCreateWithoutContractsInput = {
@@ -34686,6 +39259,7 @@ export namespace Prisma {
     isClient?: boolean
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutSupplierInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutSupplierInput
+    CommercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type SupplierCreateOrConnectWithoutContractsInput = {
@@ -34803,6 +39377,55 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CommercialProposalCreateWithoutContractInput = {
+    id?: string
+    proposal_number: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    client: SupplierCreateNestedOneWithoutCommercialProposalsInput
+    companySettings?: CompanySettingsCreateNestedOneWithoutCommercialProposalsInput
+    items?: ProposalItemCreateNestedManyWithoutCommercialProposalInput
+  }
+
+  export type CommercialProposalUncheckedCreateWithoutContractInput = {
+    id?: string
+    proposal_number: string
+    companySettingsId?: string | null
+    clientId: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    items?: ProposalItemUncheckedCreateNestedManyWithoutCommercialProposalInput
+  }
+
+  export type CommercialProposalCreateOrConnectWithoutContractInput = {
+    where: CommercialProposalWhereUniqueInput
+    create: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
+  }
+
   export type AssetMovementUpsertWithWhereUniqueWithoutContractInput = {
     where: AssetMovementWhereUniqueInput
     update: XOR<AssetMovementUpdateWithoutContractInput, AssetMovementUncheckedUpdateWithoutContractInput>
@@ -34849,6 +39472,7 @@ export namespace Prisma {
     isClient?: BoolFieldUpdateOperationsInput | boolean
     Maintenance?: MaintenanceUpdateManyWithoutSupplierNestedInput
     Checklists?: ChecklistUpdateManyWithoutSupplierNestedInput
+    CommercialProposals?: CommercialProposalUpdateManyWithoutClientNestedInput
   }
 
   export type SupplierUncheckedUpdateWithoutContractsInput = {
@@ -34870,6 +39494,7 @@ export namespace Prisma {
     isClient?: BoolFieldUpdateOperationsInput | boolean
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutSupplierNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutSupplierNestedInput
+    CommercialProposals?: CommercialProposalUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutContractInput = {
@@ -34928,6 +39553,61 @@ export namespace Prisma {
     invoiceId?: StringNullableFilter<"MeasurementBulletin"> | string | null
   }
 
+  export type CommercialProposalUpsertWithoutContractInput = {
+    update: XOR<CommercialProposalUpdateWithoutContractInput, CommercialProposalUncheckedUpdateWithoutContractInput>
+    create: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
+    where?: CommercialProposalWhereInput
+  }
+
+  export type CommercialProposalUpdateToOneWithWhereWithoutContractInput = {
+    where?: CommercialProposalWhereInput
+    data: XOR<CommercialProposalUpdateWithoutContractInput, CommercialProposalUncheckedUpdateWithoutContractInput>
+  }
+
+  export type CommercialProposalUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    client?: SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput
+    companySettings?: CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput
+    items?: ProposalItemUpdateManyWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalUncheckedUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    companySettingsId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    items?: ProposalItemUncheckedUpdateManyWithoutCommercialProposalNestedInput
+  }
+
   export type AssetCreateWithoutMovementsInput = {
     id?: string
     brand: string
@@ -34954,6 +39634,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutMovementsInput = {
@@ -34982,6 +39663,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutMovementsInput = {
@@ -35005,9 +39687,12 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMovementsInput = {
@@ -35027,8 +39712,11 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMovementsInput = {
@@ -35125,6 +39813,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutMovementsInput = {
@@ -35153,6 +39842,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type ContractUpsertWithoutMovementsInput = {
@@ -35182,9 +39872,12 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMovementsInput = {
@@ -35204,8 +39897,11 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
   }
 
   export type MeasurementBulletinUpsertWithWhereUniqueWithoutAssetMovementInput = {
@@ -35356,9 +40052,12 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMeasurementBulletinsInput = {
@@ -35378,8 +40077,11 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMeasurementBulletinsInput = {
@@ -35542,9 +40244,12 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMeasurementBulletinsInput = {
@@ -35564,8 +40269,11 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
   }
 
   export type MeasurementBulletinCreateWithoutInvoiceInput = {
@@ -35734,6 +40442,76 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CommercialProposalCreateWithoutCompanySettingsInput = {
+    id?: string
+    proposal_number: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    client: SupplierCreateNestedOneWithoutCommercialProposalsInput
+    contract?: ContractCreateNestedOneWithoutCommercialProposalInput
+    items?: ProposalItemCreateNestedManyWithoutCommercialProposalInput
+  }
+
+  export type CommercialProposalUncheckedCreateWithoutCompanySettingsInput = {
+    id?: string
+    proposal_number: string
+    clientId: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    contractId?: string | null
+    items?: ProposalItemUncheckedCreateNestedManyWithoutCommercialProposalInput
+  }
+
+  export type CommercialProposalCreateOrConnectWithoutCompanySettingsInput = {
+    where: CommercialProposalWhereUniqueInput
+    create: XOR<CommercialProposalCreateWithoutCompanySettingsInput, CommercialProposalUncheckedCreateWithoutCompanySettingsInput>
+  }
+
+  export type CommercialProposalCreateManyCompanySettingsInputEnvelope = {
+    data: CommercialProposalCreateManyCompanySettingsInput | CommercialProposalCreateManyCompanySettingsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommercialProposalUpsertWithWhereUniqueWithoutCompanySettingsInput = {
+    where: CommercialProposalWhereUniqueInput
+    update: XOR<CommercialProposalUpdateWithoutCompanySettingsInput, CommercialProposalUncheckedUpdateWithoutCompanySettingsInput>
+    create: XOR<CommercialProposalCreateWithoutCompanySettingsInput, CommercialProposalUncheckedCreateWithoutCompanySettingsInput>
+  }
+
+  export type CommercialProposalUpdateWithWhereUniqueWithoutCompanySettingsInput = {
+    where: CommercialProposalWhereUniqueInput
+    data: XOR<CommercialProposalUpdateWithoutCompanySettingsInput, CommercialProposalUncheckedUpdateWithoutCompanySettingsInput>
+  }
+
+  export type CommercialProposalUpdateManyWithWhereWithoutCompanySettingsInput = {
+    where: CommercialProposalScalarWhereInput
+    data: XOR<CommercialProposalUpdateManyMutationInput, CommercialProposalUncheckedUpdateManyWithoutCompanySettingsInput>
   }
 
   export type ChecklistItemTemplateCreateWithoutChecklistParameterInput = {
@@ -36037,6 +40815,7 @@ export namespace Prisma {
     assetCategory: AssetCategoryCreateNestedOneWithoutAssetInput
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutChecklistsInput = {
@@ -36065,6 +40844,7 @@ export namespace Prisma {
     Movements?: AssetMovementUncheckedCreateNestedManyWithoutAssetInput
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutChecklistsInput = {
@@ -36091,6 +40871,7 @@ export namespace Prisma {
     isClient?: boolean
     Contracts?: ContractCreateNestedManyWithoutClientInput
     Maintenance?: MaintenanceCreateNestedManyWithoutSupplierInput
+    CommercialProposals?: CommercialProposalCreateNestedManyWithoutClientInput
   }
 
   export type SupplierUncheckedCreateWithoutChecklistsInput = {
@@ -36112,6 +40893,7 @@ export namespace Prisma {
     isClient?: boolean
     Contracts?: ContractUncheckedCreateNestedManyWithoutClientInput
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutSupplierInput
+    CommercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutClientInput
   }
 
   export type SupplierCreateOrConnectWithoutChecklistsInput = {
@@ -36219,6 +41001,7 @@ export namespace Prisma {
     assetCategory?: AssetCategoryUpdateOneRequiredWithoutAssetNestedInput
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutChecklistsInput = {
@@ -36247,6 +41030,7 @@ export namespace Prisma {
     Movements?: AssetMovementUncheckedUpdateManyWithoutAssetNestedInput
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type SupplierUpsertWithoutChecklistsInput = {
@@ -36279,6 +41063,7 @@ export namespace Prisma {
     isClient?: BoolFieldUpdateOperationsInput | boolean
     Contracts?: ContractUpdateManyWithoutClientNestedInput
     Maintenance?: MaintenanceUpdateManyWithoutSupplierNestedInput
+    CommercialProposals?: CommercialProposalUpdateManyWithoutClientNestedInput
   }
 
   export type SupplierUncheckedUpdateWithoutChecklistsInput = {
@@ -36300,6 +41085,7 @@ export namespace Prisma {
     isClient?: BoolFieldUpdateOperationsInput | boolean
     Contracts?: ContractUncheckedUpdateManyWithoutClientNestedInput
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutSupplierNestedInput
+    CommercialProposals?: CommercialProposalUncheckedUpdateManyWithoutClientNestedInput
   }
 
   export type ChecklistAnswerUpsertWithWhereUniqueWithoutChecklistInput = {
@@ -36474,6 +41260,658 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SupplierCreateWithoutCommercialProposalsInput = {
+    id?: string
+    company_name: string
+    trading_name?: string | null
+    cnpj: string
+    email: string
+    phone: string
+    contact: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    zip_code?: string | null
+    service_types?: SupplierCreateservice_typesInput | string[]
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    isClient?: boolean
+    Contracts?: ContractCreateNestedManyWithoutClientInput
+    Maintenance?: MaintenanceCreateNestedManyWithoutSupplierInput
+    Checklists?: ChecklistCreateNestedManyWithoutSupplierInput
+  }
+
+  export type SupplierUncheckedCreateWithoutCommercialProposalsInput = {
+    id?: string
+    company_name: string
+    trading_name?: string | null
+    cnpj: string
+    email: string
+    phone: string
+    contact: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    zip_code?: string | null
+    service_types?: SupplierCreateservice_typesInput | string[]
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    isClient?: boolean
+    Contracts?: ContractUncheckedCreateNestedManyWithoutClientInput
+    Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutSupplierInput
+    Checklists?: ChecklistUncheckedCreateNestedManyWithoutSupplierInput
+  }
+
+  export type SupplierCreateOrConnectWithoutCommercialProposalsInput = {
+    where: SupplierWhereUniqueInput
+    create: XOR<SupplierCreateWithoutCommercialProposalsInput, SupplierUncheckedCreateWithoutCommercialProposalsInput>
+  }
+
+  export type CompanySettingsCreateWithoutCommercialProposalsInput = {
+    id?: string
+    company_name: string
+    trading_name?: string | null
+    cnpj?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    zip_code?: string | null
+    phone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    invoice_start_number?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CompanySettingsUncheckedCreateWithoutCommercialProposalsInput = {
+    id?: string
+    company_name: string
+    trading_name?: string | null
+    cnpj?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    zip_code?: string | null
+    phone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    invoice_start_number?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CompanySettingsCreateOrConnectWithoutCommercialProposalsInput = {
+    where: CompanySettingsWhereUniqueInput
+    create: XOR<CompanySettingsCreateWithoutCommercialProposalsInput, CompanySettingsUncheckedCreateWithoutCommercialProposalsInput>
+  }
+
+  export type ContractCreateWithoutCommercialProposalInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    movements?: AssetMovementCreateNestedManyWithoutContractInput
+    client: SupplierCreateNestedOneWithoutContractsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUncheckedCreateWithoutCommercialProposalInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractCreateOrConnectWithoutCommercialProposalInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutCommercialProposalInput, ContractUncheckedCreateWithoutCommercialProposalInput>
+  }
+
+  export type ProposalItemCreateWithoutCommercialProposalInput = {
+    id?: string
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    asset?: AssetCreateNestedOneWithoutProposalItemsInput
+    assetCategory?: AssetCategoryCreateNestedOneWithoutProposalItemsInput
+  }
+
+  export type ProposalItemUncheckedCreateWithoutCommercialProposalInput = {
+    id?: string
+    assetId?: string | null
+    assetCategoryId?: string | null
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ProposalItemCreateOrConnectWithoutCommercialProposalInput = {
+    where: ProposalItemWhereUniqueInput
+    create: XOR<ProposalItemCreateWithoutCommercialProposalInput, ProposalItemUncheckedCreateWithoutCommercialProposalInput>
+  }
+
+  export type ProposalItemCreateManyCommercialProposalInputEnvelope = {
+    data: ProposalItemCreateManyCommercialProposalInput | ProposalItemCreateManyCommercialProposalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SupplierUpsertWithoutCommercialProposalsInput = {
+    update: XOR<SupplierUpdateWithoutCommercialProposalsInput, SupplierUncheckedUpdateWithoutCommercialProposalsInput>
+    create: XOR<SupplierCreateWithoutCommercialProposalsInput, SupplierUncheckedCreateWithoutCommercialProposalsInput>
+    where?: SupplierWhereInput
+  }
+
+  export type SupplierUpdateToOneWithWhereWithoutCommercialProposalsInput = {
+    where?: SupplierWhereInput
+    data: XOR<SupplierUpdateWithoutCommercialProposalsInput, SupplierUncheckedUpdateWithoutCommercialProposalsInput>
+  }
+
+  export type SupplierUpdateWithoutCommercialProposalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    service_types?: SupplierUpdateservice_typesInput | string[]
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    isClient?: BoolFieldUpdateOperationsInput | boolean
+    Contracts?: ContractUpdateManyWithoutClientNestedInput
+    Maintenance?: MaintenanceUpdateManyWithoutSupplierNestedInput
+    Checklists?: ChecklistUpdateManyWithoutSupplierNestedInput
+  }
+
+  export type SupplierUncheckedUpdateWithoutCommercialProposalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    service_types?: SupplierUpdateservice_typesInput | string[]
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    isClient?: BoolFieldUpdateOperationsInput | boolean
+    Contracts?: ContractUncheckedUpdateManyWithoutClientNestedInput
+    Maintenance?: MaintenanceUncheckedUpdateManyWithoutSupplierNestedInput
+    Checklists?: ChecklistUncheckedUpdateManyWithoutSupplierNestedInput
+  }
+
+  export type CompanySettingsUpsertWithoutCommercialProposalsInput = {
+    update: XOR<CompanySettingsUpdateWithoutCommercialProposalsInput, CompanySettingsUncheckedUpdateWithoutCommercialProposalsInput>
+    create: XOR<CompanySettingsCreateWithoutCommercialProposalsInput, CompanySettingsUncheckedCreateWithoutCommercialProposalsInput>
+    where?: CompanySettingsWhereInput
+  }
+
+  export type CompanySettingsUpdateToOneWithWhereWithoutCommercialProposalsInput = {
+    where?: CompanySettingsWhereInput
+    data: XOR<CompanySettingsUpdateWithoutCommercialProposalsInput, CompanySettingsUncheckedUpdateWithoutCommercialProposalsInput>
+  }
+
+  export type CompanySettingsUpdateWithoutCommercialProposalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_start_number?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySettingsUncheckedUpdateWithoutCommercialProposalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    company_name?: StringFieldUpdateOperationsInput | string
+    trading_name?: NullableStringFieldUpdateOperationsInput | string | null
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice_start_number?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContractUpsertWithoutCommercialProposalInput = {
+    update: XOR<ContractUpdateWithoutCommercialProposalInput, ContractUncheckedUpdateWithoutCommercialProposalInput>
+    create: XOR<ContractCreateWithoutCommercialProposalInput, ContractUncheckedCreateWithoutCommercialProposalInput>
+    where?: ContractWhereInput
+  }
+
+  export type ContractUpdateToOneWithWhereWithoutCommercialProposalInput = {
+    where?: ContractWhereInput
+    data: XOR<ContractUpdateWithoutCommercialProposalInput, ContractUncheckedUpdateWithoutCommercialProposalInput>
+  }
+
+  export type ContractUpdateWithoutCommercialProposalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    movements?: AssetMovementUpdateManyWithoutContractNestedInput
+    client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutCommercialProposalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+  }
+
+  export type ProposalItemUpsertWithWhereUniqueWithoutCommercialProposalInput = {
+    where: ProposalItemWhereUniqueInput
+    update: XOR<ProposalItemUpdateWithoutCommercialProposalInput, ProposalItemUncheckedUpdateWithoutCommercialProposalInput>
+    create: XOR<ProposalItemCreateWithoutCommercialProposalInput, ProposalItemUncheckedCreateWithoutCommercialProposalInput>
+  }
+
+  export type ProposalItemUpdateWithWhereUniqueWithoutCommercialProposalInput = {
+    where: ProposalItemWhereUniqueInput
+    data: XOR<ProposalItemUpdateWithoutCommercialProposalInput, ProposalItemUncheckedUpdateWithoutCommercialProposalInput>
+  }
+
+  export type ProposalItemUpdateManyWithWhereWithoutCommercialProposalInput = {
+    where: ProposalItemScalarWhereInput
+    data: XOR<ProposalItemUpdateManyMutationInput, ProposalItemUncheckedUpdateManyWithoutCommercialProposalInput>
+  }
+
+  export type CommercialProposalCreateWithoutItemsInput = {
+    id?: string
+    proposal_number: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    client: SupplierCreateNestedOneWithoutCommercialProposalsInput
+    companySettings?: CompanySettingsCreateNestedOneWithoutCommercialProposalsInput
+    contract?: ContractCreateNestedOneWithoutCommercialProposalInput
+  }
+
+  export type CommercialProposalUncheckedCreateWithoutItemsInput = {
+    id?: string
+    proposal_number: string
+    companySettingsId?: string | null
+    clientId: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    contractId?: string | null
+  }
+
+  export type CommercialProposalCreateOrConnectWithoutItemsInput = {
+    where: CommercialProposalWhereUniqueInput
+    create: XOR<CommercialProposalCreateWithoutItemsInput, CommercialProposalUncheckedCreateWithoutItemsInput>
+  }
+
+  export type AssetCreateWithoutProposalItemsInput = {
+    id?: string
+    brand: string
+    model: string
+    year?: number | null
+    plate?: string | null
+    serial_number?: string | null
+    initial_horometer?: number | null
+    current_horometer?: number | null
+    initial_odometer?: number | null
+    current_odometer?: number | null
+    maintenance_frequency_hours?: number | null
+    maintenance_frequency_km?: number | null
+    last_maintenance_date?: Date | string | null
+    last_maintenance_horometer?: number | null
+    last_maintenance_odometer?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    documentsUrl?: string | null
+    ownership?: $Enums.AssetOwnership
+    notes?: string | null
+    Movements?: AssetMovementCreateNestedManyWithoutAssetInput
+    assetCategory: AssetCategoryCreateNestedOneWithoutAssetInput
+    Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
+    Readings?: AssetReadingCreateNestedManyWithoutAssetInput
+    Checklists?: ChecklistCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetUncheckedCreateWithoutProposalItemsInput = {
+    id?: string
+    brand: string
+    model: string
+    year?: number | null
+    plate?: string | null
+    serial_number?: string | null
+    initial_horometer?: number | null
+    current_horometer?: number | null
+    initial_odometer?: number | null
+    current_odometer?: number | null
+    maintenance_frequency_hours?: number | null
+    maintenance_frequency_km?: number | null
+    last_maintenance_date?: Date | string | null
+    last_maintenance_horometer?: number | null
+    last_maintenance_odometer?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    assetCategoryId: string
+    documentsUrl?: string | null
+    ownership?: $Enums.AssetOwnership
+    notes?: string | null
+    Movements?: AssetMovementUncheckedCreateNestedManyWithoutAssetInput
+    Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
+    Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetCreateOrConnectWithoutProposalItemsInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutProposalItemsInput, AssetUncheckedCreateWithoutProposalItemsInput>
+  }
+
+  export type AssetCategoryCreateWithoutProposalItemsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.AssetType
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    Asset?: AssetCreateNestedManyWithoutAssetCategoryInput
+  }
+
+  export type AssetCategoryUncheckedCreateWithoutProposalItemsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.AssetType
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    Asset?: AssetUncheckedCreateNestedManyWithoutAssetCategoryInput
+  }
+
+  export type AssetCategoryCreateOrConnectWithoutProposalItemsInput = {
+    where: AssetCategoryWhereUniqueInput
+    create: XOR<AssetCategoryCreateWithoutProposalItemsInput, AssetCategoryUncheckedCreateWithoutProposalItemsInput>
+  }
+
+  export type CommercialProposalUpsertWithoutItemsInput = {
+    update: XOR<CommercialProposalUpdateWithoutItemsInput, CommercialProposalUncheckedUpdateWithoutItemsInput>
+    create: XOR<CommercialProposalCreateWithoutItemsInput, CommercialProposalUncheckedCreateWithoutItemsInput>
+    where?: CommercialProposalWhereInput
+  }
+
+  export type CommercialProposalUpdateToOneWithWhereWithoutItemsInput = {
+    where?: CommercialProposalWhereInput
+    data: XOR<CommercialProposalUpdateWithoutItemsInput, CommercialProposalUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type CommercialProposalUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    client?: SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput
+    companySettings?: CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput
+    contract?: ContractUpdateOneWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalUncheckedUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    companySettingsId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AssetUpsertWithoutProposalItemsInput = {
+    update: XOR<AssetUpdateWithoutProposalItemsInput, AssetUncheckedUpdateWithoutProposalItemsInput>
+    create: XOR<AssetCreateWithoutProposalItemsInput, AssetUncheckedCreateWithoutProposalItemsInput>
+    where?: AssetWhereInput
+  }
+
+  export type AssetUpdateToOneWithWhereWithoutProposalItemsInput = {
+    where?: AssetWhereInput
+    data: XOR<AssetUpdateWithoutProposalItemsInput, AssetUncheckedUpdateWithoutProposalItemsInput>
+  }
+
+  export type AssetUpdateWithoutProposalItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    plate?: NullableStringFieldUpdateOperationsInput | string | null
+    serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    initial_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    maintenance_frequency_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    maintenance_frequency_km?: NullableFloatFieldUpdateOperationsInput | number | null
+    last_maintenance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_maintenance_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    last_maintenance_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    Movements?: AssetMovementUpdateManyWithoutAssetNestedInput
+    assetCategory?: AssetCategoryUpdateOneRequiredWithoutAssetNestedInput
+    Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
+    Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
+    Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutProposalItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    plate?: NullableStringFieldUpdateOperationsInput | string | null
+    serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    initial_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    maintenance_frequency_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    maintenance_frequency_km?: NullableFloatFieldUpdateOperationsInput | number | null
+    last_maintenance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_maintenance_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    last_maintenance_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assetCategoryId?: StringFieldUpdateOperationsInput | string
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    Movements?: AssetMovementUncheckedUpdateManyWithoutAssetNestedInput
+    Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
+    Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetCategoryUpsertWithoutProposalItemsInput = {
+    update: XOR<AssetCategoryUpdateWithoutProposalItemsInput, AssetCategoryUncheckedUpdateWithoutProposalItemsInput>
+    create: XOR<AssetCategoryCreateWithoutProposalItemsInput, AssetCategoryUncheckedCreateWithoutProposalItemsInput>
+    where?: AssetCategoryWhereInput
+  }
+
+  export type AssetCategoryUpdateToOneWithWhereWithoutProposalItemsInput = {
+    where?: AssetCategoryWhereInput
+    data: XOR<AssetCategoryUpdateWithoutProposalItemsInput, AssetCategoryUncheckedUpdateWithoutProposalItemsInput>
+  }
+
+  export type AssetCategoryUpdateWithoutProposalItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    Asset?: AssetUpdateManyWithoutAssetCategoryNestedInput
+  }
+
+  export type AssetCategoryUncheckedUpdateWithoutProposalItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    Asset?: AssetUncheckedUpdateManyWithoutAssetCategoryNestedInput
+  }
+
   export type MaintenanceCreateManyAssigned_toInput = {
     id?: string
     assetId: string
@@ -36592,6 +42030,21 @@ export namespace Prisma {
     notes?: string | null
   }
 
+  export type ProposalItemCreateManyAssetCategoryInput = {
+    id?: string
+    commercialProposalId: string
+    assetId?: string | null
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type AssetUpdateWithoutAssetCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
@@ -36618,6 +42071,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutAssetCategoryInput = {
@@ -36646,6 +42100,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutAssetCategoryInput = {
@@ -36670,6 +42125,51 @@ export namespace Prisma {
     documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProposalItemUpdateWithoutAssetCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commercialProposal?: CommercialProposalUpdateOneRequiredWithoutItemsNestedInput
+    asset?: AssetUpdateOneWithoutProposalItemsNestedInput
+  }
+
+  export type ProposalItemUncheckedUpdateWithoutAssetCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    commercialProposalId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProposalItemUncheckedUpdateManyWithoutAssetCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    commercialProposalId?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AssetMovementCreateManyAssetInput = {
@@ -36745,6 +42245,21 @@ export namespace Prisma {
     horometer?: number | null
     odometer?: number | null
     meterPhotoUrl?: string | null
+  }
+
+  export type ProposalItemCreateManyAssetInput = {
+    id?: string
+    commercialProposalId: string
+    assetCategoryId?: string | null
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type AssetMovementUpdateWithoutAssetInput = {
@@ -36978,6 +42493,51 @@ export namespace Prisma {
     meterPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ProposalItemUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commercialProposal?: CommercialProposalUpdateOneRequiredWithoutItemsNestedInput
+    assetCategory?: AssetCategoryUpdateOneWithoutProposalItemsNestedInput
+  }
+
+  export type ProposalItemUncheckedUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    commercialProposalId?: StringFieldUpdateOperationsInput | string
+    assetCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProposalItemUncheckedUpdateManyWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    commercialProposalId?: StringFieldUpdateOperationsInput | string
+    assetCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ContractCreateManyClientInput = {
     id?: string
     contract_number: string
@@ -36994,6 +42554,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
   }
 
   export type MaintenanceCreateManySupplierInput = {
@@ -37038,6 +42600,27 @@ export namespace Prisma {
     meterPhotoUrl?: string | null
   }
 
+  export type CommercialProposalCreateManyClientInput = {
+    id?: string
+    proposal_number: string
+    companySettingsId?: string | null
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    contractId?: string | null
+  }
+
   export type ContractUpdateWithoutClientInput = {
     id?: StringFieldUpdateOperationsInput | string
     contract_number?: StringFieldUpdateOperationsInput | string
@@ -37054,9 +42637,12 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutClientInput = {
@@ -37075,9 +42661,12 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateManyWithoutClientInput = {
@@ -37096,6 +42685,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceUpdateWithoutSupplierInput = {
@@ -37226,6 +42817,71 @@ export namespace Prisma {
     horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     meterPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CommercialProposalUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    companySettings?: CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput
+    contract?: ContractUpdateOneWithoutCommercialProposalNestedInput
+    items?: ProposalItemUpdateManyWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalUncheckedUpdateWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    companySettingsId?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: ProposalItemUncheckedUpdateManyWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalUncheckedUpdateManyWithoutClientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    companySettingsId?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceCreateManyServiceCategoryInput = {
@@ -37836,6 +43492,92 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CommercialProposalCreateManyCompanySettingsInput = {
+    id?: string
+    proposal_number: string
+    clientId: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    contractId?: string | null
+  }
+
+  export type CommercialProposalUpdateWithoutCompanySettingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    client?: SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput
+    contract?: ContractUpdateOneWithoutCommercialProposalNestedInput
+    items?: ProposalItemUpdateManyWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalUncheckedUpdateWithoutCompanySettingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: ProposalItemUncheckedUpdateManyWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalUncheckedUpdateManyWithoutCompanySettingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type ChecklistItemTemplateCreateManyChecklistParameterInput = {
     id?: string
     description: string
@@ -38032,6 +43774,66 @@ export namespace Prisma {
     conforms?: NullableBoolFieldUpdateOperationsInput | boolean | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProposalItemCreateManyCommercialProposalInput = {
+    id?: string
+    assetId?: string | null
+    assetCategoryId?: string | null
+    description?: string | null
+    unit?: string | null
+    quantity?: Decimal | DecimalJsLike | number | string
+    monthly_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ProposalItemUpdateWithoutCommercialProposalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneWithoutProposalItemsNestedInput
+    assetCategory?: AssetCategoryUpdateOneWithoutProposalItemsNestedInput
+  }
+
+  export type ProposalItemUncheckedUpdateWithoutCommercialProposalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProposalItemUncheckedUpdateManyWithoutCommercialProposalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCategoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

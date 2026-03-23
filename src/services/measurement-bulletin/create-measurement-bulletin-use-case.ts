@@ -1,7 +1,11 @@
-import { MaintenanceStatus, MeasurementBulletin, Prisma } from '../../generated/prisma'
-import { prisma } from '../../lib/prisma'
+import {
+  MaintenanceStatus,
+  MeasurementBulletin,
+  Prisma,
+} from '../../generated/prisma'
 import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
+import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
 import { IMeasurementBulletinRepository } from '../../repositories/interfaces/IMeasurementBulletinRepository'
 import { AppError } from '../errors/app-error'
 import { AssetMovimentNotFoundError } from '../errors/asset-moviment-not-found-error'
@@ -17,7 +21,6 @@ interface CreateMeasurementBulletinRequest {
   current_odometer?: number | null
 }
 
-
 interface CreateMeasurementBulletinResponse {
   measurementBulletin: MeasurementBulletin
 }
@@ -27,6 +30,7 @@ export class CreateMeasurementBulletinUseCase {
     private measurementBulletinRepository: IMeasurementBulletinRepository,
     private assetMovementRepository: IAssetMovementRepository,
     private contractRepository: IContractRepository,
+    private maintenanceRepository: IMaintenanceRepository,
   ) {}
 
   async execute(
@@ -43,17 +47,13 @@ export class CreateMeasurementBulletinUseCase {
     const startDate = new Date(data.reference_start)
     let endDate = new Date(data.reference_end)
 
-    // Check for overlapping bulletins
-    const overlappingBulletin = await prisma.measurementBulletin.findFirst({
-      where: {
-        assetMovementId: data.assetMovementId,
-        is_active: true,
-        AND: [
-          { reference_start: { lte: endDate } },
-          { reference_end: { gte: startDate } },
-        ],
-      },
-    })
+    // Check for overlapping bulletins via Repository
+    const overlappingBulletin =
+      await this.measurementBulletinRepository.findOverlapping(
+        data.assetMovementId,
+        startDate,
+        endDate,
+      )
 
     if (overlappingBulletin) {
       throw new AppError(
@@ -71,29 +71,40 @@ export class CreateMeasurementBulletinUseCase {
 
     // Determine exact limits based on integration and demobilization dates
     const toUTCMidnight = (date: Date) => {
-        return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+      return Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+      )
     }
 
     const bulletinStartUTC = toUTCMidnight(startDate)
-    let bulletinEndUTC = toUTCMidnight(endDate)
+    const bulletinEndUTC = toUTCMidnight(endDate)
 
-    const integrationUTC = assetMovement.integration_date ? toUTCMidnight(assetMovement.integration_date) : 0
-    
+    const integrationUTC = assetMovement.integration_date
+      ? toUTCMidnight(assetMovement.integration_date)
+      : 0
+
     // Demobilization is Exclusive for Billing (Day of return is not charged)
-    const rawDemobUTC = assetMovement.demobilization_date ? toUTCMidnight(assetMovement.demobilization_date) : Infinity
-    const demobUTC = rawDemobUTC === Infinity ? Infinity : rawDemobUTC - (24 * 60 * 60 * 1000)
+    const rawDemobUTC = assetMovement.demobilization_date
+      ? toUTCMidnight(assetMovement.demobilization_date)
+      : Infinity
+    const demobUTC =
+      rawDemobUTC === Infinity ? Infinity : rawDemobUTC - 24 * 60 * 60 * 1000
 
     const effectiveStartUTC = Math.max(bulletinStartUTC, integrationUTC)
     const effectiveEndUTC = Math.min(bulletinEndUTC, demobUTC)
 
     // Calculate the total days of the requested billing period (used as monthly divisor)
-    let periodDays = Math.max(
-      1,
-      Math.ceil((bulletinEndUTC - bulletinStartUTC) / (1000 * 60 * 60 * 24)) + 1
-    )
+    let periodDays =
+      Math.max(
+        1,
+        Math.ceil((bulletinEndUTC - bulletinStartUTC) / (1000 * 60 * 60 * 24)),
+      ) + 1
 
     const isFullMonth = this.isFullMonthPeriod(startDate, endDate)
-    const calculationRule = assetMovement.calculation_rule || 'COMMERCIAL_30_DAYS'
+    const calculationRule =
+      assetMovement.calculation_rule || 'COMMERCIAL_30_DAYS'
 
     if (calculationRule === 'COMMERCIAL_30_DAYS') {
       periodDays = 30
@@ -101,57 +112,47 @@ export class CreateMeasurementBulletinUseCase {
 
     // CALENDAR_DAYS: exactly how many days span the chosen dates within the effective period
     // If effective end is before effective start, then total days is 0.
-    let totalDays = effectiveEndUTC >= effectiveStartUTC 
-      ? Math.max(1, Math.ceil((effectiveEndUTC - effectiveStartUTC) / (1000 * 60 * 60 * 24)) + 1)
-      : 0
+    let totalDays =
+      effectiveEndUTC >= effectiveStartUTC
+        ? Math.max(
+            1,
+            Math.ceil(
+              (effectiveEndUTC - effectiveStartUTC) / (1000 * 60 * 60 * 24),
+            ) + 1,
+          )
+        : 0
 
     // For COMMERCIAL_30_DAYS, if the user requested a full month and the asset was available the entire time,
     // force totalDays to 30 to reflect the 30-day commercial month KPI.
     if (calculationRule === 'COMMERCIAL_30_DAYS' && isFullMonth) {
-      if (effectiveStartUTC <= bulletinStartUTC && effectiveEndUTC >= bulletinEndUTC) {
+      if (
+        effectiveStartUTC <= bulletinStartUTC &&
+        effectiveEndUTC >= bulletinEndUTC
+      ) {
         totalDays = 30
       }
     }
 
-    // Count inactive days: maintenance records with equipment_inactive = true
-    // for this asset within the reference period
-    const maintenances = await prisma.maintenance.findMany({
-      where: {
-        assetId: assetMovement.assetId,
-        equipment_inactive: true,
-        is_Active: true,
-        status: {
-          in: [MaintenanceStatus.IN_PROGRESS, MaintenanceStatus.COMPLETED]
-        },
-        OR: [
-          // Starts within period
-          { started_date: { gte: new Date(Math.max(startDate.getTime(), effectiveStartUTC)), lte: new Date(Math.min(endDate.getTime(), effectiveEndUTC)) } },
-          // Ends within period
-          { completed_date: { gte: new Date(Math.max(startDate.getTime(), effectiveStartUTC)), lte: new Date(Math.min(endDate.getTime(), effectiveEndUTC)) } },
-          // Spans entire period
-          {
-            AND: [
-              { started_date: { lte: new Date(Math.max(startDate.getTime(), effectiveStartUTC)) } },
-              { OR: [{ completed_date: { gte: new Date(Math.min(endDate.getTime(), effectiveEndUTC)) } }, { completed_date: null }] },
-            ],
-          },
-          // If not started but scheduled within period, count it
-          {
-            AND: [
-              { started_date: null },
-              { scheduled_date: { gte: new Date(Math.max(startDate.getTime(), effectiveStartUTC)), lte: new Date(Math.min(endDate.getTime(), effectiveEndUTC)) } },
-            ],
-          },
-        ],
-      },
-    })
+    // Count inactive days via Repository
+    const maintenances =
+      await this.maintenanceRepository.findInactiveByAssetAndPeriod(
+        assetMovement.assetId,
+        new Date(Math.max(startDate.getTime(), effectiveStartUTC)),
+        new Date(Math.min(endDate.getTime(), effectiveEndUTC)),
+      )
 
     // Create a set of unique dates (YYYY-MM-DD) that are inactive
     const inactiveDates = new Set<string>()
 
     maintenances.forEach((m) => {
-      const mStart = m.started_date ? new Date(m.started_date) : new Date(m.scheduled_date)
-      const mEnd = m.completed_date ? new Date(m.completed_date) : (m.started_date ? new Date() : new Date(m.scheduled_date))
+      const mStart = m.started_date
+        ? new Date(m.started_date)
+        : new Date(m.scheduled_date)
+      const mEnd = m.completed_date
+        ? new Date(m.completed_date)
+        : m.started_date
+          ? new Date()
+          : new Date(m.scheduled_date)
 
       // Iterate through each day of the maintenance that overlaps with the bulletin period
       // BUT bounded by the actual effective Start/End

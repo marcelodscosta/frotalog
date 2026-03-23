@@ -2,12 +2,14 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { Prisma } from '../../../generated/prisma'
 import { InMemoryAssetMovementRepository } from '../../../repositories/in-memory/in-memory-asset-movement-repository'
 import { InMemoryContractRepository } from '../../../repositories/in-memory/in-memory-contract-repository'
+import { InMemoryMaintenanceRepository } from '../../../repositories/in-memory/in-memory-maintenance-repository'
 import { InMemoryMeasurementBulletinRepository } from '../../../repositories/in-memory/in-memory-measurement-bulletin-repository'
 import { CreateMeasurementBulletinUseCase } from '../../measurement-bulletin/create-measurement-bulletin-use-case'
 
 let measurementBulletinRepository: InMemoryMeasurementBulletinRepository
 let assetMovementRepository: InMemoryAssetMovementRepository
 let contractRepository: InMemoryContractRepository
+let maintenanceRepository: InMemoryMaintenanceRepository
 let sut: CreateMeasurementBulletinUseCase
 
 describe('Create Measurement Bulletin Use Case', () => {
@@ -15,11 +17,13 @@ describe('Create Measurement Bulletin Use Case', () => {
     measurementBulletinRepository = new InMemoryMeasurementBulletinRepository()
     assetMovementRepository = new InMemoryAssetMovementRepository()
     contractRepository = new InMemoryContractRepository()
+    maintenanceRepository = new InMemoryMaintenanceRepository()
 
     sut = new CreateMeasurementBulletinUseCase(
       measurementBulletinRepository,
       assetMovementRepository,
       contractRepository,
+      maintenanceRepository,
     )
   })
 

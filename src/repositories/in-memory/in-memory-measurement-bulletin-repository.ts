@@ -37,6 +37,7 @@ export class InMemoryMeasurementBulletinRepository
       status:
         (data.status as MeasurementBulletinStatus) ?? 'DRAFT',
       notes: data.notes ?? null,
+      invoiceId: data.invoiceId ?? null,
       is_active: data.is_active ?? true,
       created_at: new Date(),
       updated_at: new Date(),
@@ -139,5 +140,21 @@ export class InMemoryMeasurementBulletinRepository
       updated_at: new Date(),
     }
     return this.items[index]
+  }
+
+  async findOverlapping(
+    assetMovementId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<MeasurementBulletin | null> {
+    return (
+      this.items.find(
+        (i) =>
+          i.assetMovementId === assetMovementId &&
+          i.is_active &&
+          i.reference_start <= endDate &&
+          i.reference_end >= startDate,
+      ) ?? null
+    )
   }
 }

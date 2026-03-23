@@ -18,6 +18,9 @@ export async function createContract(
     total_value: z.number().nonnegative().nullable().optional(),
     billing_day: z.number().int().min(1).max(31).nullable().optional(),
     notes: z.string().nullable().optional(),
+    body_html: z.string().nullable().optional(),
+    signed_contract_url: z.string().nullable().optional(),
+    proposalId: z.string().uuid().nullable().optional(),
   })
 
   const data = createBodySchema.parse(request.body)

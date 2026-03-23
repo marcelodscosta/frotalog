@@ -493,4 +493,23 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
       .sort((a, b) => b.completed_date!.getTime() - a.completed_date!.getTime())
       .map(this.mapToWithRelations.bind(this))
   }
+
+  async findInactiveByAssetAndPeriod(
+    assetId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<Maintenance[]> {
+    return this.maintenances.filter((m) => {
+      if (!m.is_Active || !m.equipment_inactive || m.assetId !== assetId)
+        return false
+
+      if (m.status !== 'IN_PROGRESS' && m.status !== 'COMPLETED') return false
+
+      const mStart = m.started_date || m.scheduled_date
+      const mEnd = m.completed_date || new Date()
+
+      // Overlap check
+      return mStart <= endDate && mEnd >= startDate
+    })
+  }
 }

@@ -20,6 +20,8 @@ interface UpdateContractRequest {
   billing_day?: number | null
   notes?: string | null
   is_Active?: boolean
+  body_html?: string | null
+  signed_contract_url?: string | null
 }
 
 interface UpdateContractResponse {

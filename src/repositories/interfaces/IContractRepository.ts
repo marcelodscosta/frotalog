@@ -39,4 +39,6 @@ export interface IContractRepository {
     totalMaintenanceCost: number
     totalOtherExpenses: number
   } | null>
+
+  countByYear(year: number): Promise<number>
 }

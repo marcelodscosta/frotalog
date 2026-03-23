@@ -28,4 +28,9 @@ export interface IMeasurementBulletinRepository {
   ): Promise<MeasurementBulletin>
   delete(id: string): Promise<MeasurementBulletin>
   findByIdWithDetails(id: string): Promise<MeasurementBulletin | null>
+  findOverlapping(
+    assetMovementId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<MeasurementBulletin | null>
 }

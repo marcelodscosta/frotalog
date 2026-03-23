@@ -24,6 +24,8 @@ export async function updateContract(
     billing_day: z.number().int().min(1).max(31).nullable().optional(),
     notes: z.string().nullable().optional(),
     is_Active: z.boolean().optional(),
+    body_html: z.string().nullable().optional(),
+    signed_contract_url: z.string().nullable().optional(),
   })
 
   const { id } = updateParamsSchema.parse(request.params)

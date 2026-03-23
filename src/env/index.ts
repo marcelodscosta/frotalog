@@ -1,4 +1,5 @@
 import 'dotenv/config'
+console.log('Dotenv loaded, DATABASE_URL:', process.env.DATABASE_URL ? 'FOUND' : 'NOT FOUND')
 import { z } from 'zod'
 
 const envSchema = z.object({

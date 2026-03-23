@@ -1018,4 +1018,42 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
 
     return maintenances as any
   }
+
+  async findInactiveByAssetAndPeriod(
+    assetId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<Maintenance[]> {
+    return prisma.maintenance.findMany({
+      where: {
+        assetId,
+        equipment_inactive: true,
+        is_Active: true,
+        status: {
+          in: ['IN_PROGRESS', 'COMPLETED'],
+        },
+        OR: [
+          { started_date: { gte: startDate, lte: endDate } },
+          { completed_date: { gte: startDate, lte: endDate } },
+          {
+            AND: [
+              { started_date: { lte: startDate } },
+              {
+                OR: [
+                  { completed_date: { gte: endDate } },
+                  { completed_date: null },
+                ],
+              },
+            ],
+          },
+          {
+            AND: [
+              { started_date: null },
+              { scheduled_date: { gte: startDate, lte: endDate } },
+            ],
+          },
+        ],
+      },
+    })
+  }
 }

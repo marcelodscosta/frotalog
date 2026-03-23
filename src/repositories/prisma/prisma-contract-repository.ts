@@ -274,4 +274,18 @@ export class PrismaContractRepository implements IContractRepository {
 
     return { totalMaintenanceCost, totalOtherExpenses }
   }
+
+  async countByYear(year: number): Promise<number> {
+    const startDate = new Date(year, 0, 1) // Jan 1st
+    const endDate = new Date(year + 1, 0, 1) // Jan 1st next year
+
+    return await prisma.contract.count({
+      where: {
+        created_at: {
+          gte: startDate,
+          lt: endDate,
+        },
+      },
+    })
+  }
 }

@@ -260,7 +260,9 @@ exports.Prisma.ContractScalarFieldEnum = {
   notes: 'notes',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  is_Active: 'is_Active'
+  is_Active: 'is_Active',
+  body_html: 'body_html',
+  signed_contract_url: 'signed_contract_url'
 };
 
 exports.Prisma.AssetMovementScalarFieldEnum = {
@@ -402,6 +404,44 @@ exports.Prisma.ChecklistAnswerScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.CommercialProposalScalarFieldEnum = {
+  id: 'id',
+  proposal_number: 'proposal_number',
+  companySettingsId: 'companySettingsId',
+  clientId: 'clientId',
+  contact_name: 'contact_name',
+  contact_phone: 'contact_phone',
+  contact_email: 'contact_email',
+  mobilization_value: 'mobilization_value',
+  demobilization_value: 'demobilization_value',
+  payment_conditions: 'payment_conditions',
+  rental_period: 'rental_period',
+  technical_notes: 'technical_notes',
+  validity_days: 'validity_days',
+  body_html: 'body_html',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  is_active: 'is_active',
+  contractId: 'contractId'
+};
+
+exports.Prisma.ProposalItemScalarFieldEnum = {
+  id: 'id',
+  commercialProposalId: 'commercialProposalId',
+  assetId: 'assetId',
+  assetCategoryId: 'assetCategoryId',
+  description: 'description',
+  unit: 'unit',
+  quantity: 'quantity',
+  monthly_value: 'monthly_value',
+  franchise_hours: 'franchise_hours',
+  extra_hour_value: 'extra_hour_value',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -484,8 +524,17 @@ exports.ChecklistType = exports.$Enums.ChecklistType = {
 exports.ChecklistStatus = exports.$Enums.ChecklistStatus = {
   PENDING: 'PENDING',
   REVIEWING: 'REVIEWING',
+  IN_PROGRESS: 'IN_PROGRESS',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'
+};
+
+exports.ProposalStatus = exports.$Enums.ProposalStatus = {
+  DRAFT: 'DRAFT',
+  SENT: 'SENT',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CONVERTED: 'CONVERTED'
 };
 
 exports.Prisma.ModelName = {
@@ -506,7 +555,9 @@ exports.Prisma.ModelName = {
   ChecklistParameter: 'ChecklistParameter',
   ChecklistItemTemplate: 'ChecklistItemTemplate',
   Checklist: 'Checklist',
-  ChecklistAnswer: 'ChecklistAnswer'
+  ChecklistAnswer: 'ChecklistAnswer',
+  CommercialProposal: 'CommercialProposal',
+  ProposalItem: 'ProposalItem'
 };
 
 /**

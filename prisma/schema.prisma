@@ -10,107 +10,110 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  name          String
-  email         String   @unique
-  phone         String?
-  password_hash String
-  role          Role     @default(EMPLOYEE)
-  avatar        String?
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
-  is_Active     Boolean  @default(true)
+  id                   String        @id @default(uuid())
+  name                 String
+  email                String        @unique
+  phone                String?
+  password_hash        String
+  role                 Role          @default(EMPLOYEE)
+  avatar               String?
+  created_at           DateTime      @default(now())
+  updated_at           DateTime      @updatedAt
+  is_Active            Boolean       @default(true)
   assignedMaintenances Maintenance[]
 
   @@map("users")
 }
 
 model AssetCategory {
-  id          String    @id @default(uuid())
-  name        String    @unique
-  description String?
-  type        AssetType
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  is_Active   Boolean   @default(true)
-  Asset       Asset[]
+  id            String         @id @default(uuid())
+  name          String         @unique
+  description   String?
+  type          AssetType
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+  is_Active     Boolean        @default(true)
+  Asset         Asset[]
+  ProposalItems ProposalItem[]
 
   @@map("asset_categories")
 }
 
 model Asset {
-  id              String          @id @default(uuid())
-  brand           String
-  model           String
-  year            Int?
-  plate           String?         @unique
-  serial_number   String?         @unique
+  id            String  @id @default(uuid())
+  brand         String
+  model         String
+  year          Int?
+  plate         String? @unique
+  serial_number String? @unique
 
   // Usage Tracking
-  initial_horometer      Float? @default(0)
-  current_horometer      Float? @default(0)
-  initial_odometer       Float? @default(0)
-  current_odometer       Float? @default(0)
+  initial_horometer Float? @default(0)
+  current_horometer Float? @default(0)
+  initial_odometer  Float? @default(0)
+  current_odometer  Float? @default(0)
 
   // Maintenance Settings
   maintenance_frequency_hours Float? // e.g. every 250 hours
   maintenance_frequency_km    Float? // e.g. every 10000 km
-  
+
   last_maintenance_date      DateTime?
   last_maintenance_horometer Float?
   last_maintenance_odometer  Float?
-  created_at      DateTime        @default(now())
-  updated_at      DateTime        @updatedAt
-  is_Active       Boolean         @default(true)
-  assetCategoryId String
-  documentsUrl    String?
-  ownership       AssetOwnership  @default(OWN)
-  notes           String?
-  Movements       AssetMovement[]
-  assetCategory   AssetCategory   @relation(fields: [assetCategoryId], references: [id])
-  Maintenance     Maintenance[]
-  Readings        AssetReading[]
-  Checklists      Checklist[]
+  created_at                 DateTime        @default(now())
+  updated_at                 DateTime        @updatedAt
+  is_Active                  Boolean         @default(true)
+  assetCategoryId            String
+  documentsUrl               String?
+  ownership                  AssetOwnership  @default(OWN)
+  notes                      String?
+  Movements                  AssetMovement[]
+  assetCategory              AssetCategory   @relation(fields: [assetCategoryId], references: [id])
+  Maintenance                Maintenance[]
+  Readings                   AssetReading[]
+  Checklists                 Checklist[]
+  ProposalItems              ProposalItem[]
 
   @@map("assets")
 }
 
 model AssetReading {
-  id             String   @id @default(uuid())
-  assetId        String
-  date           DateTime
-  horometer      Float?
-  odometer       Float?
-  notes          String?
-  userId         String?
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
-  
-  asset          Asset    @relation(fields: [assetId], references: [id])
-  
+  id         String   @id @default(uuid())
+  assetId    String
+  date       DateTime
+  horometer  Float?
+  odometer   Float?
+  notes      String?
+  userId     String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  asset Asset @relation(fields: [assetId], references: [id])
+
   @@map("asset_readings")
 }
 
 model Supplier {
-  id            String        @id @default(uuid())
-  company_name  String
-  trading_name  String?
-  cnpj          String        @unique
-  email         String
-  phone         String
-  contact       String
-  address       String?
-  city          String?
-  state         String?
-  zip_code      String?
-  service_types String[]
-  created_at    DateTime      @default(now())
-  updated_at    DateTime      @updatedAt
-  is_Active     Boolean       @default(true)
-  isClient      Boolean       @default(false) @map("is_client")
-  Contracts     Contract[]
-  Maintenance   Maintenance[]
-  Checklists    Checklist[]
+  id                  String               @id @default(uuid())
+  company_name        String
+  trading_name        String?
+  cnpj                String               @unique
+  email               String
+  phone               String
+  contact             String
+  address             String?
+  city                String?
+  state               String?
+  zip_code            String?
+  service_types       String[]
+  created_at          DateTime             @default(now())
+  updated_at          DateTime             @updatedAt
+  is_Active           Boolean              @default(true)
+  isClient            Boolean              @default(false) @map("is_client")
+  Contracts           Contract[]
+  Maintenance         Maintenance[]
+  Checklists          Checklist[]
+  CommercialProposals CommercialProposal[]
 
   @@map("suppliers")
 }
@@ -128,24 +131,24 @@ model ServiceCategory {
 }
 
 model Maintenance {
-  id                 String                @id @default(uuid())
-  assetId            String
-  supplierId         String?
-  type               MaintenanceType
-  description        String
-  scheduled_date     DateTime
-  started_date       DateTime?
-  completed_date     DateTime?
-  estimated_cost     Decimal?              @db.Decimal(10, 2)
-  actual_cost        Decimal?              @db.Decimal(10, 2)
-  status             MaintenanceStatus     @default(SCHEDULED)
-  notes              String?
-  created_at         DateTime              @default(now())
-  updated_at         DateTime              @updatedAt
-  
+  id             String            @id @default(uuid())
+  assetId        String
+  supplierId     String?
+  type           MaintenanceType
+  description    String
+  scheduled_date DateTime
+  started_date   DateTime?
+  completed_date DateTime?
+  estimated_cost Decimal?          @db.Decimal(10, 2)
+  actual_cost    Decimal?          @db.Decimal(10, 2)
+  status         MaintenanceStatus @default(SCHEDULED)
+  notes          String?
+  created_at     DateTime          @default(now())
+  updated_at     DateTime          @updatedAt
+
   // Usage at completion
-  horometer          Float?
-  odometer           Float?
+  horometer Float?
+  odometer  Float?
 
   is_Active          Boolean               @default(true)
   serviceCategoryId  String?
@@ -194,44 +197,47 @@ model Contract {
   created_at           DateTime              @default(now())
   updated_at           DateTime              @updatedAt
   is_Active            Boolean               @default(true)
+  body_html            String?               @db.Text
+  signed_contract_url  String?
   movements            AssetMovement[]
   client               Supplier              @relation(fields: [clientId], references: [id])
   maintenances         Maintenance[]
   measurementBulletins MeasurementBulletin[]
+  CommercialProposal   CommercialProposal?
 
   @@map("contracts")
 }
 
 model AssetMovement {
-  id                           String                @id @default(uuid())
+  id                           String                     @id @default(uuid())
   contractId                   String
   assetId                      String
-  mobilization_date            DateTime              @default(now())
+  mobilization_date            DateTime                   @default(now())
   integration_date             DateTime?
   demobilization_date          DateTime?
   mobilization_checklist_url   String?
   demobilization_checklist_url String?
-  rental_value                 Decimal               @db.Decimal(10, 2)
-  billing_cycle                BillingCycle          @default(MONTHLY)
+  rental_value                 Decimal                    @db.Decimal(10, 2)
+  billing_cycle                BillingCycle               @default(MONTHLY)
   operator_name                String?
   current_horometer            Float?
   current_odometer             Float?
   delivery_location            String?
-  freight_value                Decimal?              @db.Decimal(10, 2)
+  freight_value                Decimal?                   @db.Decimal(10, 2)
   calculation_rule             MeasurementCalculationRule @default(COMMERCIAL_30_DAYS)
   notes                        String?
-  is_active                    Boolean               @default(true)
-  created_at                   DateTime              @default(now())
-  updated_at                   DateTime              @updatedAt
-  asset                        Asset                 @relation(fields: [assetId], references: [id])
-  contract                     Contract              @relation(fields: [contractId], references: [id])
+  is_active                    Boolean                    @default(true)
+  created_at                   DateTime                   @default(now())
+  updated_at                   DateTime                   @updatedAt
+  asset                        Asset                      @relation(fields: [assetId], references: [id])
+  contract                     Contract                   @relation(fields: [contractId], references: [id])
   measurementBulletins         MeasurementBulletin[]
 
   @@map("asset_movements")
 }
 
 model MeasurementBulletin {
-  id              String                    @id @default(uuid())
+  id              String   @id @default(uuid())
   contractId      String
   assetMovementId String
   reference_start DateTime
@@ -239,40 +245,40 @@ model MeasurementBulletin {
   total_days      Int
   inactive_days   Int
   working_days    Int
-  daily_rate      Decimal                   @db.Decimal(10, 2)
-  total_value     Decimal                   @db.Decimal(10, 2)
-  
+  daily_rate      Decimal  @db.Decimal(10, 2)
+  total_value     Decimal  @db.Decimal(10, 2)
+
   current_horometer Float?
   current_odometer  Float?
-  
-  status          MeasurementBulletinStatus @default(DRAFT)
-  notes           String?
-  is_active       Boolean                   @default(true)
-  created_at      DateTime                  @default(now())
-  updated_at      DateTime                  @updatedAt
-  invoiceId       String?
-  expenses        BulletinExpense[]
-  invoice         Invoice?                  @relation(fields: [invoiceId], references: [id])
-  assetMovement   AssetMovement             @relation(fields: [assetMovementId], references: [id])
-  contract        Contract                  @relation(fields: [contractId], references: [id])
+
+  status        MeasurementBulletinStatus @default(DRAFT)
+  notes         String?
+  is_active     Boolean                   @default(true)
+  created_at    DateTime                  @default(now())
+  updated_at    DateTime                  @updatedAt
+  invoiceId     String?
+  expenses      BulletinExpense[]
+  invoice       Invoice?                  @relation(fields: [invoiceId], references: [id])
+  assetMovement AssetMovement             @relation(fields: [assetMovementId], references: [id])
+  contract      Contract                  @relation(fields: [contractId], references: [id])
 
   @@map("measurement_bulletins")
 }
 
 model Invoice {
-  id                    String              @id @default(uuid())
-  invoice_number        String              @unique
-  issue_date            DateTime
-  due_date              DateTime
-  total_value           Decimal             @db.Decimal(10, 2)
-  is_paid               Boolean             @default(false)
-  payment_date          DateTime?
-  status                InvoiceStatus       @default(PENDING)
-  notes                 String?
-  is_active             Boolean             @default(true)
-  created_at            DateTime            @default(now())
-  updated_at            DateTime            @updatedAt
-  measurementBulletins  MeasurementBulletin[]
+  id                   String                @id @default(uuid())
+  invoice_number       String                @unique
+  issue_date           DateTime
+  due_date             DateTime
+  total_value          Decimal               @db.Decimal(10, 2)
+  is_paid              Boolean               @default(false)
+  payment_date         DateTime?
+  status               InvoiceStatus         @default(PENDING)
+  notes                String?
+  is_active            Boolean               @default(true)
+  created_at           DateTime              @default(now())
+  updated_at           DateTime              @updatedAt
+  measurementBulletins MeasurementBulletin[]
 
   @@map("invoices")
 }
@@ -292,7 +298,7 @@ model BulletinExpense {
 }
 
 model CompanySettings {
-  id                   String   @id @default(uuid())
+  id                   String               @id @default(uuid())
   company_name         String
   trading_name         String?
   cnpj                 String?
@@ -303,9 +309,10 @@ model CompanySettings {
   phone                String?
   email                String?
   logo_url             String?
-  invoice_start_number Int      @default(1)
-  created_at           DateTime @default(now())
-  updated_at           DateTime @updatedAt
+  invoice_start_number Int                  @default(1)
+  created_at           DateTime             @default(now())
+  updated_at           DateTime             @updatedAt
+  CommercialProposals  CommercialProposal[]
 
   @@map("company_settings")
 }
@@ -378,6 +385,7 @@ enum ChecklistType {
 enum ChecklistStatus {
   PENDING
   REVIEWING
+  IN_PROGRESS
   APPROVED
   REJECTED
 }
@@ -397,42 +405,42 @@ model ChecklistParameter {
 }
 
 model ChecklistItemTemplate {
-  id                    String             @id @default(uuid())
-  checklistParameterId  String
-  description           String
-  order                 Int                @default(0)
-  requiresPhoto         Boolean            @default(false)
-  is_active             Boolean            @default(true)
-  created_at            DateTime           @default(now())
-  updated_at            DateTime           @updatedAt
-  checklistParameter    ChecklistParameter @relation(fields: [checklistParameterId], references: [id], onDelete: Cascade)
-  answers               ChecklistAnswer[]
+  id                   String             @id @default(uuid())
+  checklistParameterId String
+  description          String
+  order                Int                @default(0)
+  requiresPhoto        Boolean            @default(false)
+  is_active            Boolean            @default(true)
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
+  checklistParameter   ChecklistParameter @relation(fields: [checklistParameterId], references: [id], onDelete: Cascade)
+  answers              ChecklistAnswer[]
 
   @@map("checklist_item_templates")
 }
 
 model Checklist {
-  id                    String             @id @default(uuid())
-  checklistParameterId  String
-  assetId               String
-  type                  ChecklistType
-  status                ChecklistStatus    @default(PENDING)
-  magicLinkId           String             @unique @default(uuid())
-  rejectionNotes        String?
-  completedAt           DateTime?
-  reviewedAt            DateTime?
-  reviewedBy            String?
-  is_active             Boolean            @default(true)
-  created_at            DateTime           @default(now())
-  updated_at            DateTime           @updatedAt
-  supplierId            String?
-  horometer             Float?
-  odometer              Float?
-  meterPhotoUrl         String?
-  checklistParameter    ChecklistParameter @relation(fields: [checklistParameterId], references: [id])
-  asset                 Asset              @relation(fields: [assetId], references: [id])
-  supplier              Supplier?          @relation(fields: [supplierId], references: [id])
-  answers               ChecklistAnswer[]
+  id                   String             @id @default(uuid())
+  checklistParameterId String
+  assetId              String
+  type                 ChecklistType
+  status               ChecklistStatus    @default(PENDING)
+  magicLinkId          String             @unique @default(uuid())
+  rejectionNotes       String?
+  completedAt          DateTime?
+  reviewedAt           DateTime?
+  reviewedBy           String?
+  is_active            Boolean            @default(true)
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
+  supplierId           String?
+  horometer            Float?
+  odometer             Float?
+  meterPhotoUrl        String?
+  checklistParameter   ChecklistParameter @relation(fields: [checklistParameterId], references: [id])
+  asset                Asset              @relation(fields: [assetId], references: [id])
+  supplier             Supplier?          @relation(fields: [supplierId], references: [id])
+  answers              ChecklistAnswer[]
 
   @@map("checklists")
 }
@@ -450,4 +458,70 @@ model ChecklistAnswer {
   checklistItemTemplate   ChecklistItemTemplate @relation(fields: [checklistItemTemplateId], references: [id])
 
   @@map("checklist_answers")
+}
+
+model CommercialProposal {
+  id                String  @id @default(uuid())
+  proposal_number   String  @unique
+  companySettingsId String?
+  clientId          String
+  contact_name      String?
+  contact_phone     String?
+  contact_email     String?
+
+  mobilization_value   Decimal? @db.Decimal(10, 2)
+  demobilization_value Decimal? @db.Decimal(10, 2)
+  payment_conditions   String?
+  rental_period        String?
+  technical_notes      String?
+  validity_days        Int      @default(5)
+
+  body_html String? @db.Text
+
+  status     ProposalStatus @default(DRAFT)
+  created_at DateTime       @default(now())
+  updated_at DateTime       @updatedAt
+  is_active  Boolean        @default(true)
+
+  contractId String? @unique
+
+  client          Supplier         @relation(fields: [clientId], references: [id])
+  companySettings CompanySettings? @relation(fields: [companySettingsId], references: [id])
+  contract        Contract?        @relation(fields: [contractId], references: [id])
+  items           ProposalItem[]
+
+  @@map("commercial_proposals")
+}
+
+model ProposalItem {
+  id                   String  @id @default(uuid())
+  commercialProposalId String
+  assetId              String?
+  assetCategoryId      String?
+
+  description      String?
+  unit             String?  @default("UN")
+  quantity         Decimal  @default(1) @db.Decimal(10, 2)
+  monthly_value    Decimal  @db.Decimal(10, 2)
+  franchise_hours  Float?
+  extra_hour_value Decimal? @db.Decimal(10, 2)
+
+  notes      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  commercialProposal CommercialProposal @relation(fields: [commercialProposalId], references: [id], onDelete: Cascade)
+  asset              Asset?             @relation(fields: [assetId], references: [id])
+  assetCategory      AssetCategory?     @relation(fields: [assetCategoryId], references: [id])
+
+  @@map("proposal_items")
+}
+
+enum ProposalStatus {
+  DRAFT
+  SENT
+  APPROVED
+  REJECTED
+  CANCELLED
+  CONVERTED
 }

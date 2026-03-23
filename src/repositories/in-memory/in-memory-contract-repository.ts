@@ -21,6 +21,8 @@ export class InMemoryContractRepository implements IContractRepository {
       total_value: data.total_value != null ? new Prisma.Decimal(data.total_value.toString()) : null,
       billing_day: data.billing_day ?? null,
       notes: data.notes ?? null,
+      body_html: data.body_html ?? null,
+      signed_contract_url: data.signed_contract_url ?? null,
       created_at: new Date(),
       updated_at: new Date(),
       is_Active: data.is_Active ?? true,
@@ -76,6 +78,18 @@ export class InMemoryContractRepository implements IContractRepository {
         typeof data.is_Active === 'boolean'
           ? data.is_Active
           : existing.is_Active,
+      body_html:
+        data.body_html !== undefined
+          ? typeof data.body_html === 'string'
+            ? data.body_html
+            : null
+          : existing.body_html,
+      signed_contract_url:
+        data.signed_contract_url !== undefined
+          ? typeof data.signed_contract_url === 'string'
+            ? data.signed_contract_url
+            : null
+          : existing.signed_contract_url,
       updated_at: new Date(),
     }
     this.items[index] = updated
@@ -230,5 +244,10 @@ export class InMemoryContractRepository implements IContractRepository {
     const contract = await this.findById(contractId)
     if (!contract) return null
     return this.financialSummaryMockData
+  }
+
+  async countByYear(year: number): Promise<number> {
+    return this.items.filter((item) => item.start_date.getFullYear() === year)
+      .length
   }
 }

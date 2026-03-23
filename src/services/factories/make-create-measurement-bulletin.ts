@@ -1,6 +1,7 @@
 import { PrismaMeasurementBulletinRepository } from '../../repositories/prisma/prisma-measurement-bulletin-repository'
 import { PrismaAssetMovementRepository } from '../../repositories/prisma/prisma-asset-moviment-repository'
 import { PrismaContractRepository } from '../../repositories/prisma/prisma-contract-repository'
+import { PrismaMaintenanceRepository } from '../../repositories/prisma/prisma-maintenance-repository'
 import { CreateMeasurementBulletinUseCase } from '../measurement-bulletin/create-measurement-bulletin-use-case'
 
 export function makeCreateMeasurementBulletin() {
@@ -8,5 +9,6 @@ export function makeCreateMeasurementBulletin() {
     new PrismaMeasurementBulletinRepository(),
     new PrismaAssetMovementRepository(),
     new PrismaContractRepository(),
+    new PrismaMaintenanceRepository(),
   )
 }

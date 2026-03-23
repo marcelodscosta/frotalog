@@ -26,14 +26,15 @@ model User {
 }
 
 model AssetCategory {
-  id          String    @id @default(uuid())
-  name        String    @unique
-  description String?
-  type        AssetType
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  is_Active   Boolean   @default(true)
-  Asset       Asset[]
+  id            String         @id @default(uuid())
+  name          String         @unique
+  description   String?
+  type          AssetType
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+  is_Active     Boolean        @default(true)
+  Asset         Asset[]
+  ProposalItems ProposalItem[]
 
   @@map("asset_categories")
 }
@@ -71,6 +72,7 @@ model Asset {
   Maintenance                Maintenance[]
   Readings                   AssetReading[]
   Checklists                 Checklist[]
+  ProposalItems              ProposalItem[]
 
   @@map("assets")
 }
@@ -92,25 +94,26 @@ model AssetReading {
 }
 
 model Supplier {
-  id            String        @id @default(uuid())
-  company_name  String
-  trading_name  String?
-  cnpj          String        @unique
-  email         String
-  phone         String
-  contact       String
-  address       String?
-  city          String?
-  state         String?
-  zip_code      String?
-  service_types String[]
-  created_at    DateTime      @default(now())
-  updated_at    DateTime      @updatedAt
-  is_Active     Boolean       @default(true)
-  isClient      Boolean       @default(false) @map("is_client")
-  Contracts     Contract[]
-  Maintenance   Maintenance[]
-  Checklists    Checklist[]
+  id                  String               @id @default(uuid())
+  company_name        String
+  trading_name        String?
+  cnpj                String               @unique
+  email               String
+  phone               String
+  contact             String
+  address             String?
+  city                String?
+  state               String?
+  zip_code            String?
+  service_types       String[]
+  created_at          DateTime             @default(now())
+  updated_at          DateTime             @updatedAt
+  is_Active           Boolean              @default(true)
+  isClient            Boolean              @default(false) @map("is_client")
+  Contracts           Contract[]
+  Maintenance         Maintenance[]
+  Checklists          Checklist[]
+  CommercialProposals CommercialProposal[]
 
   @@map("suppliers")
 }
@@ -194,10 +197,13 @@ model Contract {
   created_at           DateTime              @default(now())
   updated_at           DateTime              @updatedAt
   is_Active            Boolean               @default(true)
+  body_html            String?               @db.Text
+  signed_contract_url  String?
   movements            AssetMovement[]
   client               Supplier              @relation(fields: [clientId], references: [id])
   maintenances         Maintenance[]
   measurementBulletins MeasurementBulletin[]
+  CommercialProposal   CommercialProposal?
 
   @@map("contracts")
 }
@@ -292,7 +298,7 @@ model BulletinExpense {
 }
 
 model CompanySettings {
-  id                   String   @id @default(uuid())
+  id                   String               @id @default(uuid())
   company_name         String
   trading_name         String?
   cnpj                 String?
@@ -303,9 +309,10 @@ model CompanySettings {
   phone                String?
   email                String?
   logo_url             String?
-  invoice_start_number Int      @default(1)
-  created_at           DateTime @default(now())
-  updated_at           DateTime @updatedAt
+  invoice_start_number Int                  @default(1)
+  created_at           DateTime             @default(now())
+  updated_at           DateTime             @updatedAt
+  CommercialProposals  CommercialProposal[]
 
   @@map("company_settings")
 }
@@ -378,6 +385,7 @@ enum ChecklistType {
 enum ChecklistStatus {
   PENDING
   REVIEWING
+  IN_PROGRESS
   APPROVED
   REJECTED
 }
@@ -450,4 +458,69 @@ model ChecklistAnswer {
   checklistItemTemplate   ChecklistItemTemplate @relation(fields: [checklistItemTemplateId], references: [id])
 
   @@map("checklist_answers")
+}
+
+model CommercialProposal {
+  id                String  @id @default(uuid())
+  proposal_number   String  @unique
+  companySettingsId String?
+  clientId          String
+  contact_name      String?
+  contact_phone     String?
+  contact_email     String?
+
+  mobilization_value   Decimal? @db.Decimal(10, 2)
+  demobilization_value Decimal? @db.Decimal(10, 2)
+  payment_conditions   String?
+  rental_period        String?
+  technical_notes      String?
+  validity_days        Int      @default(5)
+
+  body_html String? @db.Text
+
+  status     ProposalStatus @default(DRAFT)
+  created_at DateTime       @default(now())
+  updated_at DateTime       @updatedAt
+  is_active  Boolean        @default(true)
+
+  contractId String? @unique
+
+  client          Supplier         @relation(fields: [clientId], references: [id])
+  companySettings CompanySettings? @relation(fields: [companySettingsId], references: [id])
+  contract        Contract?        @relation(fields: [contractId], references: [id])
+  items           ProposalItem[]
+
+  @@map("commercial_proposals")
+}
+
+model ProposalItem {
+  id                   String  @id @default(uuid())
+  commercialProposalId String
+  assetId              String?
+  assetCategoryId      String?
+
+  description      String?
+  unit             String?  @default("UN")
+  quantity         Decimal  @default(1) @db.Decimal(10, 2)
+  monthly_value    Decimal  @db.Decimal(10, 2)
+  franchise_hours  Float?
+  extra_hour_value Decimal? @db.Decimal(10, 2)
+
+  notes      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  commercialProposal CommercialProposal @relation(fields: [commercialProposalId], references: [id], onDelete: Cascade)
+  asset              Asset?             @relation(fields: [assetId], references: [id])
+  assetCategory      AssetCategory?     @relation(fields: [assetCategoryId], references: [id])
+
+  @@map("proposal_items")
+}
+
+enum ProposalStatus {
+  DRAFT
+  SENT
+  APPROVED
+  REJECTED
+  CONVERTED
 }

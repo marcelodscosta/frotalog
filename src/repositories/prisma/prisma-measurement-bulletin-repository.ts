@@ -135,4 +135,21 @@ export class PrismaMeasurementBulletinRepository
       data: { is_active: false },
     })
   }
+
+  async findOverlapping(
+    assetMovementId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<MeasurementBulletin | null> {
+    return prisma.measurementBulletin.findFirst({
+      where: {
+        assetMovementId,
+        is_active: true,
+        AND: [
+          { reference_start: { lte: endDate } },
+          { reference_end: { gte: startDate } },
+        ],
+      },
+    })
+  }
 }

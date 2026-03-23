@@ -1,8 +1,10 @@
 import { Contract } from '../../generated/prisma'
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { ISupplierRepository } from '../../repositories/interfaces/ISupplierRepository'
+import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
 import { ClientNotFoundError } from '../errors/client-not-found-error'
 import { ContractAlreadyExistsError } from '../errors/contract-already-exist-error'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 interface CreateContractRequest {
   contract_number: string
@@ -16,6 +18,9 @@ interface CreateContractRequest {
   total_value?: number | null
   billing_day?: number | null
   notes?: string | null
+  body_html?: string | null
+  signed_contract_url?: string | null
+  proposalId?: string | null
 }
 
 interface CreateContractResponse {
@@ -26,6 +31,7 @@ export class CreateContractUseCase {
   constructor(
     private contractRepository: IContractRepository,
     private supplierRepository: ISupplierRepository,
+    private commercialProposalRepository: ICommercialProposalRepository,
   ) {}
 
   async execute(data: CreateContractRequest): Promise<CreateContractResponse> {
@@ -35,16 +41,58 @@ export class CreateContractUseCase {
       throw new ClientNotFoundError()
     }
 
-    const contractWithSameNumber =
-      await this.contractRepository.findByContractNumber(data.contract_number)
+    let contract_number = data.contract_number
 
-    if (contractWithSameNumber) {
-      throw new ContractAlreadyExistsError()
+    if (!contract_number || contract_number === 'AUTO') {
+      const currentYear = new Date().getFullYear()
+      const count = await this.contractRepository.countByYear(currentYear)
+      const sequence = (count + 1).toString().padStart(3, '0')
+      contract_number = `${currentYear}.${sequence}`
     }
 
-    // 3. Cria o contrato usando o repositório
-    // O repositório já está preparado para receber o clientId diretamente (Unchecked)
-    const contract = await this.contractRepository.create(data)
+    const contractWithSameNumber =
+      await this.contractRepository.findByContractNumber(contract_number)
+
+    if (contractWithSameNumber) {
+      // Se geramos um número que já existe, tentamos o próximo
+      if (data.contract_number === 'AUTO') {
+          const currentYear = new Date().getFullYear()
+          const count = await this.contractRepository.countByYear(currentYear)
+          const sequence = (count + 2).toString().padStart(3, '0') // Try next
+          contract_number = `${currentYear}.${sequence}`
+      } else {
+        throw new ContractAlreadyExistsError()
+      }
+    }
+
+    // Se houver uma proposta, vincula e atualiza o status
+    const contract = await this.contractRepository.create({
+      contract_number,
+      description: data.description,
+      clientId: data.clientId,
+      responsible_name: data.responsible_name,
+      responsible_phone: data.responsible_phone,
+      responsible_email: data.responsible_email,
+      start_date: data.start_date,
+      end_date: data.end_date,
+      total_value: data.total_value,
+      billing_day: data.billing_day,
+      notes: data.notes,
+      body_html: data.body_html,
+      signed_contract_url: data.signed_contract_url,
+    })
+
+    if (data.proposalId) {
+      const proposal = await this.commercialProposalRepository.findById(data.proposalId)
+      if (!proposal) {
+        throw new ResourceNotFoundError()
+      }
+
+      await this.commercialProposalRepository.updateProposal(data.proposalId, {
+        contract: { connect: { id: contract.id } },
+        status: 'CONVERTED' as any,
+      })
+    }
 
     return { contract }
   }

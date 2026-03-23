@@ -11,9 +11,11 @@ import { searchContracts } from './search-contracts-controller'
 import { getContractWithDetails } from './get-contract-with-details-controller'
 import { getActiveContractByAsset } from './get-active-contract-by-asset-controller'
 import { getContractFinancialSummary } from './get-contract-financial-summary-controller'
+import { uploadSignedContract } from './upload-signed-contract-controller'
 
 export async function contractRoutes(app: FastifyInstance) {
   app.post('/contract', createContract)
+  app.post('/contract/upload', uploadSignedContract)
   app.patch('/contract/:id', updateContract)
   app.get('/contract/:id', getContractById)
   app.get('/contracts', fetchAllContracts)

@@ -115,4 +115,9 @@ export interface IMaintenanceRepository {
     endDate: Date,
     assignedToId?: string
   ): Promise<MaintenanceWithRelations[]>
+  findInactiveByAssetAndPeriod(
+    assetId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<Maintenance[]>
 }
