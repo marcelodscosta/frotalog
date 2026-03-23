@@ -106,6 +106,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             assetCategory: true,
           },
         },
+        contract: {
+          select: {
+            contract_number: true,
+            client: { select: { company_name: true } },
+          },
+        },
         supplier: true,
         serviceCategory: true,
         documents: true,
@@ -136,6 +142,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           asset: {
             include: {
               assetCategory: true,
+            },
+          },
+          contract: {
+            select: {
+              contract_number: true,
+              client: { select: { company_name: true } },
             },
           },
           supplier: true,
@@ -186,6 +198,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
               assetCategory: true,
             },
           },
+          contract: {
+            select: {
+              contract_number: true,
+              client: { select: { company_name: true } },
+            },
+          },
           supplier: true,
           serviceCategory: true,
           assigned_to: { select: { id: true, name: true } },
@@ -231,6 +249,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           asset: {
             include: {
               assetCategory: true,
+            },
+          },
+          contract: {
+            select: {
+              contract_number: true,
+              client: { select: { company_name: true } },
             },
           },
           supplier: true,
@@ -280,6 +304,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
               assetCategory: true,
             },
           },
+          contract: {
+            select: {
+              contract_number: true,
+              client: { select: { company_name: true } },
+            },
+          },
           supplier: true,
           serviceCategory: true,
           assigned_to: { select: { id: true, name: true } },
@@ -306,17 +336,61 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
   }
 
   async findAll(
-    page: number,
+    params: {
+      page: number
+      status?: string
+      type?: string
+      plate?: string
+      serialNumber?: string
+      contractStatus?: string
+    }
   ): Promise<PaginatedResult<MaintenanceWithRelations>> {
     const PAGE_SIZE = 20
-    const skip = (page - 1) * PAGE_SIZE
+    const skip = (params.page - 1) * PAGE_SIZE
+
+    const where: Prisma.MaintenanceWhereInput = {
+      is_Active: true,
+      status: params.status ? (params.status as any) : { not: 'CANCELLED' },
+    }
+
+    if (params.type) {
+      where.type = params.type as any
+    }
+
+    if (params.plate || params.serialNumber) {
+      where.asset = {}
+      if (params.plate) {
+        where.asset.plate = {
+          contains: params.plate,
+          mode: 'insensitive',
+        }
+      }
+      if (params.serialNumber) {
+        where.asset.serial_number = {
+          contains: params.serialNumber,
+          mode: 'insensitive',
+        }
+      }
+    }
+
+    if (params.contractStatus) {
+      if (params.contractStatus === 'ACTIVE') {
+        where.contract = {
+          status: 'ACTIVE',
+        }
+      } else if (params.contractStatus === 'INACTIVE') {
+        where.OR = [
+          { contractId: null },
+          { contract: { status: { not: 'ACTIVE' } } }
+        ]
+      } else {
+        where.contractId = params.contractStatus
+      }
+    }
 
     const [maintenances, totalCount] = await prisma.$transaction([
       prisma.maintenance.findMany({
-        where: {
-          is_Active: true,
-          status: { not: 'CANCELLED' },
-        },
+        where,
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
@@ -326,24 +400,31 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
               assetCategory: true,
             },
           },
+          contract: {
+            select: {
+              contract_number: true,
+              client: {
+                select: {
+                  company_name: true,
+                },
+              },
+            },
+          },
           supplier: true,
           serviceCategory: true,
           assigned_to: { select: { id: true, name: true } },
         },
       }),
       prisma.maintenance.count({
-        where: {
-          is_Active: true,
-          status: { not: 'CANCELLED' },
-        },
+        where,
       }),
     ])
 
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances,
-      currentPage: page,
+      items: maintenances as any,
+      currentPage: params.page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
       totalPages,
@@ -371,6 +452,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           asset: {
             include: {
               assetCategory: true,
+            },
+          },
+          contract: {
+            select: {
+              contract_number: true,
+              client: { select: { company_name: true } },
             },
           },
           supplier: true,
@@ -419,6 +506,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           asset: {
             include: {
               assetCategory: true,
+            },
+          },
+          contract: {
+            select: {
+              contract_number: true,
+              client: { select: { company_name: true } },
             },
           },
           supplier: true,
@@ -638,6 +731,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
               assetCategory: true,
             },
           },
+          contract: {
+            select: {
+              contract_number: true,
+              client: { select: { company_name: true } },
+            },
+          },
           supplier: true,
           serviceCategory: true,
           assigned_to: { select: { id: true, name: true } },
@@ -692,6 +791,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
           asset: {
             include: {
               assetCategory: true,
+            },
+          },
+          contract: {
+            select: {
+              contract_number: true,
+              client: { select: { company_name: true } },
             },
           },
           supplier: true,

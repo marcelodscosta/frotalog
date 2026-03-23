@@ -3,6 +3,11 @@ import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenan
 
 interface FindAllMaintenanceRequest {
   page: number
+  status?: string
+  type?: string
+  plate?: string
+  serialNumber?: string
+  contractStatus?: string
 }
 
 interface FindAllMaintenanceResponse {
@@ -16,11 +21,9 @@ interface FindAllMaintenanceResponse {
 export class FindAllMaintenanceUseCase {
   constructor(private maintenanceRepository: IMaintenanceRepository) {}
 
-  async execute({
-    page,
-  }: FindAllMaintenanceRequest): Promise<FindAllMaintenanceResponse> {
+  async execute(params: FindAllMaintenanceRequest): Promise<FindAllMaintenanceResponse> {
     const { items, currentPage, pageSize, totalItems, totalPages } =
-      await this.maintenanceRepository.findAll(page)
+      await this.maintenanceRepository.findAll(params)
     return {
       maintenances: items,
       currentPage,

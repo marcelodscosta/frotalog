@@ -8,12 +8,17 @@ export async function findAllMaintenances(
 ) {
   const querySchema = z.object({
     page: z.coerce.number().min(1).default(1),
+    status: z.string().optional(),
+    type: z.string().optional(),
+    plate: z.string().optional(),
+    serialNumber: z.string().optional(),
+    contractStatus: z.string().optional(),
   })
 
-  const { page } = querySchema.parse(request.query)
+  const validatedParams = querySchema.parse(request.query)
 
   const findAllMaintenances = makeFindAllMaintenance()
-  const result = await findAllMaintenances.execute({ page })
+  const result = await findAllMaintenances.execute(validatedParams)
 
   return reply.status(200).send(result)
 }

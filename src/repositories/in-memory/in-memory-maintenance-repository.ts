@@ -12,6 +12,7 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
       supplier: { company_name: 'Mock Supplier', trading_name: null },
       serviceCategory: { id: 'mock-category', name: 'Mock Category', description: null },
       assigned_to: null,
+      contract: null,
     }
   }
 
@@ -201,7 +202,8 @@ export class InMemoryMaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async findAll(page: number): Promise<PaginatedResult<MaintenanceWithRelations>> {
+  async findAll(params: any): Promise<PaginatedResult<MaintenanceWithRelations>> {
+    const page = params.page || 1
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 

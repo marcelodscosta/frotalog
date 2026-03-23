@@ -127,7 +127,7 @@ export class GetDashboardStatsUseCase {
     let hasMore = true
 
     while (hasMore) {
-      const result = await this.maintenanceRepository.findAll(page)
+      const result = await this.maintenanceRepository.findAll({ page })
       allMaintenancesItems = [...allMaintenancesItems, ...result.items]
       hasMore = result.currentPage < result.totalPages
       page++

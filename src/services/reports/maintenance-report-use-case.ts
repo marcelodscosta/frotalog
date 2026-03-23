@@ -64,7 +64,7 @@ export class MaintenanceReportUseCase {
     filters: MaintenanceReportRequest,
   ): Promise<MaintenanceReportResponse> {
     // Buscar todas as manutenções com filtros
-    const allMaintenances = await this.maintenanceRepository.findAll(1)
+    const allMaintenances = await this.maintenanceRepository.findAll({ page: 1 })
 
     // Aplicar filtros
     let filteredMaintenances = allMaintenances.items
@@ -146,9 +146,9 @@ export class MaintenanceReportUseCase {
     const maintenancesWithDetails = await Promise.all(
       filteredMaintenances.map(async (maintenance) => {
         const asset = await this.assetRepository.findById(maintenance.assetId)
-        const supplier = await this.supplierRepository.findById(
+        const supplier = maintenance.supplierId ? await this.supplierRepository.findById(
           maintenance.supplierId,
-        )
+        ) : null
 
         return {
           id: maintenance.id,
