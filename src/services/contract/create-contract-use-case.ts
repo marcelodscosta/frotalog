@@ -18,6 +18,7 @@ interface CreateContractRequest {
   total_value?: number | null
   billing_day?: number | null
   notes?: string | null
+  observations?: string | null
   body_html?: string | null
   signed_contract_url?: string | null
   proposalId?: string | null
@@ -78,6 +79,7 @@ export class CreateContractUseCase {
       total_value: data.total_value,
       billing_day: data.billing_day,
       notes: data.notes,
+      observations: data.observations,
       body_html: data.body_html,
       signed_contract_url: data.signed_contract_url,
     })

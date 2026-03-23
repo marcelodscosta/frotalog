@@ -25,6 +25,7 @@ interface UpdateCommercialProposalRequest {
   payment_conditions?: string
   rental_period?: string
   technical_notes?: string
+  observations?: string
   validity_days?: number
   body_html?: string
   status?: string
@@ -52,6 +53,7 @@ export class UpdateCommercialProposalUseCase {
       payment_conditions: data.payment_conditions,
       rental_period: data.rental_period,
       technical_notes: data.technical_notes,
+      observations: data.observations,
       validity_days: data.validity_days,
       body_html: data.body_html,
       status: data.status as any,

@@ -232,6 +232,7 @@ export const ProposalStatus: {
   SENT: 'SENT',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED',
   CONVERTED: 'CONVERTED'
 };
 
@@ -13244,6 +13245,7 @@ export namespace Prisma {
     total_value: Decimal | null
     billing_day: number | null
     notes: string | null
+    observations: string | null
     created_at: Date | null
     updated_at: Date | null
     is_Active: boolean | null
@@ -13265,6 +13267,7 @@ export namespace Prisma {
     total_value: Decimal | null
     billing_day: number | null
     notes: string | null
+    observations: string | null
     created_at: Date | null
     updated_at: Date | null
     is_Active: boolean | null
@@ -13286,6 +13289,7 @@ export namespace Prisma {
     total_value: number
     billing_day: number
     notes: number
+    observations: number
     created_at: number
     updated_at: number
     is_Active: number
@@ -13319,6 +13323,7 @@ export namespace Prisma {
     total_value?: true
     billing_day?: true
     notes?: true
+    observations?: true
     created_at?: true
     updated_at?: true
     is_Active?: true
@@ -13340,6 +13345,7 @@ export namespace Prisma {
     total_value?: true
     billing_day?: true
     notes?: true
+    observations?: true
     created_at?: true
     updated_at?: true
     is_Active?: true
@@ -13361,6 +13367,7 @@ export namespace Prisma {
     total_value?: true
     billing_day?: true
     notes?: true
+    observations?: true
     created_at?: true
     updated_at?: true
     is_Active?: true
@@ -13469,6 +13476,7 @@ export namespace Prisma {
     total_value: Decimal | null
     billing_day: number | null
     notes: string | null
+    observations: string | null
     created_at: Date
     updated_at: Date
     is_Active: boolean
@@ -13509,6 +13517,7 @@ export namespace Prisma {
     total_value?: boolean
     billing_day?: boolean
     notes?: boolean
+    observations?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
@@ -13536,6 +13545,7 @@ export namespace Prisma {
     total_value?: boolean
     billing_day?: boolean
     notes?: boolean
+    observations?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
@@ -13558,6 +13568,7 @@ export namespace Prisma {
     total_value?: boolean
     billing_day?: boolean
     notes?: boolean
+    observations?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
@@ -13580,6 +13591,7 @@ export namespace Prisma {
     total_value?: boolean
     billing_day?: boolean
     notes?: boolean
+    observations?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_Active?: boolean
@@ -13587,7 +13599,7 @@ export namespace Prisma {
     signed_contract_url?: boolean
   }
 
-  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contract_number" | "description" | "clientId" | "responsible_name" | "responsible_phone" | "responsible_email" | "start_date" | "end_date" | "status" | "total_value" | "billing_day" | "notes" | "created_at" | "updated_at" | "is_Active" | "body_html" | "signed_contract_url", ExtArgs["result"]["contract"]>
+  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contract_number" | "description" | "clientId" | "responsible_name" | "responsible_phone" | "responsible_email" | "start_date" | "end_date" | "status" | "total_value" | "billing_day" | "notes" | "observations" | "created_at" | "updated_at" | "is_Active" | "body_html" | "signed_contract_url", ExtArgs["result"]["contract"]>
   export type ContractInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     movements?: boolean | Contract$movementsArgs<ExtArgs>
     client?: boolean | SupplierDefaultArgs<ExtArgs>
@@ -13626,6 +13638,7 @@ export namespace Prisma {
       total_value: Prisma.Decimal | null
       billing_day: number | null
       notes: string | null
+      observations: string | null
       created_at: Date
       updated_at: Date
       is_Active: boolean
@@ -14072,6 +14085,7 @@ export namespace Prisma {
     readonly total_value: FieldRef<"Contract", 'Decimal'>
     readonly billing_day: FieldRef<"Contract", 'Int'>
     readonly notes: FieldRef<"Contract", 'String'>
+    readonly observations: FieldRef<"Contract", 'String'>
     readonly created_at: FieldRef<"Contract", 'DateTime'>
     readonly updated_at: FieldRef<"Contract", 'DateTime'>
     readonly is_Active: FieldRef<"Contract", 'Boolean'>
@@ -25568,6 +25582,7 @@ export namespace Prisma {
     payment_conditions: string | null
     rental_period: string | null
     technical_notes: string | null
+    observations: string | null
     validity_days: number | null
     body_html: string | null
     status: $Enums.ProposalStatus | null
@@ -25590,6 +25605,7 @@ export namespace Prisma {
     payment_conditions: string | null
     rental_period: string | null
     technical_notes: string | null
+    observations: string | null
     validity_days: number | null
     body_html: string | null
     status: $Enums.ProposalStatus | null
@@ -25612,6 +25628,7 @@ export namespace Prisma {
     payment_conditions: number
     rental_period: number
     technical_notes: number
+    observations: number
     validity_days: number
     body_html: number
     status: number
@@ -25648,6 +25665,7 @@ export namespace Prisma {
     payment_conditions?: true
     rental_period?: true
     technical_notes?: true
+    observations?: true
     validity_days?: true
     body_html?: true
     status?: true
@@ -25670,6 +25688,7 @@ export namespace Prisma {
     payment_conditions?: true
     rental_period?: true
     technical_notes?: true
+    observations?: true
     validity_days?: true
     body_html?: true
     status?: true
@@ -25692,6 +25711,7 @@ export namespace Prisma {
     payment_conditions?: true
     rental_period?: true
     technical_notes?: true
+    observations?: true
     validity_days?: true
     body_html?: true
     status?: true
@@ -25801,6 +25821,7 @@ export namespace Prisma {
     payment_conditions: string | null
     rental_period: string | null
     technical_notes: string | null
+    observations: string | null
     validity_days: number
     body_html: string | null
     status: $Enums.ProposalStatus
@@ -25842,6 +25863,7 @@ export namespace Prisma {
     payment_conditions?: boolean
     rental_period?: boolean
     technical_notes?: boolean
+    observations?: boolean
     validity_days?: boolean
     body_html?: boolean
     status?: boolean
@@ -25869,6 +25891,7 @@ export namespace Prisma {
     payment_conditions?: boolean
     rental_period?: boolean
     technical_notes?: boolean
+    observations?: boolean
     validity_days?: boolean
     body_html?: boolean
     status?: boolean
@@ -25894,6 +25917,7 @@ export namespace Prisma {
     payment_conditions?: boolean
     rental_period?: boolean
     technical_notes?: boolean
+    observations?: boolean
     validity_days?: boolean
     body_html?: boolean
     status?: boolean
@@ -25919,6 +25943,7 @@ export namespace Prisma {
     payment_conditions?: boolean
     rental_period?: boolean
     technical_notes?: boolean
+    observations?: boolean
     validity_days?: boolean
     body_html?: boolean
     status?: boolean
@@ -25928,7 +25953,7 @@ export namespace Prisma {
     contractId?: boolean
   }
 
-  export type CommercialProposalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "proposal_number" | "companySettingsId" | "clientId" | "contact_name" | "contact_phone" | "contact_email" | "mobilization_value" | "demobilization_value" | "payment_conditions" | "rental_period" | "technical_notes" | "validity_days" | "body_html" | "status" | "created_at" | "updated_at" | "is_active" | "contractId", ExtArgs["result"]["commercialProposal"]>
+  export type CommercialProposalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "proposal_number" | "companySettingsId" | "clientId" | "contact_name" | "contact_phone" | "contact_email" | "mobilization_value" | "demobilization_value" | "payment_conditions" | "rental_period" | "technical_notes" | "observations" | "validity_days" | "body_html" | "status" | "created_at" | "updated_at" | "is_active" | "contractId", ExtArgs["result"]["commercialProposal"]>
   export type CommercialProposalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     companySettings?: boolean | CommercialProposal$companySettingsArgs<ExtArgs>
@@ -25968,6 +25993,7 @@ export namespace Prisma {
       payment_conditions: string | null
       rental_period: string | null
       technical_notes: string | null
+      observations: string | null
       validity_days: number
       body_html: string | null
       status: $Enums.ProposalStatus
@@ -26414,6 +26440,7 @@ export namespace Prisma {
     readonly payment_conditions: FieldRef<"CommercialProposal", 'String'>
     readonly rental_period: FieldRef<"CommercialProposal", 'String'>
     readonly technical_notes: FieldRef<"CommercialProposal", 'String'>
+    readonly observations: FieldRef<"CommercialProposal", 'String'>
     readonly validity_days: FieldRef<"CommercialProposal", 'Int'>
     readonly body_html: FieldRef<"CommercialProposal", 'String'>
     readonly status: FieldRef<"CommercialProposal", 'ProposalStatus'>
@@ -28335,6 +28362,7 @@ export namespace Prisma {
     total_value: 'total_value',
     billing_day: 'billing_day',
     notes: 'notes',
+    observations: 'observations',
     created_at: 'created_at',
     updated_at: 'updated_at',
     is_Active: 'is_Active',
@@ -28524,6 +28552,7 @@ export namespace Prisma {
     payment_conditions: 'payment_conditions',
     rental_period: 'rental_period',
     technical_notes: 'technical_notes',
+    observations: 'observations',
     validity_days: 'validity_days',
     body_html: 'body_html',
     status: 'status',
@@ -29653,6 +29682,7 @@ export namespace Prisma {
     total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
     billing_day?: IntNullableFilter<"Contract"> | number | null
     notes?: StringNullableFilter<"Contract"> | string | null
+    observations?: StringNullableFilter<"Contract"> | string | null
     created_at?: DateTimeFilter<"Contract"> | Date | string
     updated_at?: DateTimeFilter<"Contract"> | Date | string
     is_Active?: BoolFilter<"Contract"> | boolean
@@ -29679,6 +29709,7 @@ export namespace Prisma {
     total_value?: SortOrderInput | SortOrder
     billing_day?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    observations?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -29708,6 +29739,7 @@ export namespace Prisma {
     total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
     billing_day?: IntNullableFilter<"Contract"> | number | null
     notes?: StringNullableFilter<"Contract"> | string | null
+    observations?: StringNullableFilter<"Contract"> | string | null
     created_at?: DateTimeFilter<"Contract"> | Date | string
     updated_at?: DateTimeFilter<"Contract"> | Date | string
     is_Active?: BoolFilter<"Contract"> | boolean
@@ -29734,6 +29766,7 @@ export namespace Prisma {
     total_value?: SortOrderInput | SortOrder
     billing_day?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    observations?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -29763,6 +29796,7 @@ export namespace Prisma {
     total_value?: DecimalNullableWithAggregatesFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
     billing_day?: IntNullableWithAggregatesFilter<"Contract"> | number | null
     notes?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    observations?: StringNullableWithAggregatesFilter<"Contract"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
     is_Active?: BoolWithAggregatesFilter<"Contract"> | boolean
@@ -30663,6 +30697,7 @@ export namespace Prisma {
     payment_conditions?: StringNullableFilter<"CommercialProposal"> | string | null
     rental_period?: StringNullableFilter<"CommercialProposal"> | string | null
     technical_notes?: StringNullableFilter<"CommercialProposal"> | string | null
+    observations?: StringNullableFilter<"CommercialProposal"> | string | null
     validity_days?: IntFilter<"CommercialProposal"> | number
     body_html?: StringNullableFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
@@ -30689,6 +30724,7 @@ export namespace Prisma {
     payment_conditions?: SortOrderInput | SortOrder
     rental_period?: SortOrderInput | SortOrder
     technical_notes?: SortOrderInput | SortOrder
+    observations?: SortOrderInput | SortOrder
     validity_days?: SortOrder
     body_html?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -30719,6 +30755,7 @@ export namespace Prisma {
     payment_conditions?: StringNullableFilter<"CommercialProposal"> | string | null
     rental_period?: StringNullableFilter<"CommercialProposal"> | string | null
     technical_notes?: StringNullableFilter<"CommercialProposal"> | string | null
+    observations?: StringNullableFilter<"CommercialProposal"> | string | null
     validity_days?: IntFilter<"CommercialProposal"> | number
     body_html?: StringNullableFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
@@ -30744,6 +30781,7 @@ export namespace Prisma {
     payment_conditions?: SortOrderInput | SortOrder
     rental_period?: SortOrderInput | SortOrder
     technical_notes?: SortOrderInput | SortOrder
+    observations?: SortOrderInput | SortOrder
     validity_days?: SortOrder
     body_html?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -30774,6 +30812,7 @@ export namespace Prisma {
     payment_conditions?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
     rental_period?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
     technical_notes?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
+    observations?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
     validity_days?: IntWithAggregatesFilter<"CommercialProposal"> | number
     body_html?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusWithAggregatesFilter<"CommercialProposal"> | $Enums.ProposalStatus
@@ -31815,6 +31854,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -31841,6 +31881,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -31865,6 +31906,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -31891,6 +31933,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -31916,6 +31959,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -31936,6 +31980,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -31957,6 +32002,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -32968,6 +33014,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -32993,6 +33040,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -33014,6 +33062,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -33039,6 +33088,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -33062,6 +33112,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -33082,6 +33133,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -33103,6 +33155,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -34148,6 +34201,7 @@ export namespace Prisma {
     total_value?: SortOrder
     billing_day?: SortOrder
     notes?: SortOrder
+    observations?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -34174,6 +34228,7 @@ export namespace Prisma {
     total_value?: SortOrder
     billing_day?: SortOrder
     notes?: SortOrder
+    observations?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -34195,6 +34250,7 @@ export namespace Prisma {
     total_value?: SortOrder
     billing_day?: SortOrder
     notes?: SortOrder
+    observations?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_Active?: SortOrder
@@ -34946,6 +35002,7 @@ export namespace Prisma {
     payment_conditions?: SortOrder
     rental_period?: SortOrder
     technical_notes?: SortOrder
+    observations?: SortOrder
     validity_days?: SortOrder
     body_html?: SortOrder
     status?: SortOrder
@@ -34974,6 +35031,7 @@ export namespace Prisma {
     payment_conditions?: SortOrder
     rental_period?: SortOrder
     technical_notes?: SortOrder
+    observations?: SortOrder
     validity_days?: SortOrder
     body_html?: SortOrder
     status?: SortOrder
@@ -34996,6 +35054,7 @@ export namespace Prisma {
     payment_conditions?: SortOrder
     rental_period?: SortOrder
     technical_notes?: SortOrder
+    observations?: SortOrder
     validity_days?: SortOrder
     body_html?: SortOrder
     status?: SortOrder
@@ -38125,6 +38184,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -38149,6 +38209,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -38289,6 +38350,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -38312,6 +38374,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -38365,6 +38428,7 @@ export namespace Prisma {
     total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
     billing_day?: IntNullableFilter<"Contract"> | number | null
     notes?: StringNullableFilter<"Contract"> | string | null
+    observations?: StringNullableFilter<"Contract"> | string | null
     created_at?: DateTimeFilter<"Contract"> | Date | string
     updated_at?: DateTimeFilter<"Contract"> | Date | string
     is_Active?: BoolFilter<"Contract"> | boolean
@@ -38436,6 +38500,7 @@ export namespace Prisma {
     payment_conditions?: StringNullableFilter<"CommercialProposal"> | string | null
     rental_period?: StringNullableFilter<"CommercialProposal"> | string | null
     technical_notes?: StringNullableFilter<"CommercialProposal"> | string | null
+    observations?: StringNullableFilter<"CommercialProposal"> | string | null
     validity_days?: IntFilter<"CommercialProposal"> | number
     body_html?: StringNullableFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
@@ -38658,6 +38723,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -38683,6 +38749,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -38931,6 +38998,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -38956,6 +39024,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -39388,6 +39457,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -39412,6 +39482,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -39575,6 +39646,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -39599,6 +39671,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -39684,6 +39757,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -39709,6 +39783,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -39869,6 +39944,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -39894,6 +39970,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -40049,6 +40126,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -40074,6 +40152,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -40241,6 +40320,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -40266,6 +40346,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -40455,6 +40536,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -40478,6 +40560,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -41361,6 +41444,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -41386,6 +41470,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -41565,6 +41650,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -41590,6 +41676,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -41627,6 +41714,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -41651,6 +41739,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -41777,6 +41866,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -41801,6 +41891,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -42551,6 +42642,7 @@ export namespace Prisma {
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
+    observations?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_Active?: boolean
@@ -42612,6 +42704,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -42634,6 +42727,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -42658,6 +42752,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -42682,6 +42777,7 @@ export namespace Prisma {
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
@@ -42830,6 +42926,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -42853,6 +42950,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -42875,6 +42973,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -43504,6 +43603,7 @@ export namespace Prisma {
     payment_conditions?: string | null
     rental_period?: string | null
     technical_notes?: string | null
+    observations?: string | null
     validity_days?: number
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -43524,6 +43624,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -43547,6 +43648,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -43569,6 +43671,7 @@ export namespace Prisma {
     payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
     rental_period?: NullableStringFieldUpdateOperationsInput | string | null
     technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
     validity_days?: IntFieldUpdateOperationsInput | number
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus

@@ -24,6 +24,7 @@ interface CreateCommercialProposalRequest {
   payment_conditions?: string
   rental_period?: string
   technical_notes?: string
+  observations?: string
   validity_days?: number
   body_html?: string
   items?: CreateProposalItem[]
@@ -50,6 +51,7 @@ export class CreateCommercialProposalUseCase {
       payment_conditions: data.payment_conditions,
       rental_period: data.rental_period,
       technical_notes: data.technical_notes,
+      observations: data.observations,
       validity_days: data.validity_days,
       body_html: data.body_html,
     }

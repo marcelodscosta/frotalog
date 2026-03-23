@@ -23,6 +23,7 @@ export async function updateContract(
     total_value: z.number().nonnegative().nullable().optional(),
     billing_day: z.number().int().min(1).max(31).nullable().optional(),
     notes: z.string().nullable().optional(),
+    observations: z.string().nullable().optional(),
     is_Active: z.boolean().optional(),
     body_html: z.string().nullable().optional(),
     signed_contract_url: z.string().nullable().optional(),

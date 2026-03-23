@@ -258,6 +258,7 @@ exports.Prisma.ContractScalarFieldEnum = {
   total_value: 'total_value',
   billing_day: 'billing_day',
   notes: 'notes',
+  observations: 'observations',
   created_at: 'created_at',
   updated_at: 'updated_at',
   is_Active: 'is_Active',
@@ -417,6 +418,7 @@ exports.Prisma.CommercialProposalScalarFieldEnum = {
   payment_conditions: 'payment_conditions',
   rental_period: 'rental_period',
   technical_notes: 'technical_notes',
+  observations: 'observations',
   validity_days: 'validity_days',
   body_html: 'body_html',
   status: 'status',
@@ -534,6 +536,7 @@ exports.ProposalStatus = exports.$Enums.ProposalStatus = {
   SENT: 'SENT',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED',
   CONVERTED: 'CONVERTED'
 };
 

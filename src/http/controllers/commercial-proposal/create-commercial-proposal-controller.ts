@@ -28,6 +28,7 @@ export async function createCommercialProposal(
     payment_conditions: z.string().optional(),
     rental_period: z.string().optional(),
     technical_notes: z.string().optional(),
+    observations: z.string().optional(),
     validity_days: z.number().int().optional(),
     body_html: z.string().optional(),
     items: z.array(createItemSchema).optional(),

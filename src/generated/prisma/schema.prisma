@@ -194,6 +194,7 @@ model Contract {
   total_value          Decimal?              @db.Decimal(10, 2)
   billing_day          Int?
   notes                String?
+  observations         String?               @db.Text
   created_at           DateTime              @default(now())
   updated_at           DateTime              @updatedAt
   is_Active            Boolean               @default(true)
@@ -474,6 +475,7 @@ model CommercialProposal {
   payment_conditions   String?
   rental_period        String?
   technical_notes      String?
+  observations         String?  @db.Text
   validity_days        Int      @default(5)
 
   body_html String? @db.Text
@@ -522,5 +524,6 @@ enum ProposalStatus {
   SENT
   APPROVED
   REJECTED
+  CANCELLED
   CONVERTED
 }
