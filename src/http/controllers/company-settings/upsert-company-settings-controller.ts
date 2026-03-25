@@ -18,6 +18,8 @@ export async function upsertCompanySettings(
     email: z.string().optional().nullable(),
     logo_url: z.string().optional().nullable(),
     invoice_start_number: z.number().int().positive().optional(),
+    proposal_start_number: z.number().int().positive().optional(),
+    contract_start_number: z.number().int().positive().optional(),
   })
 
   const data = bodySchema.parse(request.body)

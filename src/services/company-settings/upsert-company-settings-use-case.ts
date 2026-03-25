@@ -13,6 +13,8 @@ interface UpsertCompanySettingsRequest {
   email?: string | null
   logo_url?: string | null
   invoice_start_number?: number
+  proposal_start_number?: number
+  contract_start_number?: number
 }
 
 interface UpsertCompanySettingsResponse {
@@ -39,6 +41,8 @@ export class UpsertCompanySettingsUseCase {
       email: data.email,
       logo_url: data.logo_url,
       invoice_start_number: data.invoice_start_number,
+      proposal_start_number: data.proposal_start_number,
+      contract_start_number: data.contract_start_number,
     })
 
     return { companySettings }

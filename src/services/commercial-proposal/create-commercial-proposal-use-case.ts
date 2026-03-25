@@ -1,6 +1,7 @@
 import { CommercialProposal, Prisma } from '../../generated/prisma'
 import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
 import { ProposalAlreadyExistsError } from '../errors/proposal-already-exists-error'
+import { ICompanySettingsRepository } from '../../repositories/interfaces/ICompanySettingsRepository'
 
 interface CreateProposalItem {
   assetId?: string
@@ -13,7 +14,7 @@ interface CreateProposalItem {
 }
 
 interface CreateCommercialProposalRequest {
-  proposal_number: string
+  proposal_number?: string
   clientId: string
   companySettingsId?: string
   contact_name?: string
@@ -31,16 +32,33 @@ interface CreateCommercialProposalRequest {
 }
 
 export class CreateCommercialProposalUseCase {
-  constructor(private proposalRepository: ICommercialProposalRepository) {}
+  constructor(
+    private proposalRepository: ICommercialProposalRepository,
+    private companySettingsRepository: ICompanySettingsRepository,
+  ) {}
 
   async execute(data: CreateCommercialProposalRequest): Promise<{ proposal: CommercialProposal }> {
-    const existing = await this.proposalRepository.findByProposalNumber(data.proposal_number)
+    let proposal_number = data.proposal_number
+
+    if (!proposal_number || proposal_number === 'AUTO') {
+      const settings = await this.companySettingsRepository.findFirst()
+      const startNumber = settings?.proposal_start_number || 1
+      const currentYear = new Date().getFullYear()
+      
+      const count = await this.proposalRepository.search({ page: 1 }) // Just to get total items? No, search returns totalItems.
+      // Wait, let's see if repo has a better way to count.
+      // Search result has totalItems.
+      const sequence = Math.max(count.totalItems + 1, startNumber).toString().padStart(4, '0')
+      proposal_number = `PROP-${currentYear}-${sequence}`
+    }
+
+    const existing = await this.proposalRepository.findByProposalNumber(proposal_number)
     if (existing) {
       throw new ProposalAlreadyExistsError()
     }
 
     const inputData: Prisma.CommercialProposalUncheckedCreateInput = {
-      proposal_number: data.proposal_number,
+      proposal_number,
       clientId: data.clientId,
       companySettingsId: data.companySettingsId,
       contact_name: data.contact_name,

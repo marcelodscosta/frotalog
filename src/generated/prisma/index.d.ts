@@ -19663,10 +19663,14 @@ export namespace Prisma {
 
   export type CompanySettingsAvgAggregateOutputType = {
     invoice_start_number: number | null
+    proposal_start_number: number | null
+    contract_start_number: number | null
   }
 
   export type CompanySettingsSumAggregateOutputType = {
     invoice_start_number: number | null
+    proposal_start_number: number | null
+    contract_start_number: number | null
   }
 
   export type CompanySettingsMinAggregateOutputType = {
@@ -19682,6 +19686,8 @@ export namespace Prisma {
     email: string | null
     logo_url: string | null
     invoice_start_number: number | null
+    proposal_start_number: number | null
+    contract_start_number: number | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -19699,6 +19705,8 @@ export namespace Prisma {
     email: string | null
     logo_url: string | null
     invoice_start_number: number | null
+    proposal_start_number: number | null
+    contract_start_number: number | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -19716,6 +19724,8 @@ export namespace Prisma {
     email: number
     logo_url: number
     invoice_start_number: number
+    proposal_start_number: number
+    contract_start_number: number
     created_at: number
     updated_at: number
     _all: number
@@ -19724,10 +19734,14 @@ export namespace Prisma {
 
   export type CompanySettingsAvgAggregateInputType = {
     invoice_start_number?: true
+    proposal_start_number?: true
+    contract_start_number?: true
   }
 
   export type CompanySettingsSumAggregateInputType = {
     invoice_start_number?: true
+    proposal_start_number?: true
+    contract_start_number?: true
   }
 
   export type CompanySettingsMinAggregateInputType = {
@@ -19743,6 +19757,8 @@ export namespace Prisma {
     email?: true
     logo_url?: true
     invoice_start_number?: true
+    proposal_start_number?: true
+    contract_start_number?: true
     created_at?: true
     updated_at?: true
   }
@@ -19760,6 +19776,8 @@ export namespace Prisma {
     email?: true
     logo_url?: true
     invoice_start_number?: true
+    proposal_start_number?: true
+    contract_start_number?: true
     created_at?: true
     updated_at?: true
   }
@@ -19777,6 +19795,8 @@ export namespace Prisma {
     email?: true
     logo_url?: true
     invoice_start_number?: true
+    proposal_start_number?: true
+    contract_start_number?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -19881,6 +19901,8 @@ export namespace Prisma {
     email: string | null
     logo_url: string | null
     invoice_start_number: number
+    proposal_start_number: number
+    contract_start_number: number
     created_at: Date
     updated_at: Date
     _count: CompanySettingsCountAggregateOutputType | null
@@ -19917,6 +19939,8 @@ export namespace Prisma {
     email?: boolean
     logo_url?: boolean
     invoice_start_number?: boolean
+    proposal_start_number?: boolean
+    contract_start_number?: boolean
     created_at?: boolean
     updated_at?: boolean
     CommercialProposals?: boolean | CompanySettings$CommercialProposalsArgs<ExtArgs>
@@ -19936,6 +19960,8 @@ export namespace Prisma {
     email?: boolean
     logo_url?: boolean
     invoice_start_number?: boolean
+    proposal_start_number?: boolean
+    contract_start_number?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["companySettings"]>
@@ -19953,6 +19979,8 @@ export namespace Prisma {
     email?: boolean
     logo_url?: boolean
     invoice_start_number?: boolean
+    proposal_start_number?: boolean
+    contract_start_number?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["companySettings"]>
@@ -19970,11 +19998,13 @@ export namespace Prisma {
     email?: boolean
     logo_url?: boolean
     invoice_start_number?: boolean
+    proposal_start_number?: boolean
+    contract_start_number?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type CompanySettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_name" | "trading_name" | "cnpj" | "address" | "city" | "state" | "zip_code" | "phone" | "email" | "logo_url" | "invoice_start_number" | "created_at" | "updated_at", ExtArgs["result"]["companySettings"]>
+  export type CompanySettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "company_name" | "trading_name" | "cnpj" | "address" | "city" | "state" | "zip_code" | "phone" | "email" | "logo_url" | "invoice_start_number" | "proposal_start_number" | "contract_start_number" | "created_at" | "updated_at", ExtArgs["result"]["companySettings"]>
   export type CompanySettingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     CommercialProposals?: boolean | CompanySettings$CommercialProposalsArgs<ExtArgs>
     _count?: boolean | CompanySettingsCountOutputTypeDefaultArgs<ExtArgs>
@@ -20000,6 +20030,8 @@ export namespace Prisma {
       email: string | null
       logo_url: string | null
       invoice_start_number: number
+      proposal_start_number: number
+      contract_start_number: number
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["companySettings"]>
@@ -20438,6 +20470,8 @@ export namespace Prisma {
     readonly email: FieldRef<"CompanySettings", 'String'>
     readonly logo_url: FieldRef<"CompanySettings", 'String'>
     readonly invoice_start_number: FieldRef<"CompanySettings", 'Int'>
+    readonly proposal_start_number: FieldRef<"CompanySettings", 'Int'>
+    readonly contract_start_number: FieldRef<"CompanySettings", 'Int'>
     readonly created_at: FieldRef<"CompanySettings", 'DateTime'>
     readonly updated_at: FieldRef<"CompanySettings", 'DateTime'>
   }
@@ -28502,6 +28536,8 @@ export namespace Prisma {
     email: 'email',
     logo_url: 'logo_url',
     invoice_start_number: 'invoice_start_number',
+    proposal_start_number: 'proposal_start_number',
+    contract_start_number: 'contract_start_number',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -30297,6 +30333,8 @@ export namespace Prisma {
     email?: StringNullableFilter<"CompanySettings"> | string | null
     logo_url?: StringNullableFilter<"CompanySettings"> | string | null
     invoice_start_number?: IntFilter<"CompanySettings"> | number
+    proposal_start_number?: IntFilter<"CompanySettings"> | number
+    contract_start_number?: IntFilter<"CompanySettings"> | number
     created_at?: DateTimeFilter<"CompanySettings"> | Date | string
     updated_at?: DateTimeFilter<"CompanySettings"> | Date | string
     CommercialProposals?: CommercialProposalListRelationFilter
@@ -30315,6 +30353,8 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     logo_url?: SortOrderInput | SortOrder
     invoice_start_number?: SortOrder
+    proposal_start_number?: SortOrder
+    contract_start_number?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     CommercialProposals?: CommercialProposalOrderByRelationAggregateInput
@@ -30336,6 +30376,8 @@ export namespace Prisma {
     email?: StringNullableFilter<"CompanySettings"> | string | null
     logo_url?: StringNullableFilter<"CompanySettings"> | string | null
     invoice_start_number?: IntFilter<"CompanySettings"> | number
+    proposal_start_number?: IntFilter<"CompanySettings"> | number
+    contract_start_number?: IntFilter<"CompanySettings"> | number
     created_at?: DateTimeFilter<"CompanySettings"> | Date | string
     updated_at?: DateTimeFilter<"CompanySettings"> | Date | string
     CommercialProposals?: CommercialProposalListRelationFilter
@@ -30354,6 +30396,8 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     logo_url?: SortOrderInput | SortOrder
     invoice_start_number?: SortOrder
+    proposal_start_number?: SortOrder
+    contract_start_number?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: CompanySettingsCountOrderByAggregateInput
@@ -30379,6 +30423,8 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
     logo_url?: StringNullableWithAggregatesFilter<"CompanySettings"> | string | null
     invoice_start_number?: IntWithAggregatesFilter<"CompanySettings"> | number
+    proposal_start_number?: IntWithAggregatesFilter<"CompanySettings"> | number
+    contract_start_number?: IntWithAggregatesFilter<"CompanySettings"> | number
     created_at?: DateTimeWithAggregatesFilter<"CompanySettings"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"CompanySettings"> | Date | string
   }
@@ -32577,6 +32623,8 @@ export namespace Prisma {
     email?: string | null
     logo_url?: string | null
     invoice_start_number?: number
+    proposal_start_number?: number
+    contract_start_number?: number
     created_at?: Date | string
     updated_at?: Date | string
     CommercialProposals?: CommercialProposalCreateNestedManyWithoutCompanySettingsInput
@@ -32595,6 +32643,8 @@ export namespace Prisma {
     email?: string | null
     logo_url?: string | null
     invoice_start_number?: number
+    proposal_start_number?: number
+    contract_start_number?: number
     created_at?: Date | string
     updated_at?: Date | string
     CommercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutCompanySettingsInput
@@ -32613,6 +32663,8 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: NullableStringFieldUpdateOperationsInput | string | null
     invoice_start_number?: IntFieldUpdateOperationsInput | number
+    proposal_start_number?: IntFieldUpdateOperationsInput | number
+    contract_start_number?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     CommercialProposals?: CommercialProposalUpdateManyWithoutCompanySettingsNestedInput
@@ -32631,6 +32683,8 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: NullableStringFieldUpdateOperationsInput | string | null
     invoice_start_number?: IntFieldUpdateOperationsInput | number
+    proposal_start_number?: IntFieldUpdateOperationsInput | number
+    contract_start_number?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     CommercialProposals?: CommercialProposalUncheckedUpdateManyWithoutCompanySettingsNestedInput
@@ -32649,6 +32703,8 @@ export namespace Prisma {
     email?: string | null
     logo_url?: string | null
     invoice_start_number?: number
+    proposal_start_number?: number
+    contract_start_number?: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -32666,6 +32722,8 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: NullableStringFieldUpdateOperationsInput | string | null
     invoice_start_number?: IntFieldUpdateOperationsInput | number
+    proposal_start_number?: IntFieldUpdateOperationsInput | number
+    contract_start_number?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32683,6 +32741,8 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: NullableStringFieldUpdateOperationsInput | string | null
     invoice_start_number?: IntFieldUpdateOperationsInput | number
+    proposal_start_number?: IntFieldUpdateOperationsInput | number
+    contract_start_number?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34741,12 +34801,16 @@ export namespace Prisma {
     email?: SortOrder
     logo_url?: SortOrder
     invoice_start_number?: SortOrder
+    proposal_start_number?: SortOrder
+    contract_start_number?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
   export type CompanySettingsAvgOrderByAggregateInput = {
     invoice_start_number?: SortOrder
+    proposal_start_number?: SortOrder
+    contract_start_number?: SortOrder
   }
 
   export type CompanySettingsMaxOrderByAggregateInput = {
@@ -34762,6 +34826,8 @@ export namespace Prisma {
     email?: SortOrder
     logo_url?: SortOrder
     invoice_start_number?: SortOrder
+    proposal_start_number?: SortOrder
+    contract_start_number?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -34779,12 +34845,16 @@ export namespace Prisma {
     email?: SortOrder
     logo_url?: SortOrder
     invoice_start_number?: SortOrder
+    proposal_start_number?: SortOrder
+    contract_start_number?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
   export type CompanySettingsSumOrderByAggregateInput = {
     invoice_start_number?: SortOrder
+    proposal_start_number?: SortOrder
+    contract_start_number?: SortOrder
   }
 
   export type ChecklistItemTemplateListRelationFilter = {
@@ -41493,6 +41563,8 @@ export namespace Prisma {
     email?: string | null
     logo_url?: string | null
     invoice_start_number?: number
+    proposal_start_number?: number
+    contract_start_number?: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -41510,6 +41582,8 @@ export namespace Prisma {
     email?: string | null
     logo_url?: string | null
     invoice_start_number?: number
+    proposal_start_number?: number
+    contract_start_number?: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -41693,6 +41767,8 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: NullableStringFieldUpdateOperationsInput | string | null
     invoice_start_number?: IntFieldUpdateOperationsInput | number
+    proposal_start_number?: IntFieldUpdateOperationsInput | number
+    contract_start_number?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -41710,6 +41786,8 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     logo_url?: NullableStringFieldUpdateOperationsInput | string | null
     invoice_start_number?: IntFieldUpdateOperationsInput | number
+    proposal_start_number?: IntFieldUpdateOperationsInput | number
+    contract_start_number?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

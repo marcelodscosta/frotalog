@@ -2,6 +2,7 @@ import { Contract } from '../../generated/prisma'
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { ISupplierRepository } from '../../repositories/interfaces/ISupplierRepository'
 import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
+import { ICompanySettingsRepository } from '../../repositories/interfaces/ICompanySettingsRepository'
 import { ClientNotFoundError } from '../errors/client-not-found-error'
 import { ContractAlreadyExistsError } from '../errors/contract-already-exist-error'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
@@ -33,6 +34,7 @@ export class CreateContractUseCase {
     private contractRepository: IContractRepository,
     private supplierRepository: ISupplierRepository,
     private commercialProposalRepository: ICommercialProposalRepository,
+    private companySettingsRepository: ICompanySettingsRepository,
   ) {}
 
   async execute(data: CreateContractRequest): Promise<CreateContractResponse> {
@@ -47,7 +49,11 @@ export class CreateContractUseCase {
     if (!contract_number || contract_number === 'AUTO') {
       const currentYear = new Date().getFullYear()
       const count = await this.contractRepository.countByYear(currentYear)
-      const sequence = (count + 1).toString().padStart(3, '0')
+      
+      const settings = await this.companySettingsRepository.findFirst()
+      const startNumber = settings?.contract_start_number || 1
+      
+      const sequence = Math.max(count + 1, startNumber).toString().padStart(3, '0')
       contract_number = `${currentYear}.${sequence}`
     }
 
@@ -59,7 +65,10 @@ export class CreateContractUseCase {
       if (data.contract_number === 'AUTO') {
           const currentYear = new Date().getFullYear()
           const count = await this.contractRepository.countByYear(currentYear)
-          const sequence = (count + 2).toString().padStart(3, '0') // Try next
+          const settings = await this.companySettingsRepository.findFirst()
+          const startNumber = settings?.contract_start_number || 1
+          
+          const sequence = (Math.max(count + 1, startNumber) + 1).toString().padStart(3, '0') // Try next
           contract_number = `${currentYear}.${sequence}`
       } else {
         throw new ContractAlreadyExistsError()

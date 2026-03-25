@@ -312,7 +312,9 @@ model CompanySettings {
   phone                String?
   email                String?
   logo_url             String?
-  invoice_start_number Int                  @default(1)
+  invoice_start_number  Int                  @default(1)
+  proposal_start_number Int                  @default(1)
+  contract_start_number Int                  @default(1)
   created_at           DateTime             @default(now())
   updated_at           DateTime             @updatedAt
   CommercialProposals  CommercialProposal[]

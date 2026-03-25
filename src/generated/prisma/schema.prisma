@@ -301,21 +301,23 @@ model BulletinExpense {
 }
 
 model CompanySettings {
-  id                   String               @id @default(uuid())
-  company_name         String
-  trading_name         String?
-  cnpj                 String?
-  address              String?
-  city                 String?
-  state                String?
-  zip_code             String?
-  phone                String?
-  email                String?
-  logo_url             String?
-  invoice_start_number Int                  @default(1)
-  created_at           DateTime             @default(now())
-  updated_at           DateTime             @updatedAt
-  CommercialProposals  CommercialProposal[]
+  id                    String               @id @default(uuid())
+  company_name          String
+  trading_name          String?
+  cnpj                  String?
+  address               String?
+  city                  String?
+  state                 String?
+  zip_code              String?
+  phone                 String?
+  email                 String?
+  logo_url              String?
+  invoice_start_number  Int                  @default(1)
+  proposal_start_number Int                  @default(1)
+  contract_start_number Int                  @default(1)
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @updatedAt
+  CommercialProposals   CommercialProposal[]
 
   @@map("company_settings")
 }

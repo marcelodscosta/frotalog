@@ -351,6 +351,8 @@ exports.Prisma.CompanySettingsScalarFieldEnum = {
   email: 'email',
   logo_url: 'logo_url',
   invoice_start_number: 'invoice_start_number',
+  proposal_start_number: 'proposal_start_number',
+  contract_start_number: 'contract_start_number',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
