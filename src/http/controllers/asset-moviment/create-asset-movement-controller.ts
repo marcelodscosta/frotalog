@@ -15,7 +15,7 @@ export async function createAssetMovement(
     mobilization_checklist_url: z.string().url().nullable().optional(),
     demobilization_checklist_url: z.string().url().nullable().optional(),
     rental_value: z.number().nonnegative(),
-    billing_cycle: z.enum(['DAILY', 'WEEKLY', 'MONTHLY']).default('MONTHLY'),
+    billing_cycle: z.enum(['DAILY', 'WEEKLY', 'MONTHLY', 'HOURLY', 'PER_UNIT']).default('MONTHLY'),
     operator_name: z.string().nullable().optional(),
     current_horometer: z.number().nonnegative().nullable().optional(),
     current_odometer: z.number().nonnegative().nullable().optional(),

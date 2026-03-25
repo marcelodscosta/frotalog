@@ -26,7 +26,19 @@ export class ConvertProposalToContractUseCase {
        throw new Error('Esta proposta já foi convertida em contrato.')
     }
 
-    // 1. Criar o Contrato
+    // 1. Preparar o corpo do contrato com substituições se necessário
+    let body_html = proposal.body_html
+    if (body_html) {
+      body_html = body_html.replace(/\[CONTRACT_NUMBER\]/g, contract_number)
+      body_html = body_html.replace(/\[NÚMERO DO CONTRATO\]/g, contract_number)
+      
+      // Se o corpo contiver explicitamente AUTO (como visto em alguns casos), substituir pelo número real
+      // Usamos uma regex mais específica para evitar substituir a palavra "autor" ou "automático" acidentalmente
+      // mas no contexto de "Nº AUTO", é seguro.
+      body_html = body_html.replace(/Nº AUTO/g, `Nº ${contract_number}`)
+    }
+
+    // 2. Criar o Contrato
     const contract = await this.contractRepository.create({
       contract_number,
       clientId: proposal.clientId,
@@ -36,9 +48,11 @@ export class ConvertProposalToContractUseCase {
       responsible_name: proposal.contact_name,
       responsible_phone: proposal.contact_phone,
       responsible_email: proposal.contact_email,
+      body_html,
+      observations: proposal.observations ? proposal.observations.replace(/\[CONTRACT_NUMBER\]/g, contract_number).replace(/\[NÚMERO DO CONTRATO\]/g, contract_number).replace(/Nº AUTO/g, `Nº ${contract_number}`) : null,
     })
 
-    // 2. Atualizar status da proposta e vincular ao contrato
+    // 3. Atualizar status da proposta e vincular ao contrato
     await this.proposalRepository.updateProposal(proposalId, {
        status: 'CONVERTED',
        contract: {

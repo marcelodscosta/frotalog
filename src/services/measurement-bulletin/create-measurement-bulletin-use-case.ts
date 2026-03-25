@@ -19,6 +19,8 @@ interface CreateMeasurementBulletinRequest {
   notes?: string | null
   current_horometer?: number | null
   current_odometer?: number | null
+  measured_quantity?: number | null
+  measurement_unit?: string | null
 }
 
 interface CreateMeasurementBulletinResponse {
@@ -172,9 +174,22 @@ export class CreateMeasurementBulletinUseCase {
     const inactiveDays = inactiveDates.size
     const workingDays = Math.max(0, totalDays - inactiveDays)
 
-    // Calculate daily rate based on billing cycle and rule
+    // Calculate rate and units based on billing cycle
     let dailyRate: number
+    let workingUnits: number = workingDays
+    let unitName: string = 'DAYS'
+
     switch (assetMovement.billing_cycle) {
+      case 'HOURLY':
+        dailyRate = Number(assetMovement.rental_value)
+        workingUnits = data.measured_quantity || 0
+        unitName = 'HOURS'
+        break
+      case 'PER_UNIT':
+        dailyRate = Number(assetMovement.rental_value)
+        workingUnits = data.measured_quantity || 0
+        unitName = 'SERVICE'
+        break
       case 'DAILY':
         dailyRate = Number(assetMovement.rental_value)
         break
@@ -189,15 +204,11 @@ export class CreateMeasurementBulletinUseCase {
         break
     }
 
-    // Fix calculation bug: calculate totalValue with exact dailyRate to prevent precision loss.
-    // Ensure the total value matches exactly without rounding errors.
-    const exactDailyRate = dailyRate
-
-    // totalValue strictly matches workingDays * exact dailyRate
-    const totalValue = exactDailyRate * workingDays
+    // totalValue strictly matches workingUnits * dailyRate
+    const totalValue = dailyRate * workingUnits
 
     // Round the dailyRate exactly like how it will be stored and shown to the user on PDF
-    dailyRate = Math.round(exactDailyRate * 100) / 100
+    const roundedRate = Math.round(dailyRate * 100) / 100
 
     const measurementBulletin =
       await this.measurementBulletinRepository.create({
@@ -208,8 +219,12 @@ export class CreateMeasurementBulletinUseCase {
         total_days: totalDays,
         inactive_days: inactiveDays,
         working_days: workingDays,
-        daily_rate: new Prisma.Decimal(dailyRate.toFixed(2)),
+        daily_rate: new Prisma.Decimal(roundedRate.toFixed(2)),
         total_value: new Prisma.Decimal(totalValue.toFixed(2)),
+        measured_quantity: data.measured_quantity
+          ? new Prisma.Decimal(data.measured_quantity.toFixed(2))
+          : null,
+        measurement_unit: unitName,
         notes: data.notes,
         current_horometer: data.current_horometer,
         current_odometer: data.current_odometer,

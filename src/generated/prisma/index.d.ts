@@ -174,7 +174,9 @@ export type ContractStatus = (typeof ContractStatus)[keyof typeof ContractStatus
 export const BillingCycle: {
   DAILY: 'DAILY',
   MONTHLY: 'MONTHLY',
-  WEEKLY: 'WEEKLY'
+  WEEKLY: 'WEEKLY',
+  HOURLY: 'HOURLY',
+  PER_UNIT: 'PER_UNIT'
 };
 
 export type BillingCycle = (typeof BillingCycle)[keyof typeof BillingCycle]
@@ -15951,6 +15953,7 @@ export namespace Prisma {
     working_days: number | null
     daily_rate: Decimal | null
     total_value: Decimal | null
+    measured_quantity: Decimal | null
     current_horometer: number | null
     current_odometer: number | null
   }
@@ -15961,6 +15964,7 @@ export namespace Prisma {
     working_days: number | null
     daily_rate: Decimal | null
     total_value: Decimal | null
+    measured_quantity: Decimal | null
     current_horometer: number | null
     current_odometer: number | null
   }
@@ -15976,6 +15980,8 @@ export namespace Prisma {
     working_days: number | null
     daily_rate: Decimal | null
     total_value: Decimal | null
+    measured_quantity: Decimal | null
+    measurement_unit: string | null
     current_horometer: number | null
     current_odometer: number | null
     status: $Enums.MeasurementBulletinStatus | null
@@ -15997,6 +16003,8 @@ export namespace Prisma {
     working_days: number | null
     daily_rate: Decimal | null
     total_value: Decimal | null
+    measured_quantity: Decimal | null
+    measurement_unit: string | null
     current_horometer: number | null
     current_odometer: number | null
     status: $Enums.MeasurementBulletinStatus | null
@@ -16018,6 +16026,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: number
     total_value: number
+    measured_quantity: number
+    measurement_unit: number
     current_horometer: number
     current_odometer: number
     status: number
@@ -16036,6 +16046,7 @@ export namespace Prisma {
     working_days?: true
     daily_rate?: true
     total_value?: true
+    measured_quantity?: true
     current_horometer?: true
     current_odometer?: true
   }
@@ -16046,6 +16057,7 @@ export namespace Prisma {
     working_days?: true
     daily_rate?: true
     total_value?: true
+    measured_quantity?: true
     current_horometer?: true
     current_odometer?: true
   }
@@ -16061,6 +16073,8 @@ export namespace Prisma {
     working_days?: true
     daily_rate?: true
     total_value?: true
+    measured_quantity?: true
+    measurement_unit?: true
     current_horometer?: true
     current_odometer?: true
     status?: true
@@ -16082,6 +16096,8 @@ export namespace Prisma {
     working_days?: true
     daily_rate?: true
     total_value?: true
+    measured_quantity?: true
+    measurement_unit?: true
     current_horometer?: true
     current_odometer?: true
     status?: true
@@ -16103,6 +16119,8 @@ export namespace Prisma {
     working_days?: true
     daily_rate?: true
     total_value?: true
+    measured_quantity?: true
+    measurement_unit?: true
     current_horometer?: true
     current_odometer?: true
     status?: true
@@ -16211,6 +16229,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal
     total_value: Decimal
+    measured_quantity: Decimal | null
+    measurement_unit: string | null
     current_horometer: number | null
     current_odometer: number | null
     status: $Enums.MeasurementBulletinStatus
@@ -16251,6 +16271,8 @@ export namespace Prisma {
     working_days?: boolean
     daily_rate?: boolean
     total_value?: boolean
+    measured_quantity?: boolean
+    measurement_unit?: boolean
     current_horometer?: boolean
     current_odometer?: boolean
     status?: boolean
@@ -16277,6 +16299,8 @@ export namespace Prisma {
     working_days?: boolean
     daily_rate?: boolean
     total_value?: boolean
+    measured_quantity?: boolean
+    measurement_unit?: boolean
     current_horometer?: boolean
     current_odometer?: boolean
     status?: boolean
@@ -16301,6 +16325,8 @@ export namespace Prisma {
     working_days?: boolean
     daily_rate?: boolean
     total_value?: boolean
+    measured_quantity?: boolean
+    measurement_unit?: boolean
     current_horometer?: boolean
     current_odometer?: boolean
     status?: boolean
@@ -16325,6 +16351,8 @@ export namespace Prisma {
     working_days?: boolean
     daily_rate?: boolean
     total_value?: boolean
+    measured_quantity?: boolean
+    measurement_unit?: boolean
     current_horometer?: boolean
     current_odometer?: boolean
     status?: boolean
@@ -16335,7 +16363,7 @@ export namespace Prisma {
     invoiceId?: boolean
   }
 
-  export type MeasurementBulletinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetMovementId" | "reference_start" | "reference_end" | "total_days" | "inactive_days" | "working_days" | "daily_rate" | "total_value" | "current_horometer" | "current_odometer" | "status" | "notes" | "is_active" | "created_at" | "updated_at" | "invoiceId", ExtArgs["result"]["measurementBulletin"]>
+  export type MeasurementBulletinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetMovementId" | "reference_start" | "reference_end" | "total_days" | "inactive_days" | "working_days" | "daily_rate" | "total_value" | "measured_quantity" | "measurement_unit" | "current_horometer" | "current_odometer" | "status" | "notes" | "is_active" | "created_at" | "updated_at" | "invoiceId", ExtArgs["result"]["measurementBulletin"]>
   export type MeasurementBulletinInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     expenses?: boolean | MeasurementBulletin$expensesArgs<ExtArgs>
     invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
@@ -16373,6 +16401,8 @@ export namespace Prisma {
       working_days: number
       daily_rate: Prisma.Decimal
       total_value: Prisma.Decimal
+      measured_quantity: Prisma.Decimal | null
+      measurement_unit: string | null
       current_horometer: number | null
       current_odometer: number | null
       status: $Enums.MeasurementBulletinStatus
@@ -16818,6 +16848,8 @@ export namespace Prisma {
     readonly working_days: FieldRef<"MeasurementBulletin", 'Int'>
     readonly daily_rate: FieldRef<"MeasurementBulletin", 'Decimal'>
     readonly total_value: FieldRef<"MeasurementBulletin", 'Decimal'>
+    readonly measured_quantity: FieldRef<"MeasurementBulletin", 'Decimal'>
+    readonly measurement_unit: FieldRef<"MeasurementBulletin", 'String'>
     readonly current_horometer: FieldRef<"MeasurementBulletin", 'Float'>
     readonly current_odometer: FieldRef<"MeasurementBulletin", 'Float'>
     readonly status: FieldRef<"MeasurementBulletin", 'MeasurementBulletinStatus'>
@@ -28410,6 +28442,8 @@ export namespace Prisma {
     working_days: 'working_days',
     daily_rate: 'daily_rate',
     total_value: 'total_value',
+    measured_quantity: 'measured_quantity',
+    measurement_unit: 'measurement_unit',
     current_horometer: 'current_horometer',
     current_odometer: 'current_odometer',
     status: 'status',
@@ -29956,6 +29990,8 @@ export namespace Prisma {
     working_days?: IntFilter<"MeasurementBulletin"> | number
     daily_rate?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    measured_quantity?: DecimalNullableFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: StringNullableFilter<"MeasurementBulletin"> | string | null
     current_horometer?: FloatNullableFilter<"MeasurementBulletin"> | number | null
     current_odometer?: FloatNullableFilter<"MeasurementBulletin"> | number | null
     status?: EnumMeasurementBulletinStatusFilter<"MeasurementBulletin"> | $Enums.MeasurementBulletinStatus
@@ -29981,6 +30017,8 @@ export namespace Prisma {
     working_days?: SortOrder
     daily_rate?: SortOrder
     total_value?: SortOrder
+    measured_quantity?: SortOrderInput | SortOrder
+    measurement_unit?: SortOrderInput | SortOrder
     current_horometer?: SortOrderInput | SortOrder
     current_odometer?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -30009,6 +30047,8 @@ export namespace Prisma {
     working_days?: IntFilter<"MeasurementBulletin"> | number
     daily_rate?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    measured_quantity?: DecimalNullableFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: StringNullableFilter<"MeasurementBulletin"> | string | null
     current_horometer?: FloatNullableFilter<"MeasurementBulletin"> | number | null
     current_odometer?: FloatNullableFilter<"MeasurementBulletin"> | number | null
     status?: EnumMeasurementBulletinStatusFilter<"MeasurementBulletin"> | $Enums.MeasurementBulletinStatus
@@ -30034,6 +30074,8 @@ export namespace Prisma {
     working_days?: SortOrder
     daily_rate?: SortOrder
     total_value?: SortOrder
+    measured_quantity?: SortOrderInput | SortOrder
+    measurement_unit?: SortOrderInput | SortOrder
     current_horometer?: SortOrderInput | SortOrder
     current_odometer?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -30063,6 +30105,8 @@ export namespace Prisma {
     working_days?: IntWithAggregatesFilter<"MeasurementBulletin"> | number
     daily_rate?: DecimalWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    measured_quantity?: DecimalNullableWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: StringNullableWithAggregatesFilter<"MeasurementBulletin"> | string | null
     current_horometer?: FloatNullableWithAggregatesFilter<"MeasurementBulletin"> | number | null
     current_odometer?: FloatNullableWithAggregatesFilter<"MeasurementBulletin"> | number | null
     status?: EnumMeasurementBulletinStatusWithAggregatesFilter<"MeasurementBulletin"> | $Enums.MeasurementBulletinStatus
@@ -32182,6 +32226,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -32206,6 +32252,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -32226,6 +32274,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -32250,6 +32300,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -32272,6 +32324,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -32291,6 +32345,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -32311,6 +32367,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -34460,6 +34518,8 @@ export namespace Prisma {
     working_days?: SortOrder
     daily_rate?: SortOrder
     total_value?: SortOrder
+    measured_quantity?: SortOrder
+    measurement_unit?: SortOrder
     current_horometer?: SortOrder
     current_odometer?: SortOrder
     status?: SortOrder
@@ -34476,6 +34536,7 @@ export namespace Prisma {
     working_days?: SortOrder
     daily_rate?: SortOrder
     total_value?: SortOrder
+    measured_quantity?: SortOrder
     current_horometer?: SortOrder
     current_odometer?: SortOrder
   }
@@ -34491,6 +34552,8 @@ export namespace Prisma {
     working_days?: SortOrder
     daily_rate?: SortOrder
     total_value?: SortOrder
+    measured_quantity?: SortOrder
+    measurement_unit?: SortOrder
     current_horometer?: SortOrder
     current_odometer?: SortOrder
     status?: SortOrder
@@ -34512,6 +34575,8 @@ export namespace Prisma {
     working_days?: SortOrder
     daily_rate?: SortOrder
     total_value?: SortOrder
+    measured_quantity?: SortOrder
+    measurement_unit?: SortOrder
     current_horometer?: SortOrder
     current_odometer?: SortOrder
     status?: SortOrder
@@ -34528,6 +34593,7 @@ export namespace Prisma {
     working_days?: SortOrder
     daily_rate?: SortOrder
     total_value?: SortOrder
+    measured_quantity?: SortOrder
     current_horometer?: SortOrder
     current_odometer?: SortOrder
   }
@@ -39403,6 +39469,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -39425,6 +39493,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -39614,6 +39684,8 @@ export namespace Prisma {
     working_days?: IntFilter<"MeasurementBulletin"> | number
     daily_rate?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    measured_quantity?: DecimalNullableFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: StringNullableFilter<"MeasurementBulletin"> | string | null
     current_horometer?: FloatNullableFilter<"MeasurementBulletin"> | number | null
     current_odometer?: FloatNullableFilter<"MeasurementBulletin"> | number | null
     status?: EnumMeasurementBulletinStatusFilter<"MeasurementBulletin"> | $Enums.MeasurementBulletinStatus
@@ -39808,6 +39880,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -39830,6 +39904,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -40366,6 +40442,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -40389,6 +40467,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -40434,6 +40514,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -40457,6 +40539,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -40492,6 +40576,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -40515,6 +40601,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -43176,6 +43264,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -43334,6 +43424,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -43356,6 +43448,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -43377,6 +43471,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -43397,6 +43493,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -43416,6 +43514,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -43438,6 +43538,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -43459,6 +43561,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -43520,6 +43624,8 @@ export namespace Prisma {
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
     current_horometer?: number | null
     current_odometer?: number | null
     status?: $Enums.MeasurementBulletinStatus
@@ -43538,6 +43644,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -43561,6 +43669,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
@@ -43582,6 +43692,8 @@ export namespace Prisma {
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
     current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus

@@ -248,6 +248,8 @@ model MeasurementBulletin {
   working_days    Int
   daily_rate      Decimal  @db.Decimal(10, 2)
   total_value     Decimal  @db.Decimal(10, 2)
+  measured_quantity Decimal? @db.Decimal(10, 2)
+  measurement_unit  String?  @default("DAYS")
 
   current_horometer Float?
   current_odometer  Float?
@@ -357,6 +359,8 @@ enum BillingCycle {
   DAILY
   MONTHLY
   WEEKLY
+  HOURLY
+  PER_UNIT
 }
 
 enum MeasurementBulletinStatus {

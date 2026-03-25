@@ -300,6 +300,8 @@ exports.Prisma.MeasurementBulletinScalarFieldEnum = {
   working_days: 'working_days',
   daily_rate: 'daily_rate',
   total_value: 'total_value',
+  measured_quantity: 'measured_quantity',
+  measurement_unit: 'measurement_unit',
   current_horometer: 'current_horometer',
   current_odometer: 'current_odometer',
   status: 'status',
@@ -496,7 +498,9 @@ exports.ContractStatus = exports.$Enums.ContractStatus = {
 exports.BillingCycle = exports.$Enums.BillingCycle = {
   DAILY: 'DAILY',
   MONTHLY: 'MONTHLY',
-  WEEKLY: 'WEEKLY'
+  WEEKLY: 'WEEKLY',
+  HOURLY: 'HOURLY',
+  PER_UNIT: 'PER_UNIT'
 };
 
 exports.MeasurementCalculationRule = exports.$Enums.MeasurementCalculationRule = {

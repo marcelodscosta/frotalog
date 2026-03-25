@@ -11,7 +11,7 @@ export async function updateBillingCycle(
   })
 
   const updateBodySchema = z.object({
-    billing_cycle: z.enum(['DAILY', 'WEEKLY', 'MONTHLY']),
+    billing_cycle: z.enum(['DAILY', 'WEEKLY', 'MONTHLY', 'HOURLY', 'PER_UNIT']),
   })
 
   const { id } = updateParamsSchema.parse(request.params)
