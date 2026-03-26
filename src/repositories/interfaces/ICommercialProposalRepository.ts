@@ -29,4 +29,6 @@ export interface ICommercialProposalRepository {
   updateStatus(id: string, status: ProposalStatus): Promise<CommercialProposal>
 
   getProposalWithDetails(id: string): Promise<CommercialProposal | null>
+
+  countAll(): Promise<number>
 }

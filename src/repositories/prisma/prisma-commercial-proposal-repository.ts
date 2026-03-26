@@ -196,4 +196,8 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
     })
     return proposal
   }
+
+  async countAll(): Promise<number> {
+    return await prisma.commercialProposal.count()
+  }
 }

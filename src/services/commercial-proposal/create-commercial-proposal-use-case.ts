@@ -45,10 +45,8 @@ export class CreateCommercialProposalUseCase {
       const startNumber = settings?.proposal_start_number || 1
       const currentYear = new Date().getFullYear()
       
-      const count = await this.proposalRepository.search({ page: 1 }) // Just to get total items? No, search returns totalItems.
-      // Wait, let's see if repo has a better way to count.
-      // Search result has totalItems.
-      const sequence = Math.max(count.totalItems + 1, startNumber).toString().padStart(4, '0')
+      const count = await this.proposalRepository.countAll()
+      const sequence = Math.max(count + 1, startNumber).toString().padStart(4, '0')
       proposal_number = `PROP-${currentYear}-${sequence}`
     }
 

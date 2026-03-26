@@ -1,9 +1,7 @@
-export class ProposalAlreadyExistsError extends Error {
-  public readonly statusCode: number
+import { AppError } from './app-error'
 
+export class ProposalAlreadyExistsError extends AppError {
   constructor() {
-    super('Commercial proposal with this number already exists')
-    this.name = 'ProposalAlreadyExistsError'
-    this.statusCode = 409
+    super('Já existe uma proposta comercial com este número.', 409)
   }
 }

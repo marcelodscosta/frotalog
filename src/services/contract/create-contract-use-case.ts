@@ -1,4 +1,4 @@
-import { Contract } from '../../generated/prisma'
+import { Contract, ContractStatus } from '../../generated/prisma'
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { ISupplierRepository } from '../../repositories/interfaces/ISupplierRepository'
 import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
@@ -6,6 +6,7 @@ import { ICompanySettingsRepository } from '../../repositories/interfaces/ICompa
 import { ClientNotFoundError } from '../errors/client-not-found-error'
 import { ContractAlreadyExistsError } from '../errors/contract-already-exist-error'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import { ProposalNotApprovedError } from '../errors/proposal-not-approved-error'
 
 interface CreateContractRequest {
   contract_number: string
@@ -23,6 +24,7 @@ interface CreateContractRequest {
   body_html?: string | null
   signed_contract_url?: string | null
   proposalId?: string | null
+  status?: ContractStatus
 }
 
 interface CreateContractResponse {
@@ -91,12 +93,17 @@ export class CreateContractUseCase {
       observations: data.observations,
       body_html: data.body_html,
       signed_contract_url: data.signed_contract_url,
+      status: data.status,
     })
 
     if (data.proposalId) {
       const proposal = await this.commercialProposalRepository.findById(data.proposalId)
       if (!proposal) {
         throw new ResourceNotFoundError()
+      }
+
+      if (proposal.status !== 'APPROVED') {
+        throw new ProposalNotApprovedError()
       }
 
       await this.commercialProposalRepository.updateProposal(data.proposalId, {

@@ -2,6 +2,7 @@ import { Contract } from '../../generated/prisma'
 import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import { ProposalNotApprovedError } from '../errors/proposal-not-approved-error'
 
 interface ConvertProposalToContractRequest {
   proposalId: string
@@ -24,6 +25,10 @@ export class ConvertProposalToContractUseCase {
 
     if (proposal.status === 'CONVERTED') {
        throw new Error('Esta proposta já foi convertida em contrato.')
+    }
+
+    if (proposal.status !== 'APPROVED') {
+       throw new ProposalNotApprovedError()
     }
 
     // 1. Preparar o corpo do contrato com substituições se necessário
