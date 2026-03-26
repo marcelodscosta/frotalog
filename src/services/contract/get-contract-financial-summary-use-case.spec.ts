@@ -22,6 +22,7 @@ describe('Get Contract Financial Summary Use Case', () => {
     })
 
     contractRepository.financialSummaryMockData = {
+      totalBulletinsValue: 10000,
       totalMaintenanceCost: 2000,
       totalOtherExpenses: 3000,
     }
@@ -31,7 +32,7 @@ describe('Get Contract Financial Summary Use Case', () => {
     })
 
     expect(financialSummary).toEqual(expect.objectContaining({
-      totalContractValue: 10000,
+      totalBulletinsValue: 10000,
       totalMaintenanceCost: 2000,
       totalOtherExpenses: 3000,
       balance: 5000, // 10000 - 2000 - 3000

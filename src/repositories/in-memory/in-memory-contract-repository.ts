@@ -21,6 +21,7 @@ export class InMemoryContractRepository implements IContractRepository {
       total_value: data.total_value != null ? new Prisma.Decimal(data.total_value.toString()) : null,
       billing_day: data.billing_day ?? null,
       notes: data.notes ?? null,
+      observations: data.observations ?? null,
       body_html: data.body_html ?? null,
       signed_contract_url: data.signed_contract_url ?? null,
       created_at: new Date(),
@@ -78,6 +79,12 @@ export class InMemoryContractRepository implements IContractRepository {
         typeof data.is_Active === 'boolean'
           ? data.is_Active
           : existing.is_Active,
+      observations:
+        data.observations !== undefined
+          ? typeof data.observations === 'string'
+            ? data.observations
+            : null
+          : existing.observations,
       body_html:
         data.body_html !== undefined
           ? typeof data.body_html === 'string'
@@ -238,9 +245,9 @@ export class InMemoryContractRepository implements IContractRepository {
     )
   }
 
-  public financialSummaryMockData: { totalMaintenanceCost: number; totalOtherExpenses: number } | null = null;
+  public financialSummaryMockData: { totalBulletinsValue: number; totalMaintenanceCost: number; totalOtherExpenses: number } | null = null;
 
-  async getFinancialSummary(contractId: string): Promise<{ totalMaintenanceCost: number; totalOtherExpenses: number } | null> {
+  async getFinancialSummary(contractId: string): Promise<{ totalBulletinsValue: number; totalMaintenanceCost: number; totalOtherExpenses: number } | null> {
     const contract = await this.findById(contractId)
     if (!contract) return null
     return this.financialSummaryMockData
