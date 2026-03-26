@@ -38,6 +38,7 @@ export interface IContractRepository {
   getFinancialSummary(contractId: string): Promise<{
     totalMaintenanceCost: number
     totalOtherExpenses: number
+    totalBulletinsValue: number
   } | null>
 
   countByYear(year: number): Promise<number>

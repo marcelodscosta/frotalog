@@ -25,9 +25,27 @@ export class PrismaContractRepository implements IContractRepository {
       where: { id },
       include: {
         client: true,
+        measurementBulletins: {
+          where: { is_active: true },
+          select: {
+            total_value: true,
+            expenses: {
+              select: { total_value: true }
+            }
+          }
+        },
+        maintenances: {
+          where: { 
+            status: { in: ['COMPLETED', 'IN_PROGRESS'] },
+            is_Active: true
+          },
+          select: { actual_cost: true }
+        }
       },
     })
-    return contract
+    
+    if (!contract) return null
+    return this.mapContractsWithTotalValue([contract])[0]
   }
 
   async deleteContract(id: string): Promise<Contract> {
@@ -49,6 +67,22 @@ export class PrismaContractRepository implements IContractRepository {
         take: PAGE_SIZE,
         include: {
           client: true,
+          measurementBulletins: {
+            where: { is_active: true },
+            select: {
+              total_value: true,
+              expenses: {
+                select: { total_value: true }
+              }
+            }
+          },
+          maintenances: {
+            where: { 
+              status: { in: ['COMPLETED', 'IN_PROGRESS'] },
+              is_Active: true
+            },
+            select: { actual_cost: true }
+          }
         },
         orderBy: { created_at: 'desc' },
       }),
@@ -58,7 +92,7 @@ export class PrismaContractRepository implements IContractRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: contracts,
+      items: this.mapContractsWithTotalValue(contracts),
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -67,11 +101,30 @@ export class PrismaContractRepository implements IContractRepository {
   }
 
   async findAllUnpaginated(): Promise<Contract[]> {
-    return await prisma.contract.findMany({
+    const contracts = await prisma.contract.findMany({
       where: { is_Active: true },
-      include: { client: true },
+      include: { 
+        client: true,
+        measurementBulletins: {
+          where: { is_active: true },
+          select: {
+            total_value: true,
+            expenses: {
+              select: { total_value: true }
+            }
+          }
+        },
+        maintenances: {
+          where: { 
+            status: { in: ['COMPLETED', 'IN_PROGRESS'] },
+            is_Active: true
+          },
+          select: { actual_cost: true }
+        }
+      },
       orderBy: { contract_number: 'asc' },
     })
+    return this.mapContractsWithTotalValue(contracts)
   }
 
   async findByClient(
@@ -96,7 +149,18 @@ export class PrismaContractRepository implements IContractRepository {
         where,
         skip,
         take: PAGE_SIZE,
-        include: { client: true },
+        include: { 
+          client: true,
+          measurementBulletins: {
+            where: { is_active: true },
+            select: {
+              total_value: true,
+              expenses: {
+                select: { total_value: true }
+              }
+            }
+          }
+        },
         orderBy: { created_at: 'desc' },
       }),
       prisma.contract.count({ where }),
@@ -105,7 +169,7 @@ export class PrismaContractRepository implements IContractRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: contracts,
+      items: this.mapContractsWithTotalValue(contracts),
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -168,7 +232,18 @@ export class PrismaContractRepository implements IContractRepository {
         where,
         skip,
         take: PAGE_SIZE,
-        include: { client: true },
+        include: { 
+          client: true,
+          measurementBulletins: {
+            where: { is_active: true },
+            select: {
+              total_value: true,
+              expenses: {
+                select: { total_value: true }
+              }
+            }
+          }
+        },
         orderBy: { created_at: 'desc' },
       }),
       prisma.contract.count({ where }),
@@ -177,7 +252,7 @@ export class PrismaContractRepository implements IContractRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: contracts,
+      items: this.mapContractsWithTotalValue(contracts),
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -213,9 +288,20 @@ export class PrismaContractRepository implements IContractRepository {
           },
           orderBy: { scheduled_date: 'desc' },
         },
+        measurementBulletins: {
+          where: { is_active: true },
+          select: {
+            total_value: true,
+            expenses: {
+              select: { total_value: true }
+            }
+          }
+        }
       },
     })
-    return contract
+    
+    if (!contract) return null
+    return this.mapContractsWithTotalValue([contract])[0]
   }
 
   async findActiveByAssetId(assetId: string): Promise<Contract | null> {
@@ -234,7 +320,11 @@ export class PrismaContractRepository implements IContractRepository {
     return contract
   }
 
-  async getFinancialSummary(contractId: string): Promise<{ totalMaintenanceCost: number; totalOtherExpenses: number } | null> {
+  async getFinancialSummary(contractId: string): Promise<{ 
+    totalMaintenanceCost: number; 
+    totalOtherExpenses: number;
+    totalBulletinsValue: number;
+  } | null> {
     const contract = await prisma.contract.findUnique({
       where: { id: contractId },
     })
@@ -270,9 +360,20 @@ export class PrismaContractRepository implements IContractRepository {
       return acc + (curr.actual_cost ? Number(curr.actual_cost) : 0)
     }, 0)
 
+    const bulletins = await prisma.measurementBulletin.findMany({
+        where: { contractId, is_active: true },
+        include: { expenses: true }
+    })
+
+    const totalBulletinsValue = bulletins.reduce((acc, bulletin) => {
+        const bulletinTotal = Number(bulletin.total_value) || 0
+        const expensesTotal = bulletin.expenses.reduce((eAcc, e) => eAcc + (Number(e.total_value) || 0), 0)
+        return acc + bulletinTotal + expensesTotal
+    }, 0)
+
     const totalOtherExpenses = 0
 
-    return { totalMaintenanceCost, totalOtherExpenses }
+    return { totalMaintenanceCost, totalOtherExpenses, totalBulletinsValue }
   }
 
   async countByYear(year: number): Promise<number> {
@@ -286,6 +387,29 @@ export class PrismaContractRepository implements IContractRepository {
           lt: endDate,
         },
       },
+    })
+  }
+
+  private mapContractsWithTotalValue(contracts: any[]): Contract[] {
+    return contracts.map((contract) => {
+      const bulletinTotal = contract.measurementBulletins?.reduce((acc: number, bulletin: any) => {
+        const bulletinVal = Number(bulletin.total_value) || 0
+        const expensesVal = bulletin.expenses?.reduce((eAcc: number, e: any) => eAcc + (Number(e.total_value) || 0), 0) || 0
+        return acc + bulletinVal + expensesVal
+      }, 0) || 0
+
+      const maintenanceTotal = contract.maintenances?.filter((m: any) => 
+        ['COMPLETED', 'IN_PROGRESS'].includes(m.status)
+      ).reduce((acc: number, maintenance: any) => {
+        return acc + (Number(maintenance.actual_cost) || 0)
+      }, 0) || 0
+
+      return {
+        ...contract,
+        total_value: new Prisma.Decimal(bulletinTotal.toFixed(2)),
+        total_maintenance_cost: maintenanceTotal,
+        balance: bulletinTotal - maintenanceTotal,
+      } as any
     })
   }
 }

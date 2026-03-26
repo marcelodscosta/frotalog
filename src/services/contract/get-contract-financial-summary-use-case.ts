@@ -7,9 +7,9 @@ export interface GetContractFinancialSummaryUseCaseRequest {
 
 export interface GetContractFinancialSummaryUseCaseResponse {
   financialSummary: {
-    totalContractValue: number
     totalMaintenanceCost: number
     totalOtherExpenses: number
+    totalBulletinsValue: number
     balance: number
   }
 }
@@ -35,10 +35,10 @@ export class GetContractFinancialSummaryUseCase {
 
     return {
       financialSummary: {
-        totalContractValue,
+        totalBulletinsValue: summary?.totalBulletinsValue || 0,
         totalMaintenanceCost,
         totalOtherExpenses,
-        balance,
+        balance: (summary?.totalBulletinsValue || 0) - (totalMaintenanceCost + totalOtherExpenses),
       },
     }
   }
