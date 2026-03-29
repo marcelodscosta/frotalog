@@ -1,5 +1,6 @@
 import { CommercialProposal } from '../../generated/prisma'
 import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
+import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 import { ProposalUsedByContractError } from '../errors/proposal-used-by-contract-error'
 
@@ -8,7 +9,10 @@ interface DeleteCommercialProposalRequest {
 }
 
 export class DeleteCommercialProposalUseCase {
-  constructor(private proposalRepository: ICommercialProposalRepository) {}
+  constructor(
+    private proposalRepository: ICommercialProposalRepository,
+    private contractRepository: IContractRepository,
+  ) {}
 
   async execute({ id }: DeleteCommercialProposalRequest): Promise<{ proposal: CommercialProposal }> {
     const proposal = await this.proposalRepository.findById(id)
@@ -18,7 +22,11 @@ export class DeleteCommercialProposalUseCase {
     }
 
     if (proposal.contractId) {
-      throw new ProposalUsedByContractError()
+      const contract = await this.contractRepository.findById(proposal.contractId)
+      
+      if (contract && contract.is_Active && contract.status !== 'CANCELLED') {
+        throw new ProposalUsedByContractError()
+      }
     }
 
     const deletedProposal = await this.proposalRepository.deleteProposal(id)
