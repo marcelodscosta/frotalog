@@ -10,7 +10,10 @@ export async function createChecklistController(
     checklistParameterId: z.string().uuid(),
     assetId: z.string().uuid(),
     type: z.enum(['MOBILIZATION', 'PERIODIC', 'DEMOBILIZATION']),
-    supplierId: z.string().uuid().optional(),
+    supplierId: z
+      .union([z.string().uuid(), z.literal('none'), z.literal(''), z.null()])
+      .optional()
+      .transform((v) => (v === 'none' || v === '' || v === null ? undefined : v)),
   })
 
   const data = bodySchema.parse(request.body)
