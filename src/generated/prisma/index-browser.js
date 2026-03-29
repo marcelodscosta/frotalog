@@ -448,6 +448,78 @@ exports.Prisma.ProposalItemScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.BankAccountScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  bank_name: 'bank_name',
+  agency: 'agency',
+  account_number: 'account_number',
+  balance: 'balance',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PayableExpenseScalarFieldEnum = {
+  id: 'id',
+  maintenanceId: 'maintenanceId',
+  supplierId: 'supplierId',
+  description: 'description',
+  total_value: 'total_value',
+  payment_method: 'payment_method',
+  status: 'status',
+  maintenance_approved_by: 'maintenance_approved_by',
+  maintenance_approved_at: 'maintenance_approved_at',
+  finance_approved_by: 'finance_approved_by',
+  finance_approved_at: 'finance_approved_at',
+  director_approved_by: 'director_approved_by',
+  director_approved_at: 'director_approved_at',
+  rejection_notes: 'rejection_notes',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ExpenseInstallmentScalarFieldEnum = {
+  id: 'id',
+  payableExpenseId: 'payableExpenseId',
+  installment_number: 'installment_number',
+  value: 'value',
+  due_date: 'due_date',
+  barcode: 'barcode',
+  pix_key: 'pix_key',
+  status: 'status',
+  payment_date: 'payment_date',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ExpenseDocumentScalarFieldEnum = {
+  id: 'id',
+  payableExpenseId: 'payableExpenseId',
+  filename: 'filename',
+  original_name: 'original_name',
+  file_path: 'file_path',
+  file_size: 'file_size',
+  mime_type: 'mime_type',
+  document_type: 'document_type',
+  description: 'description',
+  created_at: 'created_at'
+};
+
+exports.Prisma.FinancialTransactionScalarFieldEnum = {
+  id: 'id',
+  bankAccountId: 'bankAccountId',
+  type: 'type',
+  amount: 'amount',
+  date: 'date',
+  description: 'description',
+  expenseInstallmentId: 'expenseInstallmentId',
+  receipt_url: 'receipt_url',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -546,6 +618,38 @@ exports.ProposalStatus = exports.$Enums.ProposalStatus = {
   CONVERTED: 'CONVERTED'
 };
 
+exports.PaymentMethod = exports.$Enums.PaymentMethod = {
+  BOLETO: 'BOLETO',
+  PIX: 'PIX',
+  TRANSFERENCIA: 'TRANSFERENCIA',
+  CHEQUE: 'CHEQUE',
+  DINHEIRO: 'DINHEIRO',
+  CARTAO: 'CARTAO'
+};
+
+exports.PayableExpenseStatus = exports.$Enums.PayableExpenseStatus = {
+  PENDING_MAINTENANCE_APPROVAL: 'PENDING_MAINTENANCE_APPROVAL',
+  PENDING_FINANCE_APPROVAL: 'PENDING_FINANCE_APPROVAL',
+  PENDING_DIRECTOR_APPROVAL: 'PENDING_DIRECTOR_APPROVAL',
+  APPROVED: 'APPROVED',
+  PARTIALLY_PAID: 'PARTIALLY_PAID',
+  PAID: 'PAID',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.InstallmentStatus = exports.$Enums.InstallmentStatus = {
+  PENDING: 'PENDING',
+  SCHEDULED: 'SCHEDULED',
+  PAID: 'PAID',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.TransactionType = exports.$Enums.TransactionType = {
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   AssetCategory: 'AssetCategory',
@@ -566,7 +670,12 @@ exports.Prisma.ModelName = {
   Checklist: 'Checklist',
   ChecklistAnswer: 'ChecklistAnswer',
   CommercialProposal: 'CommercialProposal',
-  ProposalItem: 'ProposalItem'
+  ProposalItem: 'ProposalItem',
+  BankAccount: 'BankAccount',
+  PayableExpense: 'PayableExpense',
+  ExpenseInstallment: 'ExpenseInstallment',
+  ExpenseDocument: 'ExpenseDocument',
+  FinancialTransaction: 'FinancialTransaction'
 };
 
 /**

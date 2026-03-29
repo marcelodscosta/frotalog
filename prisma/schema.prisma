@@ -114,6 +114,7 @@ model Supplier {
   Maintenance         Maintenance[]
   Checklists          Checklist[]
   CommercialProposals CommercialProposal[]
+  PayableExpenses     PayableExpense[]
 
   @@map("suppliers")
 }
@@ -161,6 +162,7 @@ model Maintenance {
   contract           Contract?             @relation(fields: [contractId], references: [id])
   serviceCategory    ServiceCategory?      @relation(fields: [serviceCategoryId], references: [id])
   supplier           Supplier?             @relation(fields: [supplierId], references: [id])
+  payableExpenses    PayableExpense[]
 
   @@map("maintenances")
 }
@@ -532,4 +534,139 @@ enum ProposalStatus {
   REJECTED
   CANCELLED
   CONVERTED
+}
+
+// ===========================
+// Financial / Accounts Payable
+// ===========================
+
+model BankAccount {
+  id             String               @id @default(uuid())
+  name           String
+  bank_name      String?
+  agency         String?
+  account_number String?
+  balance        Decimal              @default(0) @db.Decimal(15, 2)
+  is_active      Boolean              @default(true)
+  created_at     DateTime             @default(now())
+  updated_at     DateTime             @updatedAt
+  transactions   FinancialTransaction[]
+
+  @@map("bank_accounts")
+}
+
+model PayableExpense {
+  id             String               @id @default(uuid())
+  maintenanceId  String
+  supplierId     String?
+  description    String
+  total_value    Decimal              @db.Decimal(15, 2)
+  payment_method PaymentMethod        @default(BOLETO)
+  status         PayableExpenseStatus @default(PENDING_MAINTENANCE_APPROVAL)
+
+  // Approval tracking
+  maintenance_approved_by  String?
+  maintenance_approved_at  DateTime?
+  finance_approved_by      String?
+  finance_approved_at      DateTime?
+  director_approved_by     String?
+  director_approved_at     DateTime?
+  rejection_notes          String?
+
+  is_active      Boolean              @default(true)
+  created_at     DateTime             @default(now())
+  updated_at     DateTime             @updatedAt
+
+  maintenance    Maintenance          @relation(fields: [maintenanceId], references: [id])
+  supplier       Supplier?            @relation(fields: [supplierId], references: [id])
+  installments   ExpenseInstallment[]
+  documents      ExpenseDocument[]
+
+  @@map("payable_expenses")
+}
+
+model ExpenseInstallment {
+  id                String               @id @default(uuid())
+  payableExpenseId  String
+  installment_number Int
+  value             Decimal              @db.Decimal(15, 2)
+  due_date          DateTime
+  barcode           String?
+  pix_key           String?
+  status            InstallmentStatus    @default(PENDING)
+  payment_date      DateTime?
+  created_at        DateTime             @default(now())
+  updated_at        DateTime             @updatedAt
+
+  payableExpense    PayableExpense        @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
+  transactions      FinancialTransaction[]
+
+  @@map("expense_installments")
+}
+
+model ExpenseDocument {
+  id               String        @id @default(uuid())
+  payableExpenseId String
+  filename         String
+  original_name    String
+  file_path        String
+  file_size        Int
+  mime_type        String
+  document_type    String?       // e.g. "BOLETO", "NOTA_FISCAL", "CONTRATO"
+  description      String?
+  created_at       DateTime      @default(now())
+
+  payableExpense   PayableExpense @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
+
+  @@map("expense_documents")
+}
+
+model FinancialTransaction {
+  id                   String              @id @default(uuid())
+  bankAccountId        String
+  type                 TransactionType
+  amount               Decimal             @db.Decimal(15, 2)
+  date                 DateTime
+  description          String?
+  expenseInstallmentId String?
+  receipt_url          String?
+  created_at           DateTime            @default(now())
+  updated_at           DateTime            @updatedAt
+
+  bankAccount          BankAccount         @relation(fields: [bankAccountId], references: [id])
+  expenseInstallment   ExpenseInstallment? @relation(fields: [expenseInstallmentId], references: [id])
+
+  @@map("financial_transactions")
+}
+
+enum PayableExpenseStatus {
+  PENDING_MAINTENANCE_APPROVAL
+  PENDING_FINANCE_APPROVAL
+  PENDING_DIRECTOR_APPROVAL
+  APPROVED
+  PARTIALLY_PAID
+  PAID
+  REJECTED
+  CANCELLED
+}
+
+enum InstallmentStatus {
+  PENDING
+  SCHEDULED
+  PAID
+  CANCELLED
+}
+
+enum PaymentMethod {
+  BOLETO
+  PIX
+  TRANSFERENCIA
+  CHEQUE
+  DINHEIRO
+  CARTAO
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
 }
