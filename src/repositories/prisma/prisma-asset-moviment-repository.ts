@@ -291,10 +291,41 @@ export class PrismaAssetMovementRepository implements IAssetMovementRepository {
       }),
     ])
 
+    // Filter maintenance records to only include those that occurred during the specific movement's period
+    const mappedItems = items.map(movement => {
+      const mobilizationDate = movement.integration_date || movement.mobilization_date
+
+      // If there's no mobilization/integration date, we probably shouldn't show maintenance
+      // but let's be conservative and just filter if we have dates
+      let filteredMaintenances = movement.asset.Maintenance
+
+      if (mobilizationDate) {
+        filteredMaintenances = filteredMaintenances.filter(m => {
+          if (!m.scheduled_date) return true
+
+          const mDate = new Date(m.scheduled_date)
+          const isAfterStart = mDate >= new Date(mobilizationDate)
+          const isBeforeEnd = movement.demobilization_date 
+            ? mDate <= new Date(movement.demobilization_date) 
+            : true
+
+          return isAfterStart && isBeforeEnd
+        })
+      }
+
+      return {
+        ...movement,
+        asset: {
+          ...movement.asset,
+          Maintenance: filteredMaintenances
+        }
+      }
+    })
+
     const totalPages = unpaginated ? 1 : Math.ceil(totalItems / this.PAGE_SIZE)
 
     return {
-      items,
+      items: mappedItems,
       currentPage: unpaginated ? 1 : page,
       pageSize: unpaginated ? totalItems : this.PAGE_SIZE,
       totalItems,
