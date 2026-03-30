@@ -18,6 +18,13 @@ export type MaintenanceWithRelations = Maintenance & {
       company_name: string;
     };
   } | null
+  payableExpenses: Array<{
+    id: string
+    status: string
+    installments: Array<{
+      status: string
+    }>
+  }>
 }
 
 interface FindScheduledOnlyParams {

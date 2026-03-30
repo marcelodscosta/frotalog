@@ -12,6 +12,35 @@ import {
 } from '../interfaces/IMaintenanceRepository'
 import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
+const MAINTENANCE_INCLUDE = {
+  asset: {
+    include: {
+      assetCategory: true,
+    },
+  },
+  contract: {
+    select: {
+      contract_number: true,
+      client: {
+        select: {
+          company_name: true,
+        },
+      },
+    },
+  },
+  supplier: true,
+  serviceCategory: true,
+  documents: true,
+  assigned_to: { select: { id: true, name: true } },
+  payableExpenses: {
+    include: {
+      installments: {
+        select: { status: true }
+      }
+    }
+  }
+} satisfies Prisma.MaintenanceInclude
+
 interface FindScheduledOnlyParams {
   startDate?: Date
   endDate?: Date
@@ -23,12 +52,12 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const maintenance = await prisma.maintenance.create({
       data: {
         ...data,
-        asset: { connect: { id: data.asset.connect?.id } },
-        supplier: data.supplier?.connect?.id 
-            ? { connect: { id: data.supplier.connect.id } } 
+        asset: { connect: { id: (data.asset as any).connect?.id } },
+        supplier: (data.supplier as any)?.connect?.id 
+            ? { connect: { id: (data.supplier as any).connect.id } } 
             : undefined,
-        serviceCategory: data.serviceCategory?.connect?.id
-          ? { connect: { id: data.serviceCategory.connect.id } }
+        serviceCategory: (data.serviceCategory as any)?.connect?.id
+          ? { connect: { id: (data.serviceCategory as any).connect.id } }
           : undefined,
       },
     })
@@ -79,19 +108,10 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const updateMaintenance = await prisma.maintenance.update({
       where: { id },
       data: updateData,
-      include: {
-        asset: {
-          include: {
-            assetCategory: true,
-          },
-        },
-        supplier: true,
-        serviceCategory: true,
-        assigned_to: { select: { id: true, name: true } },
-      },
+      include: MAINTENANCE_INCLUDE,
     })
 
-    return updateMaintenance
+    return updateMaintenance as any
   }
 
   async findById(id: string): Promise<MaintenanceWithRelations | null> {
@@ -100,25 +120,9 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         id,
         is_Active: true,
       },
-      include: {
-        asset: {
-          include: {
-            assetCategory: true,
-          },
-        },
-        contract: {
-          select: {
-            contract_number: true,
-            client: { select: { company_name: true } },
-          },
-        },
-        supplier: true,
-        serviceCategory: true,
-        documents: true,
-        assigned_to: { select: { id: true, name: true } },
-      },
+      include: MAINTENANCE_INCLUDE,
     })
-    return maintenance
+    return maintenance as MaintenanceWithRelations | null
   }
 
   async findByAssetId(
@@ -138,22 +142,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
-        include: {
-          asset: {
-            include: {
-              assetCategory: true,
-            },
-          },
-          contract: {
-            select: {
-              contract_number: true,
-              client: { select: { company_name: true } },
-            },
-          },
-          supplier: true,
-          serviceCategory: true,
-          assigned_to: { select: { id: true, name: true } },
-        },
+        include: MAINTENANCE_INCLUDE,
       }),
       prisma.maintenance.count({
         where: {
@@ -167,7 +156,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances,
+      items: maintenances as MaintenanceWithRelations[],
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -192,22 +181,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
-        include: {
-          asset: {
-            include: {
-              assetCategory: true,
-            },
-          },
-          contract: {
-            select: {
-              contract_number: true,
-              client: { select: { company_name: true } },
-            },
-          },
-          supplier: true,
-          serviceCategory: true,
-          assigned_to: { select: { id: true, name: true } },
-        },
+        include: MAINTENANCE_INCLUDE,
       }),
       prisma.maintenance.count({
         where: {
@@ -221,7 +195,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances,
+      items: maintenances as MaintenanceWithRelations[],
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -245,22 +219,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
-        include: {
-          asset: {
-            include: {
-              assetCategory: true,
-            },
-          },
-          contract: {
-            select: {
-              contract_number: true,
-              client: { select: { company_name: true } },
-            },
-          },
-          supplier: true,
-          serviceCategory: true,
-          assigned_to: { select: { id: true, name: true } },
-        },
+        include: MAINTENANCE_INCLUDE,
       }),
       prisma.maintenance.count({
         where: {
@@ -273,7 +232,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances,
+      items: maintenances as MaintenanceWithRelations[],
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -298,22 +257,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
-        include: {
-          asset: {
-            include: {
-              assetCategory: true,
-            },
-          },
-          contract: {
-            select: {
-              contract_number: true,
-              client: { select: { company_name: true } },
-            },
-          },
-          supplier: true,
-          serviceCategory: true,
-          assigned_to: { select: { id: true, name: true } },
-        },
+        include: MAINTENANCE_INCLUDE,
       }),
       prisma.maintenance.count({
         where: {
@@ -327,7 +271,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances,
+      items: maintenances as MaintenanceWithRelations[],
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -439,26 +383,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
-        include: {
-          asset: {
-            include: {
-              assetCategory: true,
-            },
-          },
-          contract: {
-            select: {
-              contract_number: true,
-              client: {
-                select: {
-                  company_name: true,
-                },
-              },
-            },
-          },
-          supplier: true,
-          serviceCategory: true,
-          assigned_to: { select: { id: true, name: true } },
-        },
+        include: MAINTENANCE_INCLUDE,
       }),
       prisma.maintenance.count({
         where,
@@ -529,22 +454,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'asc' },
-        include: {
-          asset: {
-            include: {
-              assetCategory: true,
-            },
-          },
-          contract: {
-            select: {
-              contract_number: true,
-              client: { select: { company_name: true } },
-            },
-          },
-          supplier: true,
-          serviceCategory: true,
-          assigned_to: { select: { id: true, name: true } },
-        },
+        include: MAINTENANCE_INCLUDE,
       }),
       prisma.maintenance.count({
         where: {
@@ -558,7 +468,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances,
+      items: maintenances as MaintenanceWithRelations[],
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -583,22 +493,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'asc' },
-        include: {
-          asset: {
-            include: {
-              assetCategory: true,
-            },
-          },
-          contract: {
-            select: {
-              contract_number: true,
-              client: { select: { company_name: true } },
-            },
-          },
-          supplier: true,
-          serviceCategory: true,
-          assigned_to: { select: { id: true, name: true } },
-        },
+        include: MAINTENANCE_INCLUDE,
       }),
       prisma.maintenance.count({
         where: {
@@ -612,7 +507,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances,
+      items: maintenances as MaintenanceWithRelations[],
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -806,22 +701,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
-        include: {
-          asset: {
-            include: {
-              assetCategory: true,
-            },
-          },
-          contract: {
-            select: {
-              contract_number: true,
-              client: { select: { company_name: true } },
-            },
-          },
-          supplier: true,
-          serviceCategory: true,
-          assigned_to: { select: { id: true, name: true } },
-        },
+        include: MAINTENANCE_INCLUDE,
       }),
       prisma.maintenance.count({
         where: {
@@ -839,7 +719,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances,
+      items: maintenances as MaintenanceWithRelations[],
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -868,22 +748,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
         skip,
         take: PAGE_SIZE,
         orderBy: { scheduled_date: 'desc' },
-        include: {
-          asset: {
-            include: {
-              assetCategory: true,
-            },
-          },
-          contract: {
-            select: {
-              contract_number: true,
-              client: { select: { company_name: true } },
-            },
-          },
-          supplier: true,
-          serviceCategory: true,
-          assigned_to: { select: { id: true, name: true } },
-        },
+        include: MAINTENANCE_INCLUDE,
       }),
       prisma.maintenance.count({
         where: {
@@ -901,7 +766,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
     return {
-      items: maintenances,
+      items: maintenances as MaintenanceWithRelations[],
       currentPage: page,
       pageSize: PAGE_SIZE,
       totalItems: totalCount,
@@ -947,16 +812,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
 
     const maintenances = await prisma.maintenance.findMany({
       where,
-      include: {
-        asset: {
-          include: {
-            assetCategory: true,
-          },
-        },
-        supplier: true,
-        serviceCategory: true,
-        assigned_to: { select: { id: true, name: true } },
-      },
+      include: MAINTENANCE_INCLUDE,
       orderBy: {
         scheduled_date: 'asc',
       },
