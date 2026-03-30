@@ -1,4 +1,4 @@
-import { ExpenseInstallment, PayableExpense, Prisma } from '../../generated/prisma'
+import { ExpenseDocument, ExpenseInstallment, PayableExpense, Prisma } from '../../generated/prisma'
 import { prisma } from '../../lib/prisma'
 import {
   CreateExpenseData,
@@ -11,6 +11,7 @@ const INCLUDE_RELATIONS = {
   supplier: { select: { company_name: true, trading_name: true } },
   installments: { orderBy: { installment_number: 'asc' } as const },
   documents: true,
+  maintenance: { select: { id: true, description: true } },
 }
 
 const PAGE_SIZE = 20
@@ -193,6 +194,41 @@ export class PrismaPayableExpenseRepository implements IPayableExpenseRepository
         scheduledBankAccountId: bankAccountId,
         ...(pix_key !== undefined && { pix_key }),
         ...(barcode !== undefined && { barcode }),
+      },
+    })
+  }
+
+  async findDocumentsByMaintenanceId(maintenanceId: string): Promise<ExpenseDocument[]> {
+    return prisma.expenseDocument.findMany({
+      where: {
+        payableExpense: {
+          maintenanceId,
+        },
+      },
+      orderBy: { created_at: 'desc' },
+    })
+  }
+
+  async createDocument(data: {
+    payableExpenseId: string
+    filename: string
+    original_name: string
+    file_path: string
+    file_size: number
+    mime_type: string
+    document_type?: string
+    description?: string
+  }): Promise<ExpenseDocument> {
+    return prisma.expenseDocument.create({
+      data: {
+        payableExpenseId: data.payableExpenseId,
+        filename: data.filename,
+        original_name: data.original_name,
+        file_path: data.file_path,
+        file_size: data.file_size,
+        mime_type: data.mime_type,
+        document_type: data.document_type || null,
+        description: data.description || null,
       },
     })
   }

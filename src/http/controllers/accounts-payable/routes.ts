@@ -19,6 +19,7 @@ import {
   getExpensesSummaryController,
   scheduleInstallmentController,
 } from './expense-controllers'
+import { createExpenseDocumentController } from './create-expense-document-controller'
 
 export async function accountsPayableRoutes(app: FastifyInstance) {
   app.addHook('preHandler', requireAuth())
@@ -36,6 +37,7 @@ export async function accountsPayableRoutes(app: FastifyInstance) {
   app.get('/expenses/summary', getExpensesSummaryController)
   app.get('/expenses/maintenance/:maintenanceId', listExpensesByMaintenanceController)
   app.patch('/expenses/:id', updateExpenseController)
+  app.post('/expenses/documents', createExpenseDocumentController)
 
   // Approval Flow
   app.get('/expenses/approvals/pending', listPendingApprovalsController)

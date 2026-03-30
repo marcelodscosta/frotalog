@@ -44,4 +44,15 @@ export interface IPayableExpenseRepository {
   findInstallmentById(id: string): Promise<ExpenseInstallment | null>
   updateInstallmentStatus(id: string, status: 'PENDING' | 'SCHEDULED' | 'PAID' | 'CANCELLED', payment_date?: Date): Promise<ExpenseInstallment>
   scheduleInstallment(id: string, bankAccountId: string | null, pix_key?: string | null, barcode?: string | null): Promise<ExpenseInstallment>
+  findDocumentsByMaintenanceId(maintenanceId: string): Promise<ExpenseDocument[]>
+  createDocument(data: {
+    payableExpenseId: string
+    filename: string
+    original_name: string
+    file_path: string
+    file_size: number
+    mime_type: string
+    document_type?: string
+    description?: string
+  }): Promise<ExpenseDocument>
 }
