@@ -669,7 +669,9 @@ exports.TransactionType = exports.$Enums.TransactionType = {
 
 exports.ChartOfAccountType = exports.$Enums.ChartOfAccountType = {
   REVENUE: 'REVENUE',
-  EXPENSE: 'EXPENSE'
+  EXPENSE: 'EXPENSE',
+  ASSET: 'ASSET',
+  LIABILITY: 'LIABILITY'
 };
 
 exports.Prisma.ModelName = {

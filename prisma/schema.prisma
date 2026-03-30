@@ -714,4 +714,6 @@ model ChartOfAccount {
 enum ChartOfAccountType {
   REVENUE
   EXPENSE
+  ASSET
+  LIABILITY
 }

@@ -7,7 +7,7 @@ export async function createChartOfAccountController(request: FastifyRequest, re
   const schema = z.object({
     code: z.string().min(1),
     name: z.string().min(1),
-    type: z.enum(['REVENUE', 'EXPENSE']),
+    type: z.enum(['REVENUE', 'EXPENSE', 'ASSET', 'LIABILITY']),
     parent_id: z.string().uuid().nullable().optional(),
   })
 
@@ -47,7 +47,7 @@ export async function updateChartOfAccountController(request: FastifyRequest, re
   const bodySchema = z.object({
     code: z.string().min(1).optional(),
     name: z.string().min(1).optional(),
-    type: z.enum(['REVENUE', 'EXPENSE']).optional(),
+    type: z.enum(['REVENUE', 'EXPENSE', 'ASSET', 'LIABILITY']).optional(),
     parent_id: z.string().uuid().nullable().optional(),
     is_active: z.boolean().optional(),
   })

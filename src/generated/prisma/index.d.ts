@@ -317,7 +317,9 @@ export type TransactionType = (typeof TransactionType)[keyof typeof TransactionT
 
 export const ChartOfAccountType: {
   REVENUE: 'REVENUE',
-  EXPENSE: 'EXPENSE'
+  EXPENSE: 'EXPENSE',
+  ASSET: 'ASSET',
+  LIABILITY: 'LIABILITY'
 };
 
 export type ChartOfAccountType = (typeof ChartOfAccountType)[keyof typeof ChartOfAccountType]
