@@ -5,6 +5,8 @@ import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 interface ScheduleInstallmentUseCaseRequest {
   installmentId: string
   bankAccountId: string | null
+  pix_key?: string | null
+  barcode?: string | null
 }
 
 interface ScheduleInstallmentUseCaseResponse {
@@ -17,6 +19,8 @@ export class ScheduleInstallmentUseCase {
   async execute({
     installmentId,
     bankAccountId,
+    pix_key,
+    barcode,
   }: ScheduleInstallmentUseCaseRequest): Promise<ScheduleInstallmentUseCaseResponse> {
     const installment = await this.payableExpenseRepository.findInstallmentById(installmentId)
 
@@ -30,7 +34,9 @@ export class ScheduleInstallmentUseCase {
 
     const updatedInstallment = await this.payableExpenseRepository.scheduleInstallment(
       installmentId,
-      bankAccountId
+      bankAccountId,
+      pix_key,
+      barcode
     )
 
     return {

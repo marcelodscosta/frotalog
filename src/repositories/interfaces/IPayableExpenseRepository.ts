@@ -43,5 +43,5 @@ export interface IPayableExpenseRepository {
   update(id: string, data: { description?: string, payment_method?: 'BOLETO' | 'PIX' | 'TRANSFERENCIA' | 'CHEQUE' | 'DINHEIRO' | 'CARTAO', supplierId?: string | null, contractId?: string | null, chartOfAccountId?: string | null }): Promise<PayableExpenseWithRelations>
   findInstallmentById(id: string): Promise<ExpenseInstallment | null>
   updateInstallmentStatus(id: string, status: 'PENDING' | 'SCHEDULED' | 'PAID' | 'CANCELLED', payment_date?: Date): Promise<ExpenseInstallment>
-  scheduleInstallment(id: string, bankAccountId: string | null): Promise<ExpenseInstallment>
+  scheduleInstallment(id: string, bankAccountId: string | null, pix_key?: string | null, barcode?: string | null): Promise<ExpenseInstallment>
 }

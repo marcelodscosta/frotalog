@@ -185,12 +185,14 @@ export class PrismaPayableExpenseRepository implements IPayableExpenseRepository
     })
   }
 
-  async scheduleInstallment(id: string, bankAccountId: string | null): Promise<ExpenseInstallment> {
+  async scheduleInstallment(id: string, bankAccountId: string | null, pix_key?: string | null, barcode?: string | null): Promise<ExpenseInstallment> {
     return prisma.expenseInstallment.update({
       where: { id },
       data: { 
         status: bankAccountId ? 'SCHEDULED' : 'PENDING',
-        scheduledBankAccountId: bankAccountId 
+        scheduledBankAccountId: bankAccountId,
+        ...(pix_key !== undefined && { pix_key }),
+        ...(barcode !== undefined && { barcode }),
       },
     })
   }

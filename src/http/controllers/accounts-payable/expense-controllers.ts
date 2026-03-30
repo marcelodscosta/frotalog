@@ -187,17 +187,21 @@ export async function payInstallmentController(request: FastifyRequest, reply: F
 export async function scheduleInstallmentController(request: FastifyRequest, reply: FastifyReply) {
   const paramsSchema = z.object({ id: z.string().uuid() })
   const bodySchema = z.object({
-    bankAccountId: z.string().uuid().nullable(),
+    bankAccountId: z.string().uuid().nullable().optional(),
+    pix_key: z.string().nullable().optional(),
+    barcode: z.string().nullable().optional(),
   })
 
   const { id } = paramsSchema.parse(request.params)
-  const { bankAccountId } = bodySchema.parse(request.body)
+  const data = bodySchema.parse(request.body)
 
   try {
     const useCase = makeScheduleInstallment()
     const { installment } = await useCase.execute({
       installmentId: id,
-      bankAccountId,
+      bankAccountId: data.bankAccountId !== undefined ? data.bankAccountId : null,
+      pix_key: data.pix_key,
+      barcode: data.barcode,
     })
     return reply.send({ installment })
   } catch (err: any) {
