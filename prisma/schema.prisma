@@ -206,7 +206,9 @@ model Contract {
   client               Supplier              @relation(fields: [clientId], references: [id])
   maintenances         Maintenance[]
   measurementBulletins MeasurementBulletin[]
-  CommercialProposal   CommercialProposal?
+  invoices             Invoice[]
+  payableExpenses      PayableExpense[]
+  proposals            CommercialProposal[]
 
   @@map("contracts")
 }
@@ -240,16 +242,16 @@ model AssetMovement {
 }
 
 model MeasurementBulletin {
-  id              String   @id @default(uuid())
-  contractId      String
-  assetMovementId String
-  reference_start DateTime
-  reference_end   DateTime
-  total_days      Int
-  inactive_days   Int
-  working_days    Int
-  daily_rate      Decimal  @db.Decimal(10, 2)
-  total_value     Decimal  @db.Decimal(10, 2)
+  id                String   @id @default(uuid())
+  contractId        String
+  assetMovementId   String
+  reference_start   DateTime
+  reference_end     DateTime
+  total_days        Int
+  inactive_days     Int
+  working_days      Int
+  daily_rate        Decimal  @db.Decimal(10, 2)
+  total_value       Decimal  @db.Decimal(10, 2)
   measured_quantity Decimal? @db.Decimal(10, 2)
   measurement_unit  String?  @default("DAYS")
 
@@ -271,19 +273,26 @@ model MeasurementBulletin {
 }
 
 model Invoice {
-  id                   String                @id @default(uuid())
-  invoice_number       String                @unique
-  issue_date           DateTime
-  due_date             DateTime
-  total_value          Decimal               @db.Decimal(10, 2)
-  is_paid              Boolean               @default(false)
-  payment_date         DateTime?
-  status               InvoiceStatus         @default(PENDING)
-  notes                String?
-  is_active            Boolean               @default(true)
-  created_at           DateTime              @default(now())
-  updated_at           DateTime              @updatedAt
+  id             String        @id @default(uuid())
+  invoice_number String?
+  total_value    Decimal       @db.Decimal(15, 2)
+  is_paid        Boolean       @default(false)
+  payment_date   DateTime?
+  issue_date     DateTime?
+  due_date       DateTime
+  notes          String?
+  status         InvoiceStatus @default(PENDING)
+  is_active      Boolean       @default(true)
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+
+  contractId       String?
+  chartOfAccountId String?
+
   measurementBulletins MeasurementBulletin[]
+  contract             Contract?              @relation(fields: [contractId], references: [id])
+  chartOfAccount       ChartOfAccount?        @relation(fields: [chartOfAccountId], references: [id])
+  transactions         FinancialTransaction[]
 
   @@map("invoices")
 }
@@ -303,23 +312,23 @@ model BulletinExpense {
 }
 
 model CompanySettings {
-  id                   String               @id @default(uuid())
-  company_name         String
-  trading_name         String?
-  cnpj                 String?
-  address              String?
-  city                 String?
-  state                String?
-  zip_code             String?
-  phone                String?
-  email                String?
-  logo_url             String?
+  id                    String               @id @default(uuid())
+  company_name          String
+  trading_name          String?
+  cnpj                  String?
+  address               String?
+  city                  String?
+  state                 String?
+  zip_code              String?
+  phone                 String?
+  email                 String?
+  logo_url              String?
   invoice_start_number  Int                  @default(1)
   proposal_start_number Int                  @default(1)
   contract_start_number Int                  @default(1)
-  created_at           DateTime             @default(now())
-  updated_at           DateTime             @updatedAt
-  CommercialProposals  CommercialProposal[]
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @updatedAt
+  CommercialProposals   CommercialProposal[]
 
   @@map("company_settings")
 }
@@ -483,7 +492,7 @@ model CommercialProposal {
   payment_conditions   String?
   rental_period        String?
   technical_notes      String?
-  observations         String?               @db.Text
+  observations         String?  @db.Text
   validity_days        Int      @default(5)
 
   body_html String? @db.Text
@@ -541,23 +550,25 @@ enum ProposalStatus {
 // ===========================
 
 model BankAccount {
-  id             String               @id @default(uuid())
-  name           String
-  bank_name      String?
-  agency         String?
-  account_number String?
-  balance        Decimal              @default(0) @db.Decimal(15, 2)
-  is_active      Boolean              @default(true)
-  created_at     DateTime             @default(now())
-  updated_at     DateTime             @updatedAt
-  transactions   FinancialTransaction[]
+  id                    String                 @id @default(uuid())
+  name                  String
+  bank_name             String?
+  agency                String?
+  account_number        String?
+  balance               Decimal                @default(0) @db.Decimal(15, 2)
+  is_active             Boolean                @default(true)
+  created_at            DateTime               @default(now())
+  updated_at            DateTime               @updatedAt
+  transactions          FinancialTransaction[]
+  scheduledInstallments ExpenseInstallment[]   @relation("ScheduledAccount")
 
   @@map("bank_accounts")
 }
 
 model PayableExpense {
   id             String               @id @default(uuid())
-  maintenanceId  String
+  maintenanceId  String?
+  contractId     String?
   supplierId     String?
   description    String
   total_value    Decimal              @db.Decimal(15, 2)
@@ -565,20 +576,23 @@ model PayableExpense {
   status         PayableExpenseStatus @default(PENDING_MAINTENANCE_APPROVAL)
 
   // Approval tracking
-  maintenance_approved_by  String?
-  maintenance_approved_at  DateTime?
-  finance_approved_by      String?
-  finance_approved_at      DateTime?
-  director_approved_by     String?
-  director_approved_at     DateTime?
-  rejection_notes          String?
+  maintenance_approved_by String?
+  maintenance_approved_at DateTime?
+  finance_approved_by     String?
+  finance_approved_at     DateTime?
+  director_approved_by    String?
+  director_approved_at    DateTime?
+  rejection_notes         String?
 
-  is_active      Boolean              @default(true)
-  created_at     DateTime             @default(now())
-  updated_at     DateTime             @updatedAt
+  is_active        Boolean  @default(true)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  chartOfAccountId String?
 
-  maintenance    Maintenance          @relation(fields: [maintenanceId], references: [id])
+  maintenance    Maintenance?         @relation(fields: [maintenanceId], references: [id])
+  contract       Contract?            @relation(fields: [contractId], references: [id])
   supplier       Supplier?            @relation(fields: [supplierId], references: [id])
+  chartOfAccount ChartOfAccount?      @relation(fields: [chartOfAccountId], references: [id])
   installments   ExpenseInstallment[]
   documents      ExpenseDocument[]
 
@@ -586,55 +600,59 @@ model PayableExpense {
 }
 
 model ExpenseInstallment {
-  id                String               @id @default(uuid())
-  payableExpenseId  String
-  installment_number Int
-  value             Decimal              @db.Decimal(15, 2)
-  due_date          DateTime
-  barcode           String?
-  pix_key           String?
-  status            InstallmentStatus    @default(PENDING)
-  payment_date      DateTime?
-  created_at        DateTime             @default(now())
-  updated_at        DateTime             @updatedAt
+  id                     String            @id @default(uuid())
+  payableExpenseId       String
+  installment_number     Int
+  value                  Decimal           @db.Decimal(15, 2)
+  due_date               DateTime
+  barcode                String?
+  pix_key                String?
+  status                 InstallmentStatus @default(PENDING)
+  payment_date           DateTime?
+  created_at             DateTime          @default(now())
+  updated_at             DateTime          @updatedAt
+  scheduledBankAccountId String?
 
-  payableExpense    PayableExpense        @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
-  transactions      FinancialTransaction[]
+  payableExpense       PayableExpense         @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
+  transactions         FinancialTransaction[]
+  scheduledBankAccount BankAccount?           @relation("ScheduledAccount", fields: [scheduledBankAccountId], references: [id])
 
   @@map("expense_installments")
 }
 
 model ExpenseDocument {
-  id               String        @id @default(uuid())
+  id               String   @id @default(uuid())
   payableExpenseId String
   filename         String
   original_name    String
   file_path        String
   file_size        Int
   mime_type        String
-  document_type    String?       // e.g. "BOLETO", "NOTA_FISCAL", "CONTRATO"
+  document_type    String? // e.g. "BOLETO", "NOTA_FISCAL", "CONTRATO"
   description      String?
-  created_at       DateTime      @default(now())
+  created_at       DateTime @default(now())
 
-  payableExpense   PayableExpense @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
+  payableExpense PayableExpense @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
 
   @@map("expense_documents")
 }
 
 model FinancialTransaction {
-  id                   String              @id @default(uuid())
+  id                   String          @id @default(uuid())
   bankAccountId        String
   type                 TransactionType
-  amount               Decimal             @db.Decimal(15, 2)
+  amount               Decimal         @db.Decimal(15, 2)
   date                 DateTime
   description          String?
   expenseInstallmentId String?
+  invoiceId            String?
   receipt_url          String?
-  created_at           DateTime            @default(now())
-  updated_at           DateTime            @updatedAt
+  created_at           DateTime        @default(now())
+  updated_at           DateTime        @updatedAt
 
-  bankAccount          BankAccount         @relation(fields: [bankAccountId], references: [id])
-  expenseInstallment   ExpenseInstallment? @relation(fields: [expenseInstallmentId], references: [id])
+  bankAccount        BankAccount         @relation(fields: [bankAccountId], references: [id])
+  expenseInstallment ExpenseInstallment? @relation(fields: [expenseInstallmentId], references: [id])
+  invoice            Invoice?            @relation(fields: [invoiceId], references: [id])
 
   @@map("financial_transactions")
 }
@@ -668,5 +686,32 @@ enum PaymentMethod {
 
 enum TransactionType {
   INCOME
+  EXPENSE
+}
+
+// ===========================
+// Chart of Accounts
+// ===========================
+
+model ChartOfAccount {
+  id         String             @id @default(uuid())
+  code       String             @unique
+  name       String
+  type       ChartOfAccountType
+  parent_id  String?
+  is_active  Boolean            @default(true)
+  created_at DateTime           @default(now())
+  updated_at DateTime           @updatedAt
+
+  parent   ChartOfAccount?  @relation("ChartOfAccountHierarchy", fields: [parent_id], references: [id])
+  children ChartOfAccount[] @relation("ChartOfAccountHierarchy")
+  expenses PayableExpense[]
+  invoices Invoice[]
+
+  @@map("chart_of_accounts")
+}
+
+enum ChartOfAccountType {
+  REVENUE
   EXPENSE
 }

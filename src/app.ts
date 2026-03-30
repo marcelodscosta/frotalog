@@ -25,6 +25,7 @@ import { checklistRoutes } from './http/controllers/checklist/routes'
 import { uploadRoutes } from './http/controllers/upload/routes'
 import { commercialProposalRoutes } from './http/controllers/commercial-proposal/routes'
 import { accountsPayableRoutes } from './http/controllers/accounts-payable/routes'
+import { financeRoutes } from './http/controllers/finance/routes'
 
 export const app = fastify({
   logger:
@@ -88,6 +89,7 @@ app.register(checklistRoutes)
 app.register(uploadRoutes)
 app.register(commercialProposalRoutes)
 app.register(accountsPayableRoutes)
+app.register(financeRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   const requestId = request.id

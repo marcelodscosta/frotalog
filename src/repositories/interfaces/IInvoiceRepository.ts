@@ -10,11 +10,27 @@ export interface IInvoiceRepository {
     status?: InvoiceStatus
     contractId?: string
     assetId?: string
+    month?: number
+    year?: number
+    search?: string
   }): Promise<PaginatedResult<Invoice>>
+  getSummary(month: number, year: number): Promise<{
+    overdue: number
+    due_today: number
+    upcoming: number
+    paid: number
+    total: number
+  }>
   findByStatus(
     status: InvoiceStatus,
     page: number,
   ): Promise<PaginatedResult<Invoice>>
+  receive(id: string, data: {
+    payment_date: Date
+    bankAccountId: string
+    chartOfAccountId?: string
+    amount: number
+  }): Promise<Invoice>
   update(id: string, data: Prisma.InvoiceUpdateInput): Promise<Invoice>
   delete(id: string): Promise<Invoice>
   findByIdWithDetails(id: string): Promise<Invoice | null>

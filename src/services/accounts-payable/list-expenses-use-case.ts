@@ -3,6 +3,7 @@ import { PayableExpenseWithRelations, IPayableExpenseRepository } from '../../re
 interface ListExpensesRequest {
   page: number
   status?: string
+  filters?: { month?: number; year?: number; search?: string }
 }
 
 interface ListExpensesResponse {
@@ -14,7 +15,7 @@ export class ListExpensesUseCase {
   constructor(private payableExpenseRepository: IPayableExpenseRepository) {}
 
   async execute(data: ListExpensesRequest): Promise<ListExpensesResponse> {
-    const { data: expenses, total } = await this.payableExpenseRepository.findAll(data.page, data.status)
+    const { data: expenses, total } = await this.payableExpenseRepository.findAll(data.page, data.status, data.filters)
     return { expenses, total }
   }
 }

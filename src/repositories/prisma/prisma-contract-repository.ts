@@ -28,18 +28,18 @@ export class PrismaContractRepository implements IContractRepository {
         measurementBulletins: {
           where: { is_active: true },
           select: {
-            total_value: true,
-            expenses: {
-              select: { total_value: true }
+            invoice: {
+              select: { id: true, total_value: true, is_active: true, status: true }
             }
           }
         },
         maintenances: {
-          where: { 
-            status: { in: ['COMPLETED', 'IN_PROGRESS'] },
-            is_Active: true
-          },
-          select: { actual_cost: true }
+          where: { is_Active: true },
+          select: { 
+            payableExpenses: {
+              select: { total_value: true, is_active: true, status: true }
+            }
+          }
         }
       },
     })
@@ -70,18 +70,18 @@ export class PrismaContractRepository implements IContractRepository {
           measurementBulletins: {
             where: { is_active: true },
             select: {
-              total_value: true,
-              expenses: {
-                select: { total_value: true }
+              invoice: {
+                select: { id: true, total_value: true, is_active: true, status: true }
               }
             }
           },
           maintenances: {
-            where: { 
-              status: { in: ['COMPLETED', 'IN_PROGRESS'] },
-              is_Active: true
-            },
-            select: { actual_cost: true }
+            where: { is_Active: true },
+            select: { 
+              payableExpenses: {
+                select: { total_value: true, is_active: true, status: true }
+              }
+            }
           }
         },
         orderBy: { created_at: 'desc' },
@@ -108,18 +108,18 @@ export class PrismaContractRepository implements IContractRepository {
         measurementBulletins: {
           where: { is_active: true },
           select: {
-            total_value: true,
-            expenses: {
-              select: { total_value: true }
+            invoice: {
+              select: { id: true, total_value: true, is_active: true, status: true }
             }
           }
         },
         maintenances: {
-          where: { 
-            status: { in: ['COMPLETED', 'IN_PROGRESS'] },
-            is_Active: true
-          },
-          select: { actual_cost: true }
+          where: { is_Active: true },
+          select: { 
+            payableExpenses: {
+              select: { total_value: true, is_active: true, status: true }
+            }
+          }
         }
       },
       orderBy: { contract_number: 'asc' },
@@ -154,9 +154,16 @@ export class PrismaContractRepository implements IContractRepository {
           measurementBulletins: {
             where: { is_active: true },
             select: {
-              total_value: true,
-              expenses: {
-                select: { total_value: true }
+              invoice: {
+                select: { id: true, total_value: true, is_active: true, status: true }
+              }
+            }
+          },
+          maintenances: {
+            where: { is_Active: true },
+            select: { 
+              payableExpenses: {
+                select: { total_value: true, is_active: true, status: true }
               }
             }
           }
@@ -285,15 +292,17 @@ export class PrismaContractRepository implements IContractRepository {
           include: {
             serviceCategory: true,
             supplier: true,
+            payableExpenses: {
+              select: { total_value: true, is_active: true, status: true }
+            }
           },
           orderBy: { scheduled_date: 'desc' },
         },
         measurementBulletins: {
           where: { is_active: true },
           select: {
-            total_value: true,
-            expenses: {
-              select: { total_value: true }
+            invoice: {
+              select: { id: true, total_value: true, is_active: true, status: true }
             }
           }
         }
@@ -354,22 +363,37 @@ export class PrismaContractRepository implements IContractRepository {
           },
         ],
       },
+      include: {
+        payableExpenses: {
+           select: { total_value: true, is_active: true, status: true }
+        }
+      }
     })
 
     const totalMaintenanceCost = maintenances.reduce((acc, curr) => {
-      return acc + (curr.actual_cost ? Number(curr.actual_cost) : 0)
+      const expensesTotal = curr.payableExpenses?.reduce((eAcc: number, expense: any) => {
+         if (expense.is_active && expense.status !== 'CANCELLED' && expense.status !== 'REJECTED') {
+            return eAcc + (Number(expense.total_value) || 0)
+         }
+         return eAcc
+      }, 0) || 0
+      return acc + expensesTotal
     }, 0)
 
     const bulletins = await prisma.measurementBulletin.findMany({
         where: { contractId, is_active: true },
-        include: { expenses: true }
+        include: { invoice: true }
     })
 
-    const totalBulletinsValue = bulletins.reduce((acc, bulletin) => {
-        const bulletinTotal = Number(bulletin.total_value) || 0
-        const expensesTotal = bulletin.expenses.reduce((eAcc, e) => eAcc + (Number(e.total_value) || 0), 0)
-        return acc + bulletinTotal + expensesTotal
-    }, 0)
+    const invoicesMap = new Map<string, number>()
+    bulletins.forEach((bulletin) => {
+        if (bulletin.invoice && bulletin.invoice.is_active && bulletin.invoice.status !== 'CANCELLED') {
+           invoicesMap.set(bulletin.invoice.id, Number(bulletin.invoice.total_value) || 0)
+        }
+    })
+    
+    let totalBulletinsValue = 0
+    invoicesMap.forEach((val) => totalBulletinsValue += val)
 
     const totalOtherExpenses = 0
 
@@ -392,23 +416,31 @@ export class PrismaContractRepository implements IContractRepository {
 
   private mapContractsWithTotalValue(contracts: any[]): Contract[] {
     return contracts.map((contract) => {
-      const bulletinTotal = contract.measurementBulletins?.reduce((acc: number, bulletin: any) => {
-        const bulletinVal = Number(bulletin.total_value) || 0
-        const expensesVal = bulletin.expenses?.reduce((eAcc: number, e: any) => eAcc + (Number(e.total_value) || 0), 0) || 0
-        return acc + bulletinVal + expensesVal
-      }, 0) || 0
+      // 1. Sum up unique Invoices from measurementBulletins
+      const invoicesMap = new Map<string, number>()
+      contract.measurementBulletins?.forEach((bulletin: any) => {
+        if (bulletin.invoice && bulletin.invoice.is_active && bulletin.invoice.status !== 'CANCELLED') {
+           invoicesMap.set(bulletin.invoice.id, Number(bulletin.invoice.total_value) || 0)
+        }
+      })
+      let invoicesTotal = 0
+      invoicesMap.forEach((val) => invoicesTotal += val)
 
-      const maintenanceTotal = contract.maintenances?.filter((m: any) => 
-        ['COMPLETED', 'IN_PROGRESS'].includes(m.status)
-      ).reduce((acc: number, maintenance: any) => {
-        return acc + (Number(maintenance.actual_cost) || 0)
-      }, 0) || 0
+      // 2. Sum up PayableExpenses from maintenances
+      let expensesTotal = 0
+      contract.maintenances?.forEach((maintenance: any) => {
+         maintenance.payableExpenses?.forEach((expense: any) => {
+            if (expense.is_active && expense.status !== 'CANCELLED' && expense.status !== 'REJECTED') {
+               expensesTotal += Number(expense.total_value) || 0
+            }
+         })
+      })
 
       return {
         ...contract,
-        total_value: new Prisma.Decimal(bulletinTotal.toFixed(2)),
-        total_maintenance_cost: maintenanceTotal,
-        balance: bulletinTotal - maintenanceTotal,
+        total_measured_value: invoicesTotal,
+        total_maintenance_cost: expensesTotal,
+        balance: invoicesTotal - expensesTotal,
       } as any
     })
   }

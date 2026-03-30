@@ -206,7 +206,9 @@ model Contract {
   client               Supplier              @relation(fields: [clientId], references: [id])
   maintenances         Maintenance[]
   measurementBulletins MeasurementBulletin[]
-  CommercialProposal   CommercialProposal?
+  invoices             Invoice[]
+  payableExpenses      PayableExpense[]
+  proposals            CommercialProposal[]
 
   @@map("contracts")
 }
@@ -271,19 +273,26 @@ model MeasurementBulletin {
 }
 
 model Invoice {
-  id                   String                @id @default(uuid())
-  invoice_number       String                @unique
-  issue_date           DateTime
-  due_date             DateTime
-  total_value          Decimal               @db.Decimal(10, 2)
-  is_paid              Boolean               @default(false)
-  payment_date         DateTime?
-  status               InvoiceStatus         @default(PENDING)
-  notes                String?
-  is_active            Boolean               @default(true)
-  created_at           DateTime              @default(now())
-  updated_at           DateTime              @updatedAt
+  id             String        @id @default(uuid())
+  invoice_number String?
+  total_value    Decimal       @db.Decimal(15, 2)
+  is_paid        Boolean       @default(false)
+  payment_date   DateTime?
+  issue_date     DateTime?
+  due_date       DateTime
+  notes          String?
+  status         InvoiceStatus @default(PENDING)
+  is_active      Boolean       @default(true)
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+
+  contractId       String?
+  chartOfAccountId String?
+
   measurementBulletins MeasurementBulletin[]
+  contract             Contract?              @relation(fields: [contractId], references: [id])
+  chartOfAccount       ChartOfAccount?        @relation(fields: [chartOfAccountId], references: [id])
+  transactions         FinancialTransaction[]
 
   @@map("invoices")
 }
@@ -541,23 +550,25 @@ enum ProposalStatus {
 // ===========================
 
 model BankAccount {
-  id             String                 @id @default(uuid())
-  name           String
-  bank_name      String?
-  agency         String?
-  account_number String?
-  balance        Decimal                @default(0) @db.Decimal(15, 2)
-  is_active      Boolean                @default(true)
-  created_at     DateTime               @default(now())
-  updated_at     DateTime               @updatedAt
-  transactions   FinancialTransaction[]
+  id                    String                 @id @default(uuid())
+  name                  String
+  bank_name             String?
+  agency                String?
+  account_number        String?
+  balance               Decimal                @default(0) @db.Decimal(15, 2)
+  is_active             Boolean                @default(true)
+  created_at            DateTime               @default(now())
+  updated_at            DateTime               @updatedAt
+  transactions          FinancialTransaction[]
+  scheduledInstallments ExpenseInstallment[]   @relation("ScheduledAccount")
 
   @@map("bank_accounts")
 }
 
 model PayableExpense {
   id             String               @id @default(uuid())
-  maintenanceId  String
+  maintenanceId  String?
+  contractId     String?
   supplierId     String?
   description    String
   total_value    Decimal              @db.Decimal(15, 2)
@@ -573,33 +584,38 @@ model PayableExpense {
   director_approved_at    DateTime?
   rejection_notes         String?
 
-  is_active  Boolean  @default(true)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  is_active        Boolean  @default(true)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  chartOfAccountId String?
 
-  maintenance  Maintenance          @relation(fields: [maintenanceId], references: [id])
-  supplier     Supplier?            @relation(fields: [supplierId], references: [id])
-  installments ExpenseInstallment[]
-  documents    ExpenseDocument[]
+  maintenance    Maintenance?         @relation(fields: [maintenanceId], references: [id])
+  contract       Contract?            @relation(fields: [contractId], references: [id])
+  supplier       Supplier?            @relation(fields: [supplierId], references: [id])
+  chartOfAccount ChartOfAccount?      @relation(fields: [chartOfAccountId], references: [id])
+  installments   ExpenseInstallment[]
+  documents      ExpenseDocument[]
 
   @@map("payable_expenses")
 }
 
 model ExpenseInstallment {
-  id                 String            @id @default(uuid())
-  payableExpenseId   String
-  installment_number Int
-  value              Decimal           @db.Decimal(15, 2)
-  due_date           DateTime
-  barcode            String?
-  pix_key            String?
-  status             InstallmentStatus @default(PENDING)
-  payment_date       DateTime?
-  created_at         DateTime          @default(now())
-  updated_at         DateTime          @updatedAt
+  id                     String            @id @default(uuid())
+  payableExpenseId       String
+  installment_number     Int
+  value                  Decimal           @db.Decimal(15, 2)
+  due_date               DateTime
+  barcode                String?
+  pix_key                String?
+  status                 InstallmentStatus @default(PENDING)
+  payment_date           DateTime?
+  created_at             DateTime          @default(now())
+  updated_at             DateTime          @updatedAt
+  scheduledBankAccountId String?
 
-  payableExpense PayableExpense         @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
-  transactions   FinancialTransaction[]
+  payableExpense       PayableExpense         @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
+  transactions         FinancialTransaction[]
+  scheduledBankAccount BankAccount?           @relation("ScheduledAccount", fields: [scheduledBankAccountId], references: [id])
 
   @@map("expense_installments")
 }
@@ -629,12 +645,14 @@ model FinancialTransaction {
   date                 DateTime
   description          String?
   expenseInstallmentId String?
+  invoiceId            String?
   receipt_url          String?
   created_at           DateTime        @default(now())
   updated_at           DateTime        @updatedAt
 
   bankAccount        BankAccount         @relation(fields: [bankAccountId], references: [id])
   expenseInstallment ExpenseInstallment? @relation(fields: [expenseInstallmentId], references: [id])
+  invoice            Invoice?            @relation(fields: [invoiceId], references: [id])
 
   @@map("financial_transactions")
 }
@@ -668,5 +686,32 @@ enum PaymentMethod {
 
 enum TransactionType {
   INCOME
+  EXPENSE
+}
+
+// ===========================
+// Chart of Accounts
+// ===========================
+
+model ChartOfAccount {
+  id         String             @id @default(uuid())
+  code       String             @unique
+  name       String
+  type       ChartOfAccountType
+  parent_id  String?
+  is_active  Boolean            @default(true)
+  created_at DateTime           @default(now())
+  updated_at DateTime           @updatedAt
+
+  parent   ChartOfAccount?  @relation("ChartOfAccountHierarchy", fields: [parent_id], references: [id])
+  children ChartOfAccount[] @relation("ChartOfAccountHierarchy")
+  expenses PayableExpense[]
+  invoices Invoice[]
+
+  @@map("chart_of_accounts")
+}
+
+enum ChartOfAccountType {
+  REVENUE
   EXPENSE
 }

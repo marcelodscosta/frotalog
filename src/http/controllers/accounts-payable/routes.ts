@@ -4,15 +4,20 @@ import {
   createBankAccountController,
   listBankAccountsController,
   updateBankAccountController,
+  listTransactionsController,
+  transferBetweenAccountsController,
 } from './bank-account-controllers'
 import {
   launchExpenseController,
+  updateExpenseController,
   listExpensesController,
   listExpensesByMaintenanceController,
   approveExpenseController,
   rejectExpenseController,
   listPendingApprovalsController,
   payInstallmentController,
+  getExpensesSummaryController,
+  scheduleInstallmentController,
 } from './expense-controllers'
 
 export async function accountsPayableRoutes(app: FastifyInstance) {
@@ -22,11 +27,15 @@ export async function accountsPayableRoutes(app: FastifyInstance) {
   app.post('/bank-accounts', createBankAccountController)
   app.get('/bank-accounts', listBankAccountsController)
   app.patch('/bank-accounts/:id', updateBankAccountController)
+  app.get('/bank-accounts/transactions', listTransactionsController)
+  app.post('/bank-accounts/transfer', transferBetweenAccountsController)
 
   // Payable Expenses
   app.post('/expenses', launchExpenseController)
   app.get('/expenses', listExpensesController)
+  app.get('/expenses/summary', getExpensesSummaryController)
   app.get('/expenses/maintenance/:maintenanceId', listExpensesByMaintenanceController)
+  app.patch('/expenses/:id', updateExpenseController)
 
   // Approval Flow
   app.get('/expenses/approvals/pending', listPendingApprovalsController)
@@ -35,4 +44,5 @@ export async function accountsPayableRoutes(app: FastifyInstance) {
 
   // Conciliation - Pay installment
   app.post('/expenses/installments/:installmentId/pay', payInstallmentController)
+  app.patch('/expenses/installments/:id/schedule', scheduleInstallmentController)
 }

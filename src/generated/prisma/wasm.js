@@ -315,16 +315,18 @@ exports.Prisma.MeasurementBulletinScalarFieldEnum = {
 exports.Prisma.InvoiceScalarFieldEnum = {
   id: 'id',
   invoice_number: 'invoice_number',
-  issue_date: 'issue_date',
-  due_date: 'due_date',
   total_value: 'total_value',
   is_paid: 'is_paid',
   payment_date: 'payment_date',
-  status: 'status',
+  issue_date: 'issue_date',
+  due_date: 'due_date',
   notes: 'notes',
+  status: 'status',
   is_active: 'is_active',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  contractId: 'contractId',
+  chartOfAccountId: 'chartOfAccountId'
 };
 
 exports.Prisma.BulletinExpenseScalarFieldEnum = {
@@ -463,6 +465,7 @@ exports.Prisma.BankAccountScalarFieldEnum = {
 exports.Prisma.PayableExpenseScalarFieldEnum = {
   id: 'id',
   maintenanceId: 'maintenanceId',
+  contractId: 'contractId',
   supplierId: 'supplierId',
   description: 'description',
   total_value: 'total_value',
@@ -477,7 +480,8 @@ exports.Prisma.PayableExpenseScalarFieldEnum = {
   rejection_notes: 'rejection_notes',
   is_active: 'is_active',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  chartOfAccountId: 'chartOfAccountId'
 };
 
 exports.Prisma.ExpenseInstallmentScalarFieldEnum = {
@@ -491,7 +495,8 @@ exports.Prisma.ExpenseInstallmentScalarFieldEnum = {
   status: 'status',
   payment_date: 'payment_date',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  scheduledBankAccountId: 'scheduledBankAccountId'
 };
 
 exports.Prisma.ExpenseDocumentScalarFieldEnum = {
@@ -515,7 +520,19 @@ exports.Prisma.FinancialTransactionScalarFieldEnum = {
   date: 'date',
   description: 'description',
   expenseInstallmentId: 'expenseInstallmentId',
+  invoiceId: 'invoiceId',
   receipt_url: 'receipt_url',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ChartOfAccountScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  type: 'type',
+  parent_id: 'parent_id',
+  is_active: 'is_active',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -650,6 +667,11 @@ exports.TransactionType = exports.$Enums.TransactionType = {
   EXPENSE: 'EXPENSE'
 };
 
+exports.ChartOfAccountType = exports.$Enums.ChartOfAccountType = {
+  REVENUE: 'REVENUE',
+  EXPENSE: 'EXPENSE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   AssetCategory: 'AssetCategory',
@@ -675,7 +697,8 @@ exports.Prisma.ModelName = {
   PayableExpense: 'PayableExpense',
   ExpenseInstallment: 'ExpenseInstallment',
   ExpenseDocument: 'ExpenseDocument',
-  FinancialTransaction: 'FinancialTransaction'
+  FinancialTransaction: 'FinancialTransaction',
+  ChartOfAccount: 'ChartOfAccount'
 };
 
 /**

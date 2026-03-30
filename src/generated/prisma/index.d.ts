@@ -138,6 +138,11 @@ export type ExpenseDocument = $Result.DefaultSelection<Prisma.$ExpenseDocumentPa
  * 
  */
 export type FinancialTransaction = $Result.DefaultSelection<Prisma.$FinancialTransactionPayload>
+/**
+ * Model ChartOfAccount
+ * 
+ */
+export type ChartOfAccount = $Result.DefaultSelection<Prisma.$ChartOfAccountPayload>
 
 /**
  * Enums
@@ -309,6 +314,14 @@ export const TransactionType: {
 
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
 
+
+export const ChartOfAccountType: {
+  REVENUE: 'REVENUE',
+  EXPENSE: 'EXPENSE'
+};
+
+export type ChartOfAccountType = (typeof ChartOfAccountType)[keyof typeof ChartOfAccountType]
+
 }
 
 export type Role = $Enums.Role
@@ -378,6 +391,10 @@ export const PaymentMethod: typeof $Enums.PaymentMethod
 export type TransactionType = $Enums.TransactionType
 
 export const TransactionType: typeof $Enums.TransactionType
+
+export type ChartOfAccountType = $Enums.ChartOfAccountType
+
+export const ChartOfAccountType: typeof $Enums.ChartOfAccountType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -746,6 +763,16 @@ export class PrismaClient<
     * ```
     */
   get financialTransaction(): Prisma.FinancialTransactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.chartOfAccount`: Exposes CRUD operations for the **ChartOfAccount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChartOfAccounts
+    * const chartOfAccounts = await prisma.chartOfAccount.findMany()
+    * ```
+    */
+  get chartOfAccount(): Prisma.ChartOfAccountDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1210,7 +1237,8 @@ export namespace Prisma {
     PayableExpense: 'PayableExpense',
     ExpenseInstallment: 'ExpenseInstallment',
     ExpenseDocument: 'ExpenseDocument',
-    FinancialTransaction: 'FinancialTransaction'
+    FinancialTransaction: 'FinancialTransaction',
+    ChartOfAccount: 'ChartOfAccount'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1229,7 +1257,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "assetCategory" | "asset" | "assetReading" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement" | "measurementBulletin" | "invoice" | "bulletinExpense" | "companySettings" | "checklistParameter" | "checklistItemTemplate" | "checklist" | "checklistAnswer" | "commercialProposal" | "proposalItem" | "bankAccount" | "payableExpense" | "expenseInstallment" | "expenseDocument" | "financialTransaction"
+      modelProps: "user" | "assetCategory" | "asset" | "assetReading" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement" | "measurementBulletin" | "invoice" | "bulletinExpense" | "companySettings" | "checklistParameter" | "checklistItemTemplate" | "checklist" | "checklistAnswer" | "commercialProposal" | "proposalItem" | "bankAccount" | "payableExpense" | "expenseInstallment" | "expenseDocument" | "financialTransaction" | "chartOfAccount"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3083,6 +3111,80 @@ export namespace Prisma {
           }
         }
       }
+      ChartOfAccount: {
+        payload: Prisma.$ChartOfAccountPayload<ExtArgs>
+        fields: Prisma.ChartOfAccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChartOfAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChartOfAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          findFirst: {
+            args: Prisma.ChartOfAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChartOfAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          findMany: {
+            args: Prisma.ChartOfAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+          }
+          create: {
+            args: Prisma.ChartOfAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          createMany: {
+            args: Prisma.ChartOfAccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChartOfAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+          }
+          delete: {
+            args: Prisma.ChartOfAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          update: {
+            args: Prisma.ChartOfAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.ChartOfAccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChartOfAccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ChartOfAccountUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+          }
+          upsert: {
+            args: Prisma.ChartOfAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          aggregate: {
+            args: Prisma.ChartOfAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChartOfAccount>
+          }
+          groupBy: {
+            args: Prisma.ChartOfAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChartOfAccountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChartOfAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<ChartOfAccountCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3200,6 +3302,7 @@ export namespace Prisma {
     expenseInstallment?: ExpenseInstallmentOmit
     expenseDocument?: ExpenseDocumentOmit
     financialTransaction?: FinancialTransactionOmit
+    chartOfAccount?: ChartOfAccountOmit
   }
 
   /* Types for Logging */
@@ -3559,12 +3662,18 @@ export namespace Prisma {
     movements: number
     maintenances: number
     measurementBulletins: number
+    invoices: number
+    payableExpenses: number
+    proposals: number
   }
 
   export type ContractCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     movements?: boolean | ContractCountOutputTypeCountMovementsArgs
     maintenances?: boolean | ContractCountOutputTypeCountMaintenancesArgs
     measurementBulletins?: boolean | ContractCountOutputTypeCountMeasurementBulletinsArgs
+    invoices?: boolean | ContractCountOutputTypeCountInvoicesArgs
+    payableExpenses?: boolean | ContractCountOutputTypeCountPayableExpensesArgs
+    proposals?: boolean | ContractCountOutputTypeCountProposalsArgs
   }
 
   // Custom InputTypes
@@ -3597,6 +3706,27 @@ export namespace Prisma {
    */
   export type ContractCountOutputTypeCountMeasurementBulletinsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MeasurementBulletinWhereInput
+  }
+
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+  }
+
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeCountPayableExpensesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayableExpenseWhereInput
+  }
+
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeCountProposalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommercialProposalWhereInput
   }
 
 
@@ -3668,10 +3798,12 @@ export namespace Prisma {
 
   export type InvoiceCountOutputType = {
     measurementBulletins: number
+    transactions: number
   }
 
   export type InvoiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     measurementBulletins?: boolean | InvoiceCountOutputTypeCountMeasurementBulletinsArgs
+    transactions?: boolean | InvoiceCountOutputTypeCountTransactionsArgs
   }
 
   // Custom InputTypes
@@ -3690,6 +3822,13 @@ export namespace Prisma {
    */
   export type InvoiceCountOutputTypeCountMeasurementBulletinsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MeasurementBulletinWhereInput
+  }
+
+  /**
+   * InvoiceCountOutputType without action
+   */
+  export type InvoiceCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialTransactionWhereInput
   }
 
 
@@ -3863,10 +4002,12 @@ export namespace Prisma {
 
   export type BankAccountCountOutputType = {
     transactions: number
+    scheduledInstallments: number
   }
 
   export type BankAccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transactions?: boolean | BankAccountCountOutputTypeCountTransactionsArgs
+    scheduledInstallments?: boolean | BankAccountCountOutputTypeCountScheduledInstallmentsArgs
   }
 
   // Custom InputTypes
@@ -3885,6 +4026,13 @@ export namespace Prisma {
    */
   export type BankAccountCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FinancialTransactionWhereInput
+  }
+
+  /**
+   * BankAccountCountOutputType without action
+   */
+  export type BankAccountCountOutputTypeCountScheduledInstallmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExpenseInstallmentWhereInput
   }
 
 
@@ -3956,6 +4104,55 @@ export namespace Prisma {
    */
   export type ExpenseInstallmentCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FinancialTransactionWhereInput
+  }
+
+
+  /**
+   * Count Type ChartOfAccountCountOutputType
+   */
+
+  export type ChartOfAccountCountOutputType = {
+    children: number
+    expenses: number
+    invoices: number
+  }
+
+  export type ChartOfAccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    children?: boolean | ChartOfAccountCountOutputTypeCountChildrenArgs
+    expenses?: boolean | ChartOfAccountCountOutputTypeCountExpensesArgs
+    invoices?: boolean | ChartOfAccountCountOutputTypeCountInvoicesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ChartOfAccountCountOutputType without action
+   */
+  export type ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccountCountOutputType
+     */
+    select?: ChartOfAccountCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ChartOfAccountCountOutputType without action
+   */
+  export type ChartOfAccountCountOutputTypeCountChildrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChartOfAccountWhereInput
+  }
+
+  /**
+   * ChartOfAccountCountOutputType without action
+   */
+  export type ChartOfAccountCountOutputTypeCountExpensesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayableExpenseWhereInput
+  }
+
+  /**
+   * ChartOfAccountCountOutputType without action
+   */
+  export type ChartOfAccountCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
   }
 
 
@@ -14220,7 +14417,9 @@ export namespace Prisma {
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     maintenances?: boolean | Contract$maintenancesArgs<ExtArgs>
     measurementBulletins?: boolean | Contract$measurementBulletinsArgs<ExtArgs>
-    CommercialProposal?: boolean | Contract$CommercialProposalArgs<ExtArgs>
+    invoices?: boolean | Contract$invoicesArgs<ExtArgs>
+    payableExpenses?: boolean | Contract$payableExpensesArgs<ExtArgs>
+    proposals?: boolean | Contract$proposalsArgs<ExtArgs>
     _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contract"]>
 
@@ -14298,7 +14497,9 @@ export namespace Prisma {
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     maintenances?: boolean | Contract$maintenancesArgs<ExtArgs>
     measurementBulletins?: boolean | Contract$measurementBulletinsArgs<ExtArgs>
-    CommercialProposal?: boolean | Contract$CommercialProposalArgs<ExtArgs>
+    invoices?: boolean | Contract$invoicesArgs<ExtArgs>
+    payableExpenses?: boolean | Contract$payableExpensesArgs<ExtArgs>
+    proposals?: boolean | Contract$proposalsArgs<ExtArgs>
     _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContractIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14315,7 +14516,9 @@ export namespace Prisma {
       client: Prisma.$SupplierPayload<ExtArgs>
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       measurementBulletins: Prisma.$MeasurementBulletinPayload<ExtArgs>[]
-      CommercialProposal: Prisma.$CommercialProposalPayload<ExtArgs> | null
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
+      payableExpenses: Prisma.$PayableExpensePayload<ExtArgs>[]
+      proposals: Prisma.$CommercialProposalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14735,7 +14938,9 @@ export namespace Prisma {
     client<T extends SupplierDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SupplierDefaultArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     maintenances<T extends Contract$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Contract$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     measurementBulletins<T extends Contract$measurementBulletinsArgs<ExtArgs> = {}>(args?: Subset<T, Contract$measurementBulletinsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    CommercialProposal<T extends Contract$CommercialProposalArgs<ExtArgs> = {}>(args?: Subset<T, Contract$CommercialProposalArgs<ExtArgs>>): Prisma__CommercialProposalClient<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    invoices<T extends Contract$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Contract$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    payableExpenses<T extends Contract$payableExpensesArgs<ExtArgs> = {}>(args?: Subset<T, Contract$payableExpensesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayableExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    proposals<T extends Contract$proposalsArgs<ExtArgs> = {}>(args?: Subset<T, Contract$proposalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15252,9 +15457,57 @@ export namespace Prisma {
   }
 
   /**
-   * Contract.CommercialProposal
+   * Contract.invoices
    */
-  export type Contract$CommercialProposalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Contract$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Contract.payableExpenses
+   */
+  export type Contract$payableExpensesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayableExpense
+     */
+    select?: PayableExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayableExpense
+     */
+    omit?: PayableExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayableExpenseInclude<ExtArgs> | null
+    where?: PayableExpenseWhereInput
+    orderBy?: PayableExpenseOrderByWithRelationInput | PayableExpenseOrderByWithRelationInput[]
+    cursor?: PayableExpenseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayableExpenseScalarFieldEnum | PayableExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * Contract.proposals
+   */
+  export type Contract$proposalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the CommercialProposal
      */
@@ -15268,6 +15521,11 @@ export namespace Prisma {
      */
     include?: CommercialProposalInclude<ExtArgs> | null
     where?: CommercialProposalWhereInput
+    orderBy?: CommercialProposalOrderByWithRelationInput | CommercialProposalOrderByWithRelationInput[]
+    cursor?: CommercialProposalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommercialProposalScalarFieldEnum | CommercialProposalScalarFieldEnum[]
   }
 
   /**
@@ -18029,46 +18287,52 @@ export namespace Prisma {
   export type InvoiceMinAggregateOutputType = {
     id: string | null
     invoice_number: string | null
-    issue_date: Date | null
-    due_date: Date | null
     total_value: Decimal | null
     is_paid: boolean | null
     payment_date: Date | null
-    status: $Enums.InvoiceStatus | null
+    issue_date: Date | null
+    due_date: Date | null
     notes: string | null
+    status: $Enums.InvoiceStatus | null
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    contractId: string | null
+    chartOfAccountId: string | null
   }
 
   export type InvoiceMaxAggregateOutputType = {
     id: string | null
     invoice_number: string | null
-    issue_date: Date | null
-    due_date: Date | null
     total_value: Decimal | null
     is_paid: boolean | null
     payment_date: Date | null
-    status: $Enums.InvoiceStatus | null
+    issue_date: Date | null
+    due_date: Date | null
     notes: string | null
+    status: $Enums.InvoiceStatus | null
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    contractId: string | null
+    chartOfAccountId: string | null
   }
 
   export type InvoiceCountAggregateOutputType = {
     id: number
     invoice_number: number
-    issue_date: number
-    due_date: number
     total_value: number
     is_paid: number
     payment_date: number
-    status: number
+    issue_date: number
+    due_date: number
     notes: number
+    status: number
     is_active: number
     created_at: number
     updated_at: number
+    contractId: number
+    chartOfAccountId: number
     _all: number
   }
 
@@ -18084,46 +18348,52 @@ export namespace Prisma {
   export type InvoiceMinAggregateInputType = {
     id?: true
     invoice_number?: true
-    issue_date?: true
-    due_date?: true
     total_value?: true
     is_paid?: true
     payment_date?: true
-    status?: true
+    issue_date?: true
+    due_date?: true
     notes?: true
+    status?: true
     is_active?: true
     created_at?: true
     updated_at?: true
+    contractId?: true
+    chartOfAccountId?: true
   }
 
   export type InvoiceMaxAggregateInputType = {
     id?: true
     invoice_number?: true
-    issue_date?: true
-    due_date?: true
     total_value?: true
     is_paid?: true
     payment_date?: true
-    status?: true
+    issue_date?: true
+    due_date?: true
     notes?: true
+    status?: true
     is_active?: true
     created_at?: true
     updated_at?: true
+    contractId?: true
+    chartOfAccountId?: true
   }
 
   export type InvoiceCountAggregateInputType = {
     id?: true
     invoice_number?: true
-    issue_date?: true
-    due_date?: true
     total_value?: true
     is_paid?: true
     payment_date?: true
-    status?: true
+    issue_date?: true
+    due_date?: true
     notes?: true
+    status?: true
     is_active?: true
     created_at?: true
     updated_at?: true
+    contractId?: true
+    chartOfAccountId?: true
     _all?: true
   }
 
@@ -18215,17 +18485,19 @@ export namespace Prisma {
 
   export type InvoiceGroupByOutputType = {
     id: string
-    invoice_number: string
-    issue_date: Date
-    due_date: Date
+    invoice_number: string | null
     total_value: Decimal
     is_paid: boolean
     payment_date: Date | null
-    status: $Enums.InvoiceStatus
+    issue_date: Date | null
+    due_date: Date
     notes: string | null
+    status: $Enums.InvoiceStatus
     is_active: boolean
     created_at: Date
     updated_at: Date
+    contractId: string | null
+    chartOfAccountId: string | null
     _count: InvoiceCountAggregateOutputType | null
     _avg: InvoiceAvgAggregateOutputType | null
     _sum: InvoiceSumAggregateOutputType | null
@@ -18250,91 +18522,120 @@ export namespace Prisma {
   export type InvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     invoice_number?: boolean
-    issue_date?: boolean
-    due_date?: boolean
     total_value?: boolean
     is_paid?: boolean
     payment_date?: boolean
-    status?: boolean
+    issue_date?: boolean
+    due_date?: boolean
     notes?: boolean
+    status?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    contractId?: boolean
+    chartOfAccountId?: boolean
     measurementBulletins?: boolean | Invoice$measurementBulletinsArgs<ExtArgs>
+    contract?: boolean | Invoice$contractArgs<ExtArgs>
+    chartOfAccount?: boolean | Invoice$chartOfAccountArgs<ExtArgs>
+    transactions?: boolean | Invoice$transactionsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     invoice_number?: boolean
-    issue_date?: boolean
-    due_date?: boolean
     total_value?: boolean
     is_paid?: boolean
     payment_date?: boolean
-    status?: boolean
+    issue_date?: boolean
+    due_date?: boolean
     notes?: boolean
+    status?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    contractId?: boolean
+    chartOfAccountId?: boolean
+    contract?: boolean | Invoice$contractArgs<ExtArgs>
+    chartOfAccount?: boolean | Invoice$chartOfAccountArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     invoice_number?: boolean
-    issue_date?: boolean
-    due_date?: boolean
     total_value?: boolean
     is_paid?: boolean
     payment_date?: boolean
-    status?: boolean
+    issue_date?: boolean
+    due_date?: boolean
     notes?: boolean
+    status?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    contractId?: boolean
+    chartOfAccountId?: boolean
+    contract?: boolean | Invoice$contractArgs<ExtArgs>
+    chartOfAccount?: boolean | Invoice$chartOfAccountArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectScalar = {
     id?: boolean
     invoice_number?: boolean
-    issue_date?: boolean
-    due_date?: boolean
     total_value?: boolean
     is_paid?: boolean
     payment_date?: boolean
-    status?: boolean
+    issue_date?: boolean
+    due_date?: boolean
     notes?: boolean
+    status?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    contractId?: boolean
+    chartOfAccountId?: boolean
   }
 
-  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoice_number" | "issue_date" | "due_date" | "total_value" | "is_paid" | "payment_date" | "status" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["invoice"]>
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoice_number" | "total_value" | "is_paid" | "payment_date" | "issue_date" | "due_date" | "notes" | "status" | "is_active" | "created_at" | "updated_at" | "contractId" | "chartOfAccountId", ExtArgs["result"]["invoice"]>
   export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     measurementBulletins?: boolean | Invoice$measurementBulletinsArgs<ExtArgs>
+    contract?: boolean | Invoice$contractArgs<ExtArgs>
+    chartOfAccount?: boolean | Invoice$chartOfAccountArgs<ExtArgs>
+    transactions?: boolean | Invoice$transactionsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | Invoice$contractArgs<ExtArgs>
+    chartOfAccount?: boolean | Invoice$chartOfAccountArgs<ExtArgs>
+  }
+  export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | Invoice$contractArgs<ExtArgs>
+    chartOfAccount?: boolean | Invoice$chartOfAccountArgs<ExtArgs>
+  }
 
   export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Invoice"
     objects: {
       measurementBulletins: Prisma.$MeasurementBulletinPayload<ExtArgs>[]
+      contract: Prisma.$ContractPayload<ExtArgs> | null
+      chartOfAccount: Prisma.$ChartOfAccountPayload<ExtArgs> | null
+      transactions: Prisma.$FinancialTransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      invoice_number: string
-      issue_date: Date
-      due_date: Date
+      invoice_number: string | null
       total_value: Prisma.Decimal
       is_paid: boolean
       payment_date: Date | null
-      status: $Enums.InvoiceStatus
+      issue_date: Date | null
+      due_date: Date
       notes: string | null
+      status: $Enums.InvoiceStatus
       is_active: boolean
       created_at: Date
       updated_at: Date
+      contractId: string | null
+      chartOfAccountId: string | null
     }, ExtArgs["result"]["invoice"]>
     composites: {}
   }
@@ -18730,6 +19031,9 @@ export namespace Prisma {
   export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     measurementBulletins<T extends Invoice$measurementBulletinsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$measurementBulletinsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    contract<T extends Invoice$contractArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$contractArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    chartOfAccount<T extends Invoice$chartOfAccountArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$chartOfAccountArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    transactions<T extends Invoice$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18761,16 +19065,18 @@ export namespace Prisma {
   interface InvoiceFieldRefs {
     readonly id: FieldRef<"Invoice", 'String'>
     readonly invoice_number: FieldRef<"Invoice", 'String'>
-    readonly issue_date: FieldRef<"Invoice", 'DateTime'>
-    readonly due_date: FieldRef<"Invoice", 'DateTime'>
     readonly total_value: FieldRef<"Invoice", 'Decimal'>
     readonly is_paid: FieldRef<"Invoice", 'Boolean'>
     readonly payment_date: FieldRef<"Invoice", 'DateTime'>
-    readonly status: FieldRef<"Invoice", 'InvoiceStatus'>
+    readonly issue_date: FieldRef<"Invoice", 'DateTime'>
+    readonly due_date: FieldRef<"Invoice", 'DateTime'>
     readonly notes: FieldRef<"Invoice", 'String'>
+    readonly status: FieldRef<"Invoice", 'InvoiceStatus'>
     readonly is_active: FieldRef<"Invoice", 'Boolean'>
     readonly created_at: FieldRef<"Invoice", 'DateTime'>
     readonly updated_at: FieldRef<"Invoice", 'DateTime'>
+    readonly contractId: FieldRef<"Invoice", 'String'>
+    readonly chartOfAccountId: FieldRef<"Invoice", 'String'>
   }
     
 
@@ -19020,6 +19326,10 @@ export namespace Prisma {
      */
     data: InvoiceCreateManyInput | InvoiceCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -19090,6 +19400,10 @@ export namespace Prisma {
      * Limit how many Invoices to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -19180,6 +19494,68 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MeasurementBulletinScalarFieldEnum | MeasurementBulletinScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice.contract
+   */
+  export type Invoice$contractArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    where?: ContractWhereInput
+  }
+
+  /**
+   * Invoice.chartOfAccount
+   */
+  export type Invoice$chartOfAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    where?: ChartOfAccountWhereInput
+  }
+
+  /**
+   * Invoice.transactions
+   */
+  export type Invoice$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialTransaction
+     */
+    omit?: FinancialTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    where?: FinancialTransactionWhereInput
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    cursor?: FinancialTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
   }
 
   /**
@@ -29174,6 +29550,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     transactions?: boolean | BankAccount$transactionsArgs<ExtArgs>
+    scheduledInstallments?: boolean | BankAccount$scheduledInstallmentsArgs<ExtArgs>
     _count?: boolean | BankAccountCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bankAccount"]>
 
@@ -29216,6 +29593,7 @@ export namespace Prisma {
   export type BankAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "bank_name" | "agency" | "account_number" | "balance" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["bankAccount"]>
   export type BankAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transactions?: boolean | BankAccount$transactionsArgs<ExtArgs>
+    scheduledInstallments?: boolean | BankAccount$scheduledInstallmentsArgs<ExtArgs>
     _count?: boolean | BankAccountCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BankAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -29225,6 +29603,7 @@ export namespace Prisma {
     name: "BankAccount"
     objects: {
       transactions: Prisma.$FinancialTransactionPayload<ExtArgs>[]
+      scheduledInstallments: Prisma.$ExpenseInstallmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -29631,6 +30010,7 @@ export namespace Prisma {
   export interface Prisma__BankAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     transactions<T extends BankAccount$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, BankAccount$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    scheduledInstallments<T extends BankAccount$scheduledInstallmentsArgs<ExtArgs> = {}>(args?: Subset<T, BankAccount$scheduledInstallmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpenseInstallmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30081,6 +30461,30 @@ export namespace Prisma {
   }
 
   /**
+   * BankAccount.scheduledInstallments
+   */
+  export type BankAccount$scheduledInstallmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExpenseInstallment
+     */
+    select?: ExpenseInstallmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExpenseInstallment
+     */
+    omit?: ExpenseInstallmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInstallmentInclude<ExtArgs> | null
+    where?: ExpenseInstallmentWhereInput
+    orderBy?: ExpenseInstallmentOrderByWithRelationInput | ExpenseInstallmentOrderByWithRelationInput[]
+    cursor?: ExpenseInstallmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExpenseInstallmentScalarFieldEnum | ExpenseInstallmentScalarFieldEnum[]
+  }
+
+  /**
    * BankAccount without action
    */
   export type BankAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30122,6 +30526,7 @@ export namespace Prisma {
   export type PayableExpenseMinAggregateOutputType = {
     id: string | null
     maintenanceId: string | null
+    contractId: string | null
     supplierId: string | null
     description: string | null
     total_value: Decimal | null
@@ -30137,11 +30542,13 @@ export namespace Prisma {
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    chartOfAccountId: string | null
   }
 
   export type PayableExpenseMaxAggregateOutputType = {
     id: string | null
     maintenanceId: string | null
+    contractId: string | null
     supplierId: string | null
     description: string | null
     total_value: Decimal | null
@@ -30157,11 +30564,13 @@ export namespace Prisma {
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    chartOfAccountId: string | null
   }
 
   export type PayableExpenseCountAggregateOutputType = {
     id: number
     maintenanceId: number
+    contractId: number
     supplierId: number
     description: number
     total_value: number
@@ -30177,6 +30586,7 @@ export namespace Prisma {
     is_active: number
     created_at: number
     updated_at: number
+    chartOfAccountId: number
     _all: number
   }
 
@@ -30192,6 +30602,7 @@ export namespace Prisma {
   export type PayableExpenseMinAggregateInputType = {
     id?: true
     maintenanceId?: true
+    contractId?: true
     supplierId?: true
     description?: true
     total_value?: true
@@ -30207,11 +30618,13 @@ export namespace Prisma {
     is_active?: true
     created_at?: true
     updated_at?: true
+    chartOfAccountId?: true
   }
 
   export type PayableExpenseMaxAggregateInputType = {
     id?: true
     maintenanceId?: true
+    contractId?: true
     supplierId?: true
     description?: true
     total_value?: true
@@ -30227,11 +30640,13 @@ export namespace Prisma {
     is_active?: true
     created_at?: true
     updated_at?: true
+    chartOfAccountId?: true
   }
 
   export type PayableExpenseCountAggregateInputType = {
     id?: true
     maintenanceId?: true
+    contractId?: true
     supplierId?: true
     description?: true
     total_value?: true
@@ -30247,6 +30662,7 @@ export namespace Prisma {
     is_active?: true
     created_at?: true
     updated_at?: true
+    chartOfAccountId?: true
     _all?: true
   }
 
@@ -30338,7 +30754,8 @@ export namespace Prisma {
 
   export type PayableExpenseGroupByOutputType = {
     id: string
-    maintenanceId: string
+    maintenanceId: string | null
+    contractId: string | null
     supplierId: string | null
     description: string
     total_value: Decimal
@@ -30354,6 +30771,7 @@ export namespace Prisma {
     is_active: boolean
     created_at: Date
     updated_at: Date
+    chartOfAccountId: string | null
     _count: PayableExpenseCountAggregateOutputType | null
     _avg: PayableExpenseAvgAggregateOutputType | null
     _sum: PayableExpenseSumAggregateOutputType | null
@@ -30378,6 +30796,7 @@ export namespace Prisma {
   export type PayableExpenseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     maintenanceId?: boolean
+    contractId?: boolean
     supplierId?: boolean
     description?: boolean
     total_value?: boolean
@@ -30393,8 +30812,11 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
-    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    chartOfAccountId?: boolean
+    maintenance?: boolean | PayableExpense$maintenanceArgs<ExtArgs>
+    contract?: boolean | PayableExpense$contractArgs<ExtArgs>
     supplier?: boolean | PayableExpense$supplierArgs<ExtArgs>
+    chartOfAccount?: boolean | PayableExpense$chartOfAccountArgs<ExtArgs>
     installments?: boolean | PayableExpense$installmentsArgs<ExtArgs>
     documents?: boolean | PayableExpense$documentsArgs<ExtArgs>
     _count?: boolean | PayableExpenseCountOutputTypeDefaultArgs<ExtArgs>
@@ -30403,6 +30825,7 @@ export namespace Prisma {
   export type PayableExpenseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     maintenanceId?: boolean
+    contractId?: boolean
     supplierId?: boolean
     description?: boolean
     total_value?: boolean
@@ -30418,13 +30841,17 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
-    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    chartOfAccountId?: boolean
+    maintenance?: boolean | PayableExpense$maintenanceArgs<ExtArgs>
+    contract?: boolean | PayableExpense$contractArgs<ExtArgs>
     supplier?: boolean | PayableExpense$supplierArgs<ExtArgs>
+    chartOfAccount?: boolean | PayableExpense$chartOfAccountArgs<ExtArgs>
   }, ExtArgs["result"]["payableExpense"]>
 
   export type PayableExpenseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     maintenanceId?: boolean
+    contractId?: boolean
     supplierId?: boolean
     description?: boolean
     total_value?: boolean
@@ -30440,13 +30867,17 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
-    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    chartOfAccountId?: boolean
+    maintenance?: boolean | PayableExpense$maintenanceArgs<ExtArgs>
+    contract?: boolean | PayableExpense$contractArgs<ExtArgs>
     supplier?: boolean | PayableExpense$supplierArgs<ExtArgs>
+    chartOfAccount?: boolean | PayableExpense$chartOfAccountArgs<ExtArgs>
   }, ExtArgs["result"]["payableExpense"]>
 
   export type PayableExpenseSelectScalar = {
     id?: boolean
     maintenanceId?: boolean
+    contractId?: boolean
     supplierId?: boolean
     description?: boolean
     total_value?: boolean
@@ -30462,36 +30893,46 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    chartOfAccountId?: boolean
   }
 
-  export type PayableExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "maintenanceId" | "supplierId" | "description" | "total_value" | "payment_method" | "status" | "maintenance_approved_by" | "maintenance_approved_at" | "finance_approved_by" | "finance_approved_at" | "director_approved_by" | "director_approved_at" | "rejection_notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["payableExpense"]>
+  export type PayableExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "maintenanceId" | "contractId" | "supplierId" | "description" | "total_value" | "payment_method" | "status" | "maintenance_approved_by" | "maintenance_approved_at" | "finance_approved_by" | "finance_approved_at" | "director_approved_by" | "director_approved_at" | "rejection_notes" | "is_active" | "created_at" | "updated_at" | "chartOfAccountId", ExtArgs["result"]["payableExpense"]>
   export type PayableExpenseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    maintenance?: boolean | PayableExpense$maintenanceArgs<ExtArgs>
+    contract?: boolean | PayableExpense$contractArgs<ExtArgs>
     supplier?: boolean | PayableExpense$supplierArgs<ExtArgs>
+    chartOfAccount?: boolean | PayableExpense$chartOfAccountArgs<ExtArgs>
     installments?: boolean | PayableExpense$installmentsArgs<ExtArgs>
     documents?: boolean | PayableExpense$documentsArgs<ExtArgs>
     _count?: boolean | PayableExpenseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PayableExpenseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    maintenance?: boolean | PayableExpense$maintenanceArgs<ExtArgs>
+    contract?: boolean | PayableExpense$contractArgs<ExtArgs>
     supplier?: boolean | PayableExpense$supplierArgs<ExtArgs>
+    chartOfAccount?: boolean | PayableExpense$chartOfAccountArgs<ExtArgs>
   }
   export type PayableExpenseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    maintenance?: boolean | MaintenanceDefaultArgs<ExtArgs>
+    maintenance?: boolean | PayableExpense$maintenanceArgs<ExtArgs>
+    contract?: boolean | PayableExpense$contractArgs<ExtArgs>
     supplier?: boolean | PayableExpense$supplierArgs<ExtArgs>
+    chartOfAccount?: boolean | PayableExpense$chartOfAccountArgs<ExtArgs>
   }
 
   export type $PayableExpensePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PayableExpense"
     objects: {
-      maintenance: Prisma.$MaintenancePayload<ExtArgs>
+      maintenance: Prisma.$MaintenancePayload<ExtArgs> | null
+      contract: Prisma.$ContractPayload<ExtArgs> | null
       supplier: Prisma.$SupplierPayload<ExtArgs> | null
+      chartOfAccount: Prisma.$ChartOfAccountPayload<ExtArgs> | null
       installments: Prisma.$ExpenseInstallmentPayload<ExtArgs>[]
       documents: Prisma.$ExpenseDocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      maintenanceId: string
+      maintenanceId: string | null
+      contractId: string | null
       supplierId: string | null
       description: string
       total_value: Prisma.Decimal
@@ -30507,6 +30948,7 @@ export namespace Prisma {
       is_active: boolean
       created_at: Date
       updated_at: Date
+      chartOfAccountId: string | null
     }, ExtArgs["result"]["payableExpense"]>
     composites: {}
   }
@@ -30901,8 +31343,10 @@ export namespace Prisma {
    */
   export interface Prisma__PayableExpenseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    maintenance<T extends MaintenanceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MaintenanceDefaultArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    maintenance<T extends PayableExpense$maintenanceArgs<ExtArgs> = {}>(args?: Subset<T, PayableExpense$maintenanceArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    contract<T extends PayableExpense$contractArgs<ExtArgs> = {}>(args?: Subset<T, PayableExpense$contractArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     supplier<T extends PayableExpense$supplierArgs<ExtArgs> = {}>(args?: Subset<T, PayableExpense$supplierArgs<ExtArgs>>): Prisma__SupplierClient<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    chartOfAccount<T extends PayableExpense$chartOfAccountArgs<ExtArgs> = {}>(args?: Subset<T, PayableExpense$chartOfAccountArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     installments<T extends PayableExpense$installmentsArgs<ExtArgs> = {}>(args?: Subset<T, PayableExpense$installmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpenseInstallmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends PayableExpense$documentsArgs<ExtArgs> = {}>(args?: Subset<T, PayableExpense$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpenseDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -30936,6 +31380,7 @@ export namespace Prisma {
   interface PayableExpenseFieldRefs {
     readonly id: FieldRef<"PayableExpense", 'String'>
     readonly maintenanceId: FieldRef<"PayableExpense", 'String'>
+    readonly contractId: FieldRef<"PayableExpense", 'String'>
     readonly supplierId: FieldRef<"PayableExpense", 'String'>
     readonly description: FieldRef<"PayableExpense", 'String'>
     readonly total_value: FieldRef<"PayableExpense", 'Decimal'>
@@ -30951,6 +31396,7 @@ export namespace Prisma {
     readonly is_active: FieldRef<"PayableExpense", 'Boolean'>
     readonly created_at: FieldRef<"PayableExpense", 'DateTime'>
     readonly updated_at: FieldRef<"PayableExpense", 'DateTime'>
+    readonly chartOfAccountId: FieldRef<"PayableExpense", 'String'>
   }
     
 
@@ -31347,6 +31793,44 @@ export namespace Prisma {
   }
 
   /**
+   * PayableExpense.maintenance
+   */
+  export type PayableExpense$maintenanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Maintenance
+     */
+    omit?: MaintenanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+  }
+
+  /**
+   * PayableExpense.contract
+   */
+  export type PayableExpense$contractArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    where?: ContractWhereInput
+  }
+
+  /**
    * PayableExpense.supplier
    */
   export type PayableExpense$supplierArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31363,6 +31847,25 @@ export namespace Prisma {
      */
     include?: SupplierInclude<ExtArgs> | null
     where?: SupplierWhereInput
+  }
+
+  /**
+   * PayableExpense.chartOfAccount
+   */
+  export type PayableExpense$chartOfAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    where?: ChartOfAccountWhereInput
   }
 
   /**
@@ -31466,6 +31969,7 @@ export namespace Prisma {
     payment_date: Date | null
     created_at: Date | null
     updated_at: Date | null
+    scheduledBankAccountId: string | null
   }
 
   export type ExpenseInstallmentMaxAggregateOutputType = {
@@ -31480,6 +31984,7 @@ export namespace Prisma {
     payment_date: Date | null
     created_at: Date | null
     updated_at: Date | null
+    scheduledBankAccountId: string | null
   }
 
   export type ExpenseInstallmentCountAggregateOutputType = {
@@ -31494,6 +31999,7 @@ export namespace Prisma {
     payment_date: number
     created_at: number
     updated_at: number
+    scheduledBankAccountId: number
     _all: number
   }
 
@@ -31520,6 +32026,7 @@ export namespace Prisma {
     payment_date?: true
     created_at?: true
     updated_at?: true
+    scheduledBankAccountId?: true
   }
 
   export type ExpenseInstallmentMaxAggregateInputType = {
@@ -31534,6 +32041,7 @@ export namespace Prisma {
     payment_date?: true
     created_at?: true
     updated_at?: true
+    scheduledBankAccountId?: true
   }
 
   export type ExpenseInstallmentCountAggregateInputType = {
@@ -31548,6 +32056,7 @@ export namespace Prisma {
     payment_date?: true
     created_at?: true
     updated_at?: true
+    scheduledBankAccountId?: true
     _all?: true
   }
 
@@ -31649,6 +32158,7 @@ export namespace Prisma {
     payment_date: Date | null
     created_at: Date
     updated_at: Date
+    scheduledBankAccountId: string | null
     _count: ExpenseInstallmentCountAggregateOutputType | null
     _avg: ExpenseInstallmentAvgAggregateOutputType | null
     _sum: ExpenseInstallmentSumAggregateOutputType | null
@@ -31682,8 +32192,10 @@ export namespace Prisma {
     payment_date?: boolean
     created_at?: boolean
     updated_at?: boolean
+    scheduledBankAccountId?: boolean
     payableExpense?: boolean | PayableExpenseDefaultArgs<ExtArgs>
     transactions?: boolean | ExpenseInstallment$transactionsArgs<ExtArgs>
+    scheduledBankAccount?: boolean | ExpenseInstallment$scheduledBankAccountArgs<ExtArgs>
     _count?: boolean | ExpenseInstallmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["expenseInstallment"]>
 
@@ -31699,7 +32211,9 @@ export namespace Prisma {
     payment_date?: boolean
     created_at?: boolean
     updated_at?: boolean
+    scheduledBankAccountId?: boolean
     payableExpense?: boolean | PayableExpenseDefaultArgs<ExtArgs>
+    scheduledBankAccount?: boolean | ExpenseInstallment$scheduledBankAccountArgs<ExtArgs>
   }, ExtArgs["result"]["expenseInstallment"]>
 
   export type ExpenseInstallmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -31714,7 +32228,9 @@ export namespace Prisma {
     payment_date?: boolean
     created_at?: boolean
     updated_at?: boolean
+    scheduledBankAccountId?: boolean
     payableExpense?: boolean | PayableExpenseDefaultArgs<ExtArgs>
+    scheduledBankAccount?: boolean | ExpenseInstallment$scheduledBankAccountArgs<ExtArgs>
   }, ExtArgs["result"]["expenseInstallment"]>
 
   export type ExpenseInstallmentSelectScalar = {
@@ -31729,19 +32245,23 @@ export namespace Prisma {
     payment_date?: boolean
     created_at?: boolean
     updated_at?: boolean
+    scheduledBankAccountId?: boolean
   }
 
-  export type ExpenseInstallmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "payableExpenseId" | "installment_number" | "value" | "due_date" | "barcode" | "pix_key" | "status" | "payment_date" | "created_at" | "updated_at", ExtArgs["result"]["expenseInstallment"]>
+  export type ExpenseInstallmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "payableExpenseId" | "installment_number" | "value" | "due_date" | "barcode" | "pix_key" | "status" | "payment_date" | "created_at" | "updated_at" | "scheduledBankAccountId", ExtArgs["result"]["expenseInstallment"]>
   export type ExpenseInstallmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payableExpense?: boolean | PayableExpenseDefaultArgs<ExtArgs>
     transactions?: boolean | ExpenseInstallment$transactionsArgs<ExtArgs>
+    scheduledBankAccount?: boolean | ExpenseInstallment$scheduledBankAccountArgs<ExtArgs>
     _count?: boolean | ExpenseInstallmentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ExpenseInstallmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payableExpense?: boolean | PayableExpenseDefaultArgs<ExtArgs>
+    scheduledBankAccount?: boolean | ExpenseInstallment$scheduledBankAccountArgs<ExtArgs>
   }
   export type ExpenseInstallmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payableExpense?: boolean | PayableExpenseDefaultArgs<ExtArgs>
+    scheduledBankAccount?: boolean | ExpenseInstallment$scheduledBankAccountArgs<ExtArgs>
   }
 
   export type $ExpenseInstallmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31749,6 +32269,7 @@ export namespace Prisma {
     objects: {
       payableExpense: Prisma.$PayableExpensePayload<ExtArgs>
       transactions: Prisma.$FinancialTransactionPayload<ExtArgs>[]
+      scheduledBankAccount: Prisma.$BankAccountPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -31762,6 +32283,7 @@ export namespace Prisma {
       payment_date: Date | null
       created_at: Date
       updated_at: Date
+      scheduledBankAccountId: string | null
     }, ExtArgs["result"]["expenseInstallment"]>
     composites: {}
   }
@@ -32158,6 +32680,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     payableExpense<T extends PayableExpenseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PayableExpenseDefaultArgs<ExtArgs>>): Prisma__PayableExpenseClient<$Result.GetResult<Prisma.$PayableExpensePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     transactions<T extends ExpenseInstallment$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, ExpenseInstallment$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    scheduledBankAccount<T extends ExpenseInstallment$scheduledBankAccountArgs<ExtArgs> = {}>(args?: Subset<T, ExpenseInstallment$scheduledBankAccountArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -32198,6 +32721,7 @@ export namespace Prisma {
     readonly payment_date: FieldRef<"ExpenseInstallment", 'DateTime'>
     readonly created_at: FieldRef<"ExpenseInstallment", 'DateTime'>
     readonly updated_at: FieldRef<"ExpenseInstallment", 'DateTime'>
+    readonly scheduledBankAccountId: FieldRef<"ExpenseInstallment", 'String'>
   }
     
 
@@ -32615,6 +33139,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * ExpenseInstallment.scheduledBankAccount
+   */
+  export type ExpenseInstallment$scheduledBankAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    where?: BankAccountWhereInput
   }
 
   /**
@@ -33821,6 +34364,7 @@ export namespace Prisma {
     date: Date | null
     description: string | null
     expenseInstallmentId: string | null
+    invoiceId: string | null
     receipt_url: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -33834,6 +34378,7 @@ export namespace Prisma {
     date: Date | null
     description: string | null
     expenseInstallmentId: string | null
+    invoiceId: string | null
     receipt_url: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -33847,6 +34392,7 @@ export namespace Prisma {
     date: number
     description: number
     expenseInstallmentId: number
+    invoiceId: number
     receipt_url: number
     created_at: number
     updated_at: number
@@ -33870,6 +34416,7 @@ export namespace Prisma {
     date?: true
     description?: true
     expenseInstallmentId?: true
+    invoiceId?: true
     receipt_url?: true
     created_at?: true
     updated_at?: true
@@ -33883,6 +34430,7 @@ export namespace Prisma {
     date?: true
     description?: true
     expenseInstallmentId?: true
+    invoiceId?: true
     receipt_url?: true
     created_at?: true
     updated_at?: true
@@ -33896,6 +34444,7 @@ export namespace Prisma {
     date?: true
     description?: true
     expenseInstallmentId?: true
+    invoiceId?: true
     receipt_url?: true
     created_at?: true
     updated_at?: true
@@ -33996,6 +34545,7 @@ export namespace Prisma {
     date: Date
     description: string | null
     expenseInstallmentId: string | null
+    invoiceId: string | null
     receipt_url: string | null
     created_at: Date
     updated_at: Date
@@ -34028,11 +34578,13 @@ export namespace Prisma {
     date?: boolean
     description?: boolean
     expenseInstallmentId?: boolean
+    invoiceId?: boolean
     receipt_url?: boolean
     created_at?: boolean
     updated_at?: boolean
     bankAccount?: boolean | BankAccountDefaultArgs<ExtArgs>
     expenseInstallment?: boolean | FinancialTransaction$expenseInstallmentArgs<ExtArgs>
+    invoice?: boolean | FinancialTransaction$invoiceArgs<ExtArgs>
   }, ExtArgs["result"]["financialTransaction"]>
 
   export type FinancialTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -34043,11 +34595,13 @@ export namespace Prisma {
     date?: boolean
     description?: boolean
     expenseInstallmentId?: boolean
+    invoiceId?: boolean
     receipt_url?: boolean
     created_at?: boolean
     updated_at?: boolean
     bankAccount?: boolean | BankAccountDefaultArgs<ExtArgs>
     expenseInstallment?: boolean | FinancialTransaction$expenseInstallmentArgs<ExtArgs>
+    invoice?: boolean | FinancialTransaction$invoiceArgs<ExtArgs>
   }, ExtArgs["result"]["financialTransaction"]>
 
   export type FinancialTransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -34058,11 +34612,13 @@ export namespace Prisma {
     date?: boolean
     description?: boolean
     expenseInstallmentId?: boolean
+    invoiceId?: boolean
     receipt_url?: boolean
     created_at?: boolean
     updated_at?: boolean
     bankAccount?: boolean | BankAccountDefaultArgs<ExtArgs>
     expenseInstallment?: boolean | FinancialTransaction$expenseInstallmentArgs<ExtArgs>
+    invoice?: boolean | FinancialTransaction$invoiceArgs<ExtArgs>
   }, ExtArgs["result"]["financialTransaction"]>
 
   export type FinancialTransactionSelectScalar = {
@@ -34073,23 +34629,27 @@ export namespace Prisma {
     date?: boolean
     description?: boolean
     expenseInstallmentId?: boolean
+    invoiceId?: boolean
     receipt_url?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type FinancialTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bankAccountId" | "type" | "amount" | "date" | "description" | "expenseInstallmentId" | "receipt_url" | "created_at" | "updated_at", ExtArgs["result"]["financialTransaction"]>
+  export type FinancialTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bankAccountId" | "type" | "amount" | "date" | "description" | "expenseInstallmentId" | "invoiceId" | "receipt_url" | "created_at" | "updated_at", ExtArgs["result"]["financialTransaction"]>
   export type FinancialTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bankAccount?: boolean | BankAccountDefaultArgs<ExtArgs>
     expenseInstallment?: boolean | FinancialTransaction$expenseInstallmentArgs<ExtArgs>
+    invoice?: boolean | FinancialTransaction$invoiceArgs<ExtArgs>
   }
   export type FinancialTransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bankAccount?: boolean | BankAccountDefaultArgs<ExtArgs>
     expenseInstallment?: boolean | FinancialTransaction$expenseInstallmentArgs<ExtArgs>
+    invoice?: boolean | FinancialTransaction$invoiceArgs<ExtArgs>
   }
   export type FinancialTransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bankAccount?: boolean | BankAccountDefaultArgs<ExtArgs>
     expenseInstallment?: boolean | FinancialTransaction$expenseInstallmentArgs<ExtArgs>
+    invoice?: boolean | FinancialTransaction$invoiceArgs<ExtArgs>
   }
 
   export type $FinancialTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -34097,6 +34657,7 @@ export namespace Prisma {
     objects: {
       bankAccount: Prisma.$BankAccountPayload<ExtArgs>
       expenseInstallment: Prisma.$ExpenseInstallmentPayload<ExtArgs> | null
+      invoice: Prisma.$InvoicePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -34106,6 +34667,7 @@ export namespace Prisma {
       date: Date
       description: string | null
       expenseInstallmentId: string | null
+      invoiceId: string | null
       receipt_url: string | null
       created_at: Date
       updated_at: Date
@@ -34505,6 +35067,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     bankAccount<T extends BankAccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BankAccountDefaultArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     expenseInstallment<T extends FinancialTransaction$expenseInstallmentArgs<ExtArgs> = {}>(args?: Subset<T, FinancialTransaction$expenseInstallmentArgs<ExtArgs>>): Prisma__ExpenseInstallmentClient<$Result.GetResult<Prisma.$ExpenseInstallmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    invoice<T extends FinancialTransaction$invoiceArgs<ExtArgs> = {}>(args?: Subset<T, FinancialTransaction$invoiceArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -34541,6 +35104,7 @@ export namespace Prisma {
     readonly date: FieldRef<"FinancialTransaction", 'DateTime'>
     readonly description: FieldRef<"FinancialTransaction", 'String'>
     readonly expenseInstallmentId: FieldRef<"FinancialTransaction", 'String'>
+    readonly invoiceId: FieldRef<"FinancialTransaction", 'String'>
     readonly receipt_url: FieldRef<"FinancialTransaction", 'String'>
     readonly created_at: FieldRef<"FinancialTransaction", 'DateTime'>
     readonly updated_at: FieldRef<"FinancialTransaction", 'DateTime'>
@@ -34959,6 +35523,25 @@ export namespace Prisma {
   }
 
   /**
+   * FinancialTransaction.invoice
+   */
+  export type FinancialTransaction$invoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+  }
+
+  /**
    * FinancialTransaction without action
    */
   export type FinancialTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -34974,6 +35557,1208 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: FinancialTransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ChartOfAccount
+   */
+
+  export type AggregateChartOfAccount = {
+    _count: ChartOfAccountCountAggregateOutputType | null
+    _min: ChartOfAccountMinAggregateOutputType | null
+    _max: ChartOfAccountMaxAggregateOutputType | null
+  }
+
+  export type ChartOfAccountMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    type: $Enums.ChartOfAccountType | null
+    parent_id: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ChartOfAccountMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    type: $Enums.ChartOfAccountType | null
+    parent_id: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ChartOfAccountCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    type: number
+    parent_id: number
+    is_active: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ChartOfAccountMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    type?: true
+    parent_id?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ChartOfAccountMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    type?: true
+    parent_id?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ChartOfAccountCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    type?: true
+    parent_id?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ChartOfAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChartOfAccount to aggregate.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChartOfAccounts
+    **/
+    _count?: true | ChartOfAccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChartOfAccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChartOfAccountMaxAggregateInputType
+  }
+
+  export type GetChartOfAccountAggregateType<T extends ChartOfAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateChartOfAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChartOfAccount[P]>
+      : GetScalarType<T[P], AggregateChartOfAccount[P]>
+  }
+
+
+
+
+  export type ChartOfAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChartOfAccountWhereInput
+    orderBy?: ChartOfAccountOrderByWithAggregationInput | ChartOfAccountOrderByWithAggregationInput[]
+    by: ChartOfAccountScalarFieldEnum[] | ChartOfAccountScalarFieldEnum
+    having?: ChartOfAccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChartOfAccountCountAggregateInputType | true
+    _min?: ChartOfAccountMinAggregateInputType
+    _max?: ChartOfAccountMaxAggregateInputType
+  }
+
+  export type ChartOfAccountGroupByOutputType = {
+    id: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    parent_id: string | null
+    is_active: boolean
+    created_at: Date
+    updated_at: Date
+    _count: ChartOfAccountCountAggregateOutputType | null
+    _min: ChartOfAccountMinAggregateOutputType | null
+    _max: ChartOfAccountMaxAggregateOutputType | null
+  }
+
+  type GetChartOfAccountGroupByPayload<T extends ChartOfAccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChartOfAccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChartOfAccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChartOfAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], ChartOfAccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChartOfAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    parent_id?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    parent?: boolean | ChartOfAccount$parentArgs<ExtArgs>
+    children?: boolean | ChartOfAccount$childrenArgs<ExtArgs>
+    expenses?: boolean | ChartOfAccount$expensesArgs<ExtArgs>
+    invoices?: boolean | ChartOfAccount$invoicesArgs<ExtArgs>
+    _count?: boolean | ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chartOfAccount"]>
+
+  export type ChartOfAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    parent_id?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    parent?: boolean | ChartOfAccount$parentArgs<ExtArgs>
+  }, ExtArgs["result"]["chartOfAccount"]>
+
+  export type ChartOfAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    parent_id?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    parent?: boolean | ChartOfAccount$parentArgs<ExtArgs>
+  }, ExtArgs["result"]["chartOfAccount"]>
+
+  export type ChartOfAccountSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    parent_id?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type ChartOfAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "type" | "parent_id" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["chartOfAccount"]>
+  export type ChartOfAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parent?: boolean | ChartOfAccount$parentArgs<ExtArgs>
+    children?: boolean | ChartOfAccount$childrenArgs<ExtArgs>
+    expenses?: boolean | ChartOfAccount$expensesArgs<ExtArgs>
+    invoices?: boolean | ChartOfAccount$invoicesArgs<ExtArgs>
+    _count?: boolean | ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ChartOfAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parent?: boolean | ChartOfAccount$parentArgs<ExtArgs>
+  }
+  export type ChartOfAccountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parent?: boolean | ChartOfAccount$parentArgs<ExtArgs>
+  }
+
+  export type $ChartOfAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChartOfAccount"
+    objects: {
+      parent: Prisma.$ChartOfAccountPayload<ExtArgs> | null
+      children: Prisma.$ChartOfAccountPayload<ExtArgs>[]
+      expenses: Prisma.$PayableExpensePayload<ExtArgs>[]
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      name: string
+      type: $Enums.ChartOfAccountType
+      parent_id: string | null
+      is_active: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["chartOfAccount"]>
+    composites: {}
+  }
+
+  type ChartOfAccountGetPayload<S extends boolean | null | undefined | ChartOfAccountDefaultArgs> = $Result.GetResult<Prisma.$ChartOfAccountPayload, S>
+
+  type ChartOfAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChartOfAccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChartOfAccountCountAggregateInputType | true
+    }
+
+  export interface ChartOfAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChartOfAccount'], meta: { name: 'ChartOfAccount' } }
+    /**
+     * Find zero or one ChartOfAccount that matches the filter.
+     * @param {ChartOfAccountFindUniqueArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChartOfAccountFindUniqueArgs>(args: SelectSubset<T, ChartOfAccountFindUniqueArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ChartOfAccount that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChartOfAccountFindUniqueOrThrowArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChartOfAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, ChartOfAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChartOfAccount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountFindFirstArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChartOfAccountFindFirstArgs>(args?: SelectSubset<T, ChartOfAccountFindFirstArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChartOfAccount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountFindFirstOrThrowArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChartOfAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, ChartOfAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChartOfAccounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChartOfAccounts
+     * const chartOfAccounts = await prisma.chartOfAccount.findMany()
+     * 
+     * // Get first 10 ChartOfAccounts
+     * const chartOfAccounts = await prisma.chartOfAccount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chartOfAccountWithIdOnly = await prisma.chartOfAccount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChartOfAccountFindManyArgs>(args?: SelectSubset<T, ChartOfAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ChartOfAccount.
+     * @param {ChartOfAccountCreateArgs} args - Arguments to create a ChartOfAccount.
+     * @example
+     * // Create one ChartOfAccount
+     * const ChartOfAccount = await prisma.chartOfAccount.create({
+     *   data: {
+     *     // ... data to create a ChartOfAccount
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChartOfAccountCreateArgs>(args: SelectSubset<T, ChartOfAccountCreateArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ChartOfAccounts.
+     * @param {ChartOfAccountCreateManyArgs} args - Arguments to create many ChartOfAccounts.
+     * @example
+     * // Create many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChartOfAccountCreateManyArgs>(args?: SelectSubset<T, ChartOfAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChartOfAccounts and returns the data saved in the database.
+     * @param {ChartOfAccountCreateManyAndReturnArgs} args - Arguments to create many ChartOfAccounts.
+     * @example
+     * // Create many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChartOfAccounts and only return the `id`
+     * const chartOfAccountWithIdOnly = await prisma.chartOfAccount.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChartOfAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, ChartOfAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ChartOfAccount.
+     * @param {ChartOfAccountDeleteArgs} args - Arguments to delete one ChartOfAccount.
+     * @example
+     * // Delete one ChartOfAccount
+     * const ChartOfAccount = await prisma.chartOfAccount.delete({
+     *   where: {
+     *     // ... filter to delete one ChartOfAccount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChartOfAccountDeleteArgs>(args: SelectSubset<T, ChartOfAccountDeleteArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ChartOfAccount.
+     * @param {ChartOfAccountUpdateArgs} args - Arguments to update one ChartOfAccount.
+     * @example
+     * // Update one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChartOfAccountUpdateArgs>(args: SelectSubset<T, ChartOfAccountUpdateArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ChartOfAccounts.
+     * @param {ChartOfAccountDeleteManyArgs} args - Arguments to filter ChartOfAccounts to delete.
+     * @example
+     * // Delete a few ChartOfAccounts
+     * const { count } = await prisma.chartOfAccount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChartOfAccountDeleteManyArgs>(args?: SelectSubset<T, ChartOfAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChartOfAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChartOfAccountUpdateManyArgs>(args: SelectSubset<T, ChartOfAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChartOfAccounts and returns the data updated in the database.
+     * @param {ChartOfAccountUpdateManyAndReturnArgs} args - Arguments to update many ChartOfAccounts.
+     * @example
+     * // Update many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ChartOfAccounts and only return the `id`
+     * const chartOfAccountWithIdOnly = await prisma.chartOfAccount.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ChartOfAccountUpdateManyAndReturnArgs>(args: SelectSubset<T, ChartOfAccountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ChartOfAccount.
+     * @param {ChartOfAccountUpsertArgs} args - Arguments to update or create a ChartOfAccount.
+     * @example
+     * // Update or create a ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.upsert({
+     *   create: {
+     *     // ... data to create a ChartOfAccount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChartOfAccount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChartOfAccountUpsertArgs>(args: SelectSubset<T, ChartOfAccountUpsertArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ChartOfAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountCountArgs} args - Arguments to filter ChartOfAccounts to count.
+     * @example
+     * // Count the number of ChartOfAccounts
+     * const count = await prisma.chartOfAccount.count({
+     *   where: {
+     *     // ... the filter for the ChartOfAccounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChartOfAccountCountArgs>(
+      args?: Subset<T, ChartOfAccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChartOfAccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChartOfAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChartOfAccountAggregateArgs>(args: Subset<T, ChartOfAccountAggregateArgs>): Prisma.PrismaPromise<GetChartOfAccountAggregateType<T>>
+
+    /**
+     * Group by ChartOfAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChartOfAccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChartOfAccountGroupByArgs['orderBy'] }
+        : { orderBy?: ChartOfAccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChartOfAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChartOfAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChartOfAccount model
+   */
+  readonly fields: ChartOfAccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChartOfAccount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChartOfAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    parent<T extends ChartOfAccount$parentArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccount$parentArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    children<T extends ChartOfAccount$childrenArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccount$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    expenses<T extends ChartOfAccount$expensesArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccount$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayableExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    invoices<T extends ChartOfAccount$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccount$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChartOfAccount model
+   */
+  interface ChartOfAccountFieldRefs {
+    readonly id: FieldRef<"ChartOfAccount", 'String'>
+    readonly code: FieldRef<"ChartOfAccount", 'String'>
+    readonly name: FieldRef<"ChartOfAccount", 'String'>
+    readonly type: FieldRef<"ChartOfAccount", 'ChartOfAccountType'>
+    readonly parent_id: FieldRef<"ChartOfAccount", 'String'>
+    readonly is_active: FieldRef<"ChartOfAccount", 'Boolean'>
+    readonly created_at: FieldRef<"ChartOfAccount", 'DateTime'>
+    readonly updated_at: FieldRef<"ChartOfAccount", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChartOfAccount findUnique
+   */
+  export type ChartOfAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount findUniqueOrThrow
+   */
+  export type ChartOfAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount findFirst
+   */
+  export type ChartOfAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChartOfAccounts.
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChartOfAccounts.
+     */
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount findFirstOrThrow
+   */
+  export type ChartOfAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChartOfAccounts.
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChartOfAccounts.
+     */
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount findMany
+   */
+  export type ChartOfAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccounts to fetch.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChartOfAccounts.
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount create
+   */
+  export type ChartOfAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChartOfAccount.
+     */
+    data: XOR<ChartOfAccountCreateInput, ChartOfAccountUncheckedCreateInput>
+  }
+
+  /**
+   * ChartOfAccount createMany
+   */
+  export type ChartOfAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChartOfAccounts.
+     */
+    data: ChartOfAccountCreateManyInput | ChartOfAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChartOfAccount createManyAndReturn
+   */
+  export type ChartOfAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * The data used to create many ChartOfAccounts.
+     */
+    data: ChartOfAccountCreateManyInput | ChartOfAccountCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChartOfAccount update
+   */
+  export type ChartOfAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChartOfAccount.
+     */
+    data: XOR<ChartOfAccountUpdateInput, ChartOfAccountUncheckedUpdateInput>
+    /**
+     * Choose, which ChartOfAccount to update.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount updateMany
+   */
+  export type ChartOfAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChartOfAccounts.
+     */
+    data: XOR<ChartOfAccountUpdateManyMutationInput, ChartOfAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which ChartOfAccounts to update
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * Limit how many ChartOfAccounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChartOfAccount updateManyAndReturn
+   */
+  export type ChartOfAccountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * The data used to update ChartOfAccounts.
+     */
+    data: XOR<ChartOfAccountUpdateManyMutationInput, ChartOfAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which ChartOfAccounts to update
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * Limit how many ChartOfAccounts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChartOfAccount upsert
+   */
+  export type ChartOfAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChartOfAccount to update in case it exists.
+     */
+    where: ChartOfAccountWhereUniqueInput
+    /**
+     * In case the ChartOfAccount found by the `where` argument doesn't exist, create a new ChartOfAccount with this data.
+     */
+    create: XOR<ChartOfAccountCreateInput, ChartOfAccountUncheckedCreateInput>
+    /**
+     * In case the ChartOfAccount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChartOfAccountUpdateInput, ChartOfAccountUncheckedUpdateInput>
+  }
+
+  /**
+   * ChartOfAccount delete
+   */
+  export type ChartOfAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter which ChartOfAccount to delete.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount deleteMany
+   */
+  export type ChartOfAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChartOfAccounts to delete
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * Limit how many ChartOfAccounts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChartOfAccount.parent
+   */
+  export type ChartOfAccount$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    where?: ChartOfAccountWhereInput
+  }
+
+  /**
+   * ChartOfAccount.children
+   */
+  export type ChartOfAccount$childrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    where?: ChartOfAccountWhereInput
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    cursor?: ChartOfAccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount.expenses
+   */
+  export type ChartOfAccount$expensesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayableExpense
+     */
+    select?: PayableExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayableExpense
+     */
+    omit?: PayableExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayableExpenseInclude<ExtArgs> | null
+    where?: PayableExpenseWhereInput
+    orderBy?: PayableExpenseOrderByWithRelationInput | PayableExpenseOrderByWithRelationInput[]
+    cursor?: PayableExpenseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayableExpenseScalarFieldEnum | PayableExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount.invoices
+   */
+  export type ChartOfAccount$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount without action
+   */
+  export type ChartOfAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChartOfAccount
+     */
+    omit?: ChartOfAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
   }
 
 
@@ -35219,16 +37004,18 @@ export namespace Prisma {
   export const InvoiceScalarFieldEnum: {
     id: 'id',
     invoice_number: 'invoice_number',
-    issue_date: 'issue_date',
-    due_date: 'due_date',
     total_value: 'total_value',
     is_paid: 'is_paid',
     payment_date: 'payment_date',
-    status: 'status',
+    issue_date: 'issue_date',
+    due_date: 'due_date',
     notes: 'notes',
+    status: 'status',
     is_active: 'is_active',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    contractId: 'contractId',
+    chartOfAccountId: 'chartOfAccountId'
   };
 
   export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
@@ -35397,6 +37184,7 @@ export namespace Prisma {
   export const PayableExpenseScalarFieldEnum: {
     id: 'id',
     maintenanceId: 'maintenanceId',
+    contractId: 'contractId',
     supplierId: 'supplierId',
     description: 'description',
     total_value: 'total_value',
@@ -35411,7 +37199,8 @@ export namespace Prisma {
     rejection_notes: 'rejection_notes',
     is_active: 'is_active',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    chartOfAccountId: 'chartOfAccountId'
   };
 
   export type PayableExpenseScalarFieldEnum = (typeof PayableExpenseScalarFieldEnum)[keyof typeof PayableExpenseScalarFieldEnum]
@@ -35428,7 +37217,8 @@ export namespace Prisma {
     status: 'status',
     payment_date: 'payment_date',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    scheduledBankAccountId: 'scheduledBankAccountId'
   };
 
   export type ExpenseInstallmentScalarFieldEnum = (typeof ExpenseInstallmentScalarFieldEnum)[keyof typeof ExpenseInstallmentScalarFieldEnum]
@@ -35458,12 +37248,27 @@ export namespace Prisma {
     date: 'date',
     description: 'description',
     expenseInstallmentId: 'expenseInstallmentId',
+    invoiceId: 'invoiceId',
     receipt_url: 'receipt_url',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
 
   export type FinancialTransactionScalarFieldEnum = (typeof FinancialTransactionScalarFieldEnum)[keyof typeof FinancialTransactionScalarFieldEnum]
+
+
+  export const ChartOfAccountScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    type: 'type',
+    parent_id: 'parent_id',
+    is_active: 'is_active',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ChartOfAccountScalarFieldEnum = (typeof ChartOfAccountScalarFieldEnum)[keyof typeof ChartOfAccountScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -35807,6 +37612,20 @@ export namespace Prisma {
    * Reference to a field of type 'TransactionType[]'
    */
   export type ListEnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ChartOfAccountType'
+   */
+  export type EnumChartOfAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChartOfAccountType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ChartOfAccountType[]'
+   */
+  export type ListEnumChartOfAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChartOfAccountType[]'>
     
   /**
    * Deep Input Types
@@ -36636,7 +38455,9 @@ export namespace Prisma {
     client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     maintenances?: MaintenanceListRelationFilter
     measurementBulletins?: MeasurementBulletinListRelationFilter
-    CommercialProposal?: XOR<CommercialProposalNullableScalarRelationFilter, CommercialProposalWhereInput> | null
+    invoices?: InvoiceListRelationFilter
+    payableExpenses?: PayableExpenseListRelationFilter
+    proposals?: CommercialProposalListRelationFilter
   }
 
   export type ContractOrderByWithRelationInput = {
@@ -36663,7 +38484,9 @@ export namespace Prisma {
     client?: SupplierOrderByWithRelationInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     measurementBulletins?: MeasurementBulletinOrderByRelationAggregateInput
-    CommercialProposal?: CommercialProposalOrderByWithRelationInput
+    invoices?: InvoiceOrderByRelationAggregateInput
+    payableExpenses?: PayableExpenseOrderByRelationAggregateInput
+    proposals?: CommercialProposalOrderByRelationAggregateInput
   }
 
   export type ContractWhereUniqueInput = Prisma.AtLeast<{
@@ -36693,7 +38516,9 @@ export namespace Prisma {
     client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     maintenances?: MaintenanceListRelationFilter
     measurementBulletins?: MeasurementBulletinListRelationFilter
-    CommercialProposal?: XOR<CommercialProposalNullableScalarRelationFilter, CommercialProposalWhereInput> | null
+    invoices?: InvoiceListRelationFilter
+    payableExpenses?: PayableExpenseListRelationFilter
+    proposals?: CommercialProposalListRelationFilter
   }, "id" | "contract_number">
 
   export type ContractOrderByWithAggregationInput = {
@@ -37032,68 +38857,85 @@ export namespace Prisma {
     OR?: InvoiceWhereInput[]
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
     id?: StringFilter<"Invoice"> | string
-    invoice_number?: StringFilter<"Invoice"> | string
-    issue_date?: DateTimeFilter<"Invoice"> | Date | string
-    due_date?: DateTimeFilter<"Invoice"> | Date | string
+    invoice_number?: StringNullableFilter<"Invoice"> | string | null
     total_value?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     is_paid?: BoolFilter<"Invoice"> | boolean
     payment_date?: DateTimeNullableFilter<"Invoice"> | Date | string | null
-    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    issue_date?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    due_date?: DateTimeFilter<"Invoice"> | Date | string
     notes?: StringNullableFilter<"Invoice"> | string | null
+    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
     is_active?: BoolFilter<"Invoice"> | boolean
     created_at?: DateTimeFilter<"Invoice"> | Date | string
     updated_at?: DateTimeFilter<"Invoice"> | Date | string
+    contractId?: StringNullableFilter<"Invoice"> | string | null
+    chartOfAccountId?: StringNullableFilter<"Invoice"> | string | null
     measurementBulletins?: MeasurementBulletinListRelationFilter
+    contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
+    chartOfAccount?: XOR<ChartOfAccountNullableScalarRelationFilter, ChartOfAccountWhereInput> | null
+    transactions?: FinancialTransactionListRelationFilter
   }
 
   export type InvoiceOrderByWithRelationInput = {
     id?: SortOrder
-    invoice_number?: SortOrder
-    issue_date?: SortOrder
-    due_date?: SortOrder
+    invoice_number?: SortOrderInput | SortOrder
     total_value?: SortOrder
     is_paid?: SortOrder
     payment_date?: SortOrderInput | SortOrder
-    status?: SortOrder
+    issue_date?: SortOrderInput | SortOrder
+    due_date?: SortOrder
     notes?: SortOrderInput | SortOrder
+    status?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    contractId?: SortOrderInput | SortOrder
+    chartOfAccountId?: SortOrderInput | SortOrder
     measurementBulletins?: MeasurementBulletinOrderByRelationAggregateInput
+    contract?: ContractOrderByWithRelationInput
+    chartOfAccount?: ChartOfAccountOrderByWithRelationInput
+    transactions?: FinancialTransactionOrderByRelationAggregateInput
   }
 
   export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    invoice_number?: string
     AND?: InvoiceWhereInput | InvoiceWhereInput[]
     OR?: InvoiceWhereInput[]
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
-    issue_date?: DateTimeFilter<"Invoice"> | Date | string
-    due_date?: DateTimeFilter<"Invoice"> | Date | string
+    invoice_number?: StringNullableFilter<"Invoice"> | string | null
     total_value?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     is_paid?: BoolFilter<"Invoice"> | boolean
     payment_date?: DateTimeNullableFilter<"Invoice"> | Date | string | null
-    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    issue_date?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    due_date?: DateTimeFilter<"Invoice"> | Date | string
     notes?: StringNullableFilter<"Invoice"> | string | null
+    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
     is_active?: BoolFilter<"Invoice"> | boolean
     created_at?: DateTimeFilter<"Invoice"> | Date | string
     updated_at?: DateTimeFilter<"Invoice"> | Date | string
+    contractId?: StringNullableFilter<"Invoice"> | string | null
+    chartOfAccountId?: StringNullableFilter<"Invoice"> | string | null
     measurementBulletins?: MeasurementBulletinListRelationFilter
-  }, "id" | "invoice_number">
+    contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
+    chartOfAccount?: XOR<ChartOfAccountNullableScalarRelationFilter, ChartOfAccountWhereInput> | null
+    transactions?: FinancialTransactionListRelationFilter
+  }, "id">
 
   export type InvoiceOrderByWithAggregationInput = {
     id?: SortOrder
-    invoice_number?: SortOrder
-    issue_date?: SortOrder
-    due_date?: SortOrder
+    invoice_number?: SortOrderInput | SortOrder
     total_value?: SortOrder
     is_paid?: SortOrder
     payment_date?: SortOrderInput | SortOrder
-    status?: SortOrder
+    issue_date?: SortOrderInput | SortOrder
+    due_date?: SortOrder
     notes?: SortOrderInput | SortOrder
+    status?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    contractId?: SortOrderInput | SortOrder
+    chartOfAccountId?: SortOrderInput | SortOrder
     _count?: InvoiceCountOrderByAggregateInput
     _avg?: InvoiceAvgOrderByAggregateInput
     _max?: InvoiceMaxOrderByAggregateInput
@@ -37106,17 +38948,19 @@ export namespace Prisma {
     OR?: InvoiceScalarWhereWithAggregatesInput[]
     NOT?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Invoice"> | string
-    invoice_number?: StringWithAggregatesFilter<"Invoice"> | string
-    issue_date?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
-    due_date?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+    invoice_number?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
     total_value?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     is_paid?: BoolWithAggregatesFilter<"Invoice"> | boolean
     payment_date?: DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
-    status?: EnumInvoiceStatusWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus
+    issue_date?: DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
+    due_date?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
     notes?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    status?: EnumInvoiceStatusWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus
     is_active?: BoolWithAggregatesFilter<"Invoice"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+    contractId?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    chartOfAccountId?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
   }
 
   export type BulletinExpenseWhereInput = {
@@ -37903,6 +39747,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"BankAccount"> | Date | string
     updated_at?: DateTimeFilter<"BankAccount"> | Date | string
     transactions?: FinancialTransactionListRelationFilter
+    scheduledInstallments?: ExpenseInstallmentListRelationFilter
   }
 
   export type BankAccountOrderByWithRelationInput = {
@@ -37916,6 +39761,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     transactions?: FinancialTransactionOrderByRelationAggregateInput
+    scheduledInstallments?: ExpenseInstallmentOrderByRelationAggregateInput
   }
 
   export type BankAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -37932,6 +39778,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"BankAccount"> | Date | string
     updated_at?: DateTimeFilter<"BankAccount"> | Date | string
     transactions?: FinancialTransactionListRelationFilter
+    scheduledInstallments?: ExpenseInstallmentListRelationFilter
   }, "id">
 
   export type BankAccountOrderByWithAggregationInput = {
@@ -37971,7 +39818,8 @@ export namespace Prisma {
     OR?: PayableExpenseWhereInput[]
     NOT?: PayableExpenseWhereInput | PayableExpenseWhereInput[]
     id?: StringFilter<"PayableExpense"> | string
-    maintenanceId?: StringFilter<"PayableExpense"> | string
+    maintenanceId?: StringNullableFilter<"PayableExpense"> | string | null
+    contractId?: StringNullableFilter<"PayableExpense"> | string | null
     supplierId?: StringNullableFilter<"PayableExpense"> | string | null
     description?: StringFilter<"PayableExpense"> | string
     total_value?: DecimalFilter<"PayableExpense"> | Decimal | DecimalJsLike | number | string
@@ -37987,15 +39835,19 @@ export namespace Prisma {
     is_active?: BoolFilter<"PayableExpense"> | boolean
     created_at?: DateTimeFilter<"PayableExpense"> | Date | string
     updated_at?: DateTimeFilter<"PayableExpense"> | Date | string
-    maintenance?: XOR<MaintenanceScalarRelationFilter, MaintenanceWhereInput>
+    chartOfAccountId?: StringNullableFilter<"PayableExpense"> | string | null
+    maintenance?: XOR<MaintenanceNullableScalarRelationFilter, MaintenanceWhereInput> | null
+    contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
     supplier?: XOR<SupplierNullableScalarRelationFilter, SupplierWhereInput> | null
+    chartOfAccount?: XOR<ChartOfAccountNullableScalarRelationFilter, ChartOfAccountWhereInput> | null
     installments?: ExpenseInstallmentListRelationFilter
     documents?: ExpenseDocumentListRelationFilter
   }
 
   export type PayableExpenseOrderByWithRelationInput = {
     id?: SortOrder
-    maintenanceId?: SortOrder
+    maintenanceId?: SortOrderInput | SortOrder
+    contractId?: SortOrderInput | SortOrder
     supplierId?: SortOrderInput | SortOrder
     description?: SortOrder
     total_value?: SortOrder
@@ -38011,8 +39863,11 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    chartOfAccountId?: SortOrderInput | SortOrder
     maintenance?: MaintenanceOrderByWithRelationInput
+    contract?: ContractOrderByWithRelationInput
     supplier?: SupplierOrderByWithRelationInput
+    chartOfAccount?: ChartOfAccountOrderByWithRelationInput
     installments?: ExpenseInstallmentOrderByRelationAggregateInput
     documents?: ExpenseDocumentOrderByRelationAggregateInput
   }
@@ -38022,7 +39877,8 @@ export namespace Prisma {
     AND?: PayableExpenseWhereInput | PayableExpenseWhereInput[]
     OR?: PayableExpenseWhereInput[]
     NOT?: PayableExpenseWhereInput | PayableExpenseWhereInput[]
-    maintenanceId?: StringFilter<"PayableExpense"> | string
+    maintenanceId?: StringNullableFilter<"PayableExpense"> | string | null
+    contractId?: StringNullableFilter<"PayableExpense"> | string | null
     supplierId?: StringNullableFilter<"PayableExpense"> | string | null
     description?: StringFilter<"PayableExpense"> | string
     total_value?: DecimalFilter<"PayableExpense"> | Decimal | DecimalJsLike | number | string
@@ -38038,15 +39894,19 @@ export namespace Prisma {
     is_active?: BoolFilter<"PayableExpense"> | boolean
     created_at?: DateTimeFilter<"PayableExpense"> | Date | string
     updated_at?: DateTimeFilter<"PayableExpense"> | Date | string
-    maintenance?: XOR<MaintenanceScalarRelationFilter, MaintenanceWhereInput>
+    chartOfAccountId?: StringNullableFilter<"PayableExpense"> | string | null
+    maintenance?: XOR<MaintenanceNullableScalarRelationFilter, MaintenanceWhereInput> | null
+    contract?: XOR<ContractNullableScalarRelationFilter, ContractWhereInput> | null
     supplier?: XOR<SupplierNullableScalarRelationFilter, SupplierWhereInput> | null
+    chartOfAccount?: XOR<ChartOfAccountNullableScalarRelationFilter, ChartOfAccountWhereInput> | null
     installments?: ExpenseInstallmentListRelationFilter
     documents?: ExpenseDocumentListRelationFilter
   }, "id">
 
   export type PayableExpenseOrderByWithAggregationInput = {
     id?: SortOrder
-    maintenanceId?: SortOrder
+    maintenanceId?: SortOrderInput | SortOrder
+    contractId?: SortOrderInput | SortOrder
     supplierId?: SortOrderInput | SortOrder
     description?: SortOrder
     total_value?: SortOrder
@@ -38062,6 +39922,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    chartOfAccountId?: SortOrderInput | SortOrder
     _count?: PayableExpenseCountOrderByAggregateInput
     _avg?: PayableExpenseAvgOrderByAggregateInput
     _max?: PayableExpenseMaxOrderByAggregateInput
@@ -38074,7 +39935,8 @@ export namespace Prisma {
     OR?: PayableExpenseScalarWhereWithAggregatesInput[]
     NOT?: PayableExpenseScalarWhereWithAggregatesInput | PayableExpenseScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PayableExpense"> | string
-    maintenanceId?: StringWithAggregatesFilter<"PayableExpense"> | string
+    maintenanceId?: StringNullableWithAggregatesFilter<"PayableExpense"> | string | null
+    contractId?: StringNullableWithAggregatesFilter<"PayableExpense"> | string | null
     supplierId?: StringNullableWithAggregatesFilter<"PayableExpense"> | string | null
     description?: StringWithAggregatesFilter<"PayableExpense"> | string
     total_value?: DecimalWithAggregatesFilter<"PayableExpense"> | Decimal | DecimalJsLike | number | string
@@ -38090,6 +39952,7 @@ export namespace Prisma {
     is_active?: BoolWithAggregatesFilter<"PayableExpense"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"PayableExpense"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"PayableExpense"> | Date | string
+    chartOfAccountId?: StringNullableWithAggregatesFilter<"PayableExpense"> | string | null
   }
 
   export type ExpenseInstallmentWhereInput = {
@@ -38107,8 +39970,10 @@ export namespace Prisma {
     payment_date?: DateTimeNullableFilter<"ExpenseInstallment"> | Date | string | null
     created_at?: DateTimeFilter<"ExpenseInstallment"> | Date | string
     updated_at?: DateTimeFilter<"ExpenseInstallment"> | Date | string
+    scheduledBankAccountId?: StringNullableFilter<"ExpenseInstallment"> | string | null
     payableExpense?: XOR<PayableExpenseScalarRelationFilter, PayableExpenseWhereInput>
     transactions?: FinancialTransactionListRelationFilter
+    scheduledBankAccount?: XOR<BankAccountNullableScalarRelationFilter, BankAccountWhereInput> | null
   }
 
   export type ExpenseInstallmentOrderByWithRelationInput = {
@@ -38123,8 +39988,10 @@ export namespace Prisma {
     payment_date?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    scheduledBankAccountId?: SortOrderInput | SortOrder
     payableExpense?: PayableExpenseOrderByWithRelationInput
     transactions?: FinancialTransactionOrderByRelationAggregateInput
+    scheduledBankAccount?: BankAccountOrderByWithRelationInput
   }
 
   export type ExpenseInstallmentWhereUniqueInput = Prisma.AtLeast<{
@@ -38142,8 +40009,10 @@ export namespace Prisma {
     payment_date?: DateTimeNullableFilter<"ExpenseInstallment"> | Date | string | null
     created_at?: DateTimeFilter<"ExpenseInstallment"> | Date | string
     updated_at?: DateTimeFilter<"ExpenseInstallment"> | Date | string
+    scheduledBankAccountId?: StringNullableFilter<"ExpenseInstallment"> | string | null
     payableExpense?: XOR<PayableExpenseScalarRelationFilter, PayableExpenseWhereInput>
     transactions?: FinancialTransactionListRelationFilter
+    scheduledBankAccount?: XOR<BankAccountNullableScalarRelationFilter, BankAccountWhereInput> | null
   }, "id">
 
   export type ExpenseInstallmentOrderByWithAggregationInput = {
@@ -38158,6 +40027,7 @@ export namespace Prisma {
     payment_date?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    scheduledBankAccountId?: SortOrderInput | SortOrder
     _count?: ExpenseInstallmentCountOrderByAggregateInput
     _avg?: ExpenseInstallmentAvgOrderByAggregateInput
     _max?: ExpenseInstallmentMaxOrderByAggregateInput
@@ -38180,6 +40050,7 @@ export namespace Prisma {
     payment_date?: DateTimeNullableWithAggregatesFilter<"ExpenseInstallment"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"ExpenseInstallment"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"ExpenseInstallment"> | Date | string
+    scheduledBankAccountId?: StringNullableWithAggregatesFilter<"ExpenseInstallment"> | string | null
   }
 
   export type ExpenseDocumentWhereInput = {
@@ -38275,11 +40146,13 @@ export namespace Prisma {
     date?: DateTimeFilter<"FinancialTransaction"> | Date | string
     description?: StringNullableFilter<"FinancialTransaction"> | string | null
     expenseInstallmentId?: StringNullableFilter<"FinancialTransaction"> | string | null
+    invoiceId?: StringNullableFilter<"FinancialTransaction"> | string | null
     receipt_url?: StringNullableFilter<"FinancialTransaction"> | string | null
     created_at?: DateTimeFilter<"FinancialTransaction"> | Date | string
     updated_at?: DateTimeFilter<"FinancialTransaction"> | Date | string
     bankAccount?: XOR<BankAccountScalarRelationFilter, BankAccountWhereInput>
     expenseInstallment?: XOR<ExpenseInstallmentNullableScalarRelationFilter, ExpenseInstallmentWhereInput> | null
+    invoice?: XOR<InvoiceNullableScalarRelationFilter, InvoiceWhereInput> | null
   }
 
   export type FinancialTransactionOrderByWithRelationInput = {
@@ -38290,11 +40163,13 @@ export namespace Prisma {
     date?: SortOrder
     description?: SortOrderInput | SortOrder
     expenseInstallmentId?: SortOrderInput | SortOrder
+    invoiceId?: SortOrderInput | SortOrder
     receipt_url?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     bankAccount?: BankAccountOrderByWithRelationInput
     expenseInstallment?: ExpenseInstallmentOrderByWithRelationInput
+    invoice?: InvoiceOrderByWithRelationInput
   }
 
   export type FinancialTransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -38308,11 +40183,13 @@ export namespace Prisma {
     date?: DateTimeFilter<"FinancialTransaction"> | Date | string
     description?: StringNullableFilter<"FinancialTransaction"> | string | null
     expenseInstallmentId?: StringNullableFilter<"FinancialTransaction"> | string | null
+    invoiceId?: StringNullableFilter<"FinancialTransaction"> | string | null
     receipt_url?: StringNullableFilter<"FinancialTransaction"> | string | null
     created_at?: DateTimeFilter<"FinancialTransaction"> | Date | string
     updated_at?: DateTimeFilter<"FinancialTransaction"> | Date | string
     bankAccount?: XOR<BankAccountScalarRelationFilter, BankAccountWhereInput>
     expenseInstallment?: XOR<ExpenseInstallmentNullableScalarRelationFilter, ExpenseInstallmentWhereInput> | null
+    invoice?: XOR<InvoiceNullableScalarRelationFilter, InvoiceWhereInput> | null
   }, "id">
 
   export type FinancialTransactionOrderByWithAggregationInput = {
@@ -38323,6 +40200,7 @@ export namespace Prisma {
     date?: SortOrder
     description?: SortOrderInput | SortOrder
     expenseInstallmentId?: SortOrderInput | SortOrder
+    invoiceId?: SortOrderInput | SortOrder
     receipt_url?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -38344,9 +40222,89 @@ export namespace Prisma {
     date?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
     description?: StringNullableWithAggregatesFilter<"FinancialTransaction"> | string | null
     expenseInstallmentId?: StringNullableWithAggregatesFilter<"FinancialTransaction"> | string | null
+    invoiceId?: StringNullableWithAggregatesFilter<"FinancialTransaction"> | string | null
     receipt_url?: StringNullableWithAggregatesFilter<"FinancialTransaction"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
+  }
+
+  export type ChartOfAccountWhereInput = {
+    AND?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    OR?: ChartOfAccountWhereInput[]
+    NOT?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    id?: StringFilter<"ChartOfAccount"> | string
+    code?: StringFilter<"ChartOfAccount"> | string
+    name?: StringFilter<"ChartOfAccount"> | string
+    type?: EnumChartOfAccountTypeFilter<"ChartOfAccount"> | $Enums.ChartOfAccountType
+    parent_id?: StringNullableFilter<"ChartOfAccount"> | string | null
+    is_active?: BoolFilter<"ChartOfAccount"> | boolean
+    created_at?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    updated_at?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    parent?: XOR<ChartOfAccountNullableScalarRelationFilter, ChartOfAccountWhereInput> | null
+    children?: ChartOfAccountListRelationFilter
+    expenses?: PayableExpenseListRelationFilter
+    invoices?: InvoiceListRelationFilter
+  }
+
+  export type ChartOfAccountOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    parent_id?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    parent?: ChartOfAccountOrderByWithRelationInput
+    children?: ChartOfAccountOrderByRelationAggregateInput
+    expenses?: PayableExpenseOrderByRelationAggregateInput
+    invoices?: InvoiceOrderByRelationAggregateInput
+  }
+
+  export type ChartOfAccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    OR?: ChartOfAccountWhereInput[]
+    NOT?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    name?: StringFilter<"ChartOfAccount"> | string
+    type?: EnumChartOfAccountTypeFilter<"ChartOfAccount"> | $Enums.ChartOfAccountType
+    parent_id?: StringNullableFilter<"ChartOfAccount"> | string | null
+    is_active?: BoolFilter<"ChartOfAccount"> | boolean
+    created_at?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    updated_at?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    parent?: XOR<ChartOfAccountNullableScalarRelationFilter, ChartOfAccountWhereInput> | null
+    children?: ChartOfAccountListRelationFilter
+    expenses?: PayableExpenseListRelationFilter
+    invoices?: InvoiceListRelationFilter
+  }, "id" | "code">
+
+  export type ChartOfAccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    parent_id?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: ChartOfAccountCountOrderByAggregateInput
+    _max?: ChartOfAccountMaxOrderByAggregateInput
+    _min?: ChartOfAccountMinOrderByAggregateInput
+  }
+
+  export type ChartOfAccountScalarWhereWithAggregatesInput = {
+    AND?: ChartOfAccountScalarWhereWithAggregatesInput | ChartOfAccountScalarWhereWithAggregatesInput[]
+    OR?: ChartOfAccountScalarWhereWithAggregatesInput[]
+    NOT?: ChartOfAccountScalarWhereWithAggregatesInput | ChartOfAccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    code?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    name?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    type?: EnumChartOfAccountTypeWithAggregatesFilter<"ChartOfAccount"> | $Enums.ChartOfAccountType
+    parent_id?: StringNullableWithAggregatesFilter<"ChartOfAccount"> | string | null
+    is_active?: BoolWithAggregatesFilter<"ChartOfAccount"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"ChartOfAccount"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"ChartOfAccount"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -39296,7 +41254,9 @@ export namespace Prisma {
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
+    invoices?: InvoiceCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateInput = {
@@ -39322,7 +41282,9 @@ export namespace Prisma {
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractUpdateInput = {
@@ -39348,7 +41310,9 @@ export namespace Prisma {
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateInput = {
@@ -39374,7 +41338,9 @@ export namespace Prisma {
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractCreateManyInput = {
@@ -39769,93 +41735,107 @@ export namespace Prisma {
 
   export type InvoiceCreateInput = {
     id?: string
-    invoice_number: string
-    issue_date: Date | string
-    due_date: Date | string
+    invoice_number?: string | null
     total_value: Decimal | DecimalJsLike | number | string
     is_paid?: boolean
     payment_date?: Date | string | null
-    status?: $Enums.InvoiceStatus
+    issue_date?: Date | string | null
+    due_date: Date | string
     notes?: string | null
+    status?: $Enums.InvoiceStatus
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutInvoiceInput
+    contract?: ContractCreateNestedOneWithoutInvoicesInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutInvoicesInput
+    transactions?: FinancialTransactionCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateInput = {
     id?: string
-    invoice_number: string
-    issue_date: Date | string
-    due_date: Date | string
+    invoice_number?: string | null
     total_value: Decimal | DecimalJsLike | number | string
     is_paid?: boolean
     payment_date?: Date | string | null
-    status?: $Enums.InvoiceStatus
+    issue_date?: Date | string | null
+    due_date: Date | string
     notes?: string | null
+    status?: $Enums.InvoiceStatus
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    contractId?: string | null
+    chartOfAccountId?: string | null
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutInvoiceInput
+    transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    invoice_number?: StringFieldUpdateOperationsInput | string
-    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutInvoiceNestedInput
+    contract?: ContractUpdateOneWithoutInvoicesNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutInvoicesNestedInput
+    transactions?: FinancialTransactionUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    invoice_number?: StringFieldUpdateOperationsInput | string
-    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutInvoiceNestedInput
+    transactions?: FinancialTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceCreateManyInput = {
     id?: string
-    invoice_number: string
-    issue_date: Date | string
-    due_date: Date | string
+    invoice_number?: string | null
     total_value: Decimal | DecimalJsLike | number | string
     is_paid?: boolean
     payment_date?: Date | string | null
-    status?: $Enums.InvoiceStatus
+    issue_date?: Date | string | null
+    due_date: Date | string
     notes?: string | null
+    status?: $Enums.InvoiceStatus
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    contractId?: string | null
+    chartOfAccountId?: string | null
   }
 
   export type InvoiceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    invoice_number?: StringFieldUpdateOperationsInput | string
-    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39863,17 +41843,19 @@ export namespace Prisma {
 
   export type InvoiceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    invoice_number?: StringFieldUpdateOperationsInput | string
-    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BulletinExpenseCreateInput = {
@@ -40483,7 +42465,7 @@ export namespace Prisma {
     is_active?: boolean
     client: SupplierCreateNestedOneWithoutCommercialProposalsInput
     companySettings?: CompanySettingsCreateNestedOneWithoutCommercialProposalsInput
-    contract?: ContractCreateNestedOneWithoutCommercialProposalInput
+    contract?: ContractCreateNestedOneWithoutProposalsInput
     items?: ProposalItemCreateNestedManyWithoutCommercialProposalInput
   }
 
@@ -40531,7 +42513,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     client?: SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput
     companySettings?: CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput
-    contract?: ContractUpdateOneWithoutCommercialProposalNestedInput
+    contract?: ContractUpdateOneWithoutProposalsNestedInput
     items?: ProposalItemUpdateManyWithoutCommercialProposalNestedInput
   }
 
@@ -40745,6 +42727,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     transactions?: FinancialTransactionCreateNestedManyWithoutBankAccountInput
+    scheduledInstallments?: ExpenseInstallmentCreateNestedManyWithoutScheduledBankAccountInput
   }
 
   export type BankAccountUncheckedCreateInput = {
@@ -40758,6 +42741,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    scheduledInstallments?: ExpenseInstallmentUncheckedCreateNestedManyWithoutScheduledBankAccountInput
   }
 
   export type BankAccountUpdateInput = {
@@ -40771,6 +42755,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: FinancialTransactionUpdateManyWithoutBankAccountNestedInput
+    scheduledInstallments?: ExpenseInstallmentUpdateManyWithoutScheduledBankAccountNestedInput
   }
 
   export type BankAccountUncheckedUpdateInput = {
@@ -40784,6 +42769,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: FinancialTransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    scheduledInstallments?: ExpenseInstallmentUncheckedUpdateManyWithoutScheduledBankAccountNestedInput
   }
 
   export type BankAccountCreateManyInput = {
@@ -40838,15 +42824,18 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    maintenance: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    maintenance?: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    contract?: ContractCreateNestedOneWithoutPayableExpensesInput
     supplier?: SupplierCreateNestedOneWithoutPayableExpensesInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutExpensesInput
     installments?: ExpenseInstallmentCreateNestedManyWithoutPayableExpenseInput
     documents?: ExpenseDocumentCreateNestedManyWithoutPayableExpenseInput
   }
 
   export type PayableExpenseUncheckedCreateInput = {
     id?: string
-    maintenanceId: string
+    maintenanceId?: string | null
+    contractId?: string | null
     supplierId?: string | null
     description: string
     total_value: Decimal | DecimalJsLike | number | string
@@ -40862,6 +42851,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    chartOfAccountId?: string | null
     installments?: ExpenseInstallmentUncheckedCreateNestedManyWithoutPayableExpenseInput
     documents?: ExpenseDocumentUncheckedCreateNestedManyWithoutPayableExpenseInput
   }
@@ -40882,15 +42872,18 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    maintenance?: MaintenanceUpdateOneRequiredWithoutPayableExpensesNestedInput
+    maintenance?: MaintenanceUpdateOneWithoutPayableExpensesNestedInput
+    contract?: ContractUpdateOneWithoutPayableExpensesNestedInput
     supplier?: SupplierUpdateOneWithoutPayableExpensesNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutExpensesNestedInput
     installments?: ExpenseInstallmentUpdateManyWithoutPayableExpenseNestedInput
     documents?: ExpenseDocumentUpdateManyWithoutPayableExpenseNestedInput
   }
 
   export type PayableExpenseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    maintenanceId?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     supplierId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -40906,13 +42899,15 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     installments?: ExpenseInstallmentUncheckedUpdateManyWithoutPayableExpenseNestedInput
     documents?: ExpenseDocumentUncheckedUpdateManyWithoutPayableExpenseNestedInput
   }
 
   export type PayableExpenseCreateManyInput = {
     id?: string
-    maintenanceId: string
+    maintenanceId?: string | null
+    contractId?: string | null
     supplierId?: string | null
     description: string
     total_value: Decimal | DecimalJsLike | number | string
@@ -40928,6 +42923,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    chartOfAccountId?: string | null
   }
 
   export type PayableExpenseUpdateManyMutationInput = {
@@ -40950,7 +42946,8 @@ export namespace Prisma {
 
   export type PayableExpenseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    maintenanceId?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     supplierId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -40966,6 +42963,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ExpenseInstallmentCreateInput = {
@@ -40981,6 +42979,7 @@ export namespace Prisma {
     updated_at?: Date | string
     payableExpense: PayableExpenseCreateNestedOneWithoutInstallmentsInput
     transactions?: FinancialTransactionCreateNestedManyWithoutExpenseInstallmentInput
+    scheduledBankAccount?: BankAccountCreateNestedOneWithoutScheduledInstallmentsInput
   }
 
   export type ExpenseInstallmentUncheckedCreateInput = {
@@ -40995,6 +42994,7 @@ export namespace Prisma {
     payment_date?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    scheduledBankAccountId?: string | null
     transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutExpenseInstallmentInput
   }
 
@@ -41011,6 +43011,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     payableExpense?: PayableExpenseUpdateOneRequiredWithoutInstallmentsNestedInput
     transactions?: FinancialTransactionUpdateManyWithoutExpenseInstallmentNestedInput
+    scheduledBankAccount?: BankAccountUpdateOneWithoutScheduledInstallmentsNestedInput
   }
 
   export type ExpenseInstallmentUncheckedUpdateInput = {
@@ -41025,6 +43026,7 @@ export namespace Prisma {
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    scheduledBankAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     transactions?: FinancialTransactionUncheckedUpdateManyWithoutExpenseInstallmentNestedInput
   }
 
@@ -41040,6 +43042,7 @@ export namespace Prisma {
     payment_date?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    scheduledBankAccountId?: string | null
   }
 
   export type ExpenseInstallmentUpdateManyMutationInput = {
@@ -41067,6 +43070,7 @@ export namespace Prisma {
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    scheduledBankAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ExpenseDocumentCreateInput = {
@@ -41170,6 +43174,7 @@ export namespace Prisma {
     updated_at?: Date | string
     bankAccount: BankAccountCreateNestedOneWithoutTransactionsInput
     expenseInstallment?: ExpenseInstallmentCreateNestedOneWithoutTransactionsInput
+    invoice?: InvoiceCreateNestedOneWithoutTransactionsInput
   }
 
   export type FinancialTransactionUncheckedCreateInput = {
@@ -41180,6 +43185,7 @@ export namespace Prisma {
     date: Date | string
     description?: string | null
     expenseInstallmentId?: string | null
+    invoiceId?: string | null
     receipt_url?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -41196,6 +43202,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     bankAccount?: BankAccountUpdateOneRequiredWithoutTransactionsNestedInput
     expenseInstallment?: ExpenseInstallmentUpdateOneWithoutTransactionsNestedInput
+    invoice?: InvoiceUpdateOneWithoutTransactionsNestedInput
   }
 
   export type FinancialTransactionUncheckedUpdateInput = {
@@ -41206,6 +43213,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     expenseInstallmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     receipt_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41219,6 +43227,7 @@ export namespace Prisma {
     date: Date | string
     description?: string | null
     expenseInstallmentId?: string | null
+    invoiceId?: string | null
     receipt_url?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -41243,7 +43252,96 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     expenseInstallmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     receipt_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChartOfAccountCreateInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    parent?: ChartOfAccountCreateNestedOneWithoutChildrenInput
+    children?: ChartOfAccountCreateNestedManyWithoutParentInput
+    expenses?: PayableExpenseCreateNestedManyWithoutChartOfAccountInput
+    invoices?: InvoiceCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    parent_id?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    children?: ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+    expenses?: PayableExpenseUncheckedCreateNestedManyWithoutChartOfAccountInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    parent?: ChartOfAccountUpdateOneWithoutChildrenNestedInput
+    children?: ChartOfAccountUpdateManyWithoutParentNestedInput
+    expenses?: PayableExpenseUpdateManyWithoutChartOfAccountNestedInput
+    invoices?: InvoiceUpdateManyWithoutChartOfAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    parent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+    expenses?: PayableExpenseUncheckedUpdateManyWithoutChartOfAccountNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  }
+
+  export type ChartOfAccountCreateManyInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    parent_id?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ChartOfAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChartOfAccountUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    parent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -42162,12 +44260,17 @@ export namespace Prisma {
     none?: MeasurementBulletinWhereInput
   }
 
-  export type CommercialProposalNullableScalarRelationFilter = {
-    is?: CommercialProposalWhereInput | null
-    isNot?: CommercialProposalWhereInput | null
+  export type InvoiceListRelationFilter = {
+    every?: InvoiceWhereInput
+    some?: InvoiceWhereInput
+    none?: InvoiceWhereInput
   }
 
   export type MeasurementBulletinOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InvoiceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42541,19 +44644,36 @@ export namespace Prisma {
     not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
   }
 
+  export type ChartOfAccountNullableScalarRelationFilter = {
+    is?: ChartOfAccountWhereInput | null
+    isNot?: ChartOfAccountWhereInput | null
+  }
+
+  export type FinancialTransactionListRelationFilter = {
+    every?: FinancialTransactionWhereInput
+    some?: FinancialTransactionWhereInput
+    none?: FinancialTransactionWhereInput
+  }
+
+  export type FinancialTransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type InvoiceCountOrderByAggregateInput = {
     id?: SortOrder
     invoice_number?: SortOrder
-    issue_date?: SortOrder
-    due_date?: SortOrder
     total_value?: SortOrder
     is_paid?: SortOrder
     payment_date?: SortOrder
-    status?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
     notes?: SortOrder
+    status?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    contractId?: SortOrder
+    chartOfAccountId?: SortOrder
   }
 
   export type InvoiceAvgOrderByAggregateInput = {
@@ -42563,31 +44683,35 @@ export namespace Prisma {
   export type InvoiceMaxOrderByAggregateInput = {
     id?: SortOrder
     invoice_number?: SortOrder
-    issue_date?: SortOrder
-    due_date?: SortOrder
     total_value?: SortOrder
     is_paid?: SortOrder
     payment_date?: SortOrder
-    status?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
     notes?: SortOrder
+    status?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    contractId?: SortOrder
+    chartOfAccountId?: SortOrder
   }
 
   export type InvoiceMinOrderByAggregateInput = {
     id?: SortOrder
     invoice_number?: SortOrder
-    issue_date?: SortOrder
-    due_date?: SortOrder
     total_value?: SortOrder
     is_paid?: SortOrder
     payment_date?: SortOrder
-    status?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
     notes?: SortOrder
+    status?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    contractId?: SortOrder
+    chartOfAccountId?: SortOrder
   }
 
   export type InvoiceSumOrderByAggregateInput = {
@@ -43159,13 +45283,13 @@ export namespace Prisma {
     extra_hour_value?: SortOrder
   }
 
-  export type FinancialTransactionListRelationFilter = {
-    every?: FinancialTransactionWhereInput
-    some?: FinancialTransactionWhereInput
-    none?: FinancialTransactionWhereInput
+  export type ExpenseInstallmentListRelationFilter = {
+    every?: ExpenseInstallmentWhereInput
+    some?: ExpenseInstallmentWhereInput
+    none?: ExpenseInstallmentWhereInput
   }
 
-  export type FinancialTransactionOrderByRelationAggregateInput = {
+  export type ExpenseInstallmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -43227,25 +45351,10 @@ export namespace Prisma {
     not?: NestedEnumPayableExpenseStatusFilter<$PrismaModel> | $Enums.PayableExpenseStatus
   }
 
-  export type MaintenanceScalarRelationFilter = {
-    is?: MaintenanceWhereInput
-    isNot?: MaintenanceWhereInput
-  }
-
-  export type ExpenseInstallmentListRelationFilter = {
-    every?: ExpenseInstallmentWhereInput
-    some?: ExpenseInstallmentWhereInput
-    none?: ExpenseInstallmentWhereInput
-  }
-
   export type ExpenseDocumentListRelationFilter = {
     every?: ExpenseDocumentWhereInput
     some?: ExpenseDocumentWhereInput
     none?: ExpenseDocumentWhereInput
-  }
-
-  export type ExpenseInstallmentOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type ExpenseDocumentOrderByRelationAggregateInput = {
@@ -43255,6 +45364,7 @@ export namespace Prisma {
   export type PayableExpenseCountOrderByAggregateInput = {
     id?: SortOrder
     maintenanceId?: SortOrder
+    contractId?: SortOrder
     supplierId?: SortOrder
     description?: SortOrder
     total_value?: SortOrder
@@ -43270,6 +45380,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    chartOfAccountId?: SortOrder
   }
 
   export type PayableExpenseAvgOrderByAggregateInput = {
@@ -43279,6 +45390,7 @@ export namespace Prisma {
   export type PayableExpenseMaxOrderByAggregateInput = {
     id?: SortOrder
     maintenanceId?: SortOrder
+    contractId?: SortOrder
     supplierId?: SortOrder
     description?: SortOrder
     total_value?: SortOrder
@@ -43294,11 +45406,13 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    chartOfAccountId?: SortOrder
   }
 
   export type PayableExpenseMinOrderByAggregateInput = {
     id?: SortOrder
     maintenanceId?: SortOrder
+    contractId?: SortOrder
     supplierId?: SortOrder
     description?: SortOrder
     total_value?: SortOrder
@@ -43314,6 +45428,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    chartOfAccountId?: SortOrder
   }
 
   export type PayableExpenseSumOrderByAggregateInput = {
@@ -43352,6 +45467,11 @@ export namespace Prisma {
     isNot?: PayableExpenseWhereInput
   }
 
+  export type BankAccountNullableScalarRelationFilter = {
+    is?: BankAccountWhereInput | null
+    isNot?: BankAccountWhereInput | null
+  }
+
   export type ExpenseInstallmentCountOrderByAggregateInput = {
     id?: SortOrder
     payableExpenseId?: SortOrder
@@ -43364,6 +45484,7 @@ export namespace Prisma {
     payment_date?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    scheduledBankAccountId?: SortOrder
   }
 
   export type ExpenseInstallmentAvgOrderByAggregateInput = {
@@ -43383,6 +45504,7 @@ export namespace Prisma {
     payment_date?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    scheduledBankAccountId?: SortOrder
   }
 
   export type ExpenseInstallmentMinOrderByAggregateInput = {
@@ -43397,6 +45519,7 @@ export namespace Prisma {
     payment_date?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    scheduledBankAccountId?: SortOrder
   }
 
   export type ExpenseInstallmentSumOrderByAggregateInput = {
@@ -43486,6 +45609,7 @@ export namespace Prisma {
     date?: SortOrder
     description?: SortOrder
     expenseInstallmentId?: SortOrder
+    invoiceId?: SortOrder
     receipt_url?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -43503,6 +45627,7 @@ export namespace Prisma {
     date?: SortOrder
     description?: SortOrder
     expenseInstallmentId?: SortOrder
+    invoiceId?: SortOrder
     receipt_url?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -43516,6 +45641,7 @@ export namespace Prisma {
     date?: SortOrder
     description?: SortOrder
     expenseInstallmentId?: SortOrder
+    invoiceId?: SortOrder
     receipt_url?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -43533,6 +45659,66 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
     _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+  }
+
+  export type EnumChartOfAccountTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChartOfAccountType | EnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ChartOfAccountType[] | ListEnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChartOfAccountType[] | ListEnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumChartOfAccountTypeFilter<$PrismaModel> | $Enums.ChartOfAccountType
+  }
+
+  export type ChartOfAccountListRelationFilter = {
+    every?: ChartOfAccountWhereInput
+    some?: ChartOfAccountWhereInput
+    none?: ChartOfAccountWhereInput
+  }
+
+  export type ChartOfAccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ChartOfAccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    parent_id?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ChartOfAccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    parent_id?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ChartOfAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    parent_id?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type EnumChartOfAccountTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChartOfAccountType | EnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ChartOfAccountType[] | ListEnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChartOfAccountType[] | ListEnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumChartOfAccountTypeWithAggregatesFilter<$PrismaModel> | $Enums.ChartOfAccountType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumChartOfAccountTypeFilter<$PrismaModel>
+    _max?: NestedEnumChartOfAccountTypeFilter<$PrismaModel>
   }
 
   export type MaintenanceCreateNestedManyWithoutAssigned_toInput = {
@@ -44437,10 +46623,25 @@ export namespace Prisma {
     connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
   }
 
-  export type CommercialProposalCreateNestedOneWithoutContractInput = {
-    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
-    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput
-    connect?: CommercialProposalWhereUniqueInput
+  export type InvoiceCreateNestedManyWithoutContractInput = {
+    create?: XOR<InvoiceCreateWithoutContractInput, InvoiceUncheckedCreateWithoutContractInput> | InvoiceCreateWithoutContractInput[] | InvoiceUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutContractInput | InvoiceCreateOrConnectWithoutContractInput[]
+    createMany?: InvoiceCreateManyContractInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type PayableExpenseCreateNestedManyWithoutContractInput = {
+    create?: XOR<PayableExpenseCreateWithoutContractInput, PayableExpenseUncheckedCreateWithoutContractInput> | PayableExpenseCreateWithoutContractInput[] | PayableExpenseUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: PayableExpenseCreateOrConnectWithoutContractInput | PayableExpenseCreateOrConnectWithoutContractInput[]
+    createMany?: PayableExpenseCreateManyContractInputEnvelope
+    connect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+  }
+
+  export type CommercialProposalCreateNestedManyWithoutContractInput = {
+    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput> | CommercialProposalCreateWithoutContractInput[] | CommercialProposalUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput | CommercialProposalCreateOrConnectWithoutContractInput[]
+    createMany?: CommercialProposalCreateManyContractInputEnvelope
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
   }
 
   export type AssetMovementUncheckedCreateNestedManyWithoutContractInput = {
@@ -44464,10 +46665,25 @@ export namespace Prisma {
     connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
   }
 
-  export type CommercialProposalUncheckedCreateNestedOneWithoutContractInput = {
-    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
-    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput
-    connect?: CommercialProposalWhereUniqueInput
+  export type InvoiceUncheckedCreateNestedManyWithoutContractInput = {
+    create?: XOR<InvoiceCreateWithoutContractInput, InvoiceUncheckedCreateWithoutContractInput> | InvoiceCreateWithoutContractInput[] | InvoiceUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutContractInput | InvoiceCreateOrConnectWithoutContractInput[]
+    createMany?: InvoiceCreateManyContractInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type PayableExpenseUncheckedCreateNestedManyWithoutContractInput = {
+    create?: XOR<PayableExpenseCreateWithoutContractInput, PayableExpenseUncheckedCreateWithoutContractInput> | PayableExpenseCreateWithoutContractInput[] | PayableExpenseUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: PayableExpenseCreateOrConnectWithoutContractInput | PayableExpenseCreateOrConnectWithoutContractInput[]
+    createMany?: PayableExpenseCreateManyContractInputEnvelope
+    connect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+  }
+
+  export type CommercialProposalUncheckedCreateNestedManyWithoutContractInput = {
+    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput> | CommercialProposalCreateWithoutContractInput[] | CommercialProposalUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput | CommercialProposalCreateOrConnectWithoutContractInput[]
+    createMany?: CommercialProposalCreateManyContractInputEnvelope
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
   }
 
   export type EnumContractStatusFieldUpdateOperationsInput = {
@@ -44524,14 +46740,46 @@ export namespace Prisma {
     deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
   }
 
-  export type CommercialProposalUpdateOneWithoutContractNestedInput = {
-    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
-    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput
-    upsert?: CommercialProposalUpsertWithoutContractInput
-    disconnect?: CommercialProposalWhereInput | boolean
-    delete?: CommercialProposalWhereInput | boolean
-    connect?: CommercialProposalWhereUniqueInput
-    update?: XOR<XOR<CommercialProposalUpdateToOneWithWhereWithoutContractInput, CommercialProposalUpdateWithoutContractInput>, CommercialProposalUncheckedUpdateWithoutContractInput>
+  export type InvoiceUpdateManyWithoutContractNestedInput = {
+    create?: XOR<InvoiceCreateWithoutContractInput, InvoiceUncheckedCreateWithoutContractInput> | InvoiceCreateWithoutContractInput[] | InvoiceUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutContractInput | InvoiceCreateOrConnectWithoutContractInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutContractInput | InvoiceUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: InvoiceCreateManyContractInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutContractInput | InvoiceUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutContractInput | InvoiceUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type PayableExpenseUpdateManyWithoutContractNestedInput = {
+    create?: XOR<PayableExpenseCreateWithoutContractInput, PayableExpenseUncheckedCreateWithoutContractInput> | PayableExpenseCreateWithoutContractInput[] | PayableExpenseUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: PayableExpenseCreateOrConnectWithoutContractInput | PayableExpenseCreateOrConnectWithoutContractInput[]
+    upsert?: PayableExpenseUpsertWithWhereUniqueWithoutContractInput | PayableExpenseUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: PayableExpenseCreateManyContractInputEnvelope
+    set?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    disconnect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    delete?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    connect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    update?: PayableExpenseUpdateWithWhereUniqueWithoutContractInput | PayableExpenseUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: PayableExpenseUpdateManyWithWhereWithoutContractInput | PayableExpenseUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: PayableExpenseScalarWhereInput | PayableExpenseScalarWhereInput[]
+  }
+
+  export type CommercialProposalUpdateManyWithoutContractNestedInput = {
+    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput> | CommercialProposalCreateWithoutContractInput[] | CommercialProposalUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput | CommercialProposalCreateOrConnectWithoutContractInput[]
+    upsert?: CommercialProposalUpsertWithWhereUniqueWithoutContractInput | CommercialProposalUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: CommercialProposalCreateManyContractInputEnvelope
+    set?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    disconnect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    delete?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    update?: CommercialProposalUpdateWithWhereUniqueWithoutContractInput | CommercialProposalUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: CommercialProposalUpdateManyWithWhereWithoutContractInput | CommercialProposalUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
   }
 
   export type AssetMovementUncheckedUpdateManyWithoutContractNestedInput = {
@@ -44576,14 +46824,46 @@ export namespace Prisma {
     deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
   }
 
-  export type CommercialProposalUncheckedUpdateOneWithoutContractNestedInput = {
-    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
-    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput
-    upsert?: CommercialProposalUpsertWithoutContractInput
-    disconnect?: CommercialProposalWhereInput | boolean
-    delete?: CommercialProposalWhereInput | boolean
-    connect?: CommercialProposalWhereUniqueInput
-    update?: XOR<XOR<CommercialProposalUpdateToOneWithWhereWithoutContractInput, CommercialProposalUpdateWithoutContractInput>, CommercialProposalUncheckedUpdateWithoutContractInput>
+  export type InvoiceUncheckedUpdateManyWithoutContractNestedInput = {
+    create?: XOR<InvoiceCreateWithoutContractInput, InvoiceUncheckedCreateWithoutContractInput> | InvoiceCreateWithoutContractInput[] | InvoiceUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutContractInput | InvoiceCreateOrConnectWithoutContractInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutContractInput | InvoiceUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: InvoiceCreateManyContractInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutContractInput | InvoiceUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutContractInput | InvoiceUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type PayableExpenseUncheckedUpdateManyWithoutContractNestedInput = {
+    create?: XOR<PayableExpenseCreateWithoutContractInput, PayableExpenseUncheckedCreateWithoutContractInput> | PayableExpenseCreateWithoutContractInput[] | PayableExpenseUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: PayableExpenseCreateOrConnectWithoutContractInput | PayableExpenseCreateOrConnectWithoutContractInput[]
+    upsert?: PayableExpenseUpsertWithWhereUniqueWithoutContractInput | PayableExpenseUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: PayableExpenseCreateManyContractInputEnvelope
+    set?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    disconnect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    delete?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    connect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    update?: PayableExpenseUpdateWithWhereUniqueWithoutContractInput | PayableExpenseUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: PayableExpenseUpdateManyWithWhereWithoutContractInput | PayableExpenseUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: PayableExpenseScalarWhereInput | PayableExpenseScalarWhereInput[]
+  }
+
+  export type CommercialProposalUncheckedUpdateManyWithoutContractNestedInput = {
+    create?: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput> | CommercialProposalCreateWithoutContractInput[] | CommercialProposalUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput | CommercialProposalCreateOrConnectWithoutContractInput[]
+    upsert?: CommercialProposalUpsertWithWhereUniqueWithoutContractInput | CommercialProposalUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: CommercialProposalCreateManyContractInputEnvelope
+    set?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    disconnect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    delete?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+    update?: CommercialProposalUpdateWithWhereUniqueWithoutContractInput | CommercialProposalUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: CommercialProposalUpdateManyWithWhereWithoutContractInput | CommercialProposalUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
   }
 
   export type AssetCreateNestedOneWithoutMovementsInput = {
@@ -44769,11 +47049,37 @@ export namespace Prisma {
     connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
   }
 
+  export type ContractCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<ContractCreateWithoutInvoicesInput, ContractUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutInvoicesInput
+    connect?: ContractWhereUniqueInput
+  }
+
+  export type ChartOfAccountCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<ChartOfAccountCreateWithoutInvoicesInput, ChartOfAccountUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutInvoicesInput
+    connect?: ChartOfAccountWhereUniqueInput
+  }
+
+  export type FinancialTransactionCreateNestedManyWithoutInvoiceInput = {
+    create?: XOR<FinancialTransactionCreateWithoutInvoiceInput, FinancialTransactionUncheckedCreateWithoutInvoiceInput> | FinancialTransactionCreateWithoutInvoiceInput[] | FinancialTransactionUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutInvoiceInput | FinancialTransactionCreateOrConnectWithoutInvoiceInput[]
+    createMany?: FinancialTransactionCreateManyInvoiceInputEnvelope
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+  }
+
   export type MeasurementBulletinUncheckedCreateNestedManyWithoutInvoiceInput = {
     create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput> | MeasurementBulletinCreateWithoutInvoiceInput[] | MeasurementBulletinUncheckedCreateWithoutInvoiceInput[]
     connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput | MeasurementBulletinCreateOrConnectWithoutInvoiceInput[]
     createMany?: MeasurementBulletinCreateManyInvoiceInputEnvelope
     connect?: MeasurementBulletinWhereUniqueInput | MeasurementBulletinWhereUniqueInput[]
+  }
+
+  export type FinancialTransactionUncheckedCreateNestedManyWithoutInvoiceInput = {
+    create?: XOR<FinancialTransactionCreateWithoutInvoiceInput, FinancialTransactionUncheckedCreateWithoutInvoiceInput> | FinancialTransactionCreateWithoutInvoiceInput[] | FinancialTransactionUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutInvoiceInput | FinancialTransactionCreateOrConnectWithoutInvoiceInput[]
+    createMany?: FinancialTransactionCreateManyInvoiceInputEnvelope
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
   }
 
   export type EnumInvoiceStatusFieldUpdateOperationsInput = {
@@ -44794,6 +47100,40 @@ export namespace Prisma {
     deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
   }
 
+  export type ContractUpdateOneWithoutInvoicesNestedInput = {
+    create?: XOR<ContractCreateWithoutInvoicesInput, ContractUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutInvoicesInput
+    upsert?: ContractUpsertWithoutInvoicesInput
+    disconnect?: ContractWhereInput | boolean
+    delete?: ContractWhereInput | boolean
+    connect?: ContractWhereUniqueInput
+    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutInvoicesInput, ContractUpdateWithoutInvoicesInput>, ContractUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type ChartOfAccountUpdateOneWithoutInvoicesNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutInvoicesInput, ChartOfAccountUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutInvoicesInput
+    upsert?: ChartOfAccountUpsertWithoutInvoicesInput
+    disconnect?: ChartOfAccountWhereInput | boolean
+    delete?: ChartOfAccountWhereInput | boolean
+    connect?: ChartOfAccountWhereUniqueInput
+    update?: XOR<XOR<ChartOfAccountUpdateToOneWithWhereWithoutInvoicesInput, ChartOfAccountUpdateWithoutInvoicesInput>, ChartOfAccountUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type FinancialTransactionUpdateManyWithoutInvoiceNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutInvoiceInput, FinancialTransactionUncheckedCreateWithoutInvoiceInput> | FinancialTransactionCreateWithoutInvoiceInput[] | FinancialTransactionUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutInvoiceInput | FinancialTransactionCreateOrConnectWithoutInvoiceInput[]
+    upsert?: FinancialTransactionUpsertWithWhereUniqueWithoutInvoiceInput | FinancialTransactionUpsertWithWhereUniqueWithoutInvoiceInput[]
+    createMany?: FinancialTransactionCreateManyInvoiceInputEnvelope
+    set?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    disconnect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    delete?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    update?: FinancialTransactionUpdateWithWhereUniqueWithoutInvoiceInput | FinancialTransactionUpdateWithWhereUniqueWithoutInvoiceInput[]
+    updateMany?: FinancialTransactionUpdateManyWithWhereWithoutInvoiceInput | FinancialTransactionUpdateManyWithWhereWithoutInvoiceInput[]
+    deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+  }
+
   export type MeasurementBulletinUncheckedUpdateManyWithoutInvoiceNestedInput = {
     create?: XOR<MeasurementBulletinCreateWithoutInvoiceInput, MeasurementBulletinUncheckedCreateWithoutInvoiceInput> | MeasurementBulletinCreateWithoutInvoiceInput[] | MeasurementBulletinUncheckedCreateWithoutInvoiceInput[]
     connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutInvoiceInput | MeasurementBulletinCreateOrConnectWithoutInvoiceInput[]
@@ -44806,6 +47146,20 @@ export namespace Prisma {
     update?: MeasurementBulletinUpdateWithWhereUniqueWithoutInvoiceInput | MeasurementBulletinUpdateWithWhereUniqueWithoutInvoiceInput[]
     updateMany?: MeasurementBulletinUpdateManyWithWhereWithoutInvoiceInput | MeasurementBulletinUpdateManyWithWhereWithoutInvoiceInput[]
     deleteMany?: MeasurementBulletinScalarWhereInput | MeasurementBulletinScalarWhereInput[]
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyWithoutInvoiceNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutInvoiceInput, FinancialTransactionUncheckedCreateWithoutInvoiceInput> | FinancialTransactionCreateWithoutInvoiceInput[] | FinancialTransactionUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutInvoiceInput | FinancialTransactionCreateOrConnectWithoutInvoiceInput[]
+    upsert?: FinancialTransactionUpsertWithWhereUniqueWithoutInvoiceInput | FinancialTransactionUpsertWithWhereUniqueWithoutInvoiceInput[]
+    createMany?: FinancialTransactionCreateManyInvoiceInputEnvelope
+    set?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    disconnect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    delete?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    update?: FinancialTransactionUpdateWithWhereUniqueWithoutInvoiceInput | FinancialTransactionUpdateWithWhereUniqueWithoutInvoiceInput[]
+    updateMany?: FinancialTransactionUpdateManyWithWhereWithoutInvoiceInput | FinancialTransactionUpdateManyWithWhereWithoutInvoiceInput[]
+    deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
   }
 
   export type MeasurementBulletinCreateNestedOneWithoutExpensesInput = {
@@ -45142,9 +47496,9 @@ export namespace Prisma {
     connect?: CompanySettingsWhereUniqueInput
   }
 
-  export type ContractCreateNestedOneWithoutCommercialProposalInput = {
-    create?: XOR<ContractCreateWithoutCommercialProposalInput, ContractUncheckedCreateWithoutCommercialProposalInput>
-    connectOrCreate?: ContractCreateOrConnectWithoutCommercialProposalInput
+  export type ContractCreateNestedOneWithoutProposalsInput = {
+    create?: XOR<ContractCreateWithoutProposalsInput, ContractUncheckedCreateWithoutProposalsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutProposalsInput
     connect?: ContractWhereUniqueInput
   }
 
@@ -45184,14 +47538,14 @@ export namespace Prisma {
     update?: XOR<XOR<CompanySettingsUpdateToOneWithWhereWithoutCommercialProposalsInput, CompanySettingsUpdateWithoutCommercialProposalsInput>, CompanySettingsUncheckedUpdateWithoutCommercialProposalsInput>
   }
 
-  export type ContractUpdateOneWithoutCommercialProposalNestedInput = {
-    create?: XOR<ContractCreateWithoutCommercialProposalInput, ContractUncheckedCreateWithoutCommercialProposalInput>
-    connectOrCreate?: ContractCreateOrConnectWithoutCommercialProposalInput
-    upsert?: ContractUpsertWithoutCommercialProposalInput
+  export type ContractUpdateOneWithoutProposalsNestedInput = {
+    create?: XOR<ContractCreateWithoutProposalsInput, ContractUncheckedCreateWithoutProposalsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutProposalsInput
+    upsert?: ContractUpsertWithoutProposalsInput
     disconnect?: ContractWhereInput | boolean
     delete?: ContractWhereInput | boolean
     connect?: ContractWhereUniqueInput
-    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutCommercialProposalInput, ContractUpdateWithoutCommercialProposalInput>, ContractUncheckedUpdateWithoutCommercialProposalInput>
+    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutProposalsInput, ContractUpdateWithoutProposalsInput>, ContractUncheckedUpdateWithoutProposalsInput>
   }
 
   export type ProposalItemUpdateManyWithoutCommercialProposalNestedInput = {
@@ -45275,11 +47629,25 @@ export namespace Prisma {
     connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
   }
 
+  export type ExpenseInstallmentCreateNestedManyWithoutScheduledBankAccountInput = {
+    create?: XOR<ExpenseInstallmentCreateWithoutScheduledBankAccountInput, ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput> | ExpenseInstallmentCreateWithoutScheduledBankAccountInput[] | ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput[]
+    connectOrCreate?: ExpenseInstallmentCreateOrConnectWithoutScheduledBankAccountInput | ExpenseInstallmentCreateOrConnectWithoutScheduledBankAccountInput[]
+    createMany?: ExpenseInstallmentCreateManyScheduledBankAccountInputEnvelope
+    connect?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
+  }
+
   export type FinancialTransactionUncheckedCreateNestedManyWithoutBankAccountInput = {
     create?: XOR<FinancialTransactionCreateWithoutBankAccountInput, FinancialTransactionUncheckedCreateWithoutBankAccountInput> | FinancialTransactionCreateWithoutBankAccountInput[] | FinancialTransactionUncheckedCreateWithoutBankAccountInput[]
     connectOrCreate?: FinancialTransactionCreateOrConnectWithoutBankAccountInput | FinancialTransactionCreateOrConnectWithoutBankAccountInput[]
     createMany?: FinancialTransactionCreateManyBankAccountInputEnvelope
     connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+  }
+
+  export type ExpenseInstallmentUncheckedCreateNestedManyWithoutScheduledBankAccountInput = {
+    create?: XOR<ExpenseInstallmentCreateWithoutScheduledBankAccountInput, ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput> | ExpenseInstallmentCreateWithoutScheduledBankAccountInput[] | ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput[]
+    connectOrCreate?: ExpenseInstallmentCreateOrConnectWithoutScheduledBankAccountInput | ExpenseInstallmentCreateOrConnectWithoutScheduledBankAccountInput[]
+    createMany?: ExpenseInstallmentCreateManyScheduledBankAccountInputEnvelope
+    connect?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
   }
 
   export type FinancialTransactionUpdateManyWithoutBankAccountNestedInput = {
@@ -45296,6 +47664,20 @@ export namespace Prisma {
     deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
   }
 
+  export type ExpenseInstallmentUpdateManyWithoutScheduledBankAccountNestedInput = {
+    create?: XOR<ExpenseInstallmentCreateWithoutScheduledBankAccountInput, ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput> | ExpenseInstallmentCreateWithoutScheduledBankAccountInput[] | ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput[]
+    connectOrCreate?: ExpenseInstallmentCreateOrConnectWithoutScheduledBankAccountInput | ExpenseInstallmentCreateOrConnectWithoutScheduledBankAccountInput[]
+    upsert?: ExpenseInstallmentUpsertWithWhereUniqueWithoutScheduledBankAccountInput | ExpenseInstallmentUpsertWithWhereUniqueWithoutScheduledBankAccountInput[]
+    createMany?: ExpenseInstallmentCreateManyScheduledBankAccountInputEnvelope
+    set?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
+    disconnect?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
+    delete?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
+    connect?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
+    update?: ExpenseInstallmentUpdateWithWhereUniqueWithoutScheduledBankAccountInput | ExpenseInstallmentUpdateWithWhereUniqueWithoutScheduledBankAccountInput[]
+    updateMany?: ExpenseInstallmentUpdateManyWithWhereWithoutScheduledBankAccountInput | ExpenseInstallmentUpdateManyWithWhereWithoutScheduledBankAccountInput[]
+    deleteMany?: ExpenseInstallmentScalarWhereInput | ExpenseInstallmentScalarWhereInput[]
+  }
+
   export type FinancialTransactionUncheckedUpdateManyWithoutBankAccountNestedInput = {
     create?: XOR<FinancialTransactionCreateWithoutBankAccountInput, FinancialTransactionUncheckedCreateWithoutBankAccountInput> | FinancialTransactionCreateWithoutBankAccountInput[] | FinancialTransactionUncheckedCreateWithoutBankAccountInput[]
     connectOrCreate?: FinancialTransactionCreateOrConnectWithoutBankAccountInput | FinancialTransactionCreateOrConnectWithoutBankAccountInput[]
@@ -45310,16 +47692,42 @@ export namespace Prisma {
     deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
   }
 
+  export type ExpenseInstallmentUncheckedUpdateManyWithoutScheduledBankAccountNestedInput = {
+    create?: XOR<ExpenseInstallmentCreateWithoutScheduledBankAccountInput, ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput> | ExpenseInstallmentCreateWithoutScheduledBankAccountInput[] | ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput[]
+    connectOrCreate?: ExpenseInstallmentCreateOrConnectWithoutScheduledBankAccountInput | ExpenseInstallmentCreateOrConnectWithoutScheduledBankAccountInput[]
+    upsert?: ExpenseInstallmentUpsertWithWhereUniqueWithoutScheduledBankAccountInput | ExpenseInstallmentUpsertWithWhereUniqueWithoutScheduledBankAccountInput[]
+    createMany?: ExpenseInstallmentCreateManyScheduledBankAccountInputEnvelope
+    set?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
+    disconnect?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
+    delete?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
+    connect?: ExpenseInstallmentWhereUniqueInput | ExpenseInstallmentWhereUniqueInput[]
+    update?: ExpenseInstallmentUpdateWithWhereUniqueWithoutScheduledBankAccountInput | ExpenseInstallmentUpdateWithWhereUniqueWithoutScheduledBankAccountInput[]
+    updateMany?: ExpenseInstallmentUpdateManyWithWhereWithoutScheduledBankAccountInput | ExpenseInstallmentUpdateManyWithWhereWithoutScheduledBankAccountInput[]
+    deleteMany?: ExpenseInstallmentScalarWhereInput | ExpenseInstallmentScalarWhereInput[]
+  }
+
   export type MaintenanceCreateNestedOneWithoutPayableExpensesInput = {
     create?: XOR<MaintenanceCreateWithoutPayableExpensesInput, MaintenanceUncheckedCreateWithoutPayableExpensesInput>
     connectOrCreate?: MaintenanceCreateOrConnectWithoutPayableExpensesInput
     connect?: MaintenanceWhereUniqueInput
   }
 
+  export type ContractCreateNestedOneWithoutPayableExpensesInput = {
+    create?: XOR<ContractCreateWithoutPayableExpensesInput, ContractUncheckedCreateWithoutPayableExpensesInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutPayableExpensesInput
+    connect?: ContractWhereUniqueInput
+  }
+
   export type SupplierCreateNestedOneWithoutPayableExpensesInput = {
     create?: XOR<SupplierCreateWithoutPayableExpensesInput, SupplierUncheckedCreateWithoutPayableExpensesInput>
     connectOrCreate?: SupplierCreateOrConnectWithoutPayableExpensesInput
     connect?: SupplierWhereUniqueInput
+  }
+
+  export type ChartOfAccountCreateNestedOneWithoutExpensesInput = {
+    create?: XOR<ChartOfAccountCreateWithoutExpensesInput, ChartOfAccountUncheckedCreateWithoutExpensesInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutExpensesInput
+    connect?: ChartOfAccountWhereUniqueInput
   }
 
   export type ExpenseInstallmentCreateNestedManyWithoutPayableExpenseInput = {
@@ -45358,12 +47766,24 @@ export namespace Prisma {
     set?: $Enums.PayableExpenseStatus
   }
 
-  export type MaintenanceUpdateOneRequiredWithoutPayableExpensesNestedInput = {
+  export type MaintenanceUpdateOneWithoutPayableExpensesNestedInput = {
     create?: XOR<MaintenanceCreateWithoutPayableExpensesInput, MaintenanceUncheckedCreateWithoutPayableExpensesInput>
     connectOrCreate?: MaintenanceCreateOrConnectWithoutPayableExpensesInput
     upsert?: MaintenanceUpsertWithoutPayableExpensesInput
+    disconnect?: MaintenanceWhereInput | boolean
+    delete?: MaintenanceWhereInput | boolean
     connect?: MaintenanceWhereUniqueInput
     update?: XOR<XOR<MaintenanceUpdateToOneWithWhereWithoutPayableExpensesInput, MaintenanceUpdateWithoutPayableExpensesInput>, MaintenanceUncheckedUpdateWithoutPayableExpensesInput>
+  }
+
+  export type ContractUpdateOneWithoutPayableExpensesNestedInput = {
+    create?: XOR<ContractCreateWithoutPayableExpensesInput, ContractUncheckedCreateWithoutPayableExpensesInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutPayableExpensesInput
+    upsert?: ContractUpsertWithoutPayableExpensesInput
+    disconnect?: ContractWhereInput | boolean
+    delete?: ContractWhereInput | boolean
+    connect?: ContractWhereUniqueInput
+    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutPayableExpensesInput, ContractUpdateWithoutPayableExpensesInput>, ContractUncheckedUpdateWithoutPayableExpensesInput>
   }
 
   export type SupplierUpdateOneWithoutPayableExpensesNestedInput = {
@@ -45374,6 +47794,16 @@ export namespace Prisma {
     delete?: SupplierWhereInput | boolean
     connect?: SupplierWhereUniqueInput
     update?: XOR<XOR<SupplierUpdateToOneWithWhereWithoutPayableExpensesInput, SupplierUpdateWithoutPayableExpensesInput>, SupplierUncheckedUpdateWithoutPayableExpensesInput>
+  }
+
+  export type ChartOfAccountUpdateOneWithoutExpensesNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutExpensesInput, ChartOfAccountUncheckedCreateWithoutExpensesInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutExpensesInput
+    upsert?: ChartOfAccountUpsertWithoutExpensesInput
+    disconnect?: ChartOfAccountWhereInput | boolean
+    delete?: ChartOfAccountWhereInput | boolean
+    connect?: ChartOfAccountWhereUniqueInput
+    update?: XOR<XOR<ChartOfAccountUpdateToOneWithWhereWithoutExpensesInput, ChartOfAccountUpdateWithoutExpensesInput>, ChartOfAccountUncheckedUpdateWithoutExpensesInput>
   }
 
   export type ExpenseInstallmentUpdateManyWithoutPayableExpenseNestedInput = {
@@ -45445,6 +47875,12 @@ export namespace Prisma {
     connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
   }
 
+  export type BankAccountCreateNestedOneWithoutScheduledInstallmentsInput = {
+    create?: XOR<BankAccountCreateWithoutScheduledInstallmentsInput, BankAccountUncheckedCreateWithoutScheduledInstallmentsInput>
+    connectOrCreate?: BankAccountCreateOrConnectWithoutScheduledInstallmentsInput
+    connect?: BankAccountWhereUniqueInput
+  }
+
   export type FinancialTransactionUncheckedCreateNestedManyWithoutExpenseInstallmentInput = {
     create?: XOR<FinancialTransactionCreateWithoutExpenseInstallmentInput, FinancialTransactionUncheckedCreateWithoutExpenseInstallmentInput> | FinancialTransactionCreateWithoutExpenseInstallmentInput[] | FinancialTransactionUncheckedCreateWithoutExpenseInstallmentInput[]
     connectOrCreate?: FinancialTransactionCreateOrConnectWithoutExpenseInstallmentInput | FinancialTransactionCreateOrConnectWithoutExpenseInstallmentInput[]
@@ -45476,6 +47912,16 @@ export namespace Prisma {
     update?: FinancialTransactionUpdateWithWhereUniqueWithoutExpenseInstallmentInput | FinancialTransactionUpdateWithWhereUniqueWithoutExpenseInstallmentInput[]
     updateMany?: FinancialTransactionUpdateManyWithWhereWithoutExpenseInstallmentInput | FinancialTransactionUpdateManyWithWhereWithoutExpenseInstallmentInput[]
     deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+  }
+
+  export type BankAccountUpdateOneWithoutScheduledInstallmentsNestedInput = {
+    create?: XOR<BankAccountCreateWithoutScheduledInstallmentsInput, BankAccountUncheckedCreateWithoutScheduledInstallmentsInput>
+    connectOrCreate?: BankAccountCreateOrConnectWithoutScheduledInstallmentsInput
+    upsert?: BankAccountUpsertWithoutScheduledInstallmentsInput
+    disconnect?: BankAccountWhereInput | boolean
+    delete?: BankAccountWhereInput | boolean
+    connect?: BankAccountWhereUniqueInput
+    update?: XOR<XOR<BankAccountUpdateToOneWithWhereWithoutScheduledInstallmentsInput, BankAccountUpdateWithoutScheduledInstallmentsInput>, BankAccountUncheckedUpdateWithoutScheduledInstallmentsInput>
   }
 
   export type FinancialTransactionUncheckedUpdateManyWithoutExpenseInstallmentNestedInput = {
@@ -45518,6 +47964,12 @@ export namespace Prisma {
     connect?: ExpenseInstallmentWhereUniqueInput
   }
 
+  export type InvoiceCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<InvoiceCreateWithoutTransactionsInput, InvoiceUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutTransactionsInput
+    connect?: InvoiceWhereUniqueInput
+  }
+
   export type EnumTransactionTypeFieldUpdateOperationsInput = {
     set?: $Enums.TransactionType
   }
@@ -45538,6 +47990,162 @@ export namespace Prisma {
     delete?: ExpenseInstallmentWhereInput | boolean
     connect?: ExpenseInstallmentWhereUniqueInput
     update?: XOR<XOR<ExpenseInstallmentUpdateToOneWithWhereWithoutTransactionsInput, ExpenseInstallmentUpdateWithoutTransactionsInput>, ExpenseInstallmentUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type InvoiceUpdateOneWithoutTransactionsNestedInput = {
+    create?: XOR<InvoiceCreateWithoutTransactionsInput, InvoiceUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutTransactionsInput
+    upsert?: InvoiceUpsertWithoutTransactionsInput
+    disconnect?: InvoiceWhereInput | boolean
+    delete?: InvoiceWhereInput | boolean
+    connect?: InvoiceWhereUniqueInput
+    update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutTransactionsInput, InvoiceUpdateWithoutTransactionsInput>, InvoiceUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type ChartOfAccountCreateNestedOneWithoutChildrenInput = {
+    create?: XOR<ChartOfAccountCreateWithoutChildrenInput, ChartOfAccountUncheckedCreateWithoutChildrenInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutChildrenInput
+    connect?: ChartOfAccountWhereUniqueInput
+  }
+
+  export type ChartOfAccountCreateNestedManyWithoutParentInput = {
+    create?: XOR<ChartOfAccountCreateWithoutParentInput, ChartOfAccountUncheckedCreateWithoutParentInput> | ChartOfAccountCreateWithoutParentInput[] | ChartOfAccountUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutParentInput | ChartOfAccountCreateOrConnectWithoutParentInput[]
+    createMany?: ChartOfAccountCreateManyParentInputEnvelope
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+  }
+
+  export type PayableExpenseCreateNestedManyWithoutChartOfAccountInput = {
+    create?: XOR<PayableExpenseCreateWithoutChartOfAccountInput, PayableExpenseUncheckedCreateWithoutChartOfAccountInput> | PayableExpenseCreateWithoutChartOfAccountInput[] | PayableExpenseUncheckedCreateWithoutChartOfAccountInput[]
+    connectOrCreate?: PayableExpenseCreateOrConnectWithoutChartOfAccountInput | PayableExpenseCreateOrConnectWithoutChartOfAccountInput[]
+    createMany?: PayableExpenseCreateManyChartOfAccountInputEnvelope
+    connect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+  }
+
+  export type InvoiceCreateNestedManyWithoutChartOfAccountInput = {
+    create?: XOR<InvoiceCreateWithoutChartOfAccountInput, InvoiceUncheckedCreateWithoutChartOfAccountInput> | InvoiceCreateWithoutChartOfAccountInput[] | InvoiceUncheckedCreateWithoutChartOfAccountInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutChartOfAccountInput | InvoiceCreateOrConnectWithoutChartOfAccountInput[]
+    createMany?: InvoiceCreateManyChartOfAccountInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type ChartOfAccountUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<ChartOfAccountCreateWithoutParentInput, ChartOfAccountUncheckedCreateWithoutParentInput> | ChartOfAccountCreateWithoutParentInput[] | ChartOfAccountUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutParentInput | ChartOfAccountCreateOrConnectWithoutParentInput[]
+    createMany?: ChartOfAccountCreateManyParentInputEnvelope
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+  }
+
+  export type PayableExpenseUncheckedCreateNestedManyWithoutChartOfAccountInput = {
+    create?: XOR<PayableExpenseCreateWithoutChartOfAccountInput, PayableExpenseUncheckedCreateWithoutChartOfAccountInput> | PayableExpenseCreateWithoutChartOfAccountInput[] | PayableExpenseUncheckedCreateWithoutChartOfAccountInput[]
+    connectOrCreate?: PayableExpenseCreateOrConnectWithoutChartOfAccountInput | PayableExpenseCreateOrConnectWithoutChartOfAccountInput[]
+    createMany?: PayableExpenseCreateManyChartOfAccountInputEnvelope
+    connect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutChartOfAccountInput = {
+    create?: XOR<InvoiceCreateWithoutChartOfAccountInput, InvoiceUncheckedCreateWithoutChartOfAccountInput> | InvoiceCreateWithoutChartOfAccountInput[] | InvoiceUncheckedCreateWithoutChartOfAccountInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutChartOfAccountInput | InvoiceCreateOrConnectWithoutChartOfAccountInput[]
+    createMany?: InvoiceCreateManyChartOfAccountInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type EnumChartOfAccountTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ChartOfAccountType
+  }
+
+  export type ChartOfAccountUpdateOneWithoutChildrenNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutChildrenInput, ChartOfAccountUncheckedCreateWithoutChildrenInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutChildrenInput
+    upsert?: ChartOfAccountUpsertWithoutChildrenInput
+    disconnect?: ChartOfAccountWhereInput | boolean
+    delete?: ChartOfAccountWhereInput | boolean
+    connect?: ChartOfAccountWhereUniqueInput
+    update?: XOR<XOR<ChartOfAccountUpdateToOneWithWhereWithoutChildrenInput, ChartOfAccountUpdateWithoutChildrenInput>, ChartOfAccountUncheckedUpdateWithoutChildrenInput>
+  }
+
+  export type ChartOfAccountUpdateManyWithoutParentNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutParentInput, ChartOfAccountUncheckedCreateWithoutParentInput> | ChartOfAccountCreateWithoutParentInput[] | ChartOfAccountUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutParentInput | ChartOfAccountCreateOrConnectWithoutParentInput[]
+    upsert?: ChartOfAccountUpsertWithWhereUniqueWithoutParentInput | ChartOfAccountUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: ChartOfAccountCreateManyParentInputEnvelope
+    set?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    disconnect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    delete?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    update?: ChartOfAccountUpdateWithWhereUniqueWithoutParentInput | ChartOfAccountUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: ChartOfAccountUpdateManyWithWhereWithoutParentInput | ChartOfAccountUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+  }
+
+  export type PayableExpenseUpdateManyWithoutChartOfAccountNestedInput = {
+    create?: XOR<PayableExpenseCreateWithoutChartOfAccountInput, PayableExpenseUncheckedCreateWithoutChartOfAccountInput> | PayableExpenseCreateWithoutChartOfAccountInput[] | PayableExpenseUncheckedCreateWithoutChartOfAccountInput[]
+    connectOrCreate?: PayableExpenseCreateOrConnectWithoutChartOfAccountInput | PayableExpenseCreateOrConnectWithoutChartOfAccountInput[]
+    upsert?: PayableExpenseUpsertWithWhereUniqueWithoutChartOfAccountInput | PayableExpenseUpsertWithWhereUniqueWithoutChartOfAccountInput[]
+    createMany?: PayableExpenseCreateManyChartOfAccountInputEnvelope
+    set?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    disconnect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    delete?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    connect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    update?: PayableExpenseUpdateWithWhereUniqueWithoutChartOfAccountInput | PayableExpenseUpdateWithWhereUniqueWithoutChartOfAccountInput[]
+    updateMany?: PayableExpenseUpdateManyWithWhereWithoutChartOfAccountInput | PayableExpenseUpdateManyWithWhereWithoutChartOfAccountInput[]
+    deleteMany?: PayableExpenseScalarWhereInput | PayableExpenseScalarWhereInput[]
+  }
+
+  export type InvoiceUpdateManyWithoutChartOfAccountNestedInput = {
+    create?: XOR<InvoiceCreateWithoutChartOfAccountInput, InvoiceUncheckedCreateWithoutChartOfAccountInput> | InvoiceCreateWithoutChartOfAccountInput[] | InvoiceUncheckedCreateWithoutChartOfAccountInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutChartOfAccountInput | InvoiceCreateOrConnectWithoutChartOfAccountInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutChartOfAccountInput | InvoiceUpsertWithWhereUniqueWithoutChartOfAccountInput[]
+    createMany?: InvoiceCreateManyChartOfAccountInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutChartOfAccountInput | InvoiceUpdateWithWhereUniqueWithoutChartOfAccountInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutChartOfAccountInput | InvoiceUpdateManyWithWhereWithoutChartOfAccountInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutParentInput, ChartOfAccountUncheckedCreateWithoutParentInput> | ChartOfAccountCreateWithoutParentInput[] | ChartOfAccountUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutParentInput | ChartOfAccountCreateOrConnectWithoutParentInput[]
+    upsert?: ChartOfAccountUpsertWithWhereUniqueWithoutParentInput | ChartOfAccountUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: ChartOfAccountCreateManyParentInputEnvelope
+    set?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    disconnect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    delete?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    update?: ChartOfAccountUpdateWithWhereUniqueWithoutParentInput | ChartOfAccountUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: ChartOfAccountUpdateManyWithWhereWithoutParentInput | ChartOfAccountUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+  }
+
+  export type PayableExpenseUncheckedUpdateManyWithoutChartOfAccountNestedInput = {
+    create?: XOR<PayableExpenseCreateWithoutChartOfAccountInput, PayableExpenseUncheckedCreateWithoutChartOfAccountInput> | PayableExpenseCreateWithoutChartOfAccountInput[] | PayableExpenseUncheckedCreateWithoutChartOfAccountInput[]
+    connectOrCreate?: PayableExpenseCreateOrConnectWithoutChartOfAccountInput | PayableExpenseCreateOrConnectWithoutChartOfAccountInput[]
+    upsert?: PayableExpenseUpsertWithWhereUniqueWithoutChartOfAccountInput | PayableExpenseUpsertWithWhereUniqueWithoutChartOfAccountInput[]
+    createMany?: PayableExpenseCreateManyChartOfAccountInputEnvelope
+    set?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    disconnect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    delete?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    connect?: PayableExpenseWhereUniqueInput | PayableExpenseWhereUniqueInput[]
+    update?: PayableExpenseUpdateWithWhereUniqueWithoutChartOfAccountInput | PayableExpenseUpdateWithWhereUniqueWithoutChartOfAccountInput[]
+    updateMany?: PayableExpenseUpdateManyWithWhereWithoutChartOfAccountInput | PayableExpenseUpdateManyWithWhereWithoutChartOfAccountInput[]
+    deleteMany?: PayableExpenseScalarWhereInput | PayableExpenseScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutChartOfAccountNestedInput = {
+    create?: XOR<InvoiceCreateWithoutChartOfAccountInput, InvoiceUncheckedCreateWithoutChartOfAccountInput> | InvoiceCreateWithoutChartOfAccountInput[] | InvoiceUncheckedCreateWithoutChartOfAccountInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutChartOfAccountInput | InvoiceCreateOrConnectWithoutChartOfAccountInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutChartOfAccountInput | InvoiceUpsertWithWhereUniqueWithoutChartOfAccountInput[]
+    createMany?: InvoiceCreateManyChartOfAccountInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutChartOfAccountInput | InvoiceUpdateWithWhereUniqueWithoutChartOfAccountInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutChartOfAccountInput | InvoiceUpdateManyWithWhereWithoutChartOfAccountInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -46111,6 +48719,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
     _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumChartOfAccountTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChartOfAccountType | EnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ChartOfAccountType[] | ListEnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChartOfAccountType[] | ListEnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumChartOfAccountTypeFilter<$PrismaModel> | $Enums.ChartOfAccountType
+  }
+
+  export type NestedEnumChartOfAccountTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChartOfAccountType | EnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ChartOfAccountType[] | ListEnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChartOfAccountType[] | ListEnumChartOfAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumChartOfAccountTypeWithAggregatesFilter<$PrismaModel> | $Enums.ChartOfAccountType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumChartOfAccountTypeFilter<$PrismaModel>
+    _max?: NestedEnumChartOfAccountTypeFilter<$PrismaModel>
   }
 
   export type MaintenanceCreateWithoutAssigned_toInput = {
@@ -46999,7 +49624,9 @@ export namespace Prisma {
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
+    invoices?: InvoiceCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutClientInput = {
@@ -47024,7 +49651,9 @@ export namespace Prisma {
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutClientInput = {
@@ -47166,7 +49795,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_active?: boolean
     companySettings?: CompanySettingsCreateNestedOneWithoutCommercialProposalsInput
-    contract?: ContractCreateNestedOneWithoutCommercialProposalInput
+    contract?: ContractCreateNestedOneWithoutProposalsInput
     items?: ProposalItemCreateNestedManyWithoutCommercialProposalInput
   }
 
@@ -47219,14 +49848,17 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    maintenance: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    maintenance?: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    contract?: ContractCreateNestedOneWithoutPayableExpensesInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutExpensesInput
     installments?: ExpenseInstallmentCreateNestedManyWithoutPayableExpenseInput
     documents?: ExpenseDocumentCreateNestedManyWithoutPayableExpenseInput
   }
 
   export type PayableExpenseUncheckedCreateWithoutSupplierInput = {
     id?: string
-    maintenanceId: string
+    maintenanceId?: string | null
+    contractId?: string | null
     description: string
     total_value: Decimal | DecimalJsLike | number | string
     payment_method?: $Enums.PaymentMethod
@@ -47241,6 +49873,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    chartOfAccountId?: string | null
     installments?: ExpenseInstallmentUncheckedCreateNestedManyWithoutPayableExpenseInput
     documents?: ExpenseDocumentUncheckedCreateNestedManyWithoutPayableExpenseInput
   }
@@ -47391,7 +50024,8 @@ export namespace Prisma {
     OR?: PayableExpenseScalarWhereInput[]
     NOT?: PayableExpenseScalarWhereInput | PayableExpenseScalarWhereInput[]
     id?: StringFilter<"PayableExpense"> | string
-    maintenanceId?: StringFilter<"PayableExpense"> | string
+    maintenanceId?: StringNullableFilter<"PayableExpense"> | string | null
+    contractId?: StringNullableFilter<"PayableExpense"> | string | null
     supplierId?: StringNullableFilter<"PayableExpense"> | string | null
     description?: StringFilter<"PayableExpense"> | string
     total_value?: DecimalFilter<"PayableExpense"> | Decimal | DecimalJsLike | number | string
@@ -47407,6 +50041,7 @@ export namespace Prisma {
     is_active?: BoolFilter<"PayableExpense"> | boolean
     created_at?: DateTimeFilter<"PayableExpense"> | Date | string
     updated_at?: DateTimeFilter<"PayableExpense"> | Date | string
+    chartOfAccountId?: StringNullableFilter<"PayableExpense"> | string | null
   }
 
   export type MaintenanceCreateWithoutServiceCategoryInput = {
@@ -47633,7 +50268,9 @@ export namespace Prisma {
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
+    invoices?: InvoiceCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMaintenancesInput = {
@@ -47658,7 +50295,9 @@ export namespace Prisma {
     signed_contract_url?: string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMaintenancesInput = {
@@ -47756,13 +50395,16 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    contract?: ContractCreateNestedOneWithoutPayableExpensesInput
     supplier?: SupplierCreateNestedOneWithoutPayableExpensesInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutExpensesInput
     installments?: ExpenseInstallmentCreateNestedManyWithoutPayableExpenseInput
     documents?: ExpenseDocumentCreateNestedManyWithoutPayableExpenseInput
   }
 
   export type PayableExpenseUncheckedCreateWithoutMaintenanceInput = {
     id?: string
+    contractId?: string | null
     supplierId?: string | null
     description: string
     total_value: Decimal | DecimalJsLike | number | string
@@ -47778,6 +50420,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    chartOfAccountId?: string | null
     installments?: ExpenseInstallmentUncheckedCreateNestedManyWithoutPayableExpenseInput
     documents?: ExpenseDocumentUncheckedCreateNestedManyWithoutPayableExpenseInput
   }
@@ -47962,7 +50605,9 @@ export namespace Prisma {
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMaintenancesInput = {
@@ -47987,7 +50632,9 @@ export namespace Prisma {
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ServiceCategoryUpsertWithoutMaintenanceInput = {
@@ -48431,6 +51078,108 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InvoiceCreateWithoutContractInput = {
+    id?: string
+    invoice_number?: string | null
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    issue_date?: Date | string | null
+    due_date: Date | string
+    notes?: string | null
+    status?: $Enums.InvoiceStatus
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutInvoiceInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutInvoicesInput
+    transactions?: FinancialTransactionCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutContractInput = {
+    id?: string
+    invoice_number?: string | null
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    issue_date?: Date | string | null
+    due_date: Date | string
+    notes?: string | null
+    status?: $Enums.InvoiceStatus
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    chartOfAccountId?: string | null
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutInvoiceInput
+    transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutContractInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutContractInput, InvoiceUncheckedCreateWithoutContractInput>
+  }
+
+  export type InvoiceCreateManyContractInputEnvelope = {
+    data: InvoiceCreateManyContractInput | InvoiceCreateManyContractInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PayableExpenseCreateWithoutContractInput = {
+    id?: string
+    description: string
+    total_value: Decimal | DecimalJsLike | number | string
+    payment_method?: $Enums.PaymentMethod
+    status?: $Enums.PayableExpenseStatus
+    maintenance_approved_by?: string | null
+    maintenance_approved_at?: Date | string | null
+    finance_approved_by?: string | null
+    finance_approved_at?: Date | string | null
+    director_approved_by?: string | null
+    director_approved_at?: Date | string | null
+    rejection_notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    maintenance?: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    supplier?: SupplierCreateNestedOneWithoutPayableExpensesInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutExpensesInput
+    installments?: ExpenseInstallmentCreateNestedManyWithoutPayableExpenseInput
+    documents?: ExpenseDocumentCreateNestedManyWithoutPayableExpenseInput
+  }
+
+  export type PayableExpenseUncheckedCreateWithoutContractInput = {
+    id?: string
+    maintenanceId?: string | null
+    supplierId?: string | null
+    description: string
+    total_value: Decimal | DecimalJsLike | number | string
+    payment_method?: $Enums.PaymentMethod
+    status?: $Enums.PayableExpenseStatus
+    maintenance_approved_by?: string | null
+    maintenance_approved_at?: Date | string | null
+    finance_approved_by?: string | null
+    finance_approved_at?: Date | string | null
+    director_approved_by?: string | null
+    director_approved_at?: Date | string | null
+    rejection_notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    chartOfAccountId?: string | null
+    installments?: ExpenseInstallmentUncheckedCreateNestedManyWithoutPayableExpenseInput
+    documents?: ExpenseDocumentUncheckedCreateNestedManyWithoutPayableExpenseInput
+  }
+
+  export type PayableExpenseCreateOrConnectWithoutContractInput = {
+    where: PayableExpenseWhereUniqueInput
+    create: XOR<PayableExpenseCreateWithoutContractInput, PayableExpenseUncheckedCreateWithoutContractInput>
+  }
+
+  export type PayableExpenseCreateManyContractInputEnvelope = {
+    data: PayableExpenseCreateManyContractInput | PayableExpenseCreateManyContractInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CommercialProposalCreateWithoutContractInput = {
     id?: string
     proposal_number: string
@@ -48480,6 +51229,11 @@ export namespace Prisma {
   export type CommercialProposalCreateOrConnectWithoutContractInput = {
     where: CommercialProposalWhereUniqueInput
     create: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
+  }
+
+  export type CommercialProposalCreateManyContractInputEnvelope = {
+    data: CommercialProposalCreateManyContractInput | CommercialProposalCreateManyContractInput[]
+    skipDuplicates?: boolean
   }
 
   export type AssetMovementUpsertWithWhereUniqueWithoutContractInput = {
@@ -48613,61 +51367,72 @@ export namespace Prisma {
     invoiceId?: StringNullableFilter<"MeasurementBulletin"> | string | null
   }
 
-  export type CommercialProposalUpsertWithoutContractInput = {
-    update: XOR<CommercialProposalUpdateWithoutContractInput, CommercialProposalUncheckedUpdateWithoutContractInput>
-    create: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
-    where?: CommercialProposalWhereInput
+  export type InvoiceUpsertWithWhereUniqueWithoutContractInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutContractInput, InvoiceUncheckedUpdateWithoutContractInput>
+    create: XOR<InvoiceCreateWithoutContractInput, InvoiceUncheckedCreateWithoutContractInput>
   }
 
-  export type CommercialProposalUpdateToOneWithWhereWithoutContractInput = {
-    where?: CommercialProposalWhereInput
+  export type InvoiceUpdateWithWhereUniqueWithoutContractInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutContractInput, InvoiceUncheckedUpdateWithoutContractInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutContractInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutContractInput>
+  }
+
+  export type InvoiceScalarWhereInput = {
+    AND?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    OR?: InvoiceScalarWhereInput[]
+    NOT?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    id?: StringFilter<"Invoice"> | string
+    invoice_number?: StringNullableFilter<"Invoice"> | string | null
+    total_value?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFilter<"Invoice"> | boolean
+    payment_date?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    issue_date?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    due_date?: DateTimeFilter<"Invoice"> | Date | string
+    notes?: StringNullableFilter<"Invoice"> | string | null
+    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    is_active?: BoolFilter<"Invoice"> | boolean
+    created_at?: DateTimeFilter<"Invoice"> | Date | string
+    updated_at?: DateTimeFilter<"Invoice"> | Date | string
+    contractId?: StringNullableFilter<"Invoice"> | string | null
+    chartOfAccountId?: StringNullableFilter<"Invoice"> | string | null
+  }
+
+  export type PayableExpenseUpsertWithWhereUniqueWithoutContractInput = {
+    where: PayableExpenseWhereUniqueInput
+    update: XOR<PayableExpenseUpdateWithoutContractInput, PayableExpenseUncheckedUpdateWithoutContractInput>
+    create: XOR<PayableExpenseCreateWithoutContractInput, PayableExpenseUncheckedCreateWithoutContractInput>
+  }
+
+  export type PayableExpenseUpdateWithWhereUniqueWithoutContractInput = {
+    where: PayableExpenseWhereUniqueInput
+    data: XOR<PayableExpenseUpdateWithoutContractInput, PayableExpenseUncheckedUpdateWithoutContractInput>
+  }
+
+  export type PayableExpenseUpdateManyWithWhereWithoutContractInput = {
+    where: PayableExpenseScalarWhereInput
+    data: XOR<PayableExpenseUpdateManyMutationInput, PayableExpenseUncheckedUpdateManyWithoutContractInput>
+  }
+
+  export type CommercialProposalUpsertWithWhereUniqueWithoutContractInput = {
+    where: CommercialProposalWhereUniqueInput
+    update: XOR<CommercialProposalUpdateWithoutContractInput, CommercialProposalUncheckedUpdateWithoutContractInput>
+    create: XOR<CommercialProposalCreateWithoutContractInput, CommercialProposalUncheckedCreateWithoutContractInput>
+  }
+
+  export type CommercialProposalUpdateWithWhereUniqueWithoutContractInput = {
+    where: CommercialProposalWhereUniqueInput
     data: XOR<CommercialProposalUpdateWithoutContractInput, CommercialProposalUncheckedUpdateWithoutContractInput>
   }
 
-  export type CommercialProposalUpdateWithoutContractInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    proposal_number?: StringFieldUpdateOperationsInput | string
-    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
-    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
-    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
-    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
-    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
-    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
-    observations?: NullableStringFieldUpdateOperationsInput | string | null
-    validity_days?: IntFieldUpdateOperationsInput | number
-    body_html?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    client?: SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput
-    companySettings?: CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput
-    items?: ProposalItemUpdateManyWithoutCommercialProposalNestedInput
-  }
-
-  export type CommercialProposalUncheckedUpdateWithoutContractInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    proposal_number?: StringFieldUpdateOperationsInput | string
-    companySettingsId?: NullableStringFieldUpdateOperationsInput | string | null
-    clientId?: StringFieldUpdateOperationsInput | string
-    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
-    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
-    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
-    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
-    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
-    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
-    observations?: NullableStringFieldUpdateOperationsInput | string | null
-    validity_days?: IntFieldUpdateOperationsInput | number
-    body_html?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    items?: ProposalItemUncheckedUpdateManyWithoutCommercialProposalNestedInput
+  export type CommercialProposalUpdateManyWithWhereWithoutContractInput = {
+    where: CommercialProposalScalarWhereInput
+    data: XOR<CommercialProposalUpdateManyMutationInput, CommercialProposalUncheckedUpdateManyWithoutContractInput>
   }
 
   export type AssetCreateWithoutMovementsInput = {
@@ -48755,7 +51520,9 @@ export namespace Prisma {
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
+    invoices?: InvoiceCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMovementsInput = {
@@ -48780,7 +51547,9 @@ export namespace Prisma {
     signed_contract_url?: string | null
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMovementsInput = {
@@ -48946,7 +51715,9 @@ export namespace Prisma {
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMovementsInput = {
@@ -48971,7 +51742,9 @@ export namespace Prisma {
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type MeasurementBulletinUpsertWithWhereUniqueWithoutAssetMovementInput = {
@@ -49022,32 +51795,38 @@ export namespace Prisma {
 
   export type InvoiceCreateWithoutMeasurementBulletinsInput = {
     id?: string
-    invoice_number: string
-    issue_date: Date | string
-    due_date: Date | string
+    invoice_number?: string | null
     total_value: Decimal | DecimalJsLike | number | string
     is_paid?: boolean
     payment_date?: Date | string | null
-    status?: $Enums.InvoiceStatus
+    issue_date?: Date | string | null
+    due_date: Date | string
     notes?: string | null
+    status?: $Enums.InvoiceStatus
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    contract?: ContractCreateNestedOneWithoutInvoicesInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutInvoicesInput
+    transactions?: FinancialTransactionCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutMeasurementBulletinsInput = {
     id?: string
-    invoice_number: string
-    issue_date: Date | string
-    due_date: Date | string
+    invoice_number?: string | null
     total_value: Decimal | DecimalJsLike | number | string
     is_paid?: boolean
     payment_date?: Date | string | null
-    status?: $Enums.InvoiceStatus
+    issue_date?: Date | string | null
+    due_date: Date | string
     notes?: string | null
+    status?: $Enums.InvoiceStatus
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    contractId?: string | null
+    chartOfAccountId?: string | null
+    transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutMeasurementBulletinsInput = {
@@ -49128,7 +51907,9 @@ export namespace Prisma {
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalCreateNestedOneWithoutContractInput
+    invoices?: InvoiceCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMeasurementBulletinsInput = {
@@ -49153,7 +51934,9 @@ export namespace Prisma {
     signed_contract_url?: string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
-    CommercialProposal?: CommercialProposalUncheckedCreateNestedOneWithoutContractInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMeasurementBulletinsInput = {
@@ -49204,32 +51987,38 @@ export namespace Prisma {
 
   export type InvoiceUpdateWithoutMeasurementBulletinsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    invoice_number?: StringFieldUpdateOperationsInput | string
-    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneWithoutInvoicesNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutInvoicesNestedInput
+    transactions?: FinancialTransactionUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutMeasurementBulletinsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    invoice_number?: StringFieldUpdateOperationsInput | string
-    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactions?: FinancialTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type AssetMovementUpsertWithoutMeasurementBulletinsInput = {
@@ -49322,7 +52111,9 @@ export namespace Prisma {
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMeasurementBulletinsInput = {
@@ -49347,7 +52138,9 @@ export namespace Prisma {
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type MeasurementBulletinCreateWithoutInvoiceInput = {
@@ -49406,6 +52199,132 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ContractCreateWithoutInvoicesInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    observations?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    movements?: AssetMovementCreateNestedManyWithoutContractInput
+    client: SupplierCreateNestedOneWithoutContractsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUncheckedCreateWithoutInvoicesInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    observations?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractCreateOrConnectWithoutInvoicesInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutInvoicesInput, ContractUncheckedCreateWithoutInvoicesInput>
+  }
+
+  export type ChartOfAccountCreateWithoutInvoicesInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    parent?: ChartOfAccountCreateNestedOneWithoutChildrenInput
+    children?: ChartOfAccountCreateNestedManyWithoutParentInput
+    expenses?: PayableExpenseCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateWithoutInvoicesInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    parent_id?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    children?: ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+    expenses?: PayableExpenseUncheckedCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountCreateOrConnectWithoutInvoicesInput = {
+    where: ChartOfAccountWhereUniqueInput
+    create: XOR<ChartOfAccountCreateWithoutInvoicesInput, ChartOfAccountUncheckedCreateWithoutInvoicesInput>
+  }
+
+  export type FinancialTransactionCreateWithoutInvoiceInput = {
+    id?: string
+    type: $Enums.TransactionType
+    amount: Decimal | DecimalJsLike | number | string
+    date: Date | string
+    description?: string | null
+    receipt_url?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    bankAccount: BankAccountCreateNestedOneWithoutTransactionsInput
+    expenseInstallment?: ExpenseInstallmentCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type FinancialTransactionUncheckedCreateWithoutInvoiceInput = {
+    id?: string
+    bankAccountId: string
+    type: $Enums.TransactionType
+    amount: Decimal | DecimalJsLike | number | string
+    date: Date | string
+    description?: string | null
+    expenseInstallmentId?: string | null
+    receipt_url?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type FinancialTransactionCreateOrConnectWithoutInvoiceInput = {
+    where: FinancialTransactionWhereUniqueInput
+    create: XOR<FinancialTransactionCreateWithoutInvoiceInput, FinancialTransactionUncheckedCreateWithoutInvoiceInput>
+  }
+
+  export type FinancialTransactionCreateManyInvoiceInputEnvelope = {
+    data: FinancialTransactionCreateManyInvoiceInput | FinancialTransactionCreateManyInvoiceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MeasurementBulletinUpsertWithWhereUniqueWithoutInvoiceInput = {
     where: MeasurementBulletinWhereUniqueInput
     update: XOR<MeasurementBulletinUpdateWithoutInvoiceInput, MeasurementBulletinUncheckedUpdateWithoutInvoiceInput>
@@ -49420,6 +52339,141 @@ export namespace Prisma {
   export type MeasurementBulletinUpdateManyWithWhereWithoutInvoiceInput = {
     where: MeasurementBulletinScalarWhereInput
     data: XOR<MeasurementBulletinUpdateManyMutationInput, MeasurementBulletinUncheckedUpdateManyWithoutInvoiceInput>
+  }
+
+  export type ContractUpsertWithoutInvoicesInput = {
+    update: XOR<ContractUpdateWithoutInvoicesInput, ContractUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<ContractCreateWithoutInvoicesInput, ContractUncheckedCreateWithoutInvoicesInput>
+    where?: ContractWhereInput
+  }
+
+  export type ContractUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: ContractWhereInput
+    data: XOR<ContractUpdateWithoutInvoicesInput, ContractUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type ContractUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    movements?: AssetMovementUpdateManyWithoutContractNestedInput
+    client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+  }
+
+  export type ChartOfAccountUpsertWithoutInvoicesInput = {
+    update: XOR<ChartOfAccountUpdateWithoutInvoicesInput, ChartOfAccountUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<ChartOfAccountCreateWithoutInvoicesInput, ChartOfAccountUncheckedCreateWithoutInvoicesInput>
+    where?: ChartOfAccountWhereInput
+  }
+
+  export type ChartOfAccountUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: ChartOfAccountWhereInput
+    data: XOR<ChartOfAccountUpdateWithoutInvoicesInput, ChartOfAccountUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type ChartOfAccountUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    parent?: ChartOfAccountUpdateOneWithoutChildrenNestedInput
+    children?: ChartOfAccountUpdateManyWithoutParentNestedInput
+    expenses?: PayableExpenseUpdateManyWithoutChartOfAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    parent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+    expenses?: PayableExpenseUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  }
+
+  export type FinancialTransactionUpsertWithWhereUniqueWithoutInvoiceInput = {
+    where: FinancialTransactionWhereUniqueInput
+    update: XOR<FinancialTransactionUpdateWithoutInvoiceInput, FinancialTransactionUncheckedUpdateWithoutInvoiceInput>
+    create: XOR<FinancialTransactionCreateWithoutInvoiceInput, FinancialTransactionUncheckedCreateWithoutInvoiceInput>
+  }
+
+  export type FinancialTransactionUpdateWithWhereUniqueWithoutInvoiceInput = {
+    where: FinancialTransactionWhereUniqueInput
+    data: XOR<FinancialTransactionUpdateWithoutInvoiceInput, FinancialTransactionUncheckedUpdateWithoutInvoiceInput>
+  }
+
+  export type FinancialTransactionUpdateManyWithWhereWithoutInvoiceInput = {
+    where: FinancialTransactionScalarWhereInput
+    data: XOR<FinancialTransactionUpdateManyMutationInput, FinancialTransactionUncheckedUpdateManyWithoutInvoiceInput>
+  }
+
+  export type FinancialTransactionScalarWhereInput = {
+    AND?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+    OR?: FinancialTransactionScalarWhereInput[]
+    NOT?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+    id?: StringFilter<"FinancialTransaction"> | string
+    bankAccountId?: StringFilter<"FinancialTransaction"> | string
+    type?: EnumTransactionTypeFilter<"FinancialTransaction"> | $Enums.TransactionType
+    amount?: DecimalFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
+    date?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    description?: StringNullableFilter<"FinancialTransaction"> | string | null
+    expenseInstallmentId?: StringNullableFilter<"FinancialTransaction"> | string | null
+    invoiceId?: StringNullableFilter<"FinancialTransaction"> | string | null
+    receipt_url?: StringNullableFilter<"FinancialTransaction"> | string | null
+    created_at?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    updated_at?: DateTimeFilter<"FinancialTransaction"> | Date | string
   }
 
   export type MeasurementBulletinCreateWithoutExpensesInput = {
@@ -49549,7 +52603,7 @@ export namespace Prisma {
     updated_at?: Date | string
     is_active?: boolean
     client: SupplierCreateNestedOneWithoutCommercialProposalsInput
-    contract?: ContractCreateNestedOneWithoutCommercialProposalInput
+    contract?: ContractCreateNestedOneWithoutProposalsInput
     items?: ProposalItemCreateNestedManyWithoutCommercialProposalInput
   }
 
@@ -50446,7 +53500,7 @@ export namespace Prisma {
     create: XOR<CompanySettingsCreateWithoutCommercialProposalsInput, CompanySettingsUncheckedCreateWithoutCommercialProposalsInput>
   }
 
-  export type ContractCreateWithoutCommercialProposalInput = {
+  export type ContractCreateWithoutProposalsInput = {
     id?: string
     contract_number: string
     description?: string | null
@@ -50469,9 +53523,11 @@ export namespace Prisma {
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+    invoices?: InvoiceCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
   }
 
-  export type ContractUncheckedCreateWithoutCommercialProposalInput = {
+  export type ContractUncheckedCreateWithoutProposalsInput = {
     id?: string
     contract_number: string
     description?: string | null
@@ -50494,11 +53550,13 @@ export namespace Prisma {
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
   }
 
-  export type ContractCreateOrConnectWithoutCommercialProposalInput = {
+  export type ContractCreateOrConnectWithoutProposalsInput = {
     where: ContractWhereUniqueInput
-    create: XOR<ContractCreateWithoutCommercialProposalInput, ContractUncheckedCreateWithoutCommercialProposalInput>
+    create: XOR<ContractCreateWithoutProposalsInput, ContractUncheckedCreateWithoutProposalsInput>
   }
 
   export type ProposalItemCreateWithoutCommercialProposalInput = {
@@ -50647,18 +53705,18 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ContractUpsertWithoutCommercialProposalInput = {
-    update: XOR<ContractUpdateWithoutCommercialProposalInput, ContractUncheckedUpdateWithoutCommercialProposalInput>
-    create: XOR<ContractCreateWithoutCommercialProposalInput, ContractUncheckedCreateWithoutCommercialProposalInput>
+  export type ContractUpsertWithoutProposalsInput = {
+    update: XOR<ContractUpdateWithoutProposalsInput, ContractUncheckedUpdateWithoutProposalsInput>
+    create: XOR<ContractCreateWithoutProposalsInput, ContractUncheckedCreateWithoutProposalsInput>
     where?: ContractWhereInput
   }
 
-  export type ContractUpdateToOneWithWhereWithoutCommercialProposalInput = {
+  export type ContractUpdateToOneWithWhereWithoutProposalsInput = {
     where?: ContractWhereInput
-    data: XOR<ContractUpdateWithoutCommercialProposalInput, ContractUncheckedUpdateWithoutCommercialProposalInput>
+    data: XOR<ContractUpdateWithoutProposalsInput, ContractUncheckedUpdateWithoutProposalsInput>
   }
 
-  export type ContractUpdateWithoutCommercialProposalInput = {
+  export type ContractUpdateWithoutProposalsInput = {
     id?: StringFieldUpdateOperationsInput | string
     contract_number?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50681,9 +53739,11 @@ export namespace Prisma {
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+    invoices?: InvoiceUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
   }
 
-  export type ContractUncheckedUpdateWithoutCommercialProposalInput = {
+  export type ContractUncheckedUpdateWithoutProposalsInput = {
     id?: StringFieldUpdateOperationsInput | string
     contract_number?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50706,6 +53766,8 @@ export namespace Prisma {
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ProposalItemUpsertWithWhereUniqueWithoutCommercialProposalInput = {
@@ -50744,7 +53806,7 @@ export namespace Prisma {
     is_active?: boolean
     client: SupplierCreateNestedOneWithoutCommercialProposalsInput
     companySettings?: CompanySettingsCreateNestedOneWithoutCommercialProposalsInput
-    contract?: ContractCreateNestedOneWithoutCommercialProposalInput
+    contract?: ContractCreateNestedOneWithoutProposalsInput
   }
 
   export type CommercialProposalUncheckedCreateWithoutItemsInput = {
@@ -50896,7 +53958,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     client?: SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput
     companySettings?: CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput
-    contract?: ContractUpdateOneWithoutCommercialProposalNestedInput
+    contract?: ContractUpdateOneWithoutProposalsNestedInput
   }
 
   export type CommercialProposalUncheckedUpdateWithoutItemsInput = {
@@ -51034,6 +54096,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     expenseInstallment?: ExpenseInstallmentCreateNestedOneWithoutTransactionsInput
+    invoice?: InvoiceCreateNestedOneWithoutTransactionsInput
   }
 
   export type FinancialTransactionUncheckedCreateWithoutBankAccountInput = {
@@ -51043,6 +54106,7 @@ export namespace Prisma {
     date: Date | string
     description?: string | null
     expenseInstallmentId?: string | null
+    invoiceId?: string | null
     receipt_url?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -51055,6 +54119,46 @@ export namespace Prisma {
 
   export type FinancialTransactionCreateManyBankAccountInputEnvelope = {
     data: FinancialTransactionCreateManyBankAccountInput | FinancialTransactionCreateManyBankAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExpenseInstallmentCreateWithoutScheduledBankAccountInput = {
+    id?: string
+    installment_number: number
+    value: Decimal | DecimalJsLike | number | string
+    due_date: Date | string
+    barcode?: string | null
+    pix_key?: string | null
+    status?: $Enums.InstallmentStatus
+    payment_date?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    payableExpense: PayableExpenseCreateNestedOneWithoutInstallmentsInput
+    transactions?: FinancialTransactionCreateNestedManyWithoutExpenseInstallmentInput
+  }
+
+  export type ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput = {
+    id?: string
+    payableExpenseId: string
+    installment_number: number
+    value: Decimal | DecimalJsLike | number | string
+    due_date: Date | string
+    barcode?: string | null
+    pix_key?: string | null
+    status?: $Enums.InstallmentStatus
+    payment_date?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutExpenseInstallmentInput
+  }
+
+  export type ExpenseInstallmentCreateOrConnectWithoutScheduledBankAccountInput = {
+    where: ExpenseInstallmentWhereUniqueInput
+    create: XOR<ExpenseInstallmentCreateWithoutScheduledBankAccountInput, ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput>
+  }
+
+  export type ExpenseInstallmentCreateManyScheduledBankAccountInputEnvelope = {
+    data: ExpenseInstallmentCreateManyScheduledBankAccountInput | ExpenseInstallmentCreateManyScheduledBankAccountInput[]
     skipDuplicates?: boolean
   }
 
@@ -51074,20 +54178,38 @@ export namespace Prisma {
     data: XOR<FinancialTransactionUpdateManyMutationInput, FinancialTransactionUncheckedUpdateManyWithoutBankAccountInput>
   }
 
-  export type FinancialTransactionScalarWhereInput = {
-    AND?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
-    OR?: FinancialTransactionScalarWhereInput[]
-    NOT?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
-    id?: StringFilter<"FinancialTransaction"> | string
-    bankAccountId?: StringFilter<"FinancialTransaction"> | string
-    type?: EnumTransactionTypeFilter<"FinancialTransaction"> | $Enums.TransactionType
-    amount?: DecimalFilter<"FinancialTransaction"> | Decimal | DecimalJsLike | number | string
-    date?: DateTimeFilter<"FinancialTransaction"> | Date | string
-    description?: StringNullableFilter<"FinancialTransaction"> | string | null
-    expenseInstallmentId?: StringNullableFilter<"FinancialTransaction"> | string | null
-    receipt_url?: StringNullableFilter<"FinancialTransaction"> | string | null
-    created_at?: DateTimeFilter<"FinancialTransaction"> | Date | string
-    updated_at?: DateTimeFilter<"FinancialTransaction"> | Date | string
+  export type ExpenseInstallmentUpsertWithWhereUniqueWithoutScheduledBankAccountInput = {
+    where: ExpenseInstallmentWhereUniqueInput
+    update: XOR<ExpenseInstallmentUpdateWithoutScheduledBankAccountInput, ExpenseInstallmentUncheckedUpdateWithoutScheduledBankAccountInput>
+    create: XOR<ExpenseInstallmentCreateWithoutScheduledBankAccountInput, ExpenseInstallmentUncheckedCreateWithoutScheduledBankAccountInput>
+  }
+
+  export type ExpenseInstallmentUpdateWithWhereUniqueWithoutScheduledBankAccountInput = {
+    where: ExpenseInstallmentWhereUniqueInput
+    data: XOR<ExpenseInstallmentUpdateWithoutScheduledBankAccountInput, ExpenseInstallmentUncheckedUpdateWithoutScheduledBankAccountInput>
+  }
+
+  export type ExpenseInstallmentUpdateManyWithWhereWithoutScheduledBankAccountInput = {
+    where: ExpenseInstallmentScalarWhereInput
+    data: XOR<ExpenseInstallmentUpdateManyMutationInput, ExpenseInstallmentUncheckedUpdateManyWithoutScheduledBankAccountInput>
+  }
+
+  export type ExpenseInstallmentScalarWhereInput = {
+    AND?: ExpenseInstallmentScalarWhereInput | ExpenseInstallmentScalarWhereInput[]
+    OR?: ExpenseInstallmentScalarWhereInput[]
+    NOT?: ExpenseInstallmentScalarWhereInput | ExpenseInstallmentScalarWhereInput[]
+    id?: StringFilter<"ExpenseInstallment"> | string
+    payableExpenseId?: StringFilter<"ExpenseInstallment"> | string
+    installment_number?: IntFilter<"ExpenseInstallment"> | number
+    value?: DecimalFilter<"ExpenseInstallment"> | Decimal | DecimalJsLike | number | string
+    due_date?: DateTimeFilter<"ExpenseInstallment"> | Date | string
+    barcode?: StringNullableFilter<"ExpenseInstallment"> | string | null
+    pix_key?: StringNullableFilter<"ExpenseInstallment"> | string | null
+    status?: EnumInstallmentStatusFilter<"ExpenseInstallment"> | $Enums.InstallmentStatus
+    payment_date?: DateTimeNullableFilter<"ExpenseInstallment"> | Date | string | null
+    created_at?: DateTimeFilter<"ExpenseInstallment"> | Date | string
+    updated_at?: DateTimeFilter<"ExpenseInstallment"> | Date | string
+    scheduledBankAccountId?: StringNullableFilter<"ExpenseInstallment"> | string | null
   }
 
   export type MaintenanceCreateWithoutPayableExpensesInput = {
@@ -51145,6 +54267,65 @@ export namespace Prisma {
     create: XOR<MaintenanceCreateWithoutPayableExpensesInput, MaintenanceUncheckedCreateWithoutPayableExpensesInput>
   }
 
+  export type ContractCreateWithoutPayableExpensesInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    observations?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    movements?: AssetMovementCreateNestedManyWithoutContractInput
+    client: SupplierCreateNestedOneWithoutContractsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+    invoices?: InvoiceCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUncheckedCreateWithoutPayableExpensesInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    observations?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractCreateOrConnectWithoutPayableExpensesInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutPayableExpensesInput, ContractUncheckedCreateWithoutPayableExpensesInput>
+  }
+
   export type SupplierCreateWithoutPayableExpensesInput = {
     id?: string
     company_name: string
@@ -51196,6 +54377,37 @@ export namespace Prisma {
     create: XOR<SupplierCreateWithoutPayableExpensesInput, SupplierUncheckedCreateWithoutPayableExpensesInput>
   }
 
+  export type ChartOfAccountCreateWithoutExpensesInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    parent?: ChartOfAccountCreateNestedOneWithoutChildrenInput
+    children?: ChartOfAccountCreateNestedManyWithoutParentInput
+    invoices?: InvoiceCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateWithoutExpensesInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    parent_id?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    children?: ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountCreateOrConnectWithoutExpensesInput = {
+    where: ChartOfAccountWhereUniqueInput
+    create: XOR<ChartOfAccountCreateWithoutExpensesInput, ChartOfAccountUncheckedCreateWithoutExpensesInput>
+  }
+
   export type ExpenseInstallmentCreateWithoutPayableExpenseInput = {
     id?: string
     installment_number: number
@@ -51208,6 +54420,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     transactions?: FinancialTransactionCreateNestedManyWithoutExpenseInstallmentInput
+    scheduledBankAccount?: BankAccountCreateNestedOneWithoutScheduledInstallmentsInput
   }
 
   export type ExpenseInstallmentUncheckedCreateWithoutPayableExpenseInput = {
@@ -51221,6 +54434,7 @@ export namespace Prisma {
     payment_date?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    scheduledBankAccountId?: string | null
     transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutExpenseInstallmentInput
   }
 
@@ -51329,6 +54543,71 @@ export namespace Prisma {
     documents?: MaintenanceDocumentUncheckedUpdateManyWithoutMaintenanceNestedInput
   }
 
+  export type ContractUpsertWithoutPayableExpensesInput = {
+    update: XOR<ContractUpdateWithoutPayableExpensesInput, ContractUncheckedUpdateWithoutPayableExpensesInput>
+    create: XOR<ContractCreateWithoutPayableExpensesInput, ContractUncheckedCreateWithoutPayableExpensesInput>
+    where?: ContractWhereInput
+  }
+
+  export type ContractUpdateToOneWithWhereWithoutPayableExpensesInput = {
+    where?: ContractWhereInput
+    data: XOR<ContractUpdateWithoutPayableExpensesInput, ContractUncheckedUpdateWithoutPayableExpensesInput>
+  }
+
+  export type ContractUpdateWithoutPayableExpensesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    movements?: AssetMovementUpdateManyWithoutContractNestedInput
+    client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+    invoices?: InvoiceUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutPayableExpensesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+  }
+
   export type SupplierUpsertWithoutPayableExpensesInput = {
     update: XOR<SupplierUpdateWithoutPayableExpensesInput, SupplierUncheckedUpdateWithoutPayableExpensesInput>
     create: XOR<SupplierCreateWithoutPayableExpensesInput, SupplierUncheckedCreateWithoutPayableExpensesInput>
@@ -51386,6 +54665,43 @@ export namespace Prisma {
     CommercialProposals?: CommercialProposalUncheckedUpdateManyWithoutClientNestedInput
   }
 
+  export type ChartOfAccountUpsertWithoutExpensesInput = {
+    update: XOR<ChartOfAccountUpdateWithoutExpensesInput, ChartOfAccountUncheckedUpdateWithoutExpensesInput>
+    create: XOR<ChartOfAccountCreateWithoutExpensesInput, ChartOfAccountUncheckedCreateWithoutExpensesInput>
+    where?: ChartOfAccountWhereInput
+  }
+
+  export type ChartOfAccountUpdateToOneWithWhereWithoutExpensesInput = {
+    where?: ChartOfAccountWhereInput
+    data: XOR<ChartOfAccountUpdateWithoutExpensesInput, ChartOfAccountUncheckedUpdateWithoutExpensesInput>
+  }
+
+  export type ChartOfAccountUpdateWithoutExpensesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    parent?: ChartOfAccountUpdateOneWithoutChildrenNestedInput
+    children?: ChartOfAccountUpdateManyWithoutParentNestedInput
+    invoices?: InvoiceUpdateManyWithoutChartOfAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateWithoutExpensesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    parent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  }
+
   export type ExpenseInstallmentUpsertWithWhereUniqueWithoutPayableExpenseInput = {
     where: ExpenseInstallmentWhereUniqueInput
     update: XOR<ExpenseInstallmentUpdateWithoutPayableExpenseInput, ExpenseInstallmentUncheckedUpdateWithoutPayableExpenseInput>
@@ -51400,23 +54716,6 @@ export namespace Prisma {
   export type ExpenseInstallmentUpdateManyWithWhereWithoutPayableExpenseInput = {
     where: ExpenseInstallmentScalarWhereInput
     data: XOR<ExpenseInstallmentUpdateManyMutationInput, ExpenseInstallmentUncheckedUpdateManyWithoutPayableExpenseInput>
-  }
-
-  export type ExpenseInstallmentScalarWhereInput = {
-    AND?: ExpenseInstallmentScalarWhereInput | ExpenseInstallmentScalarWhereInput[]
-    OR?: ExpenseInstallmentScalarWhereInput[]
-    NOT?: ExpenseInstallmentScalarWhereInput | ExpenseInstallmentScalarWhereInput[]
-    id?: StringFilter<"ExpenseInstallment"> | string
-    payableExpenseId?: StringFilter<"ExpenseInstallment"> | string
-    installment_number?: IntFilter<"ExpenseInstallment"> | number
-    value?: DecimalFilter<"ExpenseInstallment"> | Decimal | DecimalJsLike | number | string
-    due_date?: DateTimeFilter<"ExpenseInstallment"> | Date | string
-    barcode?: StringNullableFilter<"ExpenseInstallment"> | string | null
-    pix_key?: StringNullableFilter<"ExpenseInstallment"> | string | null
-    status?: EnumInstallmentStatusFilter<"ExpenseInstallment"> | $Enums.InstallmentStatus
-    payment_date?: DateTimeNullableFilter<"ExpenseInstallment"> | Date | string | null
-    created_at?: DateTimeFilter<"ExpenseInstallment"> | Date | string
-    updated_at?: DateTimeFilter<"ExpenseInstallment"> | Date | string
   }
 
   export type ExpenseDocumentUpsertWithWhereUniqueWithoutPayableExpenseInput = {
@@ -51467,14 +54766,17 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    maintenance: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    maintenance?: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    contract?: ContractCreateNestedOneWithoutPayableExpensesInput
     supplier?: SupplierCreateNestedOneWithoutPayableExpensesInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutExpensesInput
     documents?: ExpenseDocumentCreateNestedManyWithoutPayableExpenseInput
   }
 
   export type PayableExpenseUncheckedCreateWithoutInstallmentsInput = {
     id?: string
-    maintenanceId: string
+    maintenanceId?: string | null
+    contractId?: string | null
     supplierId?: string | null
     description: string
     total_value: Decimal | DecimalJsLike | number | string
@@ -51490,6 +54792,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    chartOfAccountId?: string | null
     documents?: ExpenseDocumentUncheckedCreateNestedManyWithoutPayableExpenseInput
   }
 
@@ -51508,6 +54811,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     bankAccount: BankAccountCreateNestedOneWithoutTransactionsInput
+    invoice?: InvoiceCreateNestedOneWithoutTransactionsInput
   }
 
   export type FinancialTransactionUncheckedCreateWithoutExpenseInstallmentInput = {
@@ -51517,6 +54821,7 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     date: Date | string
     description?: string | null
+    invoiceId?: string | null
     receipt_url?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -51530,6 +54835,37 @@ export namespace Prisma {
   export type FinancialTransactionCreateManyExpenseInstallmentInputEnvelope = {
     data: FinancialTransactionCreateManyExpenseInstallmentInput | FinancialTransactionCreateManyExpenseInstallmentInput[]
     skipDuplicates?: boolean
+  }
+
+  export type BankAccountCreateWithoutScheduledInstallmentsInput = {
+    id?: string
+    name: string
+    bank_name?: string | null
+    agency?: string | null
+    account_number?: string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    transactions?: FinancialTransactionCreateNestedManyWithoutBankAccountInput
+  }
+
+  export type BankAccountUncheckedCreateWithoutScheduledInstallmentsInput = {
+    id?: string
+    name: string
+    bank_name?: string | null
+    agency?: string | null
+    account_number?: string | null
+    balance?: Decimal | DecimalJsLike | number | string
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutBankAccountInput
+  }
+
+  export type BankAccountCreateOrConnectWithoutScheduledInstallmentsInput = {
+    where: BankAccountWhereUniqueInput
+    create: XOR<BankAccountCreateWithoutScheduledInstallmentsInput, BankAccountUncheckedCreateWithoutScheduledInstallmentsInput>
   }
 
   export type PayableExpenseUpsertWithoutInstallmentsInput = {
@@ -51559,14 +54895,17 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    maintenance?: MaintenanceUpdateOneRequiredWithoutPayableExpensesNestedInput
+    maintenance?: MaintenanceUpdateOneWithoutPayableExpensesNestedInput
+    contract?: ContractUpdateOneWithoutPayableExpensesNestedInput
     supplier?: SupplierUpdateOneWithoutPayableExpensesNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutExpensesNestedInput
     documents?: ExpenseDocumentUpdateManyWithoutPayableExpenseNestedInput
   }
 
   export type PayableExpenseUncheckedUpdateWithoutInstallmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    maintenanceId?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     supplierId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -51582,6 +54921,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: ExpenseDocumentUncheckedUpdateManyWithoutPayableExpenseNestedInput
   }
 
@@ -51601,6 +54941,43 @@ export namespace Prisma {
     data: XOR<FinancialTransactionUpdateManyMutationInput, FinancialTransactionUncheckedUpdateManyWithoutExpenseInstallmentInput>
   }
 
+  export type BankAccountUpsertWithoutScheduledInstallmentsInput = {
+    update: XOR<BankAccountUpdateWithoutScheduledInstallmentsInput, BankAccountUncheckedUpdateWithoutScheduledInstallmentsInput>
+    create: XOR<BankAccountCreateWithoutScheduledInstallmentsInput, BankAccountUncheckedCreateWithoutScheduledInstallmentsInput>
+    where?: BankAccountWhereInput
+  }
+
+  export type BankAccountUpdateToOneWithWhereWithoutScheduledInstallmentsInput = {
+    where?: BankAccountWhereInput
+    data: XOR<BankAccountUpdateWithoutScheduledInstallmentsInput, BankAccountUncheckedUpdateWithoutScheduledInstallmentsInput>
+  }
+
+  export type BankAccountUpdateWithoutScheduledInstallmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    agency?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: FinancialTransactionUpdateManyWithoutBankAccountNestedInput
+  }
+
+  export type BankAccountUncheckedUpdateWithoutScheduledInstallmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    agency?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: FinancialTransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+  }
+
   export type PayableExpenseCreateWithoutDocumentsInput = {
     id?: string
     description: string
@@ -51617,14 +54994,17 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    maintenance: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    maintenance?: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    contract?: ContractCreateNestedOneWithoutPayableExpensesInput
     supplier?: SupplierCreateNestedOneWithoutPayableExpensesInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutExpensesInput
     installments?: ExpenseInstallmentCreateNestedManyWithoutPayableExpenseInput
   }
 
   export type PayableExpenseUncheckedCreateWithoutDocumentsInput = {
     id?: string
-    maintenanceId: string
+    maintenanceId?: string | null
+    contractId?: string | null
     supplierId?: string | null
     description: string
     total_value: Decimal | DecimalJsLike | number | string
@@ -51640,6 +55020,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    chartOfAccountId?: string | null
     installments?: ExpenseInstallmentUncheckedCreateNestedManyWithoutPayableExpenseInput
   }
 
@@ -51675,14 +55056,17 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    maintenance?: MaintenanceUpdateOneRequiredWithoutPayableExpensesNestedInput
+    maintenance?: MaintenanceUpdateOneWithoutPayableExpensesNestedInput
+    contract?: ContractUpdateOneWithoutPayableExpensesNestedInput
     supplier?: SupplierUpdateOneWithoutPayableExpensesNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutExpensesNestedInput
     installments?: ExpenseInstallmentUpdateManyWithoutPayableExpenseNestedInput
   }
 
   export type PayableExpenseUncheckedUpdateWithoutDocumentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    maintenanceId?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     supplierId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -51698,6 +55082,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     installments?: ExpenseInstallmentUncheckedUpdateManyWithoutPayableExpenseNestedInput
   }
 
@@ -51711,6 +55096,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    scheduledInstallments?: ExpenseInstallmentCreateNestedManyWithoutScheduledBankAccountInput
   }
 
   export type BankAccountUncheckedCreateWithoutTransactionsInput = {
@@ -51723,6 +55109,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    scheduledInstallments?: ExpenseInstallmentUncheckedCreateNestedManyWithoutScheduledBankAccountInput
   }
 
   export type BankAccountCreateOrConnectWithoutTransactionsInput = {
@@ -51742,6 +55129,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     payableExpense: PayableExpenseCreateNestedOneWithoutInstallmentsInput
+    scheduledBankAccount?: BankAccountCreateNestedOneWithoutScheduledInstallmentsInput
   }
 
   export type ExpenseInstallmentUncheckedCreateWithoutTransactionsInput = {
@@ -51756,11 +55144,53 @@ export namespace Prisma {
     payment_date?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    scheduledBankAccountId?: string | null
   }
 
   export type ExpenseInstallmentCreateOrConnectWithoutTransactionsInput = {
     where: ExpenseInstallmentWhereUniqueInput
     create: XOR<ExpenseInstallmentCreateWithoutTransactionsInput, ExpenseInstallmentUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type InvoiceCreateWithoutTransactionsInput = {
+    id?: string
+    invoice_number?: string | null
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    issue_date?: Date | string | null
+    due_date: Date | string
+    notes?: string | null
+    status?: $Enums.InvoiceStatus
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutInvoiceInput
+    contract?: ContractCreateNestedOneWithoutInvoicesInput
+    chartOfAccount?: ChartOfAccountCreateNestedOneWithoutInvoicesInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    invoice_number?: string | null
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    issue_date?: Date | string | null
+    due_date: Date | string
+    notes?: string | null
+    status?: $Enums.InvoiceStatus
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contractId?: string | null
+    chartOfAccountId?: string | null
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutTransactionsInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutTransactionsInput, InvoiceUncheckedCreateWithoutTransactionsInput>
   }
 
   export type BankAccountUpsertWithoutTransactionsInput = {
@@ -51784,6 +55214,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    scheduledInstallments?: ExpenseInstallmentUpdateManyWithoutScheduledBankAccountNestedInput
   }
 
   export type BankAccountUncheckedUpdateWithoutTransactionsInput = {
@@ -51796,6 +55227,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    scheduledInstallments?: ExpenseInstallmentUncheckedUpdateManyWithoutScheduledBankAccountNestedInput
   }
 
   export type ExpenseInstallmentUpsertWithoutTransactionsInput = {
@@ -51821,6 +55253,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     payableExpense?: PayableExpenseUpdateOneRequiredWithoutInstallmentsNestedInput
+    scheduledBankAccount?: BankAccountUpdateOneWithoutScheduledInstallmentsNestedInput
   }
 
   export type ExpenseInstallmentUncheckedUpdateWithoutTransactionsInput = {
@@ -51835,6 +55268,322 @@ export namespace Prisma {
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    scheduledBankAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type InvoiceUpsertWithoutTransactionsInput = {
+    update: XOR<InvoiceUpdateWithoutTransactionsInput, InvoiceUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<InvoiceCreateWithoutTransactionsInput, InvoiceUncheckedCreateWithoutTransactionsInput>
+    where?: InvoiceWhereInput
+  }
+
+  export type InvoiceUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: InvoiceWhereInput
+    data: XOR<InvoiceUpdateWithoutTransactionsInput, InvoiceUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type InvoiceUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutInvoiceNestedInput
+    contract?: ContractUpdateOneWithoutInvoicesNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutInvoicesNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type ChartOfAccountCreateWithoutChildrenInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    parent?: ChartOfAccountCreateNestedOneWithoutChildrenInput
+    expenses?: PayableExpenseCreateNestedManyWithoutChartOfAccountInput
+    invoices?: InvoiceCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateWithoutChildrenInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    parent_id?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    expenses?: PayableExpenseUncheckedCreateNestedManyWithoutChartOfAccountInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountCreateOrConnectWithoutChildrenInput = {
+    where: ChartOfAccountWhereUniqueInput
+    create: XOR<ChartOfAccountCreateWithoutChildrenInput, ChartOfAccountUncheckedCreateWithoutChildrenInput>
+  }
+
+  export type ChartOfAccountCreateWithoutParentInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    children?: ChartOfAccountCreateNestedManyWithoutParentInput
+    expenses?: PayableExpenseCreateNestedManyWithoutChartOfAccountInput
+    invoices?: InvoiceCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateWithoutParentInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    children?: ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+    expenses?: PayableExpenseUncheckedCreateNestedManyWithoutChartOfAccountInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutChartOfAccountInput
+  }
+
+  export type ChartOfAccountCreateOrConnectWithoutParentInput = {
+    where: ChartOfAccountWhereUniqueInput
+    create: XOR<ChartOfAccountCreateWithoutParentInput, ChartOfAccountUncheckedCreateWithoutParentInput>
+  }
+
+  export type ChartOfAccountCreateManyParentInputEnvelope = {
+    data: ChartOfAccountCreateManyParentInput | ChartOfAccountCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PayableExpenseCreateWithoutChartOfAccountInput = {
+    id?: string
+    description: string
+    total_value: Decimal | DecimalJsLike | number | string
+    payment_method?: $Enums.PaymentMethod
+    status?: $Enums.PayableExpenseStatus
+    maintenance_approved_by?: string | null
+    maintenance_approved_at?: Date | string | null
+    finance_approved_by?: string | null
+    finance_approved_at?: Date | string | null
+    director_approved_by?: string | null
+    director_approved_at?: Date | string | null
+    rejection_notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    maintenance?: MaintenanceCreateNestedOneWithoutPayableExpensesInput
+    contract?: ContractCreateNestedOneWithoutPayableExpensesInput
+    supplier?: SupplierCreateNestedOneWithoutPayableExpensesInput
+    installments?: ExpenseInstallmentCreateNestedManyWithoutPayableExpenseInput
+    documents?: ExpenseDocumentCreateNestedManyWithoutPayableExpenseInput
+  }
+
+  export type PayableExpenseUncheckedCreateWithoutChartOfAccountInput = {
+    id?: string
+    maintenanceId?: string | null
+    contractId?: string | null
+    supplierId?: string | null
+    description: string
+    total_value: Decimal | DecimalJsLike | number | string
+    payment_method?: $Enums.PaymentMethod
+    status?: $Enums.PayableExpenseStatus
+    maintenance_approved_by?: string | null
+    maintenance_approved_at?: Date | string | null
+    finance_approved_by?: string | null
+    finance_approved_at?: Date | string | null
+    director_approved_by?: string | null
+    director_approved_at?: Date | string | null
+    rejection_notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    installments?: ExpenseInstallmentUncheckedCreateNestedManyWithoutPayableExpenseInput
+    documents?: ExpenseDocumentUncheckedCreateNestedManyWithoutPayableExpenseInput
+  }
+
+  export type PayableExpenseCreateOrConnectWithoutChartOfAccountInput = {
+    where: PayableExpenseWhereUniqueInput
+    create: XOR<PayableExpenseCreateWithoutChartOfAccountInput, PayableExpenseUncheckedCreateWithoutChartOfAccountInput>
+  }
+
+  export type PayableExpenseCreateManyChartOfAccountInputEnvelope = {
+    data: PayableExpenseCreateManyChartOfAccountInput | PayableExpenseCreateManyChartOfAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InvoiceCreateWithoutChartOfAccountInput = {
+    id?: string
+    invoice_number?: string | null
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    issue_date?: Date | string | null
+    due_date: Date | string
+    notes?: string | null
+    status?: $Enums.InvoiceStatus
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutInvoiceInput
+    contract?: ContractCreateNestedOneWithoutInvoicesInput
+    transactions?: FinancialTransactionCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutChartOfAccountInput = {
+    id?: string
+    invoice_number?: string | null
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    issue_date?: Date | string | null
+    due_date: Date | string
+    notes?: string | null
+    status?: $Enums.InvoiceStatus
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contractId?: string | null
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutInvoiceInput
+    transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutChartOfAccountInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutChartOfAccountInput, InvoiceUncheckedCreateWithoutChartOfAccountInput>
+  }
+
+  export type InvoiceCreateManyChartOfAccountInputEnvelope = {
+    data: InvoiceCreateManyChartOfAccountInput | InvoiceCreateManyChartOfAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ChartOfAccountUpsertWithoutChildrenInput = {
+    update: XOR<ChartOfAccountUpdateWithoutChildrenInput, ChartOfAccountUncheckedUpdateWithoutChildrenInput>
+    create: XOR<ChartOfAccountCreateWithoutChildrenInput, ChartOfAccountUncheckedCreateWithoutChildrenInput>
+    where?: ChartOfAccountWhereInput
+  }
+
+  export type ChartOfAccountUpdateToOneWithWhereWithoutChildrenInput = {
+    where?: ChartOfAccountWhereInput
+    data: XOR<ChartOfAccountUpdateWithoutChildrenInput, ChartOfAccountUncheckedUpdateWithoutChildrenInput>
+  }
+
+  export type ChartOfAccountUpdateWithoutChildrenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    parent?: ChartOfAccountUpdateOneWithoutChildrenNestedInput
+    expenses?: PayableExpenseUpdateManyWithoutChartOfAccountNestedInput
+    invoices?: InvoiceUpdateManyWithoutChartOfAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateWithoutChildrenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    parent_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expenses?: PayableExpenseUncheckedUpdateManyWithoutChartOfAccountNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  }
+
+  export type ChartOfAccountUpsertWithWhereUniqueWithoutParentInput = {
+    where: ChartOfAccountWhereUniqueInput
+    update: XOR<ChartOfAccountUpdateWithoutParentInput, ChartOfAccountUncheckedUpdateWithoutParentInput>
+    create: XOR<ChartOfAccountCreateWithoutParentInput, ChartOfAccountUncheckedCreateWithoutParentInput>
+  }
+
+  export type ChartOfAccountUpdateWithWhereUniqueWithoutParentInput = {
+    where: ChartOfAccountWhereUniqueInput
+    data: XOR<ChartOfAccountUpdateWithoutParentInput, ChartOfAccountUncheckedUpdateWithoutParentInput>
+  }
+
+  export type ChartOfAccountUpdateManyWithWhereWithoutParentInput = {
+    where: ChartOfAccountScalarWhereInput
+    data: XOR<ChartOfAccountUpdateManyMutationInput, ChartOfAccountUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type ChartOfAccountScalarWhereInput = {
+    AND?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+    OR?: ChartOfAccountScalarWhereInput[]
+    NOT?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+    id?: StringFilter<"ChartOfAccount"> | string
+    code?: StringFilter<"ChartOfAccount"> | string
+    name?: StringFilter<"ChartOfAccount"> | string
+    type?: EnumChartOfAccountTypeFilter<"ChartOfAccount"> | $Enums.ChartOfAccountType
+    parent_id?: StringNullableFilter<"ChartOfAccount"> | string | null
+    is_active?: BoolFilter<"ChartOfAccount"> | boolean
+    created_at?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    updated_at?: DateTimeFilter<"ChartOfAccount"> | Date | string
+  }
+
+  export type PayableExpenseUpsertWithWhereUniqueWithoutChartOfAccountInput = {
+    where: PayableExpenseWhereUniqueInput
+    update: XOR<PayableExpenseUpdateWithoutChartOfAccountInput, PayableExpenseUncheckedUpdateWithoutChartOfAccountInput>
+    create: XOR<PayableExpenseCreateWithoutChartOfAccountInput, PayableExpenseUncheckedCreateWithoutChartOfAccountInput>
+  }
+
+  export type PayableExpenseUpdateWithWhereUniqueWithoutChartOfAccountInput = {
+    where: PayableExpenseWhereUniqueInput
+    data: XOR<PayableExpenseUpdateWithoutChartOfAccountInput, PayableExpenseUncheckedUpdateWithoutChartOfAccountInput>
+  }
+
+  export type PayableExpenseUpdateManyWithWhereWithoutChartOfAccountInput = {
+    where: PayableExpenseScalarWhereInput
+    data: XOR<PayableExpenseUpdateManyMutationInput, PayableExpenseUncheckedUpdateManyWithoutChartOfAccountInput>
+  }
+
+  export type InvoiceUpsertWithWhereUniqueWithoutChartOfAccountInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutChartOfAccountInput, InvoiceUncheckedUpdateWithoutChartOfAccountInput>
+    create: XOR<InvoiceCreateWithoutChartOfAccountInput, InvoiceUncheckedCreateWithoutChartOfAccountInput>
+  }
+
+  export type InvoiceUpdateWithWhereUniqueWithoutChartOfAccountInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutChartOfAccountInput, InvoiceUncheckedUpdateWithoutChartOfAccountInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutChartOfAccountInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutChartOfAccountInput>
   }
 
   export type MaintenanceCreateManyAssigned_toInput = {
@@ -52554,7 +56303,8 @@ export namespace Prisma {
 
   export type PayableExpenseCreateManySupplierInput = {
     id?: string
-    maintenanceId: string
+    maintenanceId?: string | null
+    contractId?: string | null
     description: string
     total_value: Decimal | DecimalJsLike | number | string
     payment_method?: $Enums.PaymentMethod
@@ -52569,6 +56319,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    chartOfAccountId?: string | null
   }
 
   export type ContractUpdateWithoutClientInput = {
@@ -52593,7 +56344,9 @@ export namespace Prisma {
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutClientInput = {
@@ -52618,7 +56371,9 @@ export namespace Prisma {
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
-    CommercialProposal?: CommercialProposalUncheckedUpdateOneWithoutContractNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateManyWithoutClientInput = {
@@ -52793,7 +56548,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     companySettings?: CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput
-    contract?: ContractUpdateOneWithoutCommercialProposalNestedInput
+    contract?: ContractUpdateOneWithoutProposalsNestedInput
     items?: ProposalItemUpdateManyWithoutCommercialProposalNestedInput
   }
 
@@ -52858,14 +56613,17 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    maintenance?: MaintenanceUpdateOneRequiredWithoutPayableExpensesNestedInput
+    maintenance?: MaintenanceUpdateOneWithoutPayableExpensesNestedInput
+    contract?: ContractUpdateOneWithoutPayableExpensesNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutExpensesNestedInput
     installments?: ExpenseInstallmentUpdateManyWithoutPayableExpenseNestedInput
     documents?: ExpenseDocumentUpdateManyWithoutPayableExpenseNestedInput
   }
 
   export type PayableExpenseUncheckedUpdateWithoutSupplierInput = {
     id?: StringFieldUpdateOperationsInput | string
-    maintenanceId?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -52880,13 +56638,15 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     installments?: ExpenseInstallmentUncheckedUpdateManyWithoutPayableExpenseNestedInput
     documents?: ExpenseDocumentUncheckedUpdateManyWithoutPayableExpenseNestedInput
   }
 
   export type PayableExpenseUncheckedUpdateManyWithoutSupplierInput = {
     id?: StringFieldUpdateOperationsInput | string
-    maintenanceId?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
@@ -52901,6 +56661,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceCreateManyServiceCategoryInput = {
@@ -53012,6 +56773,7 @@ export namespace Prisma {
 
   export type PayableExpenseCreateManyMaintenanceInput = {
     id?: string
+    contractId?: string | null
     supplierId?: string | null
     description: string
     total_value: Decimal | DecimalJsLike | number | string
@@ -53027,6 +56789,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    chartOfAccountId?: string | null
   }
 
   export type MaintenanceDocumentUpdateWithoutMaintenanceInput = {
@@ -53078,13 +56841,16 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneWithoutPayableExpensesNestedInput
     supplier?: SupplierUpdateOneWithoutPayableExpensesNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutExpensesNestedInput
     installments?: ExpenseInstallmentUpdateManyWithoutPayableExpenseNestedInput
     documents?: ExpenseDocumentUpdateManyWithoutPayableExpenseNestedInput
   }
 
   export type PayableExpenseUncheckedUpdateWithoutMaintenanceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     supplierId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -53100,12 +56866,14 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     installments?: ExpenseInstallmentUncheckedUpdateManyWithoutPayableExpenseNestedInput
     documents?: ExpenseDocumentUncheckedUpdateManyWithoutPayableExpenseNestedInput
   }
 
   export type PayableExpenseUncheckedUpdateManyWithoutMaintenanceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
     supplierId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -53121,6 +56889,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AssetMovementCreateManyContractInput = {
@@ -53188,6 +56957,65 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     invoiceId?: string | null
+  }
+
+  export type InvoiceCreateManyContractInput = {
+    id?: string
+    invoice_number?: string | null
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    issue_date?: Date | string | null
+    due_date: Date | string
+    notes?: string | null
+    status?: $Enums.InvoiceStatus
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    chartOfAccountId?: string | null
+  }
+
+  export type PayableExpenseCreateManyContractInput = {
+    id?: string
+    maintenanceId?: string | null
+    supplierId?: string | null
+    description: string
+    total_value: Decimal | DecimalJsLike | number | string
+    payment_method?: $Enums.PaymentMethod
+    status?: $Enums.PayableExpenseStatus
+    maintenance_approved_by?: string | null
+    maintenance_approved_at?: Date | string | null
+    finance_approved_by?: string | null
+    finance_approved_at?: Date | string | null
+    director_approved_by?: string | null
+    director_approved_at?: Date | string | null
+    rejection_notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    chartOfAccountId?: string | null
+  }
+
+  export type CommercialProposalCreateManyContractInput = {
+    id?: string
+    proposal_number: string
+    companySettingsId?: string | null
+    clientId: string
+    contact_name?: string | null
+    contact_phone?: string | null
+    contact_email?: string | null
+    mobilization_value?: Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: string | null
+    rental_period?: string | null
+    technical_notes?: string | null
+    observations?: string | null
+    validity_days?: number
+    body_html?: string | null
+    status?: $Enums.ProposalStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
   }
 
   export type AssetMovementUpdateWithoutContractInput = {
@@ -53399,6 +57227,193 @@ export namespace Prisma {
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type InvoiceUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutInvoiceNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutInvoicesNestedInput
+    transactions?: FinancialTransactionUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutInvoiceNestedInput
+    transactions?: FinancialTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PayableExpenseUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+    status?: EnumPayableExpenseStatusFieldUpdateOperationsInput | $Enums.PayableExpenseStatus
+    maintenance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    finance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    director_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    director_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenance?: MaintenanceUpdateOneWithoutPayableExpensesNestedInput
+    supplier?: SupplierUpdateOneWithoutPayableExpensesNestedInput
+    chartOfAccount?: ChartOfAccountUpdateOneWithoutExpensesNestedInput
+    installments?: ExpenseInstallmentUpdateManyWithoutPayableExpenseNestedInput
+    documents?: ExpenseDocumentUpdateManyWithoutPayableExpenseNestedInput
+  }
+
+  export type PayableExpenseUncheckedUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+    status?: EnumPayableExpenseStatusFieldUpdateOperationsInput | $Enums.PayableExpenseStatus
+    maintenance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    finance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    director_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    director_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    installments?: ExpenseInstallmentUncheckedUpdateManyWithoutPayableExpenseNestedInput
+    documents?: ExpenseDocumentUncheckedUpdateManyWithoutPayableExpenseNestedInput
+  }
+
+  export type PayableExpenseUncheckedUpdateManyWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+    status?: EnumPayableExpenseStatusFieldUpdateOperationsInput | $Enums.PayableExpenseStatus
+    maintenance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    finance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    director_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    director_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chartOfAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CommercialProposalUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    client?: SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput
+    companySettings?: CompanySettingsUpdateOneWithoutCommercialProposalsNestedInput
+    items?: ProposalItemUpdateManyWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalUncheckedUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    companySettingsId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    items?: ProposalItemUncheckedUpdateManyWithoutCommercialProposalNestedInput
+  }
+
+  export type CommercialProposalUncheckedUpdateManyWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposal_number?: StringFieldUpdateOperationsInput | string
+    companySettingsId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    contact_name?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    contact_email?: NullableStringFieldUpdateOperationsInput | string | null
+    mobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    demobilization_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    rental_period?: NullableStringFieldUpdateOperationsInput | string | null
+    technical_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    validity_days?: IntFieldUpdateOperationsInput | number
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type MeasurementBulletinCreateManyAssetMovementInput = {
     id?: string
     contractId: string
@@ -53551,6 +57566,19 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type FinancialTransactionCreateManyInvoiceInput = {
+    id?: string
+    bankAccountId: string
+    type: $Enums.TransactionType
+    amount: Decimal | DecimalJsLike | number | string
+    date: Date | string
+    description?: string | null
+    expenseInstallmentId?: string | null
+    receipt_url?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type MeasurementBulletinUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53619,6 +57647,45 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FinancialTransactionUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    receipt_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bankAccount?: BankAccountUpdateOneRequiredWithoutTransactionsNestedInput
+    expenseInstallment?: ExpenseInstallmentUpdateOneWithoutTransactionsNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankAccountId?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    expenseInstallmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    receipt_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankAccountId?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    expenseInstallmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    receipt_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CommercialProposalCreateManyCompanySettingsInput = {
     id?: string
     proposal_number: string
@@ -53660,7 +57727,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     client?: SupplierUpdateOneRequiredWithoutCommercialProposalsNestedInput
-    contract?: ContractUpdateOneWithoutCommercialProposalNestedInput
+    contract?: ContractUpdateOneWithoutProposalsNestedInput
     items?: ProposalItemUpdateManyWithoutCommercialProposalNestedInput
   }
 
@@ -53976,7 +58043,22 @@ export namespace Prisma {
     date: Date | string
     description?: string | null
     expenseInstallmentId?: string | null
+    invoiceId?: string | null
     receipt_url?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExpenseInstallmentCreateManyScheduledBankAccountInput = {
+    id?: string
+    payableExpenseId: string
+    installment_number: number
+    value: Decimal | DecimalJsLike | number | string
+    due_date: Date | string
+    barcode?: string | null
+    pix_key?: string | null
+    status?: $Enums.InstallmentStatus
+    payment_date?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -53991,6 +58073,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     expenseInstallment?: ExpenseInstallmentUpdateOneWithoutTransactionsNestedInput
+    invoice?: InvoiceUpdateOneWithoutTransactionsNestedInput
   }
 
   export type FinancialTransactionUncheckedUpdateWithoutBankAccountInput = {
@@ -54000,6 +58083,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     expenseInstallmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     receipt_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54012,7 +58096,52 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     expenseInstallmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     receipt_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExpenseInstallmentUpdateWithoutScheduledBankAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    installment_number?: IntFieldUpdateOperationsInput | number
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    pix_key?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInstallmentStatusFieldUpdateOperationsInput | $Enums.InstallmentStatus
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    payableExpense?: PayableExpenseUpdateOneRequiredWithoutInstallmentsNestedInput
+    transactions?: FinancialTransactionUpdateManyWithoutExpenseInstallmentNestedInput
+  }
+
+  export type ExpenseInstallmentUncheckedUpdateWithoutScheduledBankAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    payableExpenseId?: StringFieldUpdateOperationsInput | string
+    installment_number?: IntFieldUpdateOperationsInput | number
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    pix_key?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInstallmentStatusFieldUpdateOperationsInput | $Enums.InstallmentStatus
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: FinancialTransactionUncheckedUpdateManyWithoutExpenseInstallmentNestedInput
+  }
+
+  export type ExpenseInstallmentUncheckedUpdateManyWithoutScheduledBankAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    payableExpenseId?: StringFieldUpdateOperationsInput | string
+    installment_number?: IntFieldUpdateOperationsInput | number
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    pix_key?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInstallmentStatusFieldUpdateOperationsInput | $Enums.InstallmentStatus
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -54028,6 +58157,7 @@ export namespace Prisma {
     payment_date?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    scheduledBankAccountId?: string | null
   }
 
   export type ExpenseDocumentCreateManyPayableExpenseInput = {
@@ -54054,6 +58184,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: FinancialTransactionUpdateManyWithoutExpenseInstallmentNestedInput
+    scheduledBankAccount?: BankAccountUpdateOneWithoutScheduledInstallmentsNestedInput
   }
 
   export type ExpenseInstallmentUncheckedUpdateWithoutPayableExpenseInput = {
@@ -54067,6 +58198,7 @@ export namespace Prisma {
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    scheduledBankAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     transactions?: FinancialTransactionUncheckedUpdateManyWithoutExpenseInstallmentNestedInput
   }
 
@@ -54081,6 +58213,7 @@ export namespace Prisma {
     payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    scheduledBankAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ExpenseDocumentUpdateWithoutPayableExpenseInput = {
@@ -54126,6 +58259,7 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     date: Date | string
     description?: string | null
+    invoiceId?: string | null
     receipt_url?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -54141,6 +58275,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     bankAccount?: BankAccountUpdateOneRequiredWithoutTransactionsNestedInput
+    invoice?: InvoiceUpdateOneWithoutTransactionsNestedInput
   }
 
   export type FinancialTransactionUncheckedUpdateWithoutExpenseInstallmentInput = {
@@ -54150,6 +58285,7 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     receipt_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54162,9 +58298,212 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     receipt_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChartOfAccountCreateManyParentInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.ChartOfAccountType
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PayableExpenseCreateManyChartOfAccountInput = {
+    id?: string
+    maintenanceId?: string | null
+    contractId?: string | null
+    supplierId?: string | null
+    description: string
+    total_value: Decimal | DecimalJsLike | number | string
+    payment_method?: $Enums.PaymentMethod
+    status?: $Enums.PayableExpenseStatus
+    maintenance_approved_by?: string | null
+    maintenance_approved_at?: Date | string | null
+    finance_approved_by?: string | null
+    finance_approved_at?: Date | string | null
+    director_approved_by?: string | null
+    director_approved_at?: Date | string | null
+    rejection_notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type InvoiceCreateManyChartOfAccountInput = {
+    id?: string
+    invoice_number?: string | null
+    total_value: Decimal | DecimalJsLike | number | string
+    is_paid?: boolean
+    payment_date?: Date | string | null
+    issue_date?: Date | string | null
+    due_date: Date | string
+    notes?: string | null
+    status?: $Enums.InvoiceStatus
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    contractId?: string | null
+  }
+
+  export type ChartOfAccountUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: ChartOfAccountUpdateManyWithoutParentNestedInput
+    expenses?: PayableExpenseUpdateManyWithoutChartOfAccountNestedInput
+    invoices?: InvoiceUpdateManyWithoutChartOfAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+    expenses?: PayableExpenseUncheckedUpdateManyWithoutChartOfAccountNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChartOfAccountTypeFieldUpdateOperationsInput | $Enums.ChartOfAccountType
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PayableExpenseUpdateWithoutChartOfAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+    status?: EnumPayableExpenseStatusFieldUpdateOperationsInput | $Enums.PayableExpenseStatus
+    maintenance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    finance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    director_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    director_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenance?: MaintenanceUpdateOneWithoutPayableExpensesNestedInput
+    contract?: ContractUpdateOneWithoutPayableExpensesNestedInput
+    supplier?: SupplierUpdateOneWithoutPayableExpensesNestedInput
+    installments?: ExpenseInstallmentUpdateManyWithoutPayableExpenseNestedInput
+    documents?: ExpenseDocumentUpdateManyWithoutPayableExpenseNestedInput
+  }
+
+  export type PayableExpenseUncheckedUpdateWithoutChartOfAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+    status?: EnumPayableExpenseStatusFieldUpdateOperationsInput | $Enums.PayableExpenseStatus
+    maintenance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    finance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    director_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    director_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    installments?: ExpenseInstallmentUncheckedUpdateManyWithoutPayableExpenseNestedInput
+    documents?: ExpenseDocumentUncheckedUpdateManyWithoutPayableExpenseNestedInput
+  }
+
+  export type PayableExpenseUncheckedUpdateManyWithoutChartOfAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    supplierId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+    status?: EnumPayableExpenseStatusFieldUpdateOperationsInput | $Enums.PayableExpenseStatus
+    maintenance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finance_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    finance_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    director_approved_by?: NullableStringFieldUpdateOperationsInput | string | null
+    director_approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceUpdateWithoutChartOfAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutInvoiceNestedInput
+    contract?: ContractUpdateOneWithoutInvoicesNestedInput
+    transactions?: FinancialTransactionUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutChartOfAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutInvoiceNestedInput
+    transactions?: FinancialTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutChartOfAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoice_number?: NullableStringFieldUpdateOperationsInput | string | null
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    is_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issue_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    due_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

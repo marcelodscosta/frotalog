@@ -7,6 +7,9 @@ interface FetchInvoicesRequest {
   contractId?: string
   assetId?: string
   page: number
+  month?: number
+  year?: number
+  search?: string
 }
 
 interface FetchInvoicesResponse {
@@ -21,12 +24,18 @@ export class FetchInvoicesUseCase {
     contractId,
     assetId,
     page,
+    month,
+    year,
+    search,
   }: FetchInvoicesRequest): Promise<FetchInvoicesResponse> {
     const invoices = await this.invoiceRepository.findMany({
       page,
       status,
       contractId,
       assetId,
+      month,
+      year,
+      search,
     })
 
     return { invoices }
