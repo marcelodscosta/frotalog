@@ -90,7 +90,7 @@ describe('Accounts Payable E2E', () => {
       },
     })
 
-    expect(response.statusCode).toBe(201)
+    console.log(response.json()); expect(response.statusCode).toBe(201)
     const body = response.json()
     expect(body.expense.description).toBe('E2E Single Expense')
     expect(body.expense.installments).toHaveLength(1)
@@ -114,7 +114,7 @@ describe('Accounts Payable E2E', () => {
       },
     })
 
-    expect(response.statusCode).toBe(201)
+    console.log(response.json()); expect(response.statusCode).toBe(201)
     expect(response.json().expense.installments).toHaveLength(2)
   })
 
@@ -176,7 +176,7 @@ describe('Accounts Payable E2E', () => {
       },
     })
 
-    expect(response.statusCode).toBe(201)
+    console.log(response.json()); expect(response.statusCode).toBe(201)
     
     // 3. Check bank balance reduction
     const bankAccount = await prisma.bankAccount.findUnique({ where: { id: bankAccountId } })

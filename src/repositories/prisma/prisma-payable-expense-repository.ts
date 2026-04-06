@@ -37,6 +37,8 @@ export class PrismaPayableExpenseRepository implements IPayableExpenseRepository
             installment_number: inst.installment_number,
             value: inst.value,
             due_date: inst.due_date,
+            // Be explicit to avoid relying on DB defaults that may drift across environments.
+            status: 'PENDING',
             barcode: inst.barcode || null,
             pix_key: inst.pix_key || null,
           })),

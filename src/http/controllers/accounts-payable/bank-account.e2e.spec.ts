@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import { env } from '../../../env'
 
 let token: string
+const createdBankAccountIds: string[] = []
 
 function generateToken() {
   return jwt.sign(
@@ -24,7 +25,9 @@ describe('Bank Account & Transfers E2E', () => {
     await prisma.financialTransaction.deleteMany({ where: { description: { contains: 'E2E' } } })
     await prisma.expenseInstallment.deleteMany({ where: { payableExpense: { description: { contains: 'E2E' } } } })
     await prisma.payableExpense.deleteMany({ where: { description: { contains: 'E2E' } } })
-    await prisma.bankAccount.deleteMany({ where: { name: { contains: 'E2E' } } })
+    if (createdBankAccountIds.length > 0) {
+      await prisma.bankAccount.deleteMany({ where: { id: { in: createdBankAccountIds } } })
+    }
     await app.close()
   })
 
@@ -44,6 +47,7 @@ describe('Bank Account & Transfers E2E', () => {
       })
       expect(response.statusCode).toBe(201)
       expect(response.json().bankAccount.name).toBe(data.name)
+      createdBankAccountIds.push(response.json().bankAccount.id)
     }
   })
 
