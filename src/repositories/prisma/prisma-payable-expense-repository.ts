@@ -12,6 +12,8 @@ const INCLUDE_RELATIONS = {
   installments: { orderBy: { installment_number: 'asc' } as const },
   documents: true,
   maintenance: { select: { id: true, description: true } },
+  chartOfAccount: { select: { id: true, name: true, code: true } },
+  contract: { select: { id: true, contract_number: true } },
 }
 
 const PAGE_SIZE = 20
@@ -89,6 +91,8 @@ export class PrismaPayableExpenseRepository implements IPayableExpenseRepository
       where.OR = [
         { description: { contains: filters.search, mode: 'insensitive' } },
         { supplier: { company_name: { contains: filters.search, mode: 'insensitive' } } },
+        { supplier: { trading_name: { contains: filters.search, mode: 'insensitive' } } },
+        { maintenance: { description: { contains: filters.search, mode: 'insensitive' } } },
       ]
     }
 
