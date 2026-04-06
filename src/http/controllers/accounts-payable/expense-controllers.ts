@@ -41,6 +41,7 @@ export async function updateExpenseController(request: FastifyRequest, reply: Fa
   const paramsSchema = z.object({ id: z.string().uuid() })
   const bodySchema = z.object({
     description: z.string().min(1).optional(),
+    total_value: z.number().positive().optional(),
     supplierId: z.string().uuid().nullable().optional(),
     contractId: z.string().uuid().nullable().optional(),
     chartOfAccountId: z.string().uuid().nullable().optional(),
@@ -55,12 +56,10 @@ export async function updateExpenseController(request: FastifyRequest, reply: Fa
 
   const existing = await repo.findById(id)
   if (!existing) return reply.status(404).send({ message: 'Expense not found' })
-  if (existing.maintenanceId) {
-    return reply.status(403).send({ message: 'Cannot edit maintenance-linked expenses' })
-  }
 
   const expense = await repo.update(id, {
     description: data.description,
+    total_value: data.total_value,
     supplierId: data.supplierId !== undefined ? data.supplierId : undefined,
     contractId: data.contractId !== undefined ? data.contractId : undefined,
     chartOfAccountId: data.chartOfAccountId !== undefined ? data.chartOfAccountId : undefined,

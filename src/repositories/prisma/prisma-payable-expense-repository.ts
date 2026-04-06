@@ -156,12 +156,13 @@ export class PrismaPayableExpenseRepository implements IPayableExpenseRepository
 
   async update(
     id: string,
-    data: { description?: string, payment_method?: 'BOLETO' | 'PIX' | 'TRANSFERENCIA' | 'CHEQUE' | 'DINHEIRO' | 'CARTAO', supplierId?: string | null, contractId?: string | null, chartOfAccountId?: string | null },
+    data: { description?: string, total_value?: number, payment_method?: 'BOLETO' | 'PIX' | 'TRANSFERENCIA' | 'CHEQUE' | 'DINHEIRO' | 'CARTAO', supplierId?: string | null, contractId?: string | null, chartOfAccountId?: string | null },
   ): Promise<PayableExpenseWithRelations> {
     return prisma.payableExpense.update({
       where: { id },
       data: {
         ...(data.description !== undefined ? { description: data.description } : {}),
+        ...(data.total_value !== undefined ? { total_value: data.total_value } : {}),
         ...(data.supplierId !== undefined ? { supplierId: data.supplierId || null } : {}),
         ...(data.contractId !== undefined ? { contractId: data.contractId || null } : {}),
         ...(data.chartOfAccountId !== undefined ? { chartOfAccountId: data.chartOfAccountId || null } : {}),
