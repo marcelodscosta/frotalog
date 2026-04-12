@@ -178,6 +178,10 @@ export class PrismaPayableExpenseRepository implements IPayableExpenseRepository
     })
   }
 
+  async delete(id: string): Promise<void> {
+    await prisma.payableExpense.delete({ where: { id } })
+  }
+
   async findInstallmentById(id: string): Promise<ExpenseInstallment | null> {
     return prisma.expenseInstallment.findUnique({ where: { id } })
   }

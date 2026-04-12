@@ -69,6 +69,21 @@ export async function updateExpenseController(request: FastifyRequest, reply: Fa
   return reply.send({ expense })
 }
 
+// ─── Delete Expense (finance-only) ────────────────────────────────────────────
+export async function deleteExpenseController(request: FastifyRequest, reply: FastifyReply) {
+  const paramsSchema = z.object({ id: z.string().uuid() })
+  const { id } = paramsSchema.parse(request.params)
+
+  const { PrismaPayableExpenseRepository } = await import('../../../repositories/prisma/prisma-payable-expense-repository')
+  const repo = new PrismaPayableExpenseRepository()
+
+  const existing = await repo.findById(id)
+  if (!existing) return reply.status(404).send({ message: 'Expense not found' })
+
+  await repo.delete(id)
+  return reply.status(204).send()
+}
+
 // ─── List Expenses ─────────────────────────────────────────────────────────────
 export async function listExpensesController(request: FastifyRequest, reply: FastifyReply) {
   const querySchema = z.object({

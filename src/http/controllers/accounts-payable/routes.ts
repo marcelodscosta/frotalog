@@ -18,6 +18,7 @@ import {
   payInstallmentController,
   getExpensesSummaryController,
   scheduleInstallmentController,
+  deleteExpenseController,
 } from './expense-controllers'
 import { createExpenseDocumentController } from './create-expense-document-controller'
 
@@ -37,6 +38,7 @@ export async function accountsPayableRoutes(app: FastifyInstance) {
   app.get('/expenses/summary', getExpensesSummaryController)
   app.get('/expenses/maintenance/:maintenanceId', listExpensesByMaintenanceController)
   app.patch('/expenses/:id', updateExpenseController)
+  app.delete('/expenses/:id', deleteExpenseController)
   app.post('/expenses/documents', createExpenseDocumentController)
 
   // Approval Flow
