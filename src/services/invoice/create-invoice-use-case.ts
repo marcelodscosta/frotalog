@@ -46,9 +46,11 @@ export class CreateInvoiceUseCase {
       }
     }
 
-    // Auto-generate invoice number if not provided
-    const invoiceNumber =
-      data.invoice_number || (await this.generateNextInvoiceNumber())
+    // Auto-generate invoice number ONLY if it is a real invoice (has bulletins) and not provided
+    let invoiceNumber = data.invoice_number
+    if (!invoiceNumber && data.measurementBulletinIds.length > 0) {
+      invoiceNumber = await this.generateNextInvoiceNumber()
+    }
 
     // Sum total value of all bulletins for calculation if not provided
     const totalBulletinsValue = bulletins.reduce(
