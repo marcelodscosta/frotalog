@@ -12,7 +12,7 @@ export type MaintenanceWithRelations = Maintenance & {
   supplier: Pick<Supplier, 'company_name' | 'trading_name'> | null
   asset: Pick<Asset, 'brand' | 'model' | 'plate' | 'serial_number' | 'year'>
   serviceCategory: Pick<ServiceCategory, 'id' | 'name' | 'description'> | null
-  assigned_to: { id: string; name: string | null } | null
+  assigned_to: { id: string; name: string | null; avatar: string | null } | null
   contract: {
     contract_number: string;
     client: {

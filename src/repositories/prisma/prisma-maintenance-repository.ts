@@ -31,7 +31,7 @@ const MAINTENANCE_INCLUDE = {
   supplier: true,
   serviceCategory: true,
   documents: true,
-  assigned_to: { select: { id: true, name: true } },
+  assigned_to: { select: { id: true, name: true, avatar: true, email: true } },
   payableExpenses: {
     include: {
       installments: {
@@ -865,7 +865,7 @@ export class PrismaMaintenanceRepository implements IMaintenanceRepository {
             description: true,
           },
         },
-        assigned_to: { select: { id: true, name: true } },
+        assigned_to: { select: { id: true, name: true, avatar: true, email: true } },
       },
       orderBy: {
         completed_date: 'desc',
