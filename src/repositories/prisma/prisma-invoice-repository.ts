@@ -25,6 +25,7 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
             expenses: { orderBy: { created_at: 'asc' } },
           },
         },
+        transactions: true,
       },
     })
   }

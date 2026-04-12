@@ -147,18 +147,25 @@ export class InMemoryInvoiceRepository implements IInvoiceRepository {
   async findByMeasurementBulletinId(
     measurementBulletinId: string,
   ): Promise<Invoice | null> {
-    // In memory we need to simulate the relation or just check items if we mocked them
-    // For simplicity in tests, we can assume the invoice list might havebulletins attached if we manually mock them
-    // But standard Prisma types for Invoice don't include the relation in the base object unless 'include' is used.
-    // However, our repository implementation for Prisma DOES find it.
-    
-    // For the in-memory repo, if we want to support this, we might need a way to mock the relation.
-    // Let's assume for now we look for any invoice that "would" have it.
-    // Since we can't easily track back-references in a simple in-memory repo without more boilerplate,
-    // let's just return null or implement a simple check if we added a mock 'measurementBulletins' array to the items.
-    
     return (this.items as any).find((i: any) => 
         i.measurementBulletins?.some((mb: any) => mb.id === measurementBulletinId)
     ) ?? null
+  }
+
+  async getSummary(month: number, year: number): Promise<{ overdue: number; due_today: number; upcoming: number; paid: number; total: number }> {
+    return { overdue: 0, due_today: 0, upcoming: 0, paid: 0, total: 0 }
+  }
+
+  async receive(id: string, data: { payment_date: Date; bankAccountId: string; chartOfAccountId?: string; amount: number }): Promise<Invoice> {
+    const index = this.items.findIndex((i) => i.id === id)
+    if (index === -1) throw new Error('Invoice not found')
+    this.items[index] = {
+      ...this.items[index],
+      status: 'PAID',
+      is_paid: true,
+      payment_date: data.payment_date,
+      updated_at: new Date(),
+    }
+    return this.items[index]
   }
 }
