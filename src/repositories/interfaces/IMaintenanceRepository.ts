@@ -1,6 +1,7 @@
 import {
     Asset,
     Maintenance,
+    MaintenanceDocument,
     Prisma,
     ServiceCategory,
     Supplier,
@@ -25,6 +26,7 @@ export type MaintenanceWithRelations = Maintenance & {
       status: string
     }>
   }>
+  documents: MaintenanceDocument[]
 }
 
 interface FindScheduledOnlyParams {
