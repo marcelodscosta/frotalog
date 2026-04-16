@@ -4,21 +4,21 @@ import { makeCreateSupplier } from '../../../services/factories/make-create-supp
 
 const createSupplierSchema = z.object({
   company_name: z.string().min(3),
-  trading_name: z.string().optional(),
+  trading_name: z.string().nullable().optional(),
 
-  cnpj: z.string(),
+  cnpj: z.string().length(14),
   email: z.email(),
-  phone: z.string(),
+  phone: z.string().min(10).max(11),
   contact: z.string().min(5),
 
   isClient: z.boolean().optional(),
 
-  address: z.string().optional(),
-  city: z.string().optional(),
-  state: z.string().optional(),
-  zip_code: z.string().optional(),
+  address: z.string().nullable().optional(),
+  city: z.string().nullable().optional(),
+  state: z.string().max(2).nullable().optional(),
+  zip_code: z.string().length(8).nullable().optional().or(z.literal("")),
 
-  service_types: z.array(z.string()),
+  service_types: z.array(z.string()).min(1),
 })
 
 export async function createSupplier(

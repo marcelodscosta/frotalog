@@ -21,8 +21,8 @@ describe('Create Supplier', () => {
       phone: '74981316568',
       adrdress: 'Rua 26, numero 26 Loteamento Recife',
       city: 'Petrolina',
-      state: 'Pernambuco',
-      zip_code: '489825331',
+      state: 'PE',
+      zip_code: '48982533',
       service_types: ['Locação de equipamentos', 'Locação de mão de obra'],
     })
     expect(supplier.id).toEqual(expect.any(String))
