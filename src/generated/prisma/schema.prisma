@@ -556,6 +556,8 @@ model BankAccount {
   agency                String?
   account_number        String?
   balance               Decimal                @default(0) @db.Decimal(15, 2)
+  initial_balance       Decimal                @default(0) @db.Decimal(15, 2)
+  initial_balance_date  DateTime?
   is_active             Boolean                @default(true)
   created_at            DateTime               @default(now())
   updated_at            DateTime               @updatedAt

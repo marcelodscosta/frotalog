@@ -112,13 +112,59 @@ export class PrismaPayableExpenseRepository implements IPayableExpenseRepository
   }
 
   async getSummary(month: number, year: number): Promise<ExpenseSummary> {
-    const startDate = new Date(year, month - 1, 1)
-    const endDate = new Date(year, month, 0, 23, 59, 59, 999)
+    const startDate = new Date(Date.UTC(year, month - 1, 1, 0, 0, 0, 0))
+    const endDate = new Date(Date.UTC(year, month, 0, 23, 59, 59, 999))
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     const todayEnd = new Date(today)
     todayEnd.setHours(23, 59, 59, 999)
 
+    // 1. Somar o valor total das despesas LANÇADAS no mês vinculadas a MANUTENÇÃO/REPAROS
+    const expenses = await prisma.payableExpense.findMany({
+      where: {
+        created_at: { gte: startDate, lte: endDate },
+        is_active: true,
+        OR: [
+          { maintenanceId: { not: null } },
+          {
+            chartOfAccount: {
+              code: { in: ['2.1.1', '2.1.2', '2.1.4'] }
+            }
+          }
+        ]
+      },
+      include: {
+        maintenance: {
+          include: {
+            asset: true
+          }
+        },
+        chartOfAccount: true
+      }
+    })
+
+    const total = expenses.reduce((sum, exp) => sum + Number(exp.total_value), 0)
+
+    const details = expenses.map(exp => ({
+      id: exp.id,
+      description: exp.description,
+      total_value: Number(exp.total_value),
+      created_at: exp.created_at,
+      maintenance: exp.maintenance ? {
+        type: exp.maintenance.type,
+        asset: exp.maintenance.asset ? {
+          brand: exp.maintenance.asset.brand,
+          model: exp.maintenance.asset.model,
+          plate: exp.maintenance.asset.plate || undefined
+        } : undefined
+      } : undefined,
+      chartOfAccount: exp.chartOfAccount ? {
+        name: exp.chartOfAccount.name,
+        code: exp.chartOfAccount.code
+      } : undefined
+    }))
+
+    // 2. Buscar parcelas com VENCIMENTO no mês para o detalhamento (overdue, paid, etc)
     const installments = await prisma.expenseInstallment.findMany({
       where: {
         due_date: { gte: startDate, lte: endDate },
@@ -149,7 +195,8 @@ export class PrismaPayableExpenseRepository implements IPayableExpenseRepository
       due_today,
       upcoming,
       paid,
-      total: overdue + due_today + upcoming + paid,
+      total,
+      details,
     }
   }
 

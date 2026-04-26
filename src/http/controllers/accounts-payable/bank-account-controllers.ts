@@ -11,6 +11,8 @@ export async function createBankAccountController(request: FastifyRequest, reply
     agency: z.string().optional(),
     account_number: z.string().optional(),
     balance: z.number().optional(),
+    initial_balance: z.number().optional(),
+    initial_balance_date: z.coerce.date().optional(),
   })
   const data = schema.parse(request.body)
   const useCase = makeCreateBankAccount()
@@ -31,6 +33,8 @@ export async function updateBankAccountController(request: FastifyRequest, reply
     bank_name: z.string().optional(),
     agency: z.string().optional(),
     account_number: z.string().optional(),
+    initial_balance: z.number().optional(),
+    initial_balance_date: z.coerce.date().optional(),
   })
   const { id } = paramsSchema.parse(request.params)
   const data = bodySchema.parse(request.body)

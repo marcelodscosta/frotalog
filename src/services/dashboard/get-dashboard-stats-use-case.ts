@@ -1,6 +1,9 @@
 import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
 import { IAssetRepository } from '../../repositories/interfaces/IAssetRepository'
 import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
+import { IFinancialTransactionRepository } from '../../repositories/interfaces/IFinancialTransactionRepository'
+import { IPayableExpenseRepository } from '../../repositories/interfaces/IPayableExpenseRepository'
+import { prisma } from '../../lib/prisma'
 
 interface DashboardStatsResponse {
   totalMonthlyExpense: number
@@ -55,6 +58,14 @@ interface DashboardStatsResponse {
       contractName?: string
     }>
   }>
+  expenseDetails: Array<{
+    id: string
+    description: string
+    value: number
+    date: string
+    assetName: string
+    categoryName: string
+  }>
 }
 
 interface GetDashboardStatsRequest {
@@ -70,6 +81,8 @@ export class GetDashboardStatsUseCase {
     private maintenanceRepository: IMaintenanceRepository,
     private assetRepository: IAssetRepository,
     private assetMovementRepository: IAssetMovementRepository,
+    private financialTransactionRepository: IFinancialTransactionRepository,
+    private payableExpenseRepository: IPayableExpenseRepository,
   ) {}
 
   async execute(
@@ -86,39 +99,33 @@ export class GetDashboardStatsUseCase {
     if (params?.startDate && params?.endDate) {
       // Período customizado
       startOfMonth = new Date(params.startDate)
-      startOfMonth.setHours(0, 0, 0, 0)
+      startOfMonth.setUTCHours(0, 0, 0, 0)
       endOfMonth = new Date(params.endDate)
-      endOfMonth.setHours(23, 59, 59, 999)
-      // Para período customizado, calcular período anterior equivalente
+      endOfMonth.setUTCHours(23, 59, 59, 999)
+      
       const periodDays = Math.ceil(
         (endOfMonth.getTime() - startOfMonth.getTime()) / (1000 * 60 * 60 * 24),
       )
       endOfPreviousMonth = new Date(startOfMonth)
-      endOfPreviousMonth.setDate(endOfPreviousMonth.getDate() - 1)
-      endOfPreviousMonth.setHours(23, 59, 59, 999)
+      endOfPreviousMonth.setUTCDate(endOfPreviousMonth.getUTCDate() - 1)
+      endOfPreviousMonth.setUTCHours(23, 59, 59, 999)
       startOfPreviousMonth = new Date(endOfPreviousMonth)
-      startOfPreviousMonth.setDate(startOfPreviousMonth.getDate() - periodDays)
-      startOfPreviousMonth.setHours(0, 0, 0, 0)
+      startOfPreviousMonth.setUTCDate(startOfPreviousMonth.getUTCDate() - periodDays)
+      startOfPreviousMonth.setUTCHours(0, 0, 0, 0)
     } else if (params?.month && params?.year) {
       // Mês e ano específicos
-      startOfMonth = new Date(params.year, params.month - 1, 1)
-      startOfMonth.setHours(0, 0, 0, 0)
-      endOfMonth = new Date(params.year, params.month, 0)
-      endOfMonth.setHours(23, 59, 59, 999)
-      startOfPreviousMonth = new Date(params.year, params.month - 2, 1)
-      startOfPreviousMonth.setHours(0, 0, 0, 0)
-      endOfPreviousMonth = new Date(params.year, params.month - 1, 0)
-      endOfPreviousMonth.setHours(23, 59, 59, 999)
+      startOfMonth = new Date(Date.UTC(params.year, params.month - 1, 1, 0, 0, 0, 0))
+      endOfMonth = new Date(Date.UTC(params.year, params.month, 0, 23, 59, 59, 999))
+      startOfPreviousMonth = new Date(Date.UTC(params.year, params.month - 2, 1, 0, 0, 0, 0))
+      endOfPreviousMonth = new Date(Date.UTC(params.year, params.month - 1, 0, 23, 59, 59, 999))
     } else {
       // Mês atual (padrão)
-      startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
-      startOfMonth.setHours(0, 0, 0, 0)
-      endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0)
-      endOfMonth.setHours(23, 59, 59, 999)
-      startOfPreviousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1)
-      startOfPreviousMonth.setHours(0, 0, 0, 0)
-      endOfPreviousMonth = new Date(now.getFullYear(), now.getMonth(), 0)
-      endOfPreviousMonth.setHours(23, 59, 59, 999)
+      const currentYear = now.getUTCFullYear()
+      const currentMonth = now.getUTCMonth()
+      startOfMonth = new Date(Date.UTC(currentYear, currentMonth, 1, 0, 0, 0, 0))
+      endOfMonth = new Date(Date.UTC(currentYear, currentMonth + 1, 0, 23, 59, 59, 999))
+      startOfPreviousMonth = new Date(Date.UTC(currentYear, currentMonth - 1, 1, 0, 0, 0, 0))
+      endOfPreviousMonth = new Date(Date.UTC(currentYear, currentMonth, 0, 23, 59, 59, 999))
     }
 
     // Buscar todas as manutenções (buscar múltiplas páginas se necessário)
@@ -159,14 +166,33 @@ export class GetDashboardStatsUseCase {
       )
     })
 
-    // Calcular despesas (usar apenas actual_cost, não estimated_cost)
-    const totalMonthlyExpense = currentMonthMaintenances.reduce((sum, m) => {
-      return sum + (Number(m.actual_cost) || 0)
-    }, 0)
+    // Determinar mês/ano para os repositórios (usar params se houver, senão calcular do startOfMonth)
+    const currentMonthNum = params?.month || (startOfMonth.getUTCMonth() + 1)
+    const currentYearNum = params?.year || startOfMonth.getUTCFullYear()
+    
+    // Calcular mês anterior para o repositório
+    let prevMonthNum = currentMonthNum - 1
+    let prevYearNum = currentYearNum
+    if (prevMonthNum === 0) {
+      prevMonthNum = 12
+      prevYearNum--
+    }
 
-    const previousMonthExpense = previousMonthMaintenances.reduce((sum, m) => {
-      return sum + (Number(m.actual_cost) || 0)
-    }, 0)
+    // 1. Somar as despesas de Manutenção/Reparos LANÇADAS no mês
+    const currentMonthSummary = await this.payableExpenseRepository.getSummary(
+      currentMonthNum,
+      currentYearNum,
+    )
+    
+    const totalMonthlyExpense = currentMonthSummary.total
+
+    // Repetir para o mês anterior
+    const previousMonthSummary = await this.payableExpenseRepository.getSummary(
+      prevMonthNum,
+      prevYearNum,
+    )
+
+    const previousMonthExpense = previousMonthSummary.total
 
     const expenseVariation = totalMonthlyExpense - previousMonthExpense
     const expenseVariationPercent =
@@ -400,50 +426,91 @@ export class GetDashboardStatsUseCase {
         return dayA - dayB
       })
 
-    // Despesas por equipamento (top 4)
-    const expensesByEquipmentMap = new Map<string, number>()
+    // --- CÁLCULO DOS GRÁFICOS E DETALHAMENTO (Unificado via Repositório) ---
+    const monthExpenses = currentMonthSummary.details || []
 
-    for (const m of currentMonthMaintenances) {
-      const asset = allAssetsItems.find((a) => a.id === m.assetId)
-      if (asset) {
-        let assetName = `${asset.brand} ${asset.model}`
-        const isVehicle = asset.assetCategory?.type === 'VEHICLE'
+    // 1. Gráfico de Despesas por Equipamento
+    const equipmentExpensesMap = new Map<string, number>()
+    for (const exp of monthExpenses) {
+      let assetName = 'Outros / Sem OS'
+      
+      if (exp.maintenance?.asset) {
+        assetName = `${exp.maintenance.asset.brand} ${exp.maintenance.asset.model}${exp.maintenance.asset.plate ? ` - ${exp.maintenance.asset.plate}` : ''}`
+      } else {
+        // Tentativa de identificar o veículo pela descrição
+        const description = exp.description.toUpperCase()
+        const matchedAsset = allAssetsItems.find(a => 
+          (a.plate && description.includes(a.plate.toUpperCase())) ||
+          (a.serial_number && description.includes(a.serial_number.toUpperCase())) ||
+          description.includes(`${a.brand.toUpperCase()} ${a.model.toUpperCase()}`)
+        )
         
-        if (isVehicle && asset.plate) {
-          assetName += ` - Placa: ${asset.plate}`
-        } else if (!isVehicle && asset.serial_number) {
-          assetName += ` - SN: ${asset.serial_number}`
+        if (matchedAsset) {
+          assetName = `${matchedAsset.brand} ${matchedAsset.model}${matchedAsset.plate ? ` - ${matchedAsset.plate}` : ''}`
         }
-
-        const cost = Number(m.actual_cost) || 0
-        const current = expensesByEquipmentMap.get(assetName) || 0
-        expensesByEquipmentMap.set(assetName, current + cost)
       }
+      
+      const current = equipmentExpensesMap.get(assetName) || 0
+      equipmentExpensesMap.set(assetName, current + exp.total_value)
     }
 
-    const expensesByEquipment = Array.from(expensesByEquipmentMap.entries())
+    const expensesByEquipment = Array.from(equipmentExpensesMap.entries())
       .map(([name, value]) => ({ name, value }))
       .sort((a, b) => b.value - a.value)
-      .slice(0, 6)
 
-    // Despesas por tipo de manutenção
-    const expensesByTypeMap = new Map<string, number>()
-    expensesByTypeMap.set('PREVENTIVE', 0)
-    expensesByTypeMap.set('CORRECTIVE', 0)
-    expensesByTypeMap.set('EMERGENCY', 0)
-
-    for (const m of currentMonthMaintenances) {
-      if (m.type) {
-        const cost = Number(m.actual_cost) || 0
-        const current = expensesByTypeMap.get(m.type) || 0
-        expensesByTypeMap.set(m.type, current + cost)
+    // 2. Gráfico de Despesas por Categoria (Tipo)
+    const typeExpensesMap = new Map<string, number>()
+    for (const exp of monthExpenses) {
+      let typeName = 'OUTROS'
+      if (exp.maintenance?.type) {
+        typeName = exp.maintenance.type
+      } else if (exp.chartOfAccount?.code === '2.1.1') {
+        typeName = 'PREVENTIVE'
+      } else if (exp.chartOfAccount?.code === '2.1.2') {
+        typeName = 'CORRECTIVE'
+      } else if (exp.chartOfAccount?.code === '2.1.4') {
+        typeName = 'PNEUS/BORRACHARIA'
       }
+
+      const current = typeExpensesMap.get(typeName) || 0
+      typeExpensesMap.set(typeName, current + exp.total_value)
     }
 
-    const expensesByType = Array.from(expensesByTypeMap.entries()).map(([name, value]) => ({
-      name,
-      value: Number(value.toFixed(2))
-    }))
+    const expensesByType = Array.from(typeExpensesMap.entries())
+      .map(([name, value]) => ({
+        name,
+        value: Number(value.toFixed(2))
+      }))
+
+    // 3. Detalhamento de Despesas para o Modal (Agrupado por Veículo)
+    const expenseDetails = monthExpenses.map(exp => {
+      let assetName = 'Sem Veículo Vinculado'
+      
+      if (exp.maintenance?.asset) {
+        assetName = `${exp.maintenance.asset.brand} ${exp.maintenance.asset.model}${exp.maintenance.asset.plate ? ` (${exp.maintenance.asset.plate})` : ''}`
+      } else {
+        // Tentativa de identificar o veículo pela descrição (caso não tenha OS vinculada)
+        const description = exp.description.toUpperCase()
+        const matchedAsset = allAssetsItems.find(a => 
+          (a.plate && description.includes(a.plate.toUpperCase())) ||
+          (a.serial_number && description.includes(a.serial_number.toUpperCase())) ||
+          description.includes(`${a.brand.toUpperCase()} ${a.model.toUpperCase()}`)
+        )
+        
+        if (matchedAsset) {
+          assetName = `${matchedAsset.brand} ${matchedAsset.model}${matchedAsset.plate ? ` (${matchedAsset.plate})` : ''}`
+        }
+      }
+
+      return {
+        id: exp.id,
+        description: exp.description,
+        value: exp.total_value,
+        date: exp.created_at.toISOString(),
+        assetName,
+        categoryName: exp.chartOfAccount?.name || 'Manutenção Geral'
+      }
+    })
 
     // Contagem de intervenções por tipo no período selecionado (com filtro opcional por contrato)
     // O filtro considera TANTO o contractId direto na manutenção
@@ -487,6 +554,7 @@ export class GetDashboardStatsUseCase {
       dailyExpenses,
       expensesByEquipment,
       expensesByType,
+      expenseDetails,
     }
   }
 }

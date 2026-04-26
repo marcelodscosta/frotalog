@@ -7,6 +7,8 @@ interface CreateBankAccountRequest {
   agency?: string
   account_number?: string
   balance?: number
+  initial_balance?: number
+  initial_balance_date?: Date
 }
 
 interface CreateBankAccountResponse {
@@ -23,6 +25,8 @@ export class CreateBankAccountUseCase {
       agency: data.agency,
       account_number: data.account_number,
       balance: data.balance ?? 0,
+      initial_balance: data.initial_balance ?? 0,
+      initial_balance_date: data.initial_balance_date ?? new Date(),
     })
     return { bankAccount }
   }

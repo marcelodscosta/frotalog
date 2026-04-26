@@ -6,6 +6,24 @@ export interface ExpenseSummary {
   upcoming: number
   paid: number
   total: number
+  details?: Array<{
+    id: string
+    description: string
+    total_value: number
+    created_at: Date
+    maintenance?: {
+      type: string
+      asset?: {
+        brand: string
+        model: string
+        plate?: string
+      }
+    }
+    chartOfAccount?: {
+      name: string
+      code: string
+    }
+  }>
 }
 
 export type PayableExpenseWithRelations = PayableExpense & {

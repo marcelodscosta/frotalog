@@ -8,6 +8,8 @@ interface UpdateBankAccountRequest {
   bank_name?: string
   agency?: string
   account_number?: string
+  initial_balance?: number
+  initial_balance_date?: Date
 }
 
 interface UpdateBankAccountResponse {
@@ -26,6 +28,8 @@ export class UpdateBankAccountUseCase {
       bank_name: data.bank_name,
       agency: data.agency,
       account_number: data.account_number,
+      initial_balance: data.initial_balance,
+      initial_balance_date: data.initial_balance_date,
     })
     return { bankAccount }
   }

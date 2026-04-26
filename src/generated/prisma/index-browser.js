@@ -457,6 +457,8 @@ exports.Prisma.BankAccountScalarFieldEnum = {
   agency: 'agency',
   account_number: 'account_number',
   balance: 'balance',
+  initial_balance: 'initial_balance',
+  initial_balance_date: 'initial_balance_date',
   is_active: 'is_active',
   created_at: 'created_at',
   updated_at: 'updated_at'

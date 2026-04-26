@@ -29335,10 +29335,12 @@ export namespace Prisma {
 
   export type BankAccountAvgAggregateOutputType = {
     balance: Decimal | null
+    initial_balance: Decimal | null
   }
 
   export type BankAccountSumAggregateOutputType = {
     balance: Decimal | null
+    initial_balance: Decimal | null
   }
 
   export type BankAccountMinAggregateOutputType = {
@@ -29348,6 +29350,8 @@ export namespace Prisma {
     agency: string | null
     account_number: string | null
     balance: Decimal | null
+    initial_balance: Decimal | null
+    initial_balance_date: Date | null
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
@@ -29360,6 +29364,8 @@ export namespace Prisma {
     agency: string | null
     account_number: string | null
     balance: Decimal | null
+    initial_balance: Decimal | null
+    initial_balance_date: Date | null
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
@@ -29372,6 +29378,8 @@ export namespace Prisma {
     agency: number
     account_number: number
     balance: number
+    initial_balance: number
+    initial_balance_date: number
     is_active: number
     created_at: number
     updated_at: number
@@ -29381,10 +29389,12 @@ export namespace Prisma {
 
   export type BankAccountAvgAggregateInputType = {
     balance?: true
+    initial_balance?: true
   }
 
   export type BankAccountSumAggregateInputType = {
     balance?: true
+    initial_balance?: true
   }
 
   export type BankAccountMinAggregateInputType = {
@@ -29394,6 +29404,8 @@ export namespace Prisma {
     agency?: true
     account_number?: true
     balance?: true
+    initial_balance?: true
+    initial_balance_date?: true
     is_active?: true
     created_at?: true
     updated_at?: true
@@ -29406,6 +29418,8 @@ export namespace Prisma {
     agency?: true
     account_number?: true
     balance?: true
+    initial_balance?: true
+    initial_balance_date?: true
     is_active?: true
     created_at?: true
     updated_at?: true
@@ -29418,6 +29432,8 @@ export namespace Prisma {
     agency?: true
     account_number?: true
     balance?: true
+    initial_balance?: true
+    initial_balance_date?: true
     is_active?: true
     created_at?: true
     updated_at?: true
@@ -29517,6 +29533,8 @@ export namespace Prisma {
     agency: string | null
     account_number: string | null
     balance: Decimal
+    initial_balance: Decimal
+    initial_balance_date: Date | null
     is_active: boolean
     created_at: Date
     updated_at: Date
@@ -29548,6 +29566,8 @@ export namespace Prisma {
     agency?: boolean
     account_number?: boolean
     balance?: boolean
+    initial_balance?: boolean
+    initial_balance_date?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -29563,6 +29583,8 @@ export namespace Prisma {
     agency?: boolean
     account_number?: boolean
     balance?: boolean
+    initial_balance?: boolean
+    initial_balance_date?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -29575,6 +29597,8 @@ export namespace Prisma {
     agency?: boolean
     account_number?: boolean
     balance?: boolean
+    initial_balance?: boolean
+    initial_balance_date?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -29587,12 +29611,14 @@ export namespace Prisma {
     agency?: boolean
     account_number?: boolean
     balance?: boolean
+    initial_balance?: boolean
+    initial_balance_date?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type BankAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "bank_name" | "agency" | "account_number" | "balance" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["bankAccount"]>
+  export type BankAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "bank_name" | "agency" | "account_number" | "balance" | "initial_balance" | "initial_balance_date" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["bankAccount"]>
   export type BankAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transactions?: boolean | BankAccount$transactionsArgs<ExtArgs>
     scheduledInstallments?: boolean | BankAccount$scheduledInstallmentsArgs<ExtArgs>
@@ -29614,6 +29640,8 @@ export namespace Prisma {
       agency: string | null
       account_number: string | null
       balance: Prisma.Decimal
+      initial_balance: Prisma.Decimal
+      initial_balance_date: Date | null
       is_active: boolean
       created_at: Date
       updated_at: Date
@@ -30048,6 +30076,8 @@ export namespace Prisma {
     readonly agency: FieldRef<"BankAccount", 'String'>
     readonly account_number: FieldRef<"BankAccount", 'String'>
     readonly balance: FieldRef<"BankAccount", 'Decimal'>
+    readonly initial_balance: FieldRef<"BankAccount", 'Decimal'>
+    readonly initial_balance_date: FieldRef<"BankAccount", 'DateTime'>
     readonly is_active: FieldRef<"BankAccount", 'Boolean'>
     readonly created_at: FieldRef<"BankAccount", 'DateTime'>
     readonly updated_at: FieldRef<"BankAccount", 'DateTime'>
@@ -37175,6 +37205,8 @@ export namespace Prisma {
     agency: 'agency',
     account_number: 'account_number',
     balance: 'balance',
+    initial_balance: 'initial_balance',
+    initial_balance_date: 'initial_balance_date',
     is_active: 'is_active',
     created_at: 'created_at',
     updated_at: 'updated_at'
@@ -39745,6 +39777,8 @@ export namespace Prisma {
     agency?: StringNullableFilter<"BankAccount"> | string | null
     account_number?: StringNullableFilter<"BankAccount"> | string | null
     balance?: DecimalFilter<"BankAccount"> | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFilter<"BankAccount"> | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: DateTimeNullableFilter<"BankAccount"> | Date | string | null
     is_active?: BoolFilter<"BankAccount"> | boolean
     created_at?: DateTimeFilter<"BankAccount"> | Date | string
     updated_at?: DateTimeFilter<"BankAccount"> | Date | string
@@ -39759,6 +39793,8 @@ export namespace Prisma {
     agency?: SortOrderInput | SortOrder
     account_number?: SortOrderInput | SortOrder
     balance?: SortOrder
+    initial_balance?: SortOrder
+    initial_balance_date?: SortOrderInput | SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -39776,6 +39812,8 @@ export namespace Prisma {
     agency?: StringNullableFilter<"BankAccount"> | string | null
     account_number?: StringNullableFilter<"BankAccount"> | string | null
     balance?: DecimalFilter<"BankAccount"> | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFilter<"BankAccount"> | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: DateTimeNullableFilter<"BankAccount"> | Date | string | null
     is_active?: BoolFilter<"BankAccount"> | boolean
     created_at?: DateTimeFilter<"BankAccount"> | Date | string
     updated_at?: DateTimeFilter<"BankAccount"> | Date | string
@@ -39790,6 +39828,8 @@ export namespace Prisma {
     agency?: SortOrderInput | SortOrder
     account_number?: SortOrderInput | SortOrder
     balance?: SortOrder
+    initial_balance?: SortOrder
+    initial_balance_date?: SortOrderInput | SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -39810,6 +39850,8 @@ export namespace Prisma {
     agency?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
     account_number?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
     balance?: DecimalWithAggregatesFilter<"BankAccount"> | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalWithAggregatesFilter<"BankAccount"> | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: DateTimeNullableWithAggregatesFilter<"BankAccount"> | Date | string | null
     is_active?: BoolWithAggregatesFilter<"BankAccount"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"BankAccount"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"BankAccount"> | Date | string
@@ -42725,6 +42767,8 @@ export namespace Prisma {
     agency?: string | null
     account_number?: string | null
     balance?: Decimal | DecimalJsLike | number | string
+    initial_balance?: Decimal | DecimalJsLike | number | string
+    initial_balance_date?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -42739,6 +42783,8 @@ export namespace Prisma {
     agency?: string | null
     account_number?: string | null
     balance?: Decimal | DecimalJsLike | number | string
+    initial_balance?: Decimal | DecimalJsLike | number | string
+    initial_balance_date?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -42753,6 +42799,8 @@ export namespace Prisma {
     agency?: NullableStringFieldUpdateOperationsInput | string | null
     account_number?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42767,6 +42815,8 @@ export namespace Prisma {
     agency?: NullableStringFieldUpdateOperationsInput | string | null
     account_number?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42781,6 +42831,8 @@ export namespace Prisma {
     agency?: string | null
     account_number?: string | null
     balance?: Decimal | DecimalJsLike | number | string
+    initial_balance?: Decimal | DecimalJsLike | number | string
+    initial_balance_date?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -42793,6 +42845,8 @@ export namespace Prisma {
     agency?: NullableStringFieldUpdateOperationsInput | string | null
     account_number?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42805,6 +42859,8 @@ export namespace Prisma {
     agency?: NullableStringFieldUpdateOperationsInput | string | null
     account_number?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45302,6 +45358,8 @@ export namespace Prisma {
     agency?: SortOrder
     account_number?: SortOrder
     balance?: SortOrder
+    initial_balance?: SortOrder
+    initial_balance_date?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -45309,6 +45367,7 @@ export namespace Prisma {
 
   export type BankAccountAvgOrderByAggregateInput = {
     balance?: SortOrder
+    initial_balance?: SortOrder
   }
 
   export type BankAccountMaxOrderByAggregateInput = {
@@ -45318,6 +45377,8 @@ export namespace Prisma {
     agency?: SortOrder
     account_number?: SortOrder
     balance?: SortOrder
+    initial_balance?: SortOrder
+    initial_balance_date?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -45330,6 +45391,8 @@ export namespace Prisma {
     agency?: SortOrder
     account_number?: SortOrder
     balance?: SortOrder
+    initial_balance?: SortOrder
+    initial_balance_date?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -45337,6 +45400,7 @@ export namespace Prisma {
 
   export type BankAccountSumOrderByAggregateInput = {
     balance?: SortOrder
+    initial_balance?: SortOrder
   }
 
   export type EnumPaymentMethodFilter<$PrismaModel = never> = {
@@ -54846,6 +54910,8 @@ export namespace Prisma {
     agency?: string | null
     account_number?: string | null
     balance?: Decimal | DecimalJsLike | number | string
+    initial_balance?: Decimal | DecimalJsLike | number | string
+    initial_balance_date?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -54859,6 +54925,8 @@ export namespace Prisma {
     agency?: string | null
     account_number?: string | null
     balance?: Decimal | DecimalJsLike | number | string
+    initial_balance?: Decimal | DecimalJsLike | number | string
+    initial_balance_date?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -54961,6 +55029,8 @@ export namespace Prisma {
     agency?: NullableStringFieldUpdateOperationsInput | string | null
     account_number?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54974,6 +55044,8 @@ export namespace Prisma {
     agency?: NullableStringFieldUpdateOperationsInput | string | null
     account_number?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -55095,6 +55167,8 @@ export namespace Prisma {
     agency?: string | null
     account_number?: string | null
     balance?: Decimal | DecimalJsLike | number | string
+    initial_balance?: Decimal | DecimalJsLike | number | string
+    initial_balance_date?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -55108,6 +55182,8 @@ export namespace Prisma {
     agency?: string | null
     account_number?: string | null
     balance?: Decimal | DecimalJsLike | number | string
+    initial_balance?: Decimal | DecimalJsLike | number | string
+    initial_balance_date?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -55213,6 +55289,8 @@ export namespace Prisma {
     agency?: NullableStringFieldUpdateOperationsInput | string | null
     account_number?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -55226,6 +55304,8 @@ export namespace Prisma {
     agency?: NullableStringFieldUpdateOperationsInput | string | null
     account_number?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    initial_balance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
