@@ -41,6 +41,7 @@ describe('Accounts Payable E2E', () => {
       data: {
         name: 'E2E Test Bank',
         balance: 10000,
+        initial_balance: 10000,
       },
     })
     bankAccountId = bankAccount.id
