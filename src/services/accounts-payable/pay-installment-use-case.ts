@@ -39,19 +39,23 @@ export class PayInstallmentUseCase {
     // Debit the bank account
     await this.bankAccountRepository.updateBalance(data.bankAccountId, -Number(installment.value))
 
+    // Get the parent expense to include in the description
+    const expense = await this.payableExpenseRepository.findById(installment.payableExpenseId)
+    const expenseSummary = expense?.description ? ` - ${expense.description}` : ''
+    const osInfo = expense?.maintenanceId ? ` (OS ${expense.maintenanceId.slice(0, 6).toUpperCase()})` : ''
+
     // Record the financial transaction
     const transaction = await this.financialTransactionRepository.create({
       bankAccount: { connect: { id: data.bankAccountId } },
       type: 'EXPENSE',
       amount: installment.value,
       date: data.payment_date,
-      description: data.description ?? `Pagamento parcela ${installment.installment_number}`,
+      description: data.description ?? `Pgto parc. ${installment.installment_number}${osInfo}${expenseSummary}`,
       receipt_url: data.receipt_url,
       expenseInstallment: { connect: { id: data.installmentId } },
     })
 
     // Update the parent expense status (check if all installments are paid)
-    const expense = await this.payableExpenseRepository.findById(installment.payableExpenseId)
     if (expense) {
       const allPaid = expense.installments.every(
         (inst) => inst.id === data.installmentId || inst.status === 'PAID',

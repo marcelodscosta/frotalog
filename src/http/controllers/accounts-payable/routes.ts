@@ -5,6 +5,7 @@ import {
   listBankAccountsController,
   updateBankAccountController,
   listTransactionsController,
+  updateTransactionController,
   transferBetweenAccountsController,
 } from './bank-account-controllers'
 import {
@@ -30,6 +31,7 @@ export async function accountsPayableRoutes(app: FastifyInstance) {
   app.get('/bank-accounts', listBankAccountsController)
   app.patch('/bank-accounts/:id', updateBankAccountController)
   app.get('/bank-accounts/transactions', listTransactionsController)
+  app.patch('/bank-accounts/transactions/:id', updateTransactionController)
   app.post('/bank-accounts/transfer', transferBetweenAccountsController)
 
   // Payable Expenses

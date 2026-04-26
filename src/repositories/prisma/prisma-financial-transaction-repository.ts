@@ -2,7 +2,7 @@ import { FinancialTransaction, Prisma } from '../../generated/prisma'
 import { prisma } from '../../lib/prisma'
 import { IFinancialTransactionRepository, TransactionFilters } from '../interfaces/IFinancialTransactionRepository'
 
-const PAGE_SIZE = 50
+const PAGE_SIZE = 500
 
 export class PrismaFinancialTransactionRepository implements IFinancialTransactionRepository {
   async create(data: Prisma.FinancialTransactionCreateInput): Promise<FinancialTransaction> {
@@ -13,6 +13,24 @@ export class PrismaFinancialTransactionRepository implements IFinancialTransacti
       await this.recalculateBankAccountBalance(transaction.bankAccountId)
     }
     
+    return transaction
+  }
+
+  async findById(id: string): Promise<FinancialTransaction | null> {
+    return prisma.financialTransaction.findUnique({ where: { id } })
+  }
+
+  async update(id: string, data: Prisma.FinancialTransactionUpdateInput): Promise<FinancialTransaction> {
+    const transaction = await prisma.financialTransaction.update({
+      where: { id },
+      data,
+    })
+
+    // Recalculate bank account balance
+    if (transaction.bankAccountId) {
+      await this.recalculateBankAccountBalance(transaction.bankAccountId)
+    }
+
     return transaction
   }
 
@@ -160,4 +178,3 @@ export class PrismaFinancialTransactionRepository implements IFinancialTransacti
     }
   }
 }
-

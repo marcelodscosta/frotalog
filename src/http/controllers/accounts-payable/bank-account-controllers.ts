@@ -68,6 +68,33 @@ export async function listTransactionsController(request: FastifyRequest, reply:
   })
 }
 
+export async function updateTransactionController(request: FastifyRequest, reply: FastifyReply) {
+  const paramsSchema = z.object({ id: z.string().uuid() })
+  const bodySchema = z.object({
+    description: z.string().optional(),
+    amount: z.number().optional(),
+    date: z.coerce.date().optional(),
+    bankAccountId: z.string().uuid().optional(),
+  })
+
+  const { id } = paramsSchema.parse(request.params)
+  const data = bodySchema.parse(request.body)
+
+  const { PrismaFinancialTransactionRepository } = await import(
+    '../../../repositories/prisma/prisma-financial-transaction-repository'
+  )
+  const repo = new PrismaFinancialTransactionRepository()
+
+  const transaction = await repo.findById(id)
+  if (!transaction) {
+    return reply.status(404).send({ message: 'Transação não encontrada' })
+  }
+
+  const updatedTransaction = await repo.update(id, data)
+
+  return reply.send({ transaction: updatedTransaction })
+}
+
 // ─── Transfer Between Accounts ────────────────────────────────────────────────
 export async function transferBetweenAccountsController(request: FastifyRequest, reply: FastifyReply) {
   const schema = z.object({

@@ -16,7 +16,7 @@ const INCLUDE_RELATIONS = {
   contract: { select: { id: true, contract_number: true } },
 }
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 500
 
 export class PrismaPayableExpenseRepository implements IPayableExpenseRepository {
   async create(data: CreateExpenseData): Promise<PayableExpenseWithRelations> {
