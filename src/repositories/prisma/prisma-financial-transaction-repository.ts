@@ -122,7 +122,16 @@ export class PrismaFinancialTransactionRepository implements IFinancialTransacti
     const [data, total] = await Promise.all([
       prisma.financialTransaction.findMany({
         where,
-        include: { bankAccount: { select: { name: true } } },
+        include: { 
+          bankAccount: { select: { name: true } },
+          expenseInstallment: {
+            include: {
+              payableExpense: {
+                select: { maintenanceId: true }
+              }
+            }
+          }
+        },
         orderBy: { date: 'desc' },
         skip: (page - 1) * PAGE_SIZE,
         take: PAGE_SIZE,
