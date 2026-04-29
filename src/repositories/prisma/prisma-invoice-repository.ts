@@ -21,7 +21,7 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
         measurementBulletins: {
           include: {
             contract: { include: { client: true } },
-            assetMovement: { include: { asset: true } },
+            assetMovement: { include: { asset: { include: { assetCategory: true } } } },
             expenses: { orderBy: { created_at: 'asc' } },
           },
         },
@@ -43,7 +43,7 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
           measurementBulletins: {
             include: {
               contract: { include: { client: true } },
-              assetMovement: { include: { asset: true } },
+              assetMovement: { include: { asset: { include: { assetCategory: true } } } },
               expenses: { orderBy: { created_at: 'asc' } },
             },
           },
@@ -130,7 +130,7 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
           measurementBulletins: {
             include: {
               contract: { include: { client: true } },
-              assetMovement: { include: { asset: true } },
+              assetMovement: { include: { asset: { include: { assetCategory: true } } } },
               expenses: { orderBy: { created_at: 'asc' } },
             },
           },

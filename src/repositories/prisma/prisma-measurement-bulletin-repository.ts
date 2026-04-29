@@ -29,7 +29,7 @@ export class PrismaMeasurementBulletinRepository
       where: { id },
       include: {
         contract: { include: { client: true } },
-        assetMovement: { include: { asset: true } },
+        assetMovement: { include: { asset: { include: { assetCategory: true } } } },
         invoice: true,
         expenses: { orderBy: { created_at: 'asc' } },
       },
@@ -49,7 +49,7 @@ export class PrismaMeasurementBulletinRepository
         orderBy: { created_at: 'desc' },
         include: {
           contract: { include: { client: true } },
-          assetMovement: { include: { asset: true } },
+          assetMovement: { include: { asset: { include: { assetCategory: true } } } },
           invoice: true,
           expenses: { orderBy: { created_at: 'asc' } },
         },
@@ -97,7 +97,7 @@ export class PrismaMeasurementBulletinRepository
         orderBy: { created_at: 'desc' },
         include: {
           contract: { include: { client: true } },
-          assetMovement: { include: { asset: true } },
+          assetMovement: { include: { asset: { include: { assetCategory: true } } } },
           invoice: true,
           expenses: { orderBy: { created_at: 'asc' } },
         },
