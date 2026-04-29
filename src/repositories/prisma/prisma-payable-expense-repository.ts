@@ -9,7 +9,10 @@ import {
 
 const INCLUDE_RELATIONS = {
   supplier: { select: { company_name: true, trading_name: true } },
-  installments: { orderBy: { installment_number: 'asc' } as const },
+  installments: {
+    include: { transactions: true },
+    orderBy: { installment_number: 'asc' } as const,
+  },
   documents: true,
   maintenance: { select: { id: true, description: true } },
   chartOfAccount: { select: { id: true, name: true, code: true } },

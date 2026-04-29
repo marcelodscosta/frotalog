@@ -74,14 +74,18 @@ export async function deleteExpenseController(request: FastifyRequest, reply: Fa
   const paramsSchema = z.object({ id: z.string().uuid() })
   const { id } = paramsSchema.parse(request.params)
 
-  const { PrismaPayableExpenseRepository } = await import('../../../repositories/prisma/prisma-payable-expense-repository')
-  const repo = new PrismaPayableExpenseRepository()
+  const { makeDeletePayableExpense } = await import('../../../services/factories/make-delete-payable-expense')
+  const useCase = makeDeletePayableExpense()
 
-  const existing = await repo.findById(id)
-  if (!existing) return reply.status(404).send({ message: 'Expense not found' })
-
-  await repo.delete(id)
-  return reply.status(204).send()
+  try {
+    await useCase.execute({ expenseId: id })
+    return reply.status(204).send()
+  } catch (err: any) {
+    if (err instanceof ResourceNotFoundError) {
+      return reply.status(404).send({ message: 'Expense not found' })
+    }
+    return reply.status(500).send({ message: err.message })
+  }
 }
 
 // ─── List Expenses ─────────────────────────────────────────────────────────────
