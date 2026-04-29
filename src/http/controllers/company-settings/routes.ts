@@ -5,9 +5,8 @@ import { upsertCompanySettings } from './upsert-company-settings-controller'
 import { uploadLogo } from './upload-logo-controller'
 
 export async function companySettingsRoutes(app: FastifyInstance) {
-  app.addHook('preHandler', requireAuth())
-
   app.get('/company-settings', getCompanySettings)
-  app.put('/company-settings', upsertCompanySettings)
-  app.post('/company-settings/logo', uploadLogo)
+  
+  app.put('/company-settings', { preHandler: [requireAuth()] }, upsertCompanySettings)
+  app.post('/company-settings/logo', { preHandler: [requireAuth()] }, uploadLogo)
 }
