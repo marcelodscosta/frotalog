@@ -31,4 +31,15 @@ export interface ICommercialProposalRepository {
   getProposalWithDetails(id: string): Promise<CommercialProposal | null>
 
   countAll(): Promise<number>
+
+  getMetrics(params: {
+    proposal_number?: string
+    client?: string
+    status?: ProposalStatus
+  }): Promise<{
+    totalCount: number
+    totalValue: number
+    approvedCount: number
+    conversionRate: number
+  }>
 }

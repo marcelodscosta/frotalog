@@ -205,4 +205,75 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
   async countAll(): Promise<number> {
     return await prisma.commercialProposal.count()
   }
+
+  async getMetrics({
+    proposal_number,
+    client,
+    status,
+  }: {
+    proposal_number?: string
+    client?: string
+    status?: ProposalStatus
+  }): Promise<{
+    totalCount: number
+    totalValue: number
+    approvedCount: number
+    conversionRate: number
+  }> {
+    const where: Prisma.CommercialProposalWhereInput = {
+      is_active: true,
+    }
+
+    if (proposal_number) {
+      where.proposal_number = { contains: proposal_number, mode: 'insensitive' }
+    }
+
+    if (status) {
+      where.status = status
+    }
+
+    if (client) {
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(client)
+      if (isUUID) {
+        where.clientId = client
+      } else {
+        where.client = {
+          OR: [
+            { company_name: { contains: client, mode: 'insensitive' } },
+            { trading_name: { contains: client, mode: 'insensitive' } },
+          ],
+        }
+      }
+    }
+
+    const proposals = await prisma.commercialProposal.findMany({
+      where,
+      include: { items: true },
+    })
+
+    const totalCount = proposals.length
+    let totalValue = 0
+    let approvedCount = 0
+
+    proposals.forEach((proposal) => {
+      if (proposal.status === 'APPROVED' || proposal.status === 'CONVERTED') {
+        approvedCount += 1
+      }
+      
+      const proposalTotal = proposal.items.reduce((acc, item) => {
+        return acc + (Number(item.quantity) * Number(item.monthly_value))
+      }, 0)
+
+      totalValue += proposalTotal
+    })
+
+    const conversionRate = totalCount > 0 ? (approvedCount / totalCount) * 100 : 0
+
+    return {
+      totalCount,
+      totalValue,
+      approvedCount,
+      conversionRate,
+    }
+  }
 }
