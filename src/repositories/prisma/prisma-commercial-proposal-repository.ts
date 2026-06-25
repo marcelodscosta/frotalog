@@ -142,11 +142,16 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
     }
 
     if (client) {
-      where.client = {
-        OR: [
-          { company_name: { contains: client, mode: 'insensitive' } },
-          { trading_name: { contains: client, mode: 'insensitive' } },
-        ],
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(client)
+      if (isUUID) {
+        where.clientId = client
+      } else {
+        where.client = {
+          OR: [
+            { company_name: { contains: client, mode: 'insensitive' } },
+            { trading_name: { contains: client, mode: 'insensitive' } },
+          ],
+        }
       }
     }
 
