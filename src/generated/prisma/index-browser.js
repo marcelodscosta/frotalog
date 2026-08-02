@@ -168,6 +168,23 @@ exports.Prisma.AssetScalarFieldEnum = {
   notes: 'notes'
 };
 
+exports.Prisma.AssetDocumentScalarFieldEnum = {
+  id: 'id',
+  assetId: 'assetId',
+  document_type: 'document_type',
+  name: 'name',
+  file_path: 'file_path',
+  filename: 'filename',
+  mime_type: 'mime_type',
+  file_size: 'file_size',
+  issue_date: 'issue_date',
+  due_date: 'due_date',
+  no_expiration: 'no_expiration',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.AssetReadingScalarFieldEnum = {
   id: 'id',
   assetId: 'assetId',
@@ -680,6 +697,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   AssetCategory: 'AssetCategory',
   Asset: 'Asset',
+  AssetDocument: 'AssetDocument',
   AssetReading: 'AssetReading',
   Supplier: 'Supplier',
   ServiceCategory: 'ServiceCategory',

@@ -165,6 +165,7 @@ export class PrismaAssetRepository implements IAssetRepository {
       orderBy: { brand: 'asc' },
       include: {
         assetCategory: true,
+        Documents: true,
       },
     })
   }

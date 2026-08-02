@@ -73,8 +73,30 @@ model Asset {
   Readings                   AssetReading[]
   Checklists                 Checklist[]
   ProposalItems              ProposalItem[]
+  Documents                  AssetDocument[]
 
   @@map("assets")
+}
+
+model AssetDocument {
+  id            String    @id @default(uuid())
+  assetId       String
+  document_type String
+  name          String
+  file_path     String?
+  filename      String?
+  mime_type     String?
+  file_size     Int?
+  issue_date    DateTime
+  due_date      DateTime?
+  no_expiration Boolean   @default(false)
+  notes         String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  asset Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@map("asset_documents")
 }
 
 model AssetReading {

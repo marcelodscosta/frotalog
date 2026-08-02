@@ -29,6 +29,11 @@ export type AssetCategory = $Result.DefaultSelection<Prisma.$AssetCategoryPayloa
  */
 export type Asset = $Result.DefaultSelection<Prisma.$AssetPayload>
 /**
+ * Model AssetDocument
+ * 
+ */
+export type AssetDocument = $Result.DefaultSelection<Prisma.$AssetDocumentPayload>
+/**
  * Model AssetReading
  * 
  */
@@ -545,6 +550,16 @@ export class PrismaClient<
     * ```
     */
   get asset(): Prisma.AssetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.assetDocument`: Exposes CRUD operations for the **AssetDocument** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AssetDocuments
+    * const assetDocuments = await prisma.assetDocument.findMany()
+    * ```
+    */
+  get assetDocument(): Prisma.AssetDocumentDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.assetReading`: Exposes CRUD operations for the **AssetReading** model.
@@ -1218,6 +1233,7 @@ export namespace Prisma {
     User: 'User',
     AssetCategory: 'AssetCategory',
     Asset: 'Asset',
+    AssetDocument: 'AssetDocument',
     AssetReading: 'AssetReading',
     Supplier: 'Supplier',
     ServiceCategory: 'ServiceCategory',
@@ -1259,7 +1275,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "assetCategory" | "asset" | "assetReading" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement" | "measurementBulletin" | "invoice" | "bulletinExpense" | "companySettings" | "checklistParameter" | "checklistItemTemplate" | "checklist" | "checklistAnswer" | "commercialProposal" | "proposalItem" | "bankAccount" | "payableExpense" | "expenseInstallment" | "expenseDocument" | "financialTransaction" | "chartOfAccount"
+      modelProps: "user" | "assetCategory" | "asset" | "assetDocument" | "assetReading" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement" | "measurementBulletin" | "invoice" | "bulletinExpense" | "companySettings" | "checklistParameter" | "checklistItemTemplate" | "checklist" | "checklistAnswer" | "commercialProposal" | "proposalItem" | "bankAccount" | "payableExpense" | "expenseInstallment" | "expenseDocument" | "financialTransaction" | "chartOfAccount"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1482,6 +1498,80 @@ export namespace Prisma {
           count: {
             args: Prisma.AssetCountArgs<ExtArgs>
             result: $Utils.Optional<AssetCountAggregateOutputType> | number
+          }
+        }
+      }
+      AssetDocument: {
+        payload: Prisma.$AssetDocumentPayload<ExtArgs>
+        fields: Prisma.AssetDocumentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AssetDocumentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AssetDocumentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload>
+          }
+          findFirst: {
+            args: Prisma.AssetDocumentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AssetDocumentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload>
+          }
+          findMany: {
+            args: Prisma.AssetDocumentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload>[]
+          }
+          create: {
+            args: Prisma.AssetDocumentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload>
+          }
+          createMany: {
+            args: Prisma.AssetDocumentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AssetDocumentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload>[]
+          }
+          delete: {
+            args: Prisma.AssetDocumentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload>
+          }
+          update: {
+            args: Prisma.AssetDocumentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload>
+          }
+          deleteMany: {
+            args: Prisma.AssetDocumentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AssetDocumentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AssetDocumentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload>[]
+          }
+          upsert: {
+            args: Prisma.AssetDocumentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssetDocumentPayload>
+          }
+          aggregate: {
+            args: Prisma.AssetDocumentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAssetDocument>
+          }
+          groupBy: {
+            args: Prisma.AssetDocumentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AssetDocumentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AssetDocumentCountArgs<ExtArgs>
+            result: $Utils.Optional<AssetDocumentCountAggregateOutputType> | number
           }
         }
       }
@@ -3282,6 +3372,7 @@ export namespace Prisma {
     user?: UserOmit
     assetCategory?: AssetCategoryOmit
     asset?: AssetOmit
+    assetDocument?: AssetDocumentOmit
     assetReading?: AssetReadingOmit
     supplier?: SupplierOmit
     serviceCategory?: ServiceCategoryOmit
@@ -3461,6 +3552,7 @@ export namespace Prisma {
     Readings: number
     Checklists: number
     ProposalItems: number
+    Documents: number
   }
 
   export type AssetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3469,6 +3561,7 @@ export namespace Prisma {
     Readings?: boolean | AssetCountOutputTypeCountReadingsArgs
     Checklists?: boolean | AssetCountOutputTypeCountChecklistsArgs
     ProposalItems?: boolean | AssetCountOutputTypeCountProposalItemsArgs
+    Documents?: boolean | AssetCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
@@ -3515,6 +3608,13 @@ export namespace Prisma {
    */
   export type AssetCountOutputTypeCountProposalItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProposalItemWhereInput
+  }
+
+  /**
+   * AssetCountOutputType without action
+   */
+  export type AssetCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssetDocumentWhereInput
   }
 
 
@@ -6793,6 +6893,7 @@ export namespace Prisma {
     Readings?: boolean | Asset$ReadingsArgs<ExtArgs>
     Checklists?: boolean | Asset$ChecklistsArgs<ExtArgs>
     ProposalItems?: boolean | Asset$ProposalItemsArgs<ExtArgs>
+    Documents?: boolean | Asset$DocumentsArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
@@ -6881,6 +6982,7 @@ export namespace Prisma {
     Readings?: boolean | Asset$ReadingsArgs<ExtArgs>
     Checklists?: boolean | Asset$ChecklistsArgs<ExtArgs>
     ProposalItems?: boolean | Asset$ProposalItemsArgs<ExtArgs>
+    Documents?: boolean | Asset$DocumentsArgs<ExtArgs>
     _count?: boolean | AssetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6899,6 +7001,7 @@ export namespace Prisma {
       Readings: Prisma.$AssetReadingPayload<ExtArgs>[]
       Checklists: Prisma.$ChecklistPayload<ExtArgs>[]
       ProposalItems: Prisma.$ProposalItemPayload<ExtArgs>[]
+      Documents: Prisma.$AssetDocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7323,6 +7426,7 @@ export namespace Prisma {
     Readings<T extends Asset$ReadingsArgs<ExtArgs> = {}>(args?: Subset<T, Asset$ReadingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetReadingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Checklists<T extends Asset$ChecklistsArgs<ExtArgs> = {}>(args?: Subset<T, Asset$ChecklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ProposalItems<T extends Asset$ProposalItemsArgs<ExtArgs> = {}>(args?: Subset<T, Asset$ProposalItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProposalItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Documents<T extends Asset$DocumentsArgs<ExtArgs> = {}>(args?: Subset<T, Asset$DocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7890,6 +7994,30 @@ export namespace Prisma {
   }
 
   /**
+   * Asset.Documents
+   */
+  export type Asset$DocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    where?: AssetDocumentWhereInput
+    orderBy?: AssetDocumentOrderByWithRelationInput | AssetDocumentOrderByWithRelationInput[]
+    cursor?: AssetDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssetDocumentScalarFieldEnum | AssetDocumentScalarFieldEnum[]
+  }
+
+  /**
    * Asset without action
    */
   export type AssetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7905,6 +8033,1215 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AssetInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AssetDocument
+   */
+
+  export type AggregateAssetDocument = {
+    _count: AssetDocumentCountAggregateOutputType | null
+    _avg: AssetDocumentAvgAggregateOutputType | null
+    _sum: AssetDocumentSumAggregateOutputType | null
+    _min: AssetDocumentMinAggregateOutputType | null
+    _max: AssetDocumentMaxAggregateOutputType | null
+  }
+
+  export type AssetDocumentAvgAggregateOutputType = {
+    file_size: number | null
+  }
+
+  export type AssetDocumentSumAggregateOutputType = {
+    file_size: number | null
+  }
+
+  export type AssetDocumentMinAggregateOutputType = {
+    id: string | null
+    assetId: string | null
+    document_type: string | null
+    name: string | null
+    file_path: string | null
+    filename: string | null
+    mime_type: string | null
+    file_size: number | null
+    issue_date: Date | null
+    due_date: Date | null
+    no_expiration: boolean | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AssetDocumentMaxAggregateOutputType = {
+    id: string | null
+    assetId: string | null
+    document_type: string | null
+    name: string | null
+    file_path: string | null
+    filename: string | null
+    mime_type: string | null
+    file_size: number | null
+    issue_date: Date | null
+    due_date: Date | null
+    no_expiration: boolean | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AssetDocumentCountAggregateOutputType = {
+    id: number
+    assetId: number
+    document_type: number
+    name: number
+    file_path: number
+    filename: number
+    mime_type: number
+    file_size: number
+    issue_date: number
+    due_date: number
+    no_expiration: number
+    notes: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type AssetDocumentAvgAggregateInputType = {
+    file_size?: true
+  }
+
+  export type AssetDocumentSumAggregateInputType = {
+    file_size?: true
+  }
+
+  export type AssetDocumentMinAggregateInputType = {
+    id?: true
+    assetId?: true
+    document_type?: true
+    name?: true
+    file_path?: true
+    filename?: true
+    mime_type?: true
+    file_size?: true
+    issue_date?: true
+    due_date?: true
+    no_expiration?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AssetDocumentMaxAggregateInputType = {
+    id?: true
+    assetId?: true
+    document_type?: true
+    name?: true
+    file_path?: true
+    filename?: true
+    mime_type?: true
+    file_size?: true
+    issue_date?: true
+    due_date?: true
+    no_expiration?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AssetDocumentCountAggregateInputType = {
+    id?: true
+    assetId?: true
+    document_type?: true
+    name?: true
+    file_path?: true
+    filename?: true
+    mime_type?: true
+    file_size?: true
+    issue_date?: true
+    due_date?: true
+    no_expiration?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type AssetDocumentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AssetDocument to aggregate.
+     */
+    where?: AssetDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssetDocuments to fetch.
+     */
+    orderBy?: AssetDocumentOrderByWithRelationInput | AssetDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AssetDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssetDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssetDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AssetDocuments
+    **/
+    _count?: true | AssetDocumentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AssetDocumentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AssetDocumentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AssetDocumentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AssetDocumentMaxAggregateInputType
+  }
+
+  export type GetAssetDocumentAggregateType<T extends AssetDocumentAggregateArgs> = {
+        [P in keyof T & keyof AggregateAssetDocument]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAssetDocument[P]>
+      : GetScalarType<T[P], AggregateAssetDocument[P]>
+  }
+
+
+
+
+  export type AssetDocumentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssetDocumentWhereInput
+    orderBy?: AssetDocumentOrderByWithAggregationInput | AssetDocumentOrderByWithAggregationInput[]
+    by: AssetDocumentScalarFieldEnum[] | AssetDocumentScalarFieldEnum
+    having?: AssetDocumentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AssetDocumentCountAggregateInputType | true
+    _avg?: AssetDocumentAvgAggregateInputType
+    _sum?: AssetDocumentSumAggregateInputType
+    _min?: AssetDocumentMinAggregateInputType
+    _max?: AssetDocumentMaxAggregateInputType
+  }
+
+  export type AssetDocumentGroupByOutputType = {
+    id: string
+    assetId: string
+    document_type: string
+    name: string
+    file_path: string | null
+    filename: string | null
+    mime_type: string | null
+    file_size: number | null
+    issue_date: Date
+    due_date: Date | null
+    no_expiration: boolean
+    notes: string | null
+    created_at: Date
+    updated_at: Date
+    _count: AssetDocumentCountAggregateOutputType | null
+    _avg: AssetDocumentAvgAggregateOutputType | null
+    _sum: AssetDocumentSumAggregateOutputType | null
+    _min: AssetDocumentMinAggregateOutputType | null
+    _max: AssetDocumentMaxAggregateOutputType | null
+  }
+
+  type GetAssetDocumentGroupByPayload<T extends AssetDocumentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AssetDocumentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AssetDocumentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AssetDocumentGroupByOutputType[P]>
+            : GetScalarType<T[P], AssetDocumentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AssetDocumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    assetId?: boolean
+    document_type?: boolean
+    name?: boolean
+    file_path?: boolean
+    filename?: boolean
+    mime_type?: boolean
+    file_size?: boolean
+    issue_date?: boolean
+    due_date?: boolean
+    no_expiration?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assetDocument"]>
+
+  export type AssetDocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    assetId?: boolean
+    document_type?: boolean
+    name?: boolean
+    file_path?: boolean
+    filename?: boolean
+    mime_type?: boolean
+    file_size?: boolean
+    issue_date?: boolean
+    due_date?: boolean
+    no_expiration?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assetDocument"]>
+
+  export type AssetDocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    assetId?: boolean
+    document_type?: boolean
+    name?: boolean
+    file_path?: boolean
+    filename?: boolean
+    mime_type?: boolean
+    file_size?: boolean
+    issue_date?: boolean
+    due_date?: boolean
+    no_expiration?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assetDocument"]>
+
+  export type AssetDocumentSelectScalar = {
+    id?: boolean
+    assetId?: boolean
+    document_type?: boolean
+    name?: boolean
+    file_path?: boolean
+    filename?: boolean
+    mime_type?: boolean
+    file_size?: boolean
+    issue_date?: boolean
+    due_date?: boolean
+    no_expiration?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type AssetDocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "assetId" | "document_type" | "name" | "file_path" | "filename" | "mime_type" | "file_size" | "issue_date" | "due_date" | "no_expiration" | "notes" | "created_at" | "updated_at", ExtArgs["result"]["assetDocument"]>
+  export type AssetDocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }
+  export type AssetDocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }
+  export type AssetDocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+  }
+
+  export type $AssetDocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AssetDocument"
+    objects: {
+      asset: Prisma.$AssetPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      assetId: string
+      document_type: string
+      name: string
+      file_path: string | null
+      filename: string | null
+      mime_type: string | null
+      file_size: number | null
+      issue_date: Date
+      due_date: Date | null
+      no_expiration: boolean
+      notes: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["assetDocument"]>
+    composites: {}
+  }
+
+  type AssetDocumentGetPayload<S extends boolean | null | undefined | AssetDocumentDefaultArgs> = $Result.GetResult<Prisma.$AssetDocumentPayload, S>
+
+  type AssetDocumentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AssetDocumentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AssetDocumentCountAggregateInputType | true
+    }
+
+  export interface AssetDocumentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AssetDocument'], meta: { name: 'AssetDocument' } }
+    /**
+     * Find zero or one AssetDocument that matches the filter.
+     * @param {AssetDocumentFindUniqueArgs} args - Arguments to find a AssetDocument
+     * @example
+     * // Get one AssetDocument
+     * const assetDocument = await prisma.assetDocument.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AssetDocumentFindUniqueArgs>(args: SelectSubset<T, AssetDocumentFindUniqueArgs<ExtArgs>>): Prisma__AssetDocumentClient<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AssetDocument that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AssetDocumentFindUniqueOrThrowArgs} args - Arguments to find a AssetDocument
+     * @example
+     * // Get one AssetDocument
+     * const assetDocument = await prisma.assetDocument.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AssetDocumentFindUniqueOrThrowArgs>(args: SelectSubset<T, AssetDocumentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AssetDocumentClient<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AssetDocument that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetDocumentFindFirstArgs} args - Arguments to find a AssetDocument
+     * @example
+     * // Get one AssetDocument
+     * const assetDocument = await prisma.assetDocument.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AssetDocumentFindFirstArgs>(args?: SelectSubset<T, AssetDocumentFindFirstArgs<ExtArgs>>): Prisma__AssetDocumentClient<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AssetDocument that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetDocumentFindFirstOrThrowArgs} args - Arguments to find a AssetDocument
+     * @example
+     * // Get one AssetDocument
+     * const assetDocument = await prisma.assetDocument.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AssetDocumentFindFirstOrThrowArgs>(args?: SelectSubset<T, AssetDocumentFindFirstOrThrowArgs<ExtArgs>>): Prisma__AssetDocumentClient<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AssetDocuments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetDocumentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AssetDocuments
+     * const assetDocuments = await prisma.assetDocument.findMany()
+     * 
+     * // Get first 10 AssetDocuments
+     * const assetDocuments = await prisma.assetDocument.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const assetDocumentWithIdOnly = await prisma.assetDocument.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AssetDocumentFindManyArgs>(args?: SelectSubset<T, AssetDocumentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AssetDocument.
+     * @param {AssetDocumentCreateArgs} args - Arguments to create a AssetDocument.
+     * @example
+     * // Create one AssetDocument
+     * const AssetDocument = await prisma.assetDocument.create({
+     *   data: {
+     *     // ... data to create a AssetDocument
+     *   }
+     * })
+     * 
+     */
+    create<T extends AssetDocumentCreateArgs>(args: SelectSubset<T, AssetDocumentCreateArgs<ExtArgs>>): Prisma__AssetDocumentClient<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AssetDocuments.
+     * @param {AssetDocumentCreateManyArgs} args - Arguments to create many AssetDocuments.
+     * @example
+     * // Create many AssetDocuments
+     * const assetDocument = await prisma.assetDocument.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AssetDocumentCreateManyArgs>(args?: SelectSubset<T, AssetDocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AssetDocuments and returns the data saved in the database.
+     * @param {AssetDocumentCreateManyAndReturnArgs} args - Arguments to create many AssetDocuments.
+     * @example
+     * // Create many AssetDocuments
+     * const assetDocument = await prisma.assetDocument.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AssetDocuments and only return the `id`
+     * const assetDocumentWithIdOnly = await prisma.assetDocument.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AssetDocumentCreateManyAndReturnArgs>(args?: SelectSubset<T, AssetDocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AssetDocument.
+     * @param {AssetDocumentDeleteArgs} args - Arguments to delete one AssetDocument.
+     * @example
+     * // Delete one AssetDocument
+     * const AssetDocument = await prisma.assetDocument.delete({
+     *   where: {
+     *     // ... filter to delete one AssetDocument
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AssetDocumentDeleteArgs>(args: SelectSubset<T, AssetDocumentDeleteArgs<ExtArgs>>): Prisma__AssetDocumentClient<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AssetDocument.
+     * @param {AssetDocumentUpdateArgs} args - Arguments to update one AssetDocument.
+     * @example
+     * // Update one AssetDocument
+     * const assetDocument = await prisma.assetDocument.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AssetDocumentUpdateArgs>(args: SelectSubset<T, AssetDocumentUpdateArgs<ExtArgs>>): Prisma__AssetDocumentClient<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AssetDocuments.
+     * @param {AssetDocumentDeleteManyArgs} args - Arguments to filter AssetDocuments to delete.
+     * @example
+     * // Delete a few AssetDocuments
+     * const { count } = await prisma.assetDocument.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AssetDocumentDeleteManyArgs>(args?: SelectSubset<T, AssetDocumentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AssetDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetDocumentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AssetDocuments
+     * const assetDocument = await prisma.assetDocument.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AssetDocumentUpdateManyArgs>(args: SelectSubset<T, AssetDocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AssetDocuments and returns the data updated in the database.
+     * @param {AssetDocumentUpdateManyAndReturnArgs} args - Arguments to update many AssetDocuments.
+     * @example
+     * // Update many AssetDocuments
+     * const assetDocument = await prisma.assetDocument.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AssetDocuments and only return the `id`
+     * const assetDocumentWithIdOnly = await prisma.assetDocument.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AssetDocumentUpdateManyAndReturnArgs>(args: SelectSubset<T, AssetDocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AssetDocument.
+     * @param {AssetDocumentUpsertArgs} args - Arguments to update or create a AssetDocument.
+     * @example
+     * // Update or create a AssetDocument
+     * const assetDocument = await prisma.assetDocument.upsert({
+     *   create: {
+     *     // ... data to create a AssetDocument
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AssetDocument we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AssetDocumentUpsertArgs>(args: SelectSubset<T, AssetDocumentUpsertArgs<ExtArgs>>): Prisma__AssetDocumentClient<$Result.GetResult<Prisma.$AssetDocumentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AssetDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetDocumentCountArgs} args - Arguments to filter AssetDocuments to count.
+     * @example
+     * // Count the number of AssetDocuments
+     * const count = await prisma.assetDocument.count({
+     *   where: {
+     *     // ... the filter for the AssetDocuments we want to count
+     *   }
+     * })
+    **/
+    count<T extends AssetDocumentCountArgs>(
+      args?: Subset<T, AssetDocumentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AssetDocumentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AssetDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetDocumentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AssetDocumentAggregateArgs>(args: Subset<T, AssetDocumentAggregateArgs>): Prisma.PrismaPromise<GetAssetDocumentAggregateType<T>>
+
+    /**
+     * Group by AssetDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssetDocumentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AssetDocumentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AssetDocumentGroupByArgs['orderBy'] }
+        : { orderBy?: AssetDocumentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AssetDocumentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAssetDocumentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AssetDocument model
+   */
+  readonly fields: AssetDocumentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AssetDocument.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AssetDocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    asset<T extends AssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetDefaultArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AssetDocument model
+   */
+  interface AssetDocumentFieldRefs {
+    readonly id: FieldRef<"AssetDocument", 'String'>
+    readonly assetId: FieldRef<"AssetDocument", 'String'>
+    readonly document_type: FieldRef<"AssetDocument", 'String'>
+    readonly name: FieldRef<"AssetDocument", 'String'>
+    readonly file_path: FieldRef<"AssetDocument", 'String'>
+    readonly filename: FieldRef<"AssetDocument", 'String'>
+    readonly mime_type: FieldRef<"AssetDocument", 'String'>
+    readonly file_size: FieldRef<"AssetDocument", 'Int'>
+    readonly issue_date: FieldRef<"AssetDocument", 'DateTime'>
+    readonly due_date: FieldRef<"AssetDocument", 'DateTime'>
+    readonly no_expiration: FieldRef<"AssetDocument", 'Boolean'>
+    readonly notes: FieldRef<"AssetDocument", 'String'>
+    readonly created_at: FieldRef<"AssetDocument", 'DateTime'>
+    readonly updated_at: FieldRef<"AssetDocument", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AssetDocument findUnique
+   */
+  export type AssetDocumentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetDocument to fetch.
+     */
+    where: AssetDocumentWhereUniqueInput
+  }
+
+  /**
+   * AssetDocument findUniqueOrThrow
+   */
+  export type AssetDocumentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetDocument to fetch.
+     */
+    where: AssetDocumentWhereUniqueInput
+  }
+
+  /**
+   * AssetDocument findFirst
+   */
+  export type AssetDocumentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetDocument to fetch.
+     */
+    where?: AssetDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssetDocuments to fetch.
+     */
+    orderBy?: AssetDocumentOrderByWithRelationInput | AssetDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AssetDocuments.
+     */
+    cursor?: AssetDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssetDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssetDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AssetDocuments.
+     */
+    distinct?: AssetDocumentScalarFieldEnum | AssetDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * AssetDocument findFirstOrThrow
+   */
+  export type AssetDocumentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetDocument to fetch.
+     */
+    where?: AssetDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssetDocuments to fetch.
+     */
+    orderBy?: AssetDocumentOrderByWithRelationInput | AssetDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AssetDocuments.
+     */
+    cursor?: AssetDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssetDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssetDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AssetDocuments.
+     */
+    distinct?: AssetDocumentScalarFieldEnum | AssetDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * AssetDocument findMany
+   */
+  export type AssetDocumentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which AssetDocuments to fetch.
+     */
+    where?: AssetDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssetDocuments to fetch.
+     */
+    orderBy?: AssetDocumentOrderByWithRelationInput | AssetDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AssetDocuments.
+     */
+    cursor?: AssetDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssetDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssetDocuments.
+     */
+    skip?: number
+    distinct?: AssetDocumentScalarFieldEnum | AssetDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * AssetDocument create
+   */
+  export type AssetDocumentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AssetDocument.
+     */
+    data: XOR<AssetDocumentCreateInput, AssetDocumentUncheckedCreateInput>
+  }
+
+  /**
+   * AssetDocument createMany
+   */
+  export type AssetDocumentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AssetDocuments.
+     */
+    data: AssetDocumentCreateManyInput | AssetDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AssetDocument createManyAndReturn
+   */
+  export type AssetDocumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to create many AssetDocuments.
+     */
+    data: AssetDocumentCreateManyInput | AssetDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AssetDocument update
+   */
+  export type AssetDocumentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AssetDocument.
+     */
+    data: XOR<AssetDocumentUpdateInput, AssetDocumentUncheckedUpdateInput>
+    /**
+     * Choose, which AssetDocument to update.
+     */
+    where: AssetDocumentWhereUniqueInput
+  }
+
+  /**
+   * AssetDocument updateMany
+   */
+  export type AssetDocumentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AssetDocuments.
+     */
+    data: XOR<AssetDocumentUpdateManyMutationInput, AssetDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which AssetDocuments to update
+     */
+    where?: AssetDocumentWhereInput
+    /**
+     * Limit how many AssetDocuments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AssetDocument updateManyAndReturn
+   */
+  export type AssetDocumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to update AssetDocuments.
+     */
+    data: XOR<AssetDocumentUpdateManyMutationInput, AssetDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which AssetDocuments to update
+     */
+    where?: AssetDocumentWhereInput
+    /**
+     * Limit how many AssetDocuments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AssetDocument upsert
+   */
+  export type AssetDocumentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AssetDocument to update in case it exists.
+     */
+    where: AssetDocumentWhereUniqueInput
+    /**
+     * In case the AssetDocument found by the `where` argument doesn't exist, create a new AssetDocument with this data.
+     */
+    create: XOR<AssetDocumentCreateInput, AssetDocumentUncheckedCreateInput>
+    /**
+     * In case the AssetDocument was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AssetDocumentUpdateInput, AssetDocumentUncheckedUpdateInput>
+  }
+
+  /**
+   * AssetDocument delete
+   */
+  export type AssetDocumentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
+    /**
+     * Filter which AssetDocument to delete.
+     */
+    where: AssetDocumentWhereUniqueInput
+  }
+
+  /**
+   * AssetDocument deleteMany
+   */
+  export type AssetDocumentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AssetDocuments to delete
+     */
+    where?: AssetDocumentWhereInput
+    /**
+     * Limit how many AssetDocuments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AssetDocument without action
+   */
+  export type AssetDocumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssetDocument
+     */
+    select?: AssetDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssetDocument
+     */
+    omit?: AssetDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetDocumentInclude<ExtArgs> | null
   }
 
 
@@ -36865,6 +38202,26 @@ export namespace Prisma {
   export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
 
 
+  export const AssetDocumentScalarFieldEnum: {
+    id: 'id',
+    assetId: 'assetId',
+    document_type: 'document_type',
+    name: 'name',
+    file_path: 'file_path',
+    filename: 'filename',
+    mime_type: 'mime_type',
+    file_size: 'file_size',
+    issue_date: 'issue_date',
+    due_date: 'due_date',
+    no_expiration: 'no_expiration',
+    notes: 'notes',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type AssetDocumentScalarFieldEnum = (typeof AssetDocumentScalarFieldEnum)[keyof typeof AssetDocumentScalarFieldEnum]
+
+
   export const AssetReadingScalarFieldEnum: {
     id: 'id',
     assetId: 'assetId',
@@ -37846,6 +39203,7 @@ export namespace Prisma {
     Readings?: AssetReadingListRelationFilter
     Checklists?: ChecklistListRelationFilter
     ProposalItems?: ProposalItemListRelationFilter
+    Documents?: AssetDocumentListRelationFilter
   }
 
   export type AssetOrderByWithRelationInput = {
@@ -37877,6 +39235,7 @@ export namespace Prisma {
     Readings?: AssetReadingOrderByRelationAggregateInput
     Checklists?: ChecklistOrderByRelationAggregateInput
     ProposalItems?: ProposalItemOrderByRelationAggregateInput
+    Documents?: AssetDocumentOrderByRelationAggregateInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -37911,6 +39270,7 @@ export namespace Prisma {
     Readings?: AssetReadingListRelationFilter
     Checklists?: ChecklistListRelationFilter
     ProposalItems?: ProposalItemListRelationFilter
+    Documents?: AssetDocumentListRelationFilter
   }, "id" | "plate" | "serial_number">
 
   export type AssetOrderByWithAggregationInput = {
@@ -37969,6 +39329,108 @@ export namespace Prisma {
     documentsUrl?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     ownership?: EnumAssetOwnershipWithAggregatesFilter<"Asset"> | $Enums.AssetOwnership
     notes?: StringNullableWithAggregatesFilter<"Asset"> | string | null
+  }
+
+  export type AssetDocumentWhereInput = {
+    AND?: AssetDocumentWhereInput | AssetDocumentWhereInput[]
+    OR?: AssetDocumentWhereInput[]
+    NOT?: AssetDocumentWhereInput | AssetDocumentWhereInput[]
+    id?: StringFilter<"AssetDocument"> | string
+    assetId?: StringFilter<"AssetDocument"> | string
+    document_type?: StringFilter<"AssetDocument"> | string
+    name?: StringFilter<"AssetDocument"> | string
+    file_path?: StringNullableFilter<"AssetDocument"> | string | null
+    filename?: StringNullableFilter<"AssetDocument"> | string | null
+    mime_type?: StringNullableFilter<"AssetDocument"> | string | null
+    file_size?: IntNullableFilter<"AssetDocument"> | number | null
+    issue_date?: DateTimeFilter<"AssetDocument"> | Date | string
+    due_date?: DateTimeNullableFilter<"AssetDocument"> | Date | string | null
+    no_expiration?: BoolFilter<"AssetDocument"> | boolean
+    notes?: StringNullableFilter<"AssetDocument"> | string | null
+    created_at?: DateTimeFilter<"AssetDocument"> | Date | string
+    updated_at?: DateTimeFilter<"AssetDocument"> | Date | string
+    asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
+  }
+
+  export type AssetDocumentOrderByWithRelationInput = {
+    id?: SortOrder
+    assetId?: SortOrder
+    document_type?: SortOrder
+    name?: SortOrder
+    file_path?: SortOrderInput | SortOrder
+    filename?: SortOrderInput | SortOrder
+    mime_type?: SortOrderInput | SortOrder
+    file_size?: SortOrderInput | SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrderInput | SortOrder
+    no_expiration?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    asset?: AssetOrderByWithRelationInput
+  }
+
+  export type AssetDocumentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AssetDocumentWhereInput | AssetDocumentWhereInput[]
+    OR?: AssetDocumentWhereInput[]
+    NOT?: AssetDocumentWhereInput | AssetDocumentWhereInput[]
+    assetId?: StringFilter<"AssetDocument"> | string
+    document_type?: StringFilter<"AssetDocument"> | string
+    name?: StringFilter<"AssetDocument"> | string
+    file_path?: StringNullableFilter<"AssetDocument"> | string | null
+    filename?: StringNullableFilter<"AssetDocument"> | string | null
+    mime_type?: StringNullableFilter<"AssetDocument"> | string | null
+    file_size?: IntNullableFilter<"AssetDocument"> | number | null
+    issue_date?: DateTimeFilter<"AssetDocument"> | Date | string
+    due_date?: DateTimeNullableFilter<"AssetDocument"> | Date | string | null
+    no_expiration?: BoolFilter<"AssetDocument"> | boolean
+    notes?: StringNullableFilter<"AssetDocument"> | string | null
+    created_at?: DateTimeFilter<"AssetDocument"> | Date | string
+    updated_at?: DateTimeFilter<"AssetDocument"> | Date | string
+    asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
+  }, "id">
+
+  export type AssetDocumentOrderByWithAggregationInput = {
+    id?: SortOrder
+    assetId?: SortOrder
+    document_type?: SortOrder
+    name?: SortOrder
+    file_path?: SortOrderInput | SortOrder
+    filename?: SortOrderInput | SortOrder
+    mime_type?: SortOrderInput | SortOrder
+    file_size?: SortOrderInput | SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrderInput | SortOrder
+    no_expiration?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: AssetDocumentCountOrderByAggregateInput
+    _avg?: AssetDocumentAvgOrderByAggregateInput
+    _max?: AssetDocumentMaxOrderByAggregateInput
+    _min?: AssetDocumentMinOrderByAggregateInput
+    _sum?: AssetDocumentSumOrderByAggregateInput
+  }
+
+  export type AssetDocumentScalarWhereWithAggregatesInput = {
+    AND?: AssetDocumentScalarWhereWithAggregatesInput | AssetDocumentScalarWhereWithAggregatesInput[]
+    OR?: AssetDocumentScalarWhereWithAggregatesInput[]
+    NOT?: AssetDocumentScalarWhereWithAggregatesInput | AssetDocumentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AssetDocument"> | string
+    assetId?: StringWithAggregatesFilter<"AssetDocument"> | string
+    document_type?: StringWithAggregatesFilter<"AssetDocument"> | string
+    name?: StringWithAggregatesFilter<"AssetDocument"> | string
+    file_path?: StringNullableWithAggregatesFilter<"AssetDocument"> | string | null
+    filename?: StringNullableWithAggregatesFilter<"AssetDocument"> | string | null
+    mime_type?: StringNullableWithAggregatesFilter<"AssetDocument"> | string | null
+    file_size?: IntNullableWithAggregatesFilter<"AssetDocument"> | number | null
+    issue_date?: DateTimeWithAggregatesFilter<"AssetDocument"> | Date | string
+    due_date?: DateTimeNullableWithAggregatesFilter<"AssetDocument"> | Date | string | null
+    no_expiration?: BoolWithAggregatesFilter<"AssetDocument"> | boolean
+    notes?: StringNullableWithAggregatesFilter<"AssetDocument"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"AssetDocument"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"AssetDocument"> | Date | string
   }
 
   export type AssetReadingWhereInput = {
@@ -40552,6 +42014,7 @@ export namespace Prisma {
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateInput = {
@@ -40582,6 +42045,7 @@ export namespace Prisma {
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUpdateInput = {
@@ -40612,6 +42076,7 @@ export namespace Prisma {
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateInput = {
@@ -40642,6 +42107,7 @@ export namespace Prisma {
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetCreateManyInput = {
@@ -40716,6 +42182,124 @@ export namespace Prisma {
     documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
     ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AssetDocumentCreateInput = {
+    id?: string
+    document_type: string
+    name: string
+    file_path?: string | null
+    filename?: string | null
+    mime_type?: string | null
+    file_size?: number | null
+    issue_date: Date | string
+    due_date?: Date | string | null
+    no_expiration?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    asset: AssetCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type AssetDocumentUncheckedCreateInput = {
+    id?: string
+    assetId: string
+    document_type: string
+    name: string
+    file_path?: string | null
+    filename?: string | null
+    mime_type?: string | null
+    file_size?: number | null
+    issue_date: Date | string
+    due_date?: Date | string | null
+    no_expiration?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetDocumentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    document_type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    file_path?: NullableStringFieldUpdateOperationsInput | string | null
+    filename?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    file_size?: NullableIntFieldUpdateOperationsInput | number | null
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    no_expiration?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneRequiredWithoutDocumentsNestedInput
+  }
+
+  export type AssetDocumentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    document_type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    file_path?: NullableStringFieldUpdateOperationsInput | string | null
+    filename?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    file_size?: NullableIntFieldUpdateOperationsInput | number | null
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    no_expiration?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetDocumentCreateManyInput = {
+    id?: string
+    assetId: string
+    document_type: string
+    name: string
+    file_path?: string | null
+    filename?: string | null
+    mime_type?: string | null
+    file_size?: number | null
+    issue_date: Date | string
+    due_date?: Date | string | null
+    no_expiration?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetDocumentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    document_type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    file_path?: NullableStringFieldUpdateOperationsInput | string | null
+    filename?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    file_size?: NullableIntFieldUpdateOperationsInput | number | null
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    no_expiration?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetDocumentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    document_type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    file_path?: NullableStringFieldUpdateOperationsInput | string | null
+    filename?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    file_size?: NullableIntFieldUpdateOperationsInput | number | null
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    no_expiration?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AssetReadingCreateInput = {
@@ -43709,6 +45293,12 @@ export namespace Prisma {
     none?: ChecklistWhereInput
   }
 
+  export type AssetDocumentListRelationFilter = {
+    every?: AssetDocumentWhereInput
+    some?: AssetDocumentWhereInput
+    none?: AssetDocumentWhereInput
+  }
+
   export type AssetMovementOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -43718,6 +45308,10 @@ export namespace Prisma {
   }
 
   export type ChecklistOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AssetDocumentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -43879,6 +45473,65 @@ export namespace Prisma {
   export type AssetScalarRelationFilter = {
     is?: AssetWhereInput
     isNot?: AssetWhereInput
+  }
+
+  export type AssetDocumentCountOrderByAggregateInput = {
+    id?: SortOrder
+    assetId?: SortOrder
+    document_type?: SortOrder
+    name?: SortOrder
+    file_path?: SortOrder
+    filename?: SortOrder
+    mime_type?: SortOrder
+    file_size?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
+    no_expiration?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AssetDocumentAvgOrderByAggregateInput = {
+    file_size?: SortOrder
+  }
+
+  export type AssetDocumentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    assetId?: SortOrder
+    document_type?: SortOrder
+    name?: SortOrder
+    file_path?: SortOrder
+    filename?: SortOrder
+    mime_type?: SortOrder
+    file_size?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
+    no_expiration?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AssetDocumentMinOrderByAggregateInput = {
+    id?: SortOrder
+    assetId?: SortOrder
+    document_type?: SortOrder
+    name?: SortOrder
+    file_path?: SortOrder
+    filename?: SortOrder
+    mime_type?: SortOrder
+    file_size?: SortOrder
+    issue_date?: SortOrder
+    due_date?: SortOrder
+    no_expiration?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AssetDocumentSumOrderByAggregateInput = {
+    file_size?: SortOrder
   }
 
   export type AssetReadingCountOrderByAggregateInput = {
@@ -45978,6 +47631,13 @@ export namespace Prisma {
     connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
   }
 
+  export type AssetDocumentCreateNestedManyWithoutAssetInput = {
+    create?: XOR<AssetDocumentCreateWithoutAssetInput, AssetDocumentUncheckedCreateWithoutAssetInput> | AssetDocumentCreateWithoutAssetInput[] | AssetDocumentUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: AssetDocumentCreateOrConnectWithoutAssetInput | AssetDocumentCreateOrConnectWithoutAssetInput[]
+    createMany?: AssetDocumentCreateManyAssetInputEnvelope
+    connect?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
+  }
+
   export type AssetMovementUncheckedCreateNestedManyWithoutAssetInput = {
     create?: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput> | AssetMovementCreateWithoutAssetInput[] | AssetMovementUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutAssetInput | AssetMovementCreateOrConnectWithoutAssetInput[]
@@ -46011,6 +47671,13 @@ export namespace Prisma {
     connectOrCreate?: ProposalItemCreateOrConnectWithoutAssetInput | ProposalItemCreateOrConnectWithoutAssetInput[]
     createMany?: ProposalItemCreateManyAssetInputEnvelope
     connect?: ProposalItemWhereUniqueInput | ProposalItemWhereUniqueInput[]
+  }
+
+  export type AssetDocumentUncheckedCreateNestedManyWithoutAssetInput = {
+    create?: XOR<AssetDocumentCreateWithoutAssetInput, AssetDocumentUncheckedCreateWithoutAssetInput> | AssetDocumentCreateWithoutAssetInput[] | AssetDocumentUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: AssetDocumentCreateOrConnectWithoutAssetInput | AssetDocumentCreateOrConnectWithoutAssetInput[]
+    createMany?: AssetDocumentCreateManyAssetInputEnvelope
+    connect?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -46115,6 +47782,20 @@ export namespace Prisma {
     deleteMany?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
   }
 
+  export type AssetDocumentUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<AssetDocumentCreateWithoutAssetInput, AssetDocumentUncheckedCreateWithoutAssetInput> | AssetDocumentCreateWithoutAssetInput[] | AssetDocumentUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: AssetDocumentCreateOrConnectWithoutAssetInput | AssetDocumentCreateOrConnectWithoutAssetInput[]
+    upsert?: AssetDocumentUpsertWithWhereUniqueWithoutAssetInput | AssetDocumentUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: AssetDocumentCreateManyAssetInputEnvelope
+    set?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
+    disconnect?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
+    delete?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
+    connect?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
+    update?: AssetDocumentUpdateWithWhereUniqueWithoutAssetInput | AssetDocumentUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: AssetDocumentUpdateManyWithWhereWithoutAssetInput | AssetDocumentUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: AssetDocumentScalarWhereInput | AssetDocumentScalarWhereInput[]
+  }
+
   export type AssetMovementUncheckedUpdateManyWithoutAssetNestedInput = {
     create?: XOR<AssetMovementCreateWithoutAssetInput, AssetMovementUncheckedCreateWithoutAssetInput> | AssetMovementCreateWithoutAssetInput[] | AssetMovementUncheckedCreateWithoutAssetInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutAssetInput | AssetMovementCreateOrConnectWithoutAssetInput[]
@@ -46183,6 +47864,34 @@ export namespace Prisma {
     update?: ProposalItemUpdateWithWhereUniqueWithoutAssetInput | ProposalItemUpdateWithWhereUniqueWithoutAssetInput[]
     updateMany?: ProposalItemUpdateManyWithWhereWithoutAssetInput | ProposalItemUpdateManyWithWhereWithoutAssetInput[]
     deleteMany?: ProposalItemScalarWhereInput | ProposalItemScalarWhereInput[]
+  }
+
+  export type AssetDocumentUncheckedUpdateManyWithoutAssetNestedInput = {
+    create?: XOR<AssetDocumentCreateWithoutAssetInput, AssetDocumentUncheckedCreateWithoutAssetInput> | AssetDocumentCreateWithoutAssetInput[] | AssetDocumentUncheckedCreateWithoutAssetInput[]
+    connectOrCreate?: AssetDocumentCreateOrConnectWithoutAssetInput | AssetDocumentCreateOrConnectWithoutAssetInput[]
+    upsert?: AssetDocumentUpsertWithWhereUniqueWithoutAssetInput | AssetDocumentUpsertWithWhereUniqueWithoutAssetInput[]
+    createMany?: AssetDocumentCreateManyAssetInputEnvelope
+    set?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
+    disconnect?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
+    delete?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
+    connect?: AssetDocumentWhereUniqueInput | AssetDocumentWhereUniqueInput[]
+    update?: AssetDocumentUpdateWithWhereUniqueWithoutAssetInput | AssetDocumentUpdateWithWhereUniqueWithoutAssetInput[]
+    updateMany?: AssetDocumentUpdateManyWithWhereWithoutAssetInput | AssetDocumentUpdateManyWithWhereWithoutAssetInput[]
+    deleteMany?: AssetDocumentScalarWhereInput | AssetDocumentScalarWhereInput[]
+  }
+
+  export type AssetCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<AssetCreateWithoutDocumentsInput, AssetUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutDocumentsInput
+    connect?: AssetWhereUniqueInput
+  }
+
+  export type AssetUpdateOneRequiredWithoutDocumentsNestedInput = {
+    create?: XOR<AssetCreateWithoutDocumentsInput, AssetUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutDocumentsInput
+    upsert?: AssetUpsertWithoutDocumentsInput
+    connect?: AssetWhereUniqueInput
+    update?: XOR<XOR<AssetUpdateToOneWithWhereWithoutDocumentsInput, AssetUpdateWithoutDocumentsInput>, AssetUncheckedUpdateWithoutDocumentsInput>
   }
 
   export type AssetCreateNestedOneWithoutReadingsInput = {
@@ -48934,6 +50643,7 @@ export namespace Prisma {
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutAssetCategoryInput = {
@@ -48963,6 +50673,7 @@ export namespace Prisma {
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutAssetCategoryInput = {
@@ -49359,6 +51070,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AssetDocumentCreateWithoutAssetInput = {
+    id?: string
+    document_type: string
+    name: string
+    file_path?: string | null
+    filename?: string | null
+    mime_type?: string | null
+    file_size?: number | null
+    issue_date: Date | string
+    due_date?: Date | string | null
+    no_expiration?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetDocumentUncheckedCreateWithoutAssetInput = {
+    id?: string
+    document_type: string
+    name: string
+    file_path?: string | null
+    filename?: string | null
+    mime_type?: string | null
+    file_size?: number | null
+    issue_date: Date | string
+    due_date?: Date | string | null
+    no_expiration?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetDocumentCreateOrConnectWithoutAssetInput = {
+    where: AssetDocumentWhereUniqueInput
+    create: XOR<AssetDocumentCreateWithoutAssetInput, AssetDocumentUncheckedCreateWithoutAssetInput>
+  }
+
+  export type AssetDocumentCreateManyAssetInputEnvelope = {
+    data: AssetDocumentCreateManyAssetInput | AssetDocumentCreateManyAssetInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AssetMovementUpsertWithWhereUniqueWithoutAssetInput = {
     where: AssetMovementWhereUniqueInput
     update: XOR<AssetMovementUpdateWithoutAssetInput, AssetMovementUncheckedUpdateWithoutAssetInput>
@@ -49536,6 +51289,178 @@ export namespace Prisma {
     data: XOR<ProposalItemUpdateManyMutationInput, ProposalItemUncheckedUpdateManyWithoutAssetInput>
   }
 
+  export type AssetDocumentUpsertWithWhereUniqueWithoutAssetInput = {
+    where: AssetDocumentWhereUniqueInput
+    update: XOR<AssetDocumentUpdateWithoutAssetInput, AssetDocumentUncheckedUpdateWithoutAssetInput>
+    create: XOR<AssetDocumentCreateWithoutAssetInput, AssetDocumentUncheckedCreateWithoutAssetInput>
+  }
+
+  export type AssetDocumentUpdateWithWhereUniqueWithoutAssetInput = {
+    where: AssetDocumentWhereUniqueInput
+    data: XOR<AssetDocumentUpdateWithoutAssetInput, AssetDocumentUncheckedUpdateWithoutAssetInput>
+  }
+
+  export type AssetDocumentUpdateManyWithWhereWithoutAssetInput = {
+    where: AssetDocumentScalarWhereInput
+    data: XOR<AssetDocumentUpdateManyMutationInput, AssetDocumentUncheckedUpdateManyWithoutAssetInput>
+  }
+
+  export type AssetDocumentScalarWhereInput = {
+    AND?: AssetDocumentScalarWhereInput | AssetDocumentScalarWhereInput[]
+    OR?: AssetDocumentScalarWhereInput[]
+    NOT?: AssetDocumentScalarWhereInput | AssetDocumentScalarWhereInput[]
+    id?: StringFilter<"AssetDocument"> | string
+    assetId?: StringFilter<"AssetDocument"> | string
+    document_type?: StringFilter<"AssetDocument"> | string
+    name?: StringFilter<"AssetDocument"> | string
+    file_path?: StringNullableFilter<"AssetDocument"> | string | null
+    filename?: StringNullableFilter<"AssetDocument"> | string | null
+    mime_type?: StringNullableFilter<"AssetDocument"> | string | null
+    file_size?: IntNullableFilter<"AssetDocument"> | number | null
+    issue_date?: DateTimeFilter<"AssetDocument"> | Date | string
+    due_date?: DateTimeNullableFilter<"AssetDocument"> | Date | string | null
+    no_expiration?: BoolFilter<"AssetDocument"> | boolean
+    notes?: StringNullableFilter<"AssetDocument"> | string | null
+    created_at?: DateTimeFilter<"AssetDocument"> | Date | string
+    updated_at?: DateTimeFilter<"AssetDocument"> | Date | string
+  }
+
+  export type AssetCreateWithoutDocumentsInput = {
+    id?: string
+    brand: string
+    model: string
+    year?: number | null
+    plate?: string | null
+    serial_number?: string | null
+    initial_horometer?: number | null
+    current_horometer?: number | null
+    initial_odometer?: number | null
+    current_odometer?: number | null
+    maintenance_frequency_hours?: number | null
+    maintenance_frequency_km?: number | null
+    last_maintenance_date?: Date | string | null
+    last_maintenance_horometer?: number | null
+    last_maintenance_odometer?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    documentsUrl?: string | null
+    ownership?: $Enums.AssetOwnership
+    notes?: string | null
+    Movements?: AssetMovementCreateNestedManyWithoutAssetInput
+    assetCategory: AssetCategoryCreateNestedOneWithoutAssetInput
+    Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
+    Readings?: AssetReadingCreateNestedManyWithoutAssetInput
+    Checklists?: ChecklistCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    brand: string
+    model: string
+    year?: number | null
+    plate?: string | null
+    serial_number?: string | null
+    initial_horometer?: number | null
+    current_horometer?: number | null
+    initial_odometer?: number | null
+    current_odometer?: number | null
+    maintenance_frequency_hours?: number | null
+    maintenance_frequency_km?: number | null
+    last_maintenance_date?: Date | string | null
+    last_maintenance_horometer?: number | null
+    last_maintenance_odometer?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    assetCategoryId: string
+    documentsUrl?: string | null
+    ownership?: $Enums.AssetOwnership
+    notes?: string | null
+    Movements?: AssetMovementUncheckedCreateNestedManyWithoutAssetInput
+    Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
+    Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
+    Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
+    ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
+  }
+
+  export type AssetCreateOrConnectWithoutDocumentsInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutDocumentsInput, AssetUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type AssetUpsertWithoutDocumentsInput = {
+    update: XOR<AssetUpdateWithoutDocumentsInput, AssetUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<AssetCreateWithoutDocumentsInput, AssetUncheckedCreateWithoutDocumentsInput>
+    where?: AssetWhereInput
+  }
+
+  export type AssetUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: AssetWhereInput
+    data: XOR<AssetUpdateWithoutDocumentsInput, AssetUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type AssetUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    plate?: NullableStringFieldUpdateOperationsInput | string | null
+    serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    initial_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    maintenance_frequency_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    maintenance_frequency_km?: NullableFloatFieldUpdateOperationsInput | number | null
+    last_maintenance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_maintenance_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    last_maintenance_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    Movements?: AssetMovementUpdateManyWithoutAssetNestedInput
+    assetCategory?: AssetCategoryUpdateOneRequiredWithoutAssetNestedInput
+    Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
+    Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
+    Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    plate?: NullableStringFieldUpdateOperationsInput | string | null
+    serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    initial_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    maintenance_frequency_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    maintenance_frequency_km?: NullableFloatFieldUpdateOperationsInput | number | null
+    last_maintenance_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_maintenance_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    last_maintenance_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assetCategoryId?: StringFieldUpdateOperationsInput | string
+    documentsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ownership?: EnumAssetOwnershipFieldUpdateOperationsInput | $Enums.AssetOwnership
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    Movements?: AssetMovementUncheckedUpdateManyWithoutAssetNestedInput
+    Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
+    Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
+    Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
+    ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
+  }
+
   export type AssetCreateWithoutReadingsInput = {
     id?: string
     brand: string
@@ -49563,6 +51488,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutReadingsInput = {
@@ -49592,6 +51518,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutReadingsInput = {
@@ -49637,6 +51564,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutReadingsInput = {
@@ -49666,6 +51594,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type ContractCreateWithoutClientInput = {
@@ -50276,6 +52205,7 @@ export namespace Prisma {
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutMaintenanceInput = {
@@ -50305,6 +52235,7 @@ export namespace Prisma {
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutMaintenanceInput = {
@@ -50607,6 +52538,7 @@ export namespace Prisma {
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutMaintenanceInput = {
@@ -50636,6 +52568,7 @@ export namespace Prisma {
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type ContractUpsertWithoutMaintenancesInput = {
@@ -51528,6 +53461,7 @@ export namespace Prisma {
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutMovementsInput = {
@@ -51557,6 +53491,7 @@ export namespace Prisma {
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutMovementsInput = {
@@ -51717,6 +53652,7 @@ export namespace Prisma {
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutMovementsInput = {
@@ -51746,6 +53682,7 @@ export namespace Prisma {
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type ContractUpsertWithoutMovementsInput = {
@@ -53024,6 +54961,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutChecklistsInput = {
@@ -53053,6 +54991,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     ProposalItems?: ProposalItemUncheckedCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutChecklistsInput = {
@@ -53212,6 +55151,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutChecklistsInput = {
@@ -53241,6 +55181,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type SupplierUpsertWithoutChecklistsInput = {
@@ -53930,6 +55871,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentCreateNestedManyWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutProposalItemsInput = {
@@ -53959,6 +55901,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedCreateNestedManyWithoutAssetInput
     Readings?: AssetReadingUncheckedCreateNestedManyWithoutAssetInput
     Checklists?: ChecklistUncheckedCreateNestedManyWithoutAssetInput
+    Documents?: AssetDocumentUncheckedCreateNestedManyWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutProposalItemsInput = {
@@ -54088,6 +56031,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutProposalItemsInput = {
@@ -54117,6 +56061,7 @@ export namespace Prisma {
     Maintenance?: MaintenanceUncheckedUpdateManyWithoutAssetNestedInput
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetCategoryUpsertWithoutProposalItemsInput = {
@@ -55830,6 +57775,7 @@ export namespace Prisma {
     Readings?: AssetReadingUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutAssetCategoryInput = {
@@ -55859,6 +57805,7 @@ export namespace Prisma {
     Readings?: AssetReadingUncheckedUpdateManyWithoutAssetNestedInput
     Checklists?: ChecklistUncheckedUpdateManyWithoutAssetNestedInput
     ProposalItems?: ProposalItemUncheckedUpdateManyWithoutAssetNestedInput
+    Documents?: AssetDocumentUncheckedUpdateManyWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutAssetCategoryInput = {
@@ -56015,6 +57962,22 @@ export namespace Prisma {
     monthly_value: Decimal | DecimalJsLike | number | string
     franchise_hours?: number | null
     extra_hour_value?: Decimal | DecimalJsLike | number | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AssetDocumentCreateManyAssetInput = {
+    id?: string
+    document_type: string
+    name: string
+    file_path?: string | null
+    filename?: string | null
+    mime_type?: string | null
+    file_size?: number | null
+    issue_date: Date | string
+    due_date?: Date | string | null
+    no_expiration?: boolean
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -56293,6 +58256,54 @@ export namespace Prisma {
     monthly_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
     extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetDocumentUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    document_type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    file_path?: NullableStringFieldUpdateOperationsInput | string | null
+    filename?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    file_size?: NullableIntFieldUpdateOperationsInput | number | null
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    no_expiration?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetDocumentUncheckedUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    document_type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    file_path?: NullableStringFieldUpdateOperationsInput | string | null
+    filename?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    file_size?: NullableIntFieldUpdateOperationsInput | number | null
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    no_expiration?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetDocumentUncheckedUpdateManyWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    document_type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    file_path?: NullableStringFieldUpdateOperationsInput | string | null
+    filename?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    file_size?: NullableIntFieldUpdateOperationsInput | number | null
+    issue_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    no_expiration?: BoolFieldUpdateOperationsInput | boolean
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

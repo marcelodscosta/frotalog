@@ -19,17 +19,19 @@ export class InMemoryAssetRepository implements IAssetRepository {
       created_at: new Date(),
       updated_at: new Date(),
       is_Active: data.is_Active ?? true,
-      assetCategoryId: data.assetCategoryId ?? null,
+      assetCategoryId: data.assetCategoryId ?? 'mock-category',
       current_horometer: data.current_horometer ?? null,
       current_odometer: data.current_odometer ?? null,
+      initial_horometer: data.initial_horometer ?? null,
+      initial_odometer: data.initial_odometer ?? null,
+      maintenance_frequency_hours: data.maintenance_frequency_hours ?? null,
+      maintenance_frequency_km: data.maintenance_frequency_km ?? null,
       last_maintenance_date: data.last_maintenance_date ? new Date(data.last_maintenance_date) : null,
       last_maintenance_horometer: data.last_maintenance_horometer ?? null,
       last_maintenance_odometer: data.last_maintenance_odometer ?? null,
-      status: data.status ?? 'AVAILABLE',
-      acquisition_date: data.acquisition_date ? new Date(data.acquisition_date) : null,
-      acquisition_value: data.acquisition_value ?? null,
-      invoice_number: data.invoice_number ?? null,
+      documentsUrl: data.documentsUrl ?? null,
       notes: data.notes ?? null,
+      ownership: data.ownership ?? 'OWN',
     } as Asset
     this.items.push(asset)
     return asset
@@ -128,6 +130,29 @@ export class InMemoryAssetRepository implements IAssetRepository {
       pageSize: PAGE_SIZE,
       totalItems,
       totalPages,
+    }
+  }
+
+  async findAllUnpaginated(): Promise<Asset[]> {
+    return this.items.filter((item) => item.is_Active === true)
+  }
+
+  async updateAssetIsActive(id: string, is_Active: boolean): Promise<Asset> {
+    const index = this.items.findIndex((item) => item.id === id)
+    if (index === -1) {
+      throw new AssetNotFoundError()
+    }
+    this.items[index].is_Active = is_Active
+    return this.items[index]
+  }
+
+  async search(params: any): Promise<PaginatedResult<Asset>> {
+    return {
+      items: this.items,
+      currentPage: 1,
+      pageSize: 20,
+      totalItems: this.items.length,
+      totalPages: 1,
     }
   }
 }
