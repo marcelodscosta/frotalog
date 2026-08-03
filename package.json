@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsup src/server.ts src/app.ts --out-dir build",
-    "start": "node build/server.js",
+    "start": "npm run db:migrate && node build/server.js",
     "test": "NODE_ENV=test vitest run",
     "test:watch": "NODE_ENV=test vitest",
     "test:e2e": "NODE_ENV=test vitest run src/http",
