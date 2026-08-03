@@ -94,7 +94,10 @@ export class CreateInvoiceUseCase {
 
     // Find the last invoice (highest number) including inactive ones to avoid collision
     const lastInvoice = await prisma.invoice.findFirst({
-      orderBy: { created_at: 'desc' },
+      where: {
+        invoice_number: { not: null }
+      },
+      orderBy: { invoice_number: 'desc' },
     })
 
     let nextNumber = startNumber
