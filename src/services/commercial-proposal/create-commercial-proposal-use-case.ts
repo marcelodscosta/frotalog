@@ -27,7 +27,11 @@ interface CreateCommercialProposalRequest {
   technical_notes?: string
   observations?: string
   validity_days?: number
+  discount_percentage?: number
+  discount_value?: number
+  follow_up_date?: string | null
   body_html?: string
+  userId?: string
   items?: CreateProposalItem[]
 }
 
@@ -69,7 +73,11 @@ export class CreateCommercialProposalUseCase {
       technical_notes: data.technical_notes,
       observations: data.observations,
       validity_days: data.validity_days,
+      discount_percentage: data.discount_percentage,
+      discount_value: data.discount_value,
+      follow_up_date: data.follow_up_date,
       body_html: data.body_html,
+      userId: data.userId,
     }
 
     if (data.items && data.items.length > 0) {

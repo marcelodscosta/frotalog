@@ -443,12 +443,16 @@ exports.Prisma.CommercialProposalScalarFieldEnum = {
   technical_notes: 'technical_notes',
   observations: 'observations',
   validity_days: 'validity_days',
+  discount_percentage: 'discount_percentage',
+  discount_value: 'discount_value',
+  follow_up_date: 'follow_up_date',
   body_html: 'body_html',
   status: 'status',
   created_at: 'created_at',
   updated_at: 'updated_at',
   is_active: 'is_active',
-  contractId: 'contractId'
+  contractId: 'contractId',
+  userId: 'userId'
 };
 
 exports.Prisma.ProposalItemScalarFieldEnum = {

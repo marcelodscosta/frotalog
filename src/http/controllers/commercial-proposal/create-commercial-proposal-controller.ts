@@ -30,13 +30,17 @@ export async function createCommercialProposal(
     technical_notes: z.string().optional(),
     observations: z.string().optional(),
     validity_days: z.number().int().optional(),
+    discount_percentage: z.number().nonnegative().optional(),
+    discount_value: z.number().nonnegative().optional(),
+    follow_up_date: z.string().optional().nullable(),
     body_html: z.string().optional(),
     items: z.array(createItemSchema).optional(),
   })
 
   const data = createBodySchema.parse(request.body)
+  const userId = (request.user as any)?.id || (request.user as any)?.sub
   const createProposal = makeCreateCommercialProposal()
-  const { proposal } = await createProposal.execute(data)
+  const { proposal } = await createProposal.execute({ ...data, userId })
 
   return reply.status(201).send({ proposal })
 }

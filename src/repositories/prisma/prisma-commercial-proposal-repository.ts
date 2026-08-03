@@ -25,6 +25,7 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
       where: { id },
       include: {
         client: true,
+        user: true,
       },
     })
     return proposal
@@ -50,8 +51,12 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
         include: {
           client: true,
           items: true,
+          user: true,
         },
-        orderBy: { created_at: 'desc' },
+        orderBy: [
+          { client: { company_name: 'asc' } },
+          { created_at: 'desc' }
+        ],
       }),
       prisma.commercialProposal.count({ where: { is_active: true } }),
     ])
@@ -89,8 +94,11 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
         where,
         skip,
         take: PAGE_SIZE,
-        include: { client: true, items: true },
-        orderBy: { created_at: 'desc' },
+        include: { client: true, items: true, user: true },
+        orderBy: [
+          { client: { company_name: 'asc' } },
+          { created_at: 'desc' }
+        ],
       }),
       prisma.commercialProposal.count({ where }),
     ])
@@ -111,7 +119,7 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
   ): Promise<CommercialProposal | null> {
     return await prisma.commercialProposal.findUnique({
       where: { proposal_number },
-      include: { client: true, items: true },
+      include: { client: true, items: true, user: true },
     })
   }
 
@@ -160,8 +168,11 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
         where,
         skip,
         take: PAGE_SIZE,
-        include: { client: true, items: true },
-        orderBy: { created_at: 'desc' },
+        include: { client: true, items: true, user: true },
+        orderBy: [
+          { client: { company_name: 'asc' } },
+          { created_at: 'desc' }
+        ],
       }),
       prisma.commercialProposal.count({ where }),
     ])
@@ -190,6 +201,7 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
       where: { id },
       include: {
         client: true,
+        user: true,
         companySettings: true,
         items: {
           include: {

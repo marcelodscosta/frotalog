@@ -21,6 +21,7 @@ model User {
   updated_at           DateTime      @updatedAt
   is_Active            Boolean       @default(true)
   assignedMaintenances Maintenance[]
+  commercialProposals  CommercialProposal[]
 
   @@map("users")
 }
@@ -516,6 +517,9 @@ model CommercialProposal {
   technical_notes      String?
   observations         String?  @db.Text
   validity_days        Int      @default(5)
+  discount_percentage  Decimal? @db.Decimal(5, 2)
+  discount_value       Decimal? @db.Decimal(10, 2)
+  follow_up_date       DateTime?
 
   body_html String? @db.Text
 
@@ -529,6 +533,10 @@ model CommercialProposal {
   client          Supplier         @relation(fields: [clientId], references: [id])
   companySettings CompanySettings? @relation(fields: [companySettingsId], references: [id])
   contract        Contract?        @relation(fields: [contractId], references: [id])
+  
+  userId          String?
+  user            User?            @relation(fields: [userId], references: [id])
+  
   items           ProposalItem[]
 
   @@map("commercial_proposals")
