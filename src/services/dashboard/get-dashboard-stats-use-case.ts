@@ -348,7 +348,10 @@ export class GetDashboardStatsUseCase {
       assets
     }))
 
-    // Despesas diárias do período selecionado (agrupando múltiplas manutenções por data)
+    // --- CÁLCULO DOS GRÁFICOS E DETALHAMENTO (Unificado via Repositório) ---
+    const monthExpenses = currentMonthSummary.details || []
+
+    // Despesas diárias do período selecionado (agrupando financeiro real por data)
     const dailyExpensesMap = new Map<
       string,
       {
@@ -361,56 +364,46 @@ export class GetDashboardStatsUseCase {
       }
     >()
 
-    const periodStart = params?.startDate
-      ? new Date(params.startDate)
-      : params?.month && params?.year
-        ? new Date(params.year, params.month - 1, 1)
-        : new Date(now.getFullYear(), now.getMonth(), 1)
-    const periodEnd = params?.endDate
-      ? new Date(params.endDate)
-      : params?.month && params?.year
-        ? new Date(params.year, params.month, 0)
-        : new Date(now)
-
-    const recentMaintenances = allMaintenancesItems.filter((m) => {
-      const completedDate = m.completed_date
-        ? new Date(m.completed_date)
-        : new Date(m.scheduled_date)
-      return (
-        completedDate >= periodStart &&
-        completedDate <= periodEnd &&
-        m.status === 'COMPLETED' &&
-        m.actual_cost !== null
-      )
-    })
-
-    recentMaintenances.forEach((m) => {
-      const date = new Date(m.scheduled_date).toLocaleDateString('pt-BR', {
+    monthExpenses.forEach((exp) => {
+      const expDate = exp.created_at ? new Date(exp.created_at) : new Date()
+      const dateKey = expDate.toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: '2-digit',
       })
-      const cost = Number(m.actual_cost) || 0
+      const cost = Number(exp.total_value) || 0
 
-      // Buscar informações do asset
-      const asset = allAssetsItems.find((a) => a.id === m.assetId)
-      const plate = asset?.plate || undefined
-      const assetName = asset ? `${asset.brand} ${asset.model}` : undefined
+      let assetName = undefined
+      let plate = undefined
 
-      // Obter ou criar entrada para esta data
-      const current = dailyExpensesMap.get(date) || {
+      if (exp.maintenance?.asset) {
+        assetName = `${exp.maintenance.asset.brand} ${exp.maintenance.asset.model}`
+        plate = exp.maintenance.asset.plate || undefined
+      } else {
+        const description = exp.description.toUpperCase()
+        const matchedAsset = allAssetsItems.find(a => 
+          (a.plate && description.includes(a.plate.toUpperCase())) ||
+          (a.serial_number && description.includes(a.serial_number.toUpperCase())) ||
+          description.includes(`${a.brand.toUpperCase()} ${a.model.toUpperCase()}`)
+        )
+        if (matchedAsset) {
+          assetName = `${matchedAsset.brand} ${matchedAsset.model}`
+          plate = matchedAsset.plate || undefined
+        }
+      }
+
+      const current = dailyExpensesMap.get(dateKey) || {
         totalExpense: 0,
         maintenances: [],
       }
 
-      // Adicionar esta manutenção à lista
       current.maintenances.push({
         plate,
-        assetName,
+        assetName: assetName || exp.description,
         expense: cost,
       })
       current.totalExpense += cost
 
-      dailyExpensesMap.set(date, current)
+      dailyExpensesMap.set(dateKey, current)
     })
 
     const dailyExpenses = Array.from(dailyExpensesMap.entries())
@@ -425,9 +418,6 @@ export class GetDashboardStatsUseCase {
         if (monthA !== monthB) return monthA - monthB
         return dayA - dayB
       })
-
-    // --- CÁLCULO DOS GRÁFICOS E DETALHAMENTO (Unificado via Repositório) ---
-    const monthExpenses = currentMonthSummary.details || []
 
     // 1. Gráfico de Despesas por Equipamento
     const equipmentExpensesMap = new Map<string, number>()
