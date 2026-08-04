@@ -69,6 +69,8 @@ app.register(fastifyStatic, {
   prefix: '/uploads/',
 })
 
+import { chatRoutes } from './http/controllers/chat/routes'
+
 app.register(authRoutes)
 app.register(assetCategoryRoutes)
 app.register(assetRoutes)
@@ -92,6 +94,7 @@ app.register(commercialProposalRoutes)
 app.register(accountsPayableRoutes)
 app.register(financeRoutes)
 app.register(assetDocumentRoutes)
+app.register(chatRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   const requestId = request.id

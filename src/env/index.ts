@@ -15,6 +15,7 @@ const envSchema = z.object({
   B2_ACCESS_KEY_ID: z.string().optional(),
   B2_SECRET_ACCESS_KEY: z.string().optional(),
   B2_PUBLIC_BASE_URL: z.string().optional(),
+  GEMINI_API_KEY: z.string().optional(),
 })
 
 const _env = envSchema.safeParse(process.env)
