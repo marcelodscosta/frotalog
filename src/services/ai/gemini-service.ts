@@ -319,8 +319,51 @@ export class GeminiService {
       const text = response.text ? response.text() : ''
       return text
     } catch (error) {
-      console.error('Erro ao chamar o Gemini:', error)
-      throw new Error('Falha ao processar a mensagem com a inteligência artificial.')
+      console.error('Erro ao comunicar com o Gemini:', error)
+      throw new Error('Falha ao processar a mensagem com a Inteligência Artificial.')
+    }
+  }
+
+  async analyzePricing(data: any): Promise<string> {
+    if (!this.genAI) {
+      throw new Error('Gemini API Key não está configurada no ambiente.')
+    }
+    const model = this.genAI.getGenerativeModel({ model: 'gemini-flash-latest' })
+
+    const prompt = `Você é um Consultor Financeiro Sênior especialista em locação de frotas e equipamentos.
+Analise a seguinte formação de preço de locação e dê um parecer claro e direto sobre a viabilidade (riscos, se a margem está boa, se a manutenção ou os juros estão coerentes com as práticas de mercado). Não use jargões difíceis, fale como se estivesse aconselhando o dono da locadora. Responda em Markdown.
+
+DADOS DA SIMULAÇÃO:
+- Equipamento / Categoria: ${data.categoryName}
+- Valor do Ativo de Locação: R$ ${data.assetValue.toFixed(2)}
+- Prazo do Contrato: ${data.durationMonths} meses
+- Vida Útil Estimada do Ativo: ${data.usefulLifeMonths} meses
+- Valor Residual Esperado ao final da Vida Útil: ${data.residualValuePerc}%
+- Custo de Capital / TMA: ${data.interestRate}% ao mês
+${data.financingInstallment ? `- Parcela Mensal de Financiamento: R$ ${data.financingInstallment.toFixed(2)}\n` : ''}- Provisão de Manutenção Anual: ${data.maintenancePerc}% do valor do ativo
+- Seguro Anual: ${data.insurancePerc}%
+- IPVA / Taxas Anuais: ${data.ipvaPerc}%
+- Impostos sobre Faturamento: ${data.taxesPerc}%
+- Despesas Administrativas: ${data.adminPerc}%
+- Margem de Lucro Líquida Alvo: ${data.marginPerc}%
+-----------------------
+RESULTADOS CALCULADOS (Considerando a depreciação pela vida útil):
+- Preço da Parcela Sugerida: R$ ${data.suggestedMonthlyPrice.toFixed(2)} por mês
+- Receita Bruta Total do Contrato (${data.durationMonths}m): R$ ${data.totalRevenue.toFixed(2)}
+- Custo Total Estimado no Contrato: R$ ${data.totalCost.toFixed(2)}
+- Lucro Líquido Esperado no Contrato: R$ ${data.netProfit.toFixed(2)}
+
+Por favor, forneça um parecer destacando:
+1. Se a taxa de depreciação e manutenção fazem sentido para o equipamento (${data.categoryName}).
+2. Se o Custo de Capital e a Margem estão protegendo a empresa.
+3. Se a parcela de locação está atrativa ou fora do mercado.`
+
+    try {
+      const result = await model.generateContent(prompt)
+      return result.response.text()
+    } catch (error) {
+      console.error('Erro ao analisar precificação com o Gemini:', error)
+      throw new Error('Falha ao gerar o parecer financeiro.')
     }
   }
 }
