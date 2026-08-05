@@ -5,12 +5,14 @@ import { PrismaSupplierRepository } from '../../repositories/prisma/prisma-suppl
 import { PrismaPayableExpenseRepository } from '../../repositories/prisma/prisma-payable-expense-repository'
 import { PrismaMaintenanceRepository } from '../../repositories/prisma/prisma-maintenance-repository'
 import { PrismaContractRepository } from '../../repositories/prisma/prisma-contract-repository'
+import { PrismaAssetCategoryRepository } from '../../repositories/prisma/prisma-asset-category-repository'
 import { uploadToB2 } from '../../lib/storage'
 
 
 export class GeminiService {
   private genAI: GoogleGenerativeAI | null = null
   private assetRepo: PrismaAssetRepository
+  private assetCategoryRepo: PrismaAssetCategoryRepository
   private supplierRepo: PrismaSupplierRepository
   private expenseRepo: PrismaPayableExpenseRepository
   private maintenanceRepo: PrismaMaintenanceRepository
@@ -21,6 +23,7 @@ export class GeminiService {
       this.genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY)
     }
     this.assetRepo = new PrismaAssetRepository()
+    this.assetCategoryRepo = new PrismaAssetCategoryRepository()
     this.supplierRepo = new PrismaSupplierRepository()
     this.expenseRepo = new PrismaPayableExpenseRepository()
     this.maintenanceRepo = new PrismaMaintenanceRepository()
@@ -86,6 +89,32 @@ export class GeminiService {
               clientName: { type: SchemaType.STRING, description: 'Nome do cliente (opcional)' }
             },
           },
+        },
+        {
+          name: 'searchAssetCategories',
+          description: 'Busca as categorias de veículos/equipamentos disponíveis (necessário para descobrir o ID antes de cadastrar um asset).',
+          parameters: {
+            type: SchemaType.OBJECT,
+            properties: {
+              name: { type: SchemaType.STRING, description: 'Nome da categoria (opcional)' },
+            },
+          },
+        },
+        {
+          name: 'createAsset',
+          description: 'Cadastra um novo veículo ou equipamento no sistema.',
+          parameters: {
+            type: SchemaType.OBJECT,
+            properties: {
+              plate: { type: SchemaType.STRING, description: 'Placa do veículo (obrigatório para carros/motos, opcional para equipamentos)' },
+              brand: { type: SchemaType.STRING, description: 'Marca (ex: Fiat, Ford)' },
+              model: { type: SchemaType.STRING, description: 'Modelo do veículo (ex: Uno, Gol)' },
+              year: { type: SchemaType.NUMBER, description: 'Ano de fabricação' },
+              ownership: { type: SchemaType.STRING, description: 'Propriedade: "OWN" (próprio) ou "THIRD" (terceiro)' },
+              assetCategoryId: { type: SchemaType.STRING, description: 'ID da Categoria (obtido via searchAssetCategories)' },
+            },
+            required: ['brand', 'model', 'ownership', 'assetCategoryId']
+          },
         }
       ]
 
@@ -97,7 +126,7 @@ export class GeminiService {
       const model = this.genAI.getGenerativeModel({
         model: 'gemini-flash-latest',
         tools: [{ functionDeclarations }],
-        systemInstruction: `Você é um assistente analítico e inteligente do sistema Frotalog. Você usa as ferramentas disponíveis para cruzar dados de veículos, financeiro (despesas), manutenções e contratos para responder as perguntas do usuário. Responda de forma humanizada, direta e focada em ajudar a gerenciar a frota. Você agora possui MEMÓRIA e entende o contexto das mensagens anteriores.${userContext}`,
+        systemInstruction: `Você é um assistente analítico e inteligente do sistema Frotalog. Você usa as ferramentas disponíveis para cruzar dados de veículos, financeiro (despesas), manutenções e contratos para responder as perguntas do usuário. Você agora possui permissão para realizar cadastros (como criar veículos) caso o usuário solicite. Não faça alterações destrutivas sem confirmar. Responda de forma humanizada, direta e focada em ajudar a gerenciar a frota. Você agora possui MEMÓRIA e entende o contexto das mensagens anteriores.${userContext}`,
       })
 
       const contents: any[] = history ? [...history] : []
@@ -170,6 +199,35 @@ export class GeminiService {
                 startDate: c.start_date,
                 endDate: c.end_date
               }))
+            }
+          }
+          else if (call.name === 'searchAssetCategories') {
+            const name = (call.args as any)?.name as string | undefined
+            const searchResult = await this.assetCategoryRepo.searchAssetCategory(name || '', 1)
+            apiResponse = {
+              totalFound: searchResult.totalItems,
+              items: searchResult.items.map(c => ({ id: c.id, name: c.name, type: c.type }))
+            }
+          }
+          else if (call.name === 'createAsset') {
+            try {
+              const args = call.args as any
+              const newAsset = await this.assetRepo.create({
+                brand: args.brand,
+                model: args.model,
+                plate: args.plate,
+                year: args.year,
+                ownership: args.ownership,
+                assetCategoryId: args.assetCategoryId,
+                is_Active: true,
+              })
+              apiResponse = { 
+                success: true, 
+                message: 'Veículo cadastrado com sucesso!',
+                assetId: newAsset.id 
+              }
+            } catch (error) {
+              apiResponse = { success: false, error: 'Falha ao cadastrar o veículo. Verifique se a placa já existe ou se os dados estão corretos.' }
             }
           }
 
