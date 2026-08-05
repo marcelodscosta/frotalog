@@ -6,12 +6,7 @@ import { PrismaPayableExpenseRepository } from '../../repositories/prisma/prisma
 import { PrismaMaintenanceRepository } from '../../repositories/prisma/prisma-maintenance-repository'
 import { PrismaContractRepository } from '../../repositories/prisma/prisma-contract-repository'
 import { uploadToB2 } from '../../lib/storage'
-import { marked } from 'marked'
-import { JSDOM } from 'jsdom'
-// @ts-ignore
-import htmlToPdfmake from 'html-to-pdfmake'
-// @ts-ignore
-const PdfPrinter = require('pdfmake/js/printer').default
+
 
 export class GeminiService {
   private genAI: GoogleGenerativeAI | null = null
