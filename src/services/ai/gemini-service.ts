@@ -30,7 +30,7 @@ export class GeminiService {
     this.contractRepo = new PrismaContractRepository()
   }
 
-  async sendMessage(prompt: string, history?: Array<{ role: 'user' | 'model', parts: Array<{ text: string }> }>, userName?: string): Promise<string> {
+  async sendMessage(prompt: string, history?: Array<{ role: 'user' | 'model', parts: Array<any> }>, userName?: string, fileData?: { mimeType: string, base64: string }): Promise<string> {
     if (!this.genAI) {
       throw new Error('Gemini API Key não está configurada no ambiente.')
     }
@@ -115,6 +115,31 @@ export class GeminiService {
             },
             required: ['brand', 'model', 'ownership', 'assetCategoryId']
           },
+        },
+        {
+          name: 'createSupplier',
+          description: 'Cadastra um novo cliente ou fornecedor no sistema.',
+          parameters: {
+            type: SchemaType.OBJECT,
+            properties: {
+              companyName: { type: SchemaType.STRING, description: 'Razão social ou nome da empresa' },
+              cnpj: { type: SchemaType.STRING, description: 'CNPJ da empresa (somente os números, ou formato com pontuação)' },
+              email: { type: SchemaType.STRING, description: 'E-mail de contato' },
+              phone: { type: SchemaType.STRING, description: 'Telefone de contato' },
+              contact: { type: SchemaType.STRING, description: 'Nome da pessoa de contato na empresa' },
+              address: { type: SchemaType.STRING, description: 'Endereço completo (Rua, Número, Bairro)' },
+              city: { type: SchemaType.STRING, description: 'Cidade' },
+              state: { type: SchemaType.STRING, description: 'Estado (UF)' },
+              zipCode: { type: SchemaType.STRING, description: 'CEP' },
+              serviceTypes: { 
+                type: SchemaType.ARRAY, 
+                items: { type: SchemaType.STRING },
+                description: 'Tipos de serviço prestados (ex: Mecânica, Peças, Borracharia)' 
+              },
+              isClient: { type: SchemaType.BOOLEAN, description: 'True se for um Cliente, False se for um Fornecedor' },
+            },
+            required: ['companyName', 'cnpj', 'email', 'phone', 'contact', 'address', 'city', 'state', 'zipCode', 'serviceTypes', 'isClient']
+          },
         }
       ]
 
@@ -126,11 +151,20 @@ export class GeminiService {
       const model = this.genAI.getGenerativeModel({
         model: 'gemini-flash-latest',
         tools: [{ functionDeclarations }],
-        systemInstruction: `Você é um assistente analítico e inteligente do sistema Frotalog. Você usa as ferramentas disponíveis para cruzar dados de veículos, financeiro (despesas), manutenções e contratos para responder as perguntas do usuário. Você agora possui permissão para realizar cadastros (como criar veículos) caso o usuário solicite. Não faça alterações destrutivas sem confirmar. Responda de forma humanizada, direta e focada em ajudar a gerenciar a frota. Você agora possui MEMÓRIA e entende o contexto das mensagens anteriores.${userContext}`,
+        systemInstruction: `Você é um assistente analítico e inteligente do sistema Frotalog. Você usa as ferramentas disponíveis para cruzar dados de veículos, financeiro (despesas), manutenções e contratos para responder as perguntas do usuário. Você agora possui permissão para realizar cadastros (como criar veículos, fornecedores e clientes) caso o usuário solicite. Você pode ler documentos em anexo (como cartões CNPJ, CRLV) para extrair dados. Não faça alterações destrutivas sem confirmar. Responda de forma humanizada, direta e focada em ajudar a gerenciar a frota. Você agora possui MEMÓRIA e entende o contexto das mensagens anteriores.${userContext}`,
       })
 
       const contents: any[] = history ? [...history] : []
-      contents.push({ role: 'user', parts: [{ text: prompt }] })
+      const userParts: any[] = [{ text: prompt }]
+      if (fileData) {
+        userParts.push({
+          inlineData: {
+            data: fileData.base64,
+            mimeType: fileData.mimeType
+          }
+        })
+      }
+      contents.push({ role: 'user', parts: userParts })
 
       let result = await model.generateContent({ contents })
       let response = result.response
@@ -228,6 +262,41 @@ export class GeminiService {
               }
             } catch (error) {
               apiResponse = { success: false, error: 'Falha ao cadastrar o veículo. Verifique se a placa já existe ou se os dados estão corretos.' }
+            }
+          }
+          else if (call.name === 'createSupplier') {
+            try {
+              const args = call.args as any
+              
+              // Remove qualquer caractere que não seja número do CNPJ
+              const cleanCnpj = args.cnpj.replace(/\D/g, '')
+
+              const exists = await this.supplierRepo.findByCNPJ(cleanCnpj)
+              if (exists) {
+                 apiResponse = { success: false, error: 'Já existe um cadastro com este CNPJ no sistema.' }
+              } else {
+                 const newSupplier = await this.supplierRepo.create({
+                   company_name: args.companyName,
+                   cnpj: cleanCnpj,
+                   email: args.email,
+                   phone: args.phone,
+                   contact: args.contact,
+                   address: args.address,
+                   city: args.city,
+                   state: args.state,
+                   zip_code: args.zipCode,
+                   service_types: args.serviceTypes || [],
+                   isClient: args.isClient,
+                   is_Active: true,
+                 })
+                 apiResponse = { 
+                   success: true, 
+                   message: args.isClient ? 'Cliente cadastrado com sucesso!' : 'Fornecedor cadastrado com sucesso!',
+                   supplierId: newSupplier.id 
+                 }
+              }
+            } catch (error) {
+              apiResponse = { success: false, error: 'Falha ao cadastrar no banco de dados. Verifique os dados e tente novamente.' }
             }
           }
 
