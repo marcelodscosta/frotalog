@@ -346,6 +346,19 @@ exports.Prisma.InvoiceScalarFieldEnum = {
   chartOfAccountId: 'chartOfAccountId'
 };
 
+exports.Prisma.InvoiceDocumentScalarFieldEnum = {
+  id: 'id',
+  invoiceId: 'invoiceId',
+  filename: 'filename',
+  original_name: 'original_name',
+  file_path: 'file_path',
+  file_size: 'file_size',
+  mime_type: 'mime_type',
+  document_type: 'document_type',
+  description: 'description',
+  created_at: 'created_at'
+};
+
 exports.Prisma.BulletinExpenseScalarFieldEnum = {
   id: 'id',
   measurementBulletinId: 'measurementBulletinId',
@@ -711,6 +724,7 @@ exports.Prisma.ModelName = {
   AssetMovement: 'AssetMovement',
   MeasurementBulletin: 'MeasurementBulletin',
   Invoice: 'Invoice',
+  InvoiceDocument: 'InvoiceDocument',
   BulletinExpense: 'BulletinExpense',
   CompanySettings: 'CompanySettings',
   ChecklistParameter: 'ChecklistParameter',

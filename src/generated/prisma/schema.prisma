@@ -316,8 +316,26 @@ model Invoice {
   contract             Contract?              @relation(fields: [contractId], references: [id])
   chartOfAccount       ChartOfAccount?        @relation(fields: [chartOfAccountId], references: [id])
   transactions         FinancialTransaction[]
+  documents            InvoiceDocument[]
 
   @@map("invoices")
+}
+
+model InvoiceDocument {
+  id            String   @id @default(uuid())
+  invoiceId     String
+  filename      String
+  original_name String
+  file_path     String
+  file_size     Int
+  mime_type     String
+  document_type String?
+  description   String?
+  created_at    DateTime @default(now())
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@map("invoice_documents")
 }
 
 model BulletinExpense {
