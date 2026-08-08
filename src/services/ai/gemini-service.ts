@@ -158,10 +158,15 @@ Você pode ler documentos em anexo (como cartões CNPJ, CRLV) para extrair dados
             }
           }
 
+          // A API do Gemini exige que o "response" seja um objeto JSON válido (Struct), e não um array ou primitivo.
+          const safeResponse = (apiResponse !== null && typeof apiResponse === 'object' && !Array.isArray(apiResponse))
+            ? apiResponse
+            : { result: apiResponse }
+
           functionResponses.push({
             functionResponse: {
               name: call.name,
-              response: apiResponse
+              response: safeResponse
             }
           })
         }
