@@ -5,6 +5,8 @@ interface GetProposalsMetricsUseCaseRequest {
   query?: string
   status?: ProposalStatus
   clientId?: string
+  startDate?: string
+  endDate?: string
 }
 
 interface GetProposalsMetricsUseCaseResponse {
@@ -21,11 +23,15 @@ export class GetProposalsMetricsUseCase {
     query,
     status,
     clientId,
+    startDate,
+    endDate,
   }: GetProposalsMetricsUseCaseRequest): Promise<GetProposalsMetricsUseCaseResponse> {
     const metrics = await this.proposalsRepository.getMetrics({
       proposal_number: query,
       client: clientId,
       status,
+      startDate,
+      endDate,
     })
 
     return metrics

@@ -7,9 +7,11 @@ export async function getProposalsMetrics(request: FastifyRequest, reply: Fastif
     query: z.string().optional(),
     status: z.enum(['DRAFT', 'SENT', 'APPROVED', 'REJECTED', 'CONVERTED']).optional(),
     clientId: z.string().optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
   })
 
-  const { query, status, clientId } = metricsParamsSchema.parse(request.query)
+  const { query, status, clientId, startDate, endDate } = metricsParamsSchema.parse(request.query)
 
   const getMetricsUseCase = makeGetProposalsMetrics()
 
@@ -17,6 +19,8 @@ export async function getProposalsMetrics(request: FastifyRequest, reply: Fastif
     query,
     status,
     clientId,
+    startDate,
+    endDate,
   })
 
   return reply.status(200).send(metrics)
