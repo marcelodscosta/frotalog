@@ -1,36 +1,17 @@
 import { GoogleGenerativeAI, SchemaType, FunctionDeclaration, Part } from '@google/generative-ai'
 import { env } from '../../env'
-import { PrismaAssetRepository } from '../../repositories/prisma/prisma-asset-repository'
-import { PrismaSupplierRepository } from '../../repositories/prisma/prisma-supplier-repository'
-import { PrismaPayableExpenseRepository } from '../../repositories/prisma/prisma-payable-expense-repository'
-import { PrismaMaintenanceRepository } from '../../repositories/prisma/prisma-maintenance-repository'
-import { PrismaContractRepository } from '../../repositories/prisma/prisma-contract-repository'
-import { PrismaAssetCategoryRepository } from '../../repositories/prisma/prisma-asset-category-repository'
-import { uploadToB2 } from '../../lib/storage'
-
+import { prisma } from '../../lib/prisma'
 
 export class GeminiService {
   private genAI: GoogleGenerativeAI | null = null
-  private assetRepo: PrismaAssetRepository
-  private assetCategoryRepo: PrismaAssetCategoryRepository
-  private supplierRepo: PrismaSupplierRepository
-  private expenseRepo: PrismaPayableExpenseRepository
-  private maintenanceRepo: PrismaMaintenanceRepository
-  private contractRepo: PrismaContractRepository
 
   constructor() {
     if (env.GEMINI_API_KEY) {
       this.genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY)
     }
-    this.assetRepo = new PrismaAssetRepository()
-    this.assetCategoryRepo = new PrismaAssetCategoryRepository()
-    this.supplierRepo = new PrismaSupplierRepository()
-    this.expenseRepo = new PrismaPayableExpenseRepository()
-    this.maintenanceRepo = new PrismaMaintenanceRepository()
-    this.contractRepo = new PrismaContractRepository()
   }
 
-  async sendMessage(prompt: string, history?: Array<{ role: 'user' | 'model', parts: Array<any> }>, userName?: string, fileData?: { mimeType: string, base64: string }): Promise<string> {
+  async sendMessage(prompt: string, history?: Array<{ role: 'user' | 'model', parts: Array<any> }>, userName?: string, fileData?: { mimeType: string, base64: string }, authToken?: string): Promise<string> {
     if (!this.genAI) {
       throw new Error('Gemini API Key não está configurada no ambiente.')
     }
@@ -38,108 +19,30 @@ export class GeminiService {
     try {
       const functionDeclarations: FunctionDeclaration[] = [
         {
-          name: 'searchAssets',
-          description: 'Busca os veículos ou equipamentos (assets) cadastrados na frota.',
+          name: 'executePrismaQuery',
+          description: 'Executa uma consulta de LEITURA no banco de dados Prisma. Use isso para buscar qualquer dado de qualquer tabela no sistema.',
           parameters: {
             type: SchemaType.OBJECT,
             properties: {
-              plate: { type: SchemaType.STRING, description: 'Placa do veículo (opcional)' },
-              brand: { type: SchemaType.STRING, description: 'Marca do veículo (opcional)' },
+              modelName: { type: SchemaType.STRING, description: 'Nome do model (ex: user, asset, supplier, maintenance, contract, invoice, payableExpense, etc)' },
+              operation: { type: SchemaType.STRING, description: 'Operação Prisma (ex: findMany, findUnique, findFirst, count, aggregate)' },
+              queryArgs: { type: SchemaType.STRING, description: 'String JSON com os argumentos (ex: {"where": {"status": "ACTIVE"}, "include": {"client": true}}). Use chaves e valores válidos para o Prisma.' }
             },
-          },
+            required: ['modelName', 'operation', 'queryArgs']
+          }
         },
         {
-          name: 'searchSuppliers',
-          description: 'Busca os fornecedores cadastrados no sistema.',
+          name: 'callInternalAPI',
+          description: 'Faz uma requisição HTTP para a API interna do sistema. OBRIGATÓRIO usar isso para CRIAR, ATUALIZAR ou DELETAR registros (POST, PUT, DELETE, PATCH). NUNCA use executePrismaQuery para alterar dados.',
           parameters: {
             type: SchemaType.OBJECT,
             properties: {
-              companyName: { type: SchemaType.STRING, description: 'Nome do fornecedor (opcional)' },
+              method: { type: SchemaType.STRING, description: 'Método HTTP (POST, PUT, DELETE, PATCH)' },
+              endpoint: { type: SchemaType.STRING, description: 'Caminho da API (ex: /assets, /suppliers, /maintenances, /contracts)' },
+              body: { type: SchemaType.STRING, description: 'Corpo da requisição em JSON (ex: {"brand": "Fiat", "model": "Uno"}). Passe nulo se não houver body.' }
             },
-          },
-        },
-        {
-          name: 'getExpenseSummary',
-          description: 'Puxa o painel financeiro geral de um mês específico (contas a pagar vencidas, para hoje, pagas, e total).',
-          parameters: {
-            type: SchemaType.OBJECT,
-            properties: {
-              month: { type: SchemaType.NUMBER, description: 'Mês (1-12)' },
-              year: { type: SchemaType.NUMBER, description: 'Ano (ex: 2026)' },
-            },
-            required: ['month', 'year']
-          },
-        },
-        {
-          name: 'searchMaintenances',
-          description: 'Busca manutenções no sistema. Pode buscar por status (SCHEDULED, IN_PROGRESS, COMPLETED, CANCELLED).',
-          parameters: {
-            type: SchemaType.OBJECT,
-            properties: {
-              status: { type: SchemaType.STRING, description: 'Status da manutenção' },
-            },
-          },
-        },
-        {
-          name: 'searchContracts',
-          description: 'Busca contratos ativos e seus status.',
-          parameters: {
-            type: SchemaType.OBJECT,
-            properties: {
-              clientName: { type: SchemaType.STRING, description: 'Nome do cliente (opcional)' }
-            },
-          },
-        },
-        {
-          name: 'searchAssetCategories',
-          description: 'Busca as categorias de veículos/equipamentos disponíveis (necessário para descobrir o ID antes de cadastrar um asset).',
-          parameters: {
-            type: SchemaType.OBJECT,
-            properties: {
-              name: { type: SchemaType.STRING, description: 'Nome da categoria (opcional)' },
-            },
-          },
-        },
-        {
-          name: 'createAsset',
-          description: 'Cadastra um novo veículo ou equipamento no sistema.',
-          parameters: {
-            type: SchemaType.OBJECT,
-            properties: {
-              plate: { type: SchemaType.STRING, description: 'Placa do veículo (obrigatório para carros/motos, opcional para equipamentos)' },
-              brand: { type: SchemaType.STRING, description: 'Marca (ex: Fiat, Ford)' },
-              model: { type: SchemaType.STRING, description: 'Modelo do veículo (ex: Uno, Gol)' },
-              year: { type: SchemaType.NUMBER, description: 'Ano de fabricação' },
-              ownership: { type: SchemaType.STRING, description: 'Propriedade: "OWN" (próprio) ou "THIRD" (terceiro)' },
-              assetCategoryId: { type: SchemaType.STRING, description: 'ID da Categoria (obtido via searchAssetCategories)' },
-            },
-            required: ['brand', 'model', 'ownership', 'assetCategoryId']
-          },
-        },
-        {
-          name: 'createSupplier',
-          description: 'Cadastra um novo cliente ou fornecedor no sistema.',
-          parameters: {
-            type: SchemaType.OBJECT,
-            properties: {
-              companyName: { type: SchemaType.STRING, description: 'Razão social ou nome da empresa' },
-              cnpj: { type: SchemaType.STRING, description: 'CNPJ da empresa (somente os números, ou formato com pontuação)' },
-              email: { type: SchemaType.STRING, description: 'E-mail de contato' },
-              phone: { type: SchemaType.STRING, description: 'Telefone de contato' },
-              contact: { type: SchemaType.STRING, description: 'Nome da pessoa de contato na empresa' },
-              address: { type: SchemaType.STRING, description: 'Endereço completo (Rua, Número, Bairro)' },
-              city: { type: SchemaType.STRING, description: 'Cidade' },
-              state: { type: SchemaType.STRING, description: 'Estado (UF)' },
-              zipCode: { type: SchemaType.STRING, description: 'CEP' },
-              serviceTypes: { 
-                type: SchemaType.ARRAY, 
-                items: { type: SchemaType.STRING },
-                description: 'Tipos de serviço prestados (ex: Mecânica, Peças, Borracharia)' 
-              },
-              isClient: { type: SchemaType.BOOLEAN, description: 'True se for um Cliente, False se for um Fornecedor' },
-            },
-            required: ['companyName', 'cnpj', 'email', 'phone', 'contact', 'address', 'city', 'state', 'zipCode', 'serviceTypes', 'isClient']
-          },
+            required: ['method', 'endpoint']
+          }
         }
       ]
 
@@ -148,10 +51,22 @@ export class GeminiService {
         ? ` O usuário atual se chama ${userName}.${isNewConversation ? ` Como esta é a primeira mensagem da conversa, cumprimente-o educadamente pelo nome no início da resposta (ex: "Olá ${userName}, tudo bem?").` : ''}` 
         : ''
 
+      const systemInstruction = `Você é um assistente analítico e super inteligente do sistema Frotalog. Você tem 100% de acesso aos dados.
+Sempre que precisar BUSCAR ou RESPONDER perguntas sobre dados, use a ferramenta 'executePrismaQuery'.
+Sempre que o usuário pedir para CADASTRAR, CRIAR ou ALTERAR algo, use a ferramenta 'callInternalAPI' para manter a segurança das regras de negócio da API. Você não precisa pedir confirmação para buscar dados, mas se for alterar algo importante, confirme antes.
+
+Tabelas do Banco (Prisma):
+- user, assetCategory, asset, assetDocument, assetReading, supplier (isClient=true para clientes), serviceCategory, maintenance, maintenanceDocument, contract, assetMovement, measurementBulletin, invoice, bulletinExpense, checklist, commercialProposal, proposalItem, bankAccount, payableExpense, expenseInstallment, financialTransaction, chartOfAccount.
+
+Dicas de API:
+Rotas seguem o padrão REST (ex: POST /assets, POST /suppliers).
+Não use crases \`\`\` para formatar a string de queryArgs ou body, passe diretamente um JSON stringificado simples.
+Você pode ler documentos em anexo (como cartões CNPJ, CRLV) para extrair dados. Responda de forma humanizada e focada em ajudar a gerenciar a frota.${userContext}`
+
       const model = this.genAI.getGenerativeModel({
         model: 'gemini-flash-latest',
         tools: [{ functionDeclarations }],
-        systemInstruction: `Você é um assistente analítico e inteligente do sistema Frotalog. Você usa as ferramentas disponíveis para cruzar dados de veículos, financeiro (despesas), manutenções e contratos para responder as perguntas do usuário. Você agora possui permissão para realizar cadastros (como criar veículos, fornecedores e clientes) caso o usuário solicite. Você pode ler documentos em anexo (como cartões CNPJ, CRLV) para extrair dados. Não faça alterações destrutivas sem confirmar. Responda de forma humanizada, direta e focada em ajudar a gerenciar a frota. Você agora possui MEMÓRIA e entende o contexto das mensagens anteriores.${userContext}`,
+        systemInstruction,
       })
 
       const contents: any[] = history ? [...history] : []
@@ -171,7 +86,6 @@ export class GeminiService {
 
       let functionCalls = response.functionCalls()
       while (functionCalls && functionCalls.length > 0) {
-        // Save the model's function call response to history
         contents.push(response.candidates![0].content)
 
         const functionResponses: Part[] = []
@@ -179,124 +93,68 @@ export class GeminiService {
         for (const call of functionCalls) {
           let apiResponse: any = null
           
-          if (call.name === 'searchAssets') {
-            const plate = (call.args as any)?.plate as string | undefined
-            const brand = (call.args as any)?.brand as string | undefined
-            const searchResult = await this.assetRepo.search({ plate, brand, page: 1 })
-            apiResponse = { 
-              totalFound: searchResult.totalItems,
-              items: searchResult.items.map(i => ({ model: i.model, brand: i.brand, plate: i.plate, year: i.year }))
+          if (call.name === 'executePrismaQuery') {
+            try {
+              const args = call.args as any
+              const modelName = args.modelName
+              const operation = args.operation
+              let queryArgs = {}
+              if (args.queryArgs && args.queryArgs.trim() !== '') {
+                queryArgs = JSON.parse(args.queryArgs)
+              }
+              
+              const prismaModel = (prisma as any)[modelName]
+              if (!prismaModel || typeof prismaModel[operation] !== 'function') {
+                apiResponse = { error: `Modelo ${modelName} ou operação ${operation} inválidos no Prisma.` }
+              } else {
+                // Previne alterações acidentais via executePrismaQuery
+                if (['create', 'update', 'delete', 'upsert', 'createMany', 'updateMany', 'deleteMany'].includes(operation)) {
+                  apiResponse = { error: 'Operações de escrita devem ser feitas via callInternalAPI para respeitar regras de negócio.' }
+                } else {
+                  apiResponse = await prismaModel[operation](queryArgs)
+                }
+              }
+            } catch (error: any) {
+              apiResponse = { error: `Falha ao executar query: ${error.message}` }
             }
           } 
-          else if (call.name === 'searchSuppliers') {
-            const companyName = (call.args as any)?.companyName as string | undefined
-            if (companyName) {
-              const searchResult = await this.supplierRepo.findByCompanyName(1, companyName)
-              apiResponse = {
-                totalFound: searchResult.totalItems,
-                items: searchResult.items.map(s => ({ name: s.company_name, cnpj: s.cnpj }))
-              }
-            } else {
-              const all = await this.supplierRepo.findAllUnpaginated()
-              apiResponse = {
-                totalFound: all.length,
-                items: all.slice(0, 20).map(s => ({ name: s.company_name, cnpj: s.cnpj }))
-              }
-            }
-          }
-          else if (call.name === 'getExpenseSummary') {
-            const month = (call.args as any)?.month as number
-            const year = (call.args as any)?.year as number
-            apiResponse = await this.expenseRepo.getSummary(month, year)
-          }
-          else if (call.name === 'searchMaintenances') {
-            const status = (call.args as any)?.status as string | undefined
-            const searchResult = await this.maintenanceRepo.findAll({ page: 1, status })
-            apiResponse = {
-              totalFound: searchResult.totalItems,
-              items: searchResult.items.map(m => ({
-                type: m.type,
-                status: m.status,
-                assetPlate: m.asset?.plate,
-                scheduledDate: m.scheduled_date
-              }))
-            }
-          }
-          else if (call.name === 'searchContracts') {
-            const searchResult = await this.contractRepo.findAllUnpaginated()
-            apiResponse = {
-              totalFound: searchResult.length,
-              items: searchResult.map(c => ({
-                number: c.contract_number,
-                status: c.status,
-                amount: c.total_value,
-                startDate: c.start_date,
-                endDate: c.end_date
-              }))
-            }
-          }
-          else if (call.name === 'searchAssetCategories') {
-            const name = (call.args as any)?.name as string | undefined
-            const searchResult = await this.assetCategoryRepo.searchAssetCategory(name || '', 1)
-            apiResponse = {
-              totalFound: searchResult.totalItems,
-              items: searchResult.items.map(c => ({ id: c.id, name: c.name, type: c.type }))
-            }
-          }
-          else if (call.name === 'createAsset') {
+          else if (call.name === 'callInternalAPI') {
             try {
               const args = call.args as any
-              const newAsset = await this.assetRepo.create({
-                brand: args.brand,
-                model: args.model,
-                plate: args.plate,
-                year: args.year,
-                ownership: args.ownership,
-                assetCategoryId: args.assetCategoryId,
-                is_Active: true,
-              })
-              apiResponse = { 
-                success: true, 
-                message: 'Veículo cadastrado com sucesso!',
-                assetId: newAsset.id 
-              }
-            } catch (error) {
-              apiResponse = { success: false, error: 'Falha ao cadastrar o veículo. Verifique se a placa já existe ou se os dados estão corretos.' }
-            }
-          }
-          else if (call.name === 'createSupplier') {
-            try {
-              const args = call.args as any
+              const method = args.method.toUpperCase()
+              let endpoint = args.endpoint
+              if (!endpoint.startsWith('/')) endpoint = '/' + endpoint
               
-              // Remove qualquer caractere que não seja número do CNPJ
-              const cleanCnpj = args.cnpj.replace(/\D/g, '')
-
-              const exists = await this.supplierRepo.findByCNPJ(cleanCnpj)
-              if (exists) {
-                 apiResponse = { success: false, error: 'Já existe um cadastro com este CNPJ no sistema.' }
-              } else {
-                 const newSupplier = await this.supplierRepo.create({
-                   company_name: args.companyName,
-                   cnpj: cleanCnpj,
-                   email: args.email,
-                   phone: args.phone,
-                   contact: args.contact,
-                   address: args.address,
-                   city: args.city,
-                   state: args.state,
-                   zip_code: args.zipCode,
-                   service_types: args.serviceTypes || [],
-                   isClient: args.isClient,
-                   is_Active: true,
-                 })
-                 apiResponse = { 
-                   success: true, 
-                   message: args.isClient ? 'Cliente cadastrado com sucesso!' : 'Fornecedor cadastrado com sucesso!',
-                   supplierId: newSupplier.id 
-                 }
+              const url = `http://localhost:3333${endpoint}`
+              const fetchOptions: RequestInit = {
+                method,
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': authToken || ''
+                }
               }
-            } catch (error) {
-              apiResponse = { success: false, error: 'Falha ao cadastrar no banco de dados. Verifique os dados e tente novamente.' }
+              
+              if (args.body && args.body.trim() !== '') {
+                fetchOptions.body = typeof args.body === 'string' ? args.body : JSON.stringify(args.body)
+              }
+              
+              const res = await fetch(url, fetchOptions)
+              const contentType = res.headers.get('content-type')
+              
+              let data
+              if (contentType && contentType.includes('application/json')) {
+                data = await res.json()
+              } else {
+                data = await res.text()
+              }
+              
+              apiResponse = {
+                status: res.status,
+                ok: res.ok,
+                data
+              }
+            } catch (error: any) {
+              apiResponse = { error: `Falha ao chamar API: ${error.message}` }
             }
           }
 
@@ -308,14 +166,12 @@ export class GeminiService {
           })
         }
 
-        // Send back the function responses as 'user' role
         contents.push({ role: 'user', parts: functionResponses })
         result = await model.generateContent({ contents })
         response = result.response
         functionCalls = response.functionCalls()
       }
 
-      // Check if text is present to avoid crashing if it only contains functionCalls
       const text = response.text ? response.text() : ''
       return text
     } catch (error) {

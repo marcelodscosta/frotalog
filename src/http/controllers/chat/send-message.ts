@@ -49,9 +49,11 @@ export async function sendMessage(request: FastifyRequest, reply: FastifyReply) 
   const { user } = await getUserById.execute({ id: userId })
   const userName = user.name
 
+  const authToken = request.headers.authorization
+
   const geminiService = new GeminiService()
   
-  const response = await geminiService.sendMessage(prompt, history, userName, fileData)
+  const response = await geminiService.sendMessage(prompt, history, userName, fileData, authToken)
 
   return reply.status(200).send({ response })
 }
