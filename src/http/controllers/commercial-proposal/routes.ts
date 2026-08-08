@@ -4,6 +4,7 @@ import { searchCommercialProposals } from './search-commercial-proposals-control
 import { getCommercialProposal } from './get-commercial-proposal-controller'
 import { updateCommercialProposal } from './update-commercial-proposal-controller'
 import { convertProposalToContract } from './convert-proposal-to-contract-controller'
+import { updateProposalStatus } from './update-proposal-status-controller'
 import { fetchAllProposalsUnpaginated } from './fetch-all-proposals-unpaginated-controller'
 import { deleteCommercialProposal } from './delete-commercial-proposal-controller'
 import { getProposalsMetrics } from './get-proposals-metrics-controller'
@@ -15,6 +16,7 @@ export async function commercialProposalRoutes(app: FastifyInstance) {
   app.get('/proposals/search', searchCommercialProposals)
   app.get('/proposals/:id', getCommercialProposal)
   app.put('/proposals/:id', updateCommercialProposal)
+  app.patch('/proposals/:id/status', updateProposalStatus)
   app.post('/proposals/convert', convertProposalToContract)
   app.delete('/proposals/:id', deleteCommercialProposal)
 }

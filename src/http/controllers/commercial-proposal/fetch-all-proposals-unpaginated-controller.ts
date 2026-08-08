@@ -7,8 +7,7 @@ export async function fetchAllProposalsUnpaginated(
 ) {
   const proposals = await prisma.commercialProposal.findMany({
     where: { 
-      is_active: true,
-      status: { in: ['DRAFT', 'SENT', 'APPROVED'] }
+      is_active: true
     },
     include: {
       client: true,

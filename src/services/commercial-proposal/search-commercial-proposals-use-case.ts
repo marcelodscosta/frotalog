@@ -7,6 +7,8 @@ interface SearchCommercialProposalsUseCaseRequest {
   query?: string
   status?: ProposalStatus
   clientId?: string
+  startDate?: string
+  endDate?: string
 }
 
 interface SearchCommercialProposalsUseCaseResponse {
@@ -24,12 +26,16 @@ export class SearchCommercialProposalsUseCase {
     query,
     status,
     clientId,
+    startDate,
+    endDate,
   }: SearchCommercialProposalsUseCaseRequest): Promise<SearchCommercialProposalsUseCaseResponse> {
     const result = await this.proposalsRepository.search({
       page,
       proposal_number: query,
       client: clientId,
       status,
+      startDate,
+      endDate,
     })
 
     return result

@@ -9,9 +9,11 @@ export async function searchCommercialProposals(request: FastifyRequest, reply: 
     query: z.string().optional(),
     status: z.enum(['DRAFT', 'SENT', 'APPROVED', 'REJECTED', 'CONVERTED']).optional(),
     clientId: z.string().optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
   })
 
-  const { page, pageSize, query, status, clientId } = searchParamsSchema.parse(request.query)
+  const { page, pageSize, query, status, clientId, startDate, endDate } = searchParamsSchema.parse(request.query)
 
   const searchProposalsUseCase = makeSearchCommercialProposals()
 
@@ -21,6 +23,8 @@ export async function searchCommercialProposals(request: FastifyRequest, reply: 
     query,
     status,
     clientId,
+    startDate,
+    endDate,
   })
 
   return reply.status(200).send(result)

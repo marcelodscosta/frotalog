@@ -54,7 +54,6 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
           user: true,
         },
         orderBy: [
-          { client: { company_name: 'asc' } },
           { created_at: 'desc' }
         ],
       }),
@@ -96,7 +95,6 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
         take: PAGE_SIZE,
         include: { client: true, items: true, user: true },
         orderBy: [
-          { client: { company_name: 'asc' } },
           { created_at: 'desc' }
         ],
       }),
@@ -128,17 +126,36 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
     client,
     status,
     page,
+    startDate,
+    endDate,
   }: {
     proposal_number?: string
     client?: string
     status?: ProposalStatus
     page: number
+    startDate?: string
+    endDate?: string
   }): Promise<PaginatedResult<CommercialProposal>> {
     const PAGE_SIZE = 20
     const skip = (page - 1) * PAGE_SIZE
 
     const where: Prisma.CommercialProposalWhereInput = {
       is_active: true,
+    }
+
+    if (startDate || endDate) {
+      const createdAtFilter: any = {}
+      if (startDate) {
+        // Assume que a data inicial seja 00:00:00 do dia em UTC
+        createdAtFilter.gte = new Date(startDate)
+      }
+      if (endDate) {
+        // Garante que a data final pegue até 23:59:59.999 do dia
+        const end = new Date(endDate)
+        end.setUTCHours(23, 59, 59, 999)
+        createdAtFilter.lte = end
+      }
+      where.created_at = createdAtFilter
     }
 
     if (proposal_number) {
@@ -170,7 +187,6 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
         take: PAGE_SIZE,
         include: { client: true, items: true, user: true },
         orderBy: [
-          { client: { company_name: 'asc' } },
           { created_at: 'desc' }
         ],
       }),
@@ -222,10 +238,14 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
     proposal_number,
     client,
     status,
+    startDate,
+    endDate,
   }: {
     proposal_number?: string
     client?: string
     status?: ProposalStatus
+    startDate?: string
+    endDate?: string
   }): Promise<{
     totalCount: number
     totalValue: number
@@ -234,6 +254,19 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
   }> {
     const where: Prisma.CommercialProposalWhereInput = {
       is_active: true,
+    }
+
+    if (startDate || endDate) {
+      const createdAtFilter: any = {}
+      if (startDate) {
+        createdAtFilter.gte = new Date(startDate)
+      }
+      if (endDate) {
+        const end = new Date(endDate)
+        end.setUTCHours(23, 59, 59, 999)
+        createdAtFilter.lte = end
+      }
+      where.created_at = createdAtFilter
     }
 
     if (proposal_number) {
