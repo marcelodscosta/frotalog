@@ -377,6 +377,8 @@ model CompanySettings {
 enum Role {
   ADMIN
   EMPLOYEE
+  FINANCEIRO
+  OPERACIONAL
 }
 
 enum AssetType {

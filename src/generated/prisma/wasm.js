@@ -589,7 +589,9 @@ exports.Prisma.NullsOrder = {
 };
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
-  EMPLOYEE: 'EMPLOYEE'
+  EMPLOYEE: 'EMPLOYEE',
+  FINANCEIRO: 'FINANCEIRO',
+  OPERACIONAL: 'OPERACIONAL'
 };
 
 exports.AssetType = exports.$Enums.AssetType = {

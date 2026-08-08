@@ -7,7 +7,7 @@ export async function getUserByRole(
   reply: FastifyReply,
 ) {
   const querySchema = z.object({
-    role: z.enum(['ADMIN', 'EMPLOYEE']),
+    role: z.enum(['ADMIN', 'EMPLOYEE', 'FINANCEIRO', 'OPERACIONAL']),
     page: z.coerce.number().min(1).default(1),
   })
 

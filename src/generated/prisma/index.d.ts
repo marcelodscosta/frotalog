@@ -160,7 +160,9 @@ export type ChartOfAccount = $Result.DefaultSelection<Prisma.$ChartOfAccountPayl
 export namespace $Enums {
   export const Role: {
   ADMIN: 'ADMIN',
-  EMPLOYEE: 'EMPLOYEE'
+  EMPLOYEE: 'EMPLOYEE',
+  FINANCEIRO: 'FINANCEIRO',
+  OPERACIONAL: 'OPERACIONAL'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]

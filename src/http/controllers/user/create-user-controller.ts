@@ -11,7 +11,7 @@ export async function createUser(
     email: z.string().email(),
     phone: z.string().optional(),
     password_hash: z.string().min(6),
-    role: z.enum(['ADMIN', 'EMPLOYEE']).optional(),
+    role: z.enum(['ADMIN', 'EMPLOYEE', 'FINANCEIRO', 'OPERACIONAL']).optional(),
     avatar: z.string().optional(),
   })
 
