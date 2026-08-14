@@ -19,6 +19,7 @@ export async function updateCommercialProposal(
   const updateBodySchema = z.object({
     proposal_number: z.string().min(3),
     clientId: z.string(),
+    userId: z.string().uuid().optional().nullable(),
     companySettingsId: z.string().optional(),
     contact_name: z.string().optional(),
     contact_phone: z.string().optional(),

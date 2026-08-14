@@ -16,6 +16,7 @@ interface UpdateCommercialProposalRequest {
   id: string
   proposal_number: string
   clientId: string
+  userId?: string | null
   companySettingsId?: string
   contact_name?: string
   contact_phone?: string
@@ -57,6 +58,9 @@ export class UpdateCommercialProposalUseCase {
       validity_days: data.validity_days,
       body_html: data.body_html,
       status: data.status as any,
+      user: data.userId !== undefined
+        ? (data.userId ? { connect: { id: data.userId } } : { disconnect: true })
+        : undefined,
     }
 
     if (data.items) {
