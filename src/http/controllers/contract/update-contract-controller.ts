@@ -27,6 +27,10 @@ export async function updateContract(
     is_Active: z.boolean().optional(),
     body_html: z.string().nullable().optional(),
     signed_contract_url: z.string().nullable().optional(),
+    sellerId: z.string().uuid().nullable().optional(),
+    commission_percentage: z.number().nullable().optional(),
+    commission_start_date: z.coerce.date().nullable().optional(),
+    commission_end_date: z.coerce.date().nullable().optional(),
   })
 
   const { id } = updateParamsSchema.parse(request.params)

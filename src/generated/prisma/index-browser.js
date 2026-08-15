@@ -280,7 +280,11 @@ exports.Prisma.ContractScalarFieldEnum = {
   updated_at: 'updated_at',
   is_Active: 'is_Active',
   body_html: 'body_html',
-  signed_contract_url: 'signed_contract_url'
+  signed_contract_url: 'signed_contract_url',
+  sellerId: 'sellerId',
+  commission_percentage: 'commission_percentage',
+  commission_start_date: 'commission_start_date',
+  commission_end_date: 'commission_end_date'
 };
 
 exports.Prisma.AssetMovementScalarFieldEnum = {
@@ -484,6 +488,22 @@ exports.Prisma.ProposalItemScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.CommissionScalarFieldEnum = {
+  id: 'id',
+  contractId: 'contractId',
+  sellerId: 'sellerId',
+  measurementBulletinId: 'measurementBulletinId',
+  reference_month: 'reference_month',
+  base_value: 'base_value',
+  commission_percentage: 'commission_percentage',
+  commission_value: 'commission_value',
+  notes: 'notes',
+  status: 'status',
+  paid_at: 'paid_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.BankAccountScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -673,6 +693,12 @@ exports.ProposalStatus = exports.$Enums.ProposalStatus = {
   CONVERTED: 'CONVERTED'
 };
 
+exports.CommissionStatus = exports.$Enums.CommissionStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  PAID: 'PAID'
+};
+
 exports.PaymentMethod = exports.$Enums.PaymentMethod = {
   BOLETO: 'BOLETO',
   PIX: 'PIX',
@@ -735,6 +761,7 @@ exports.Prisma.ModelName = {
   ChecklistAnswer: 'ChecklistAnswer',
   CommercialProposal: 'CommercialProposal',
   ProposalItem: 'ProposalItem',
+  Commission: 'Commission',
   BankAccount: 'BankAccount',
   PayableExpense: 'PayableExpense',
   ExpenseInstallment: 'ExpenseInstallment',

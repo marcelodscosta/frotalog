@@ -124,6 +124,11 @@ export type CommercialProposal = $Result.DefaultSelection<Prisma.$CommercialProp
  */
 export type ProposalItem = $Result.DefaultSelection<Prisma.$ProposalItemPayload>
 /**
+ * Model Commission
+ * 
+ */
+export type Commission = $Result.DefaultSelection<Prisma.$CommissionPayload>
+/**
  * Model BankAccount
  * 
  */
@@ -283,6 +288,15 @@ export const ProposalStatus: {
 export type ProposalStatus = (typeof ProposalStatus)[keyof typeof ProposalStatus]
 
 
+export const CommissionStatus: {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  PAID: 'PAID'
+};
+
+export type CommissionStatus = (typeof CommissionStatus)[keyof typeof CommissionStatus]
+
+
 export const PayableExpenseStatus: {
   PENDING_MAINTENANCE_APPROVAL: 'PENDING_MAINTENANCE_APPROVAL',
   PENDING_FINANCE_APPROVAL: 'PENDING_FINANCE_APPROVAL',
@@ -389,6 +403,10 @@ export const ChecklistStatus: typeof $Enums.ChecklistStatus
 export type ProposalStatus = $Enums.ProposalStatus
 
 export const ProposalStatus: typeof $Enums.ProposalStatus
+
+export type CommissionStatus = $Enums.CommissionStatus
+
+export const CommissionStatus: typeof $Enums.CommissionStatus
 
 export type PayableExpenseStatus = $Enums.PayableExpenseStatus
 
@@ -747,6 +765,16 @@ export class PrismaClient<
     * ```
     */
   get proposalItem(): Prisma.ProposalItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.commission`: Exposes CRUD operations for the **Commission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Commissions
+    * const commissions = await prisma.commission.findMany()
+    * ```
+    */
+  get commission(): Prisma.CommissionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.bankAccount`: Exposes CRUD operations for the **BankAccount** model.
@@ -1269,6 +1297,7 @@ export namespace Prisma {
     ChecklistAnswer: 'ChecklistAnswer',
     CommercialProposal: 'CommercialProposal',
     ProposalItem: 'ProposalItem',
+    Commission: 'Commission',
     BankAccount: 'BankAccount',
     PayableExpense: 'PayableExpense',
     ExpenseInstallment: 'ExpenseInstallment',
@@ -1293,7 +1322,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "assetCategory" | "asset" | "assetDocument" | "assetReading" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement" | "measurementBulletin" | "invoice" | "invoiceDocument" | "bulletinExpense" | "companySettings" | "checklistParameter" | "checklistItemTemplate" | "checklist" | "checklistAnswer" | "commercialProposal" | "proposalItem" | "bankAccount" | "payableExpense" | "expenseInstallment" | "expenseDocument" | "financialTransaction" | "chartOfAccount"
+      modelProps: "user" | "assetCategory" | "asset" | "assetDocument" | "assetReading" | "supplier" | "serviceCategory" | "maintenance" | "maintenanceDocument" | "contract" | "assetMovement" | "measurementBulletin" | "invoice" | "invoiceDocument" | "bulletinExpense" | "companySettings" | "checklistParameter" | "checklistItemTemplate" | "checklist" | "checklistAnswer" | "commercialProposal" | "proposalItem" | "commission" | "bankAccount" | "payableExpense" | "expenseInstallment" | "expenseDocument" | "financialTransaction" | "chartOfAccount"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2925,6 +2954,80 @@ export namespace Prisma {
           }
         }
       }
+      Commission: {
+        payload: Prisma.$CommissionPayload<ExtArgs>
+        fields: Prisma.CommissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload>
+          }
+          findFirst: {
+            args: Prisma.CommissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload>
+          }
+          findMany: {
+            args: Prisma.CommissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload>[]
+          }
+          create: {
+            args: Prisma.CommissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload>
+          }
+          createMany: {
+            args: Prisma.CommissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload>[]
+          }
+          delete: {
+            args: Prisma.CommissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload>
+          }
+          update: {
+            args: Prisma.CommissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommissionPayload>
+          }
+          aggregate: {
+            args: Prisma.CommissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommission>
+          }
+          groupBy: {
+            args: Prisma.CommissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommissionCountArgs<ExtArgs>
+            result: $Utils.Optional<CommissionCountAggregateOutputType> | number
+          }
+        }
+      }
       BankAccount: {
         payload: Prisma.$BankAccountPayload<ExtArgs>
         fields: Prisma.BankAccountFieldRefs
@@ -3483,6 +3586,7 @@ export namespace Prisma {
     checklistAnswer?: ChecklistAnswerOmit
     commercialProposal?: CommercialProposalOmit
     proposalItem?: ProposalItemOmit
+    commission?: CommissionOmit
     bankAccount?: BankAccountOmit
     payableExpense?: PayableExpenseOmit
     expenseInstallment?: ExpenseInstallmentOmit
@@ -3571,11 +3675,15 @@ export namespace Prisma {
   export type UserCountOutputType = {
     assignedMaintenances: number
     commercialProposals: number
+    commissions: number
+    sellerContracts: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assignedMaintenances?: boolean | UserCountOutputTypeCountAssignedMaintenancesArgs
     commercialProposals?: boolean | UserCountOutputTypeCountCommercialProposalsArgs
+    commissions?: boolean | UserCountOutputTypeCountCommissionsArgs
+    sellerContracts?: boolean | UserCountOutputTypeCountSellerContractsArgs
   }
 
   // Custom InputTypes
@@ -3601,6 +3709,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCommercialProposalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommercialProposalWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommissionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSellerContractsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContractWhereInput
   }
 
 
@@ -3869,6 +3991,7 @@ export namespace Prisma {
     invoices: number
     payableExpenses: number
     proposals: number
+    commissions: number
   }
 
   export type ContractCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3878,6 +4001,7 @@ export namespace Prisma {
     invoices?: boolean | ContractCountOutputTypeCountInvoicesArgs
     payableExpenses?: boolean | ContractCountOutputTypeCountPayableExpensesArgs
     proposals?: boolean | ContractCountOutputTypeCountProposalsArgs
+    commissions?: boolean | ContractCountOutputTypeCountCommissionsArgs
   }
 
   // Custom InputTypes
@@ -3931,6 +4055,13 @@ export namespace Prisma {
    */
   export type ContractCountOutputTypeCountProposalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommercialProposalWhereInput
+  }
+
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeCountCommissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommissionWhereInput
   }
 
 
@@ -4579,6 +4710,8 @@ export namespace Prisma {
     is_Active?: boolean
     assignedMaintenances?: boolean | User$assignedMaintenancesArgs<ExtArgs>
     commercialProposals?: boolean | User$commercialProposalsArgs<ExtArgs>
+    commissions?: boolean | User$commissionsArgs<ExtArgs>
+    sellerContracts?: boolean | User$sellerContractsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4625,6 +4758,8 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assignedMaintenances?: boolean | User$assignedMaintenancesArgs<ExtArgs>
     commercialProposals?: boolean | User$commercialProposalsArgs<ExtArgs>
+    commissions?: boolean | User$commissionsArgs<ExtArgs>
+    sellerContracts?: boolean | User$sellerContractsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4635,6 +4770,8 @@ export namespace Prisma {
     objects: {
       assignedMaintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       commercialProposals: Prisma.$CommercialProposalPayload<ExtArgs>[]
+      commissions: Prisma.$CommissionPayload<ExtArgs>[]
+      sellerContracts: Prisma.$ContractPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5043,6 +5180,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     assignedMaintenances<T extends User$assignedMaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedMaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     commercialProposals<T extends User$commercialProposalsArgs<ExtArgs> = {}>(args?: Subset<T, User$commercialProposalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    commissions<T extends User$commissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$commissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sellerContracts<T extends User$sellerContractsArgs<ExtArgs> = {}>(args?: Subset<T, User$sellerContractsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5515,6 +5654,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CommercialProposalScalarFieldEnum | CommercialProposalScalarFieldEnum[]
+  }
+
+  /**
+   * User.commissions
+   */
+  export type User$commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    where?: CommissionWhereInput
+    orderBy?: CommissionOrderByWithRelationInput | CommissionOrderByWithRelationInput[]
+    cursor?: CommissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommissionScalarFieldEnum | CommissionScalarFieldEnum[]
+  }
+
+  /**
+   * User.sellerContracts
+   */
+  export type User$sellerContractsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    where?: ContractWhereInput
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    cursor?: ContractWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
   }
 
   /**
@@ -15592,11 +15779,13 @@ export namespace Prisma {
   export type ContractAvgAggregateOutputType = {
     total_value: Decimal | null
     billing_day: number | null
+    commission_percentage: Decimal | null
   }
 
   export type ContractSumAggregateOutputType = {
     total_value: Decimal | null
     billing_day: number | null
+    commission_percentage: Decimal | null
   }
 
   export type ContractMinAggregateOutputType = {
@@ -15619,6 +15808,10 @@ export namespace Prisma {
     is_Active: boolean | null
     body_html: string | null
     signed_contract_url: string | null
+    sellerId: string | null
+    commission_percentage: Decimal | null
+    commission_start_date: Date | null
+    commission_end_date: Date | null
   }
 
   export type ContractMaxAggregateOutputType = {
@@ -15641,6 +15834,10 @@ export namespace Prisma {
     is_Active: boolean | null
     body_html: string | null
     signed_contract_url: string | null
+    sellerId: string | null
+    commission_percentage: Decimal | null
+    commission_start_date: Date | null
+    commission_end_date: Date | null
   }
 
   export type ContractCountAggregateOutputType = {
@@ -15663,6 +15860,10 @@ export namespace Prisma {
     is_Active: number
     body_html: number
     signed_contract_url: number
+    sellerId: number
+    commission_percentage: number
+    commission_start_date: number
+    commission_end_date: number
     _all: number
   }
 
@@ -15670,11 +15871,13 @@ export namespace Prisma {
   export type ContractAvgAggregateInputType = {
     total_value?: true
     billing_day?: true
+    commission_percentage?: true
   }
 
   export type ContractSumAggregateInputType = {
     total_value?: true
     billing_day?: true
+    commission_percentage?: true
   }
 
   export type ContractMinAggregateInputType = {
@@ -15697,6 +15900,10 @@ export namespace Prisma {
     is_Active?: true
     body_html?: true
     signed_contract_url?: true
+    sellerId?: true
+    commission_percentage?: true
+    commission_start_date?: true
+    commission_end_date?: true
   }
 
   export type ContractMaxAggregateInputType = {
@@ -15719,6 +15926,10 @@ export namespace Prisma {
     is_Active?: true
     body_html?: true
     signed_contract_url?: true
+    sellerId?: true
+    commission_percentage?: true
+    commission_start_date?: true
+    commission_end_date?: true
   }
 
   export type ContractCountAggregateInputType = {
@@ -15741,6 +15952,10 @@ export namespace Prisma {
     is_Active?: true
     body_html?: true
     signed_contract_url?: true
+    sellerId?: true
+    commission_percentage?: true
+    commission_start_date?: true
+    commission_end_date?: true
     _all?: true
   }
 
@@ -15850,6 +16065,10 @@ export namespace Prisma {
     is_Active: boolean
     body_html: string | null
     signed_contract_url: string | null
+    sellerId: string | null
+    commission_percentage: Decimal | null
+    commission_start_date: Date | null
+    commission_end_date: Date | null
     _count: ContractCountAggregateOutputType | null
     _avg: ContractAvgAggregateOutputType | null
     _sum: ContractSumAggregateOutputType | null
@@ -15891,6 +16110,10 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: boolean
     signed_contract_url?: boolean
+    sellerId?: boolean
+    commission_percentage?: boolean
+    commission_start_date?: boolean
+    commission_end_date?: boolean
     movements?: boolean | Contract$movementsArgs<ExtArgs>
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     maintenances?: boolean | Contract$maintenancesArgs<ExtArgs>
@@ -15898,6 +16121,8 @@ export namespace Prisma {
     invoices?: boolean | Contract$invoicesArgs<ExtArgs>
     payableExpenses?: boolean | Contract$payableExpensesArgs<ExtArgs>
     proposals?: boolean | Contract$proposalsArgs<ExtArgs>
+    seller?: boolean | Contract$sellerArgs<ExtArgs>
+    commissions?: boolean | Contract$commissionsArgs<ExtArgs>
     _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contract"]>
 
@@ -15921,7 +16146,12 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: boolean
     signed_contract_url?: boolean
+    sellerId?: boolean
+    commission_percentage?: boolean
+    commission_start_date?: boolean
+    commission_end_date?: boolean
     client?: boolean | SupplierDefaultArgs<ExtArgs>
+    seller?: boolean | Contract$sellerArgs<ExtArgs>
   }, ExtArgs["result"]["contract"]>
 
   export type ContractSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -15944,7 +16174,12 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: boolean
     signed_contract_url?: boolean
+    sellerId?: boolean
+    commission_percentage?: boolean
+    commission_start_date?: boolean
+    commission_end_date?: boolean
     client?: boolean | SupplierDefaultArgs<ExtArgs>
+    seller?: boolean | Contract$sellerArgs<ExtArgs>
   }, ExtArgs["result"]["contract"]>
 
   export type ContractSelectScalar = {
@@ -15967,9 +16202,13 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: boolean
     signed_contract_url?: boolean
+    sellerId?: boolean
+    commission_percentage?: boolean
+    commission_start_date?: boolean
+    commission_end_date?: boolean
   }
 
-  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contract_number" | "description" | "clientId" | "responsible_name" | "responsible_phone" | "responsible_email" | "start_date" | "end_date" | "status" | "total_value" | "billing_day" | "notes" | "observations" | "created_at" | "updated_at" | "is_Active" | "body_html" | "signed_contract_url", ExtArgs["result"]["contract"]>
+  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contract_number" | "description" | "clientId" | "responsible_name" | "responsible_phone" | "responsible_email" | "start_date" | "end_date" | "status" | "total_value" | "billing_day" | "notes" | "observations" | "created_at" | "updated_at" | "is_Active" | "body_html" | "signed_contract_url" | "sellerId" | "commission_percentage" | "commission_start_date" | "commission_end_date", ExtArgs["result"]["contract"]>
   export type ContractInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     movements?: boolean | Contract$movementsArgs<ExtArgs>
     client?: boolean | SupplierDefaultArgs<ExtArgs>
@@ -15978,13 +16217,17 @@ export namespace Prisma {
     invoices?: boolean | Contract$invoicesArgs<ExtArgs>
     payableExpenses?: boolean | Contract$payableExpensesArgs<ExtArgs>
     proposals?: boolean | Contract$proposalsArgs<ExtArgs>
+    seller?: boolean | Contract$sellerArgs<ExtArgs>
+    commissions?: boolean | Contract$commissionsArgs<ExtArgs>
     _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContractIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     client?: boolean | SupplierDefaultArgs<ExtArgs>
+    seller?: boolean | Contract$sellerArgs<ExtArgs>
   }
   export type ContractIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     client?: boolean | SupplierDefaultArgs<ExtArgs>
+    seller?: boolean | Contract$sellerArgs<ExtArgs>
   }
 
   export type $ContractPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15997,6 +16240,8 @@ export namespace Prisma {
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
       payableExpenses: Prisma.$PayableExpensePayload<ExtArgs>[]
       proposals: Prisma.$CommercialProposalPayload<ExtArgs>[]
+      seller: Prisma.$UserPayload<ExtArgs> | null
+      commissions: Prisma.$CommissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16018,6 +16263,10 @@ export namespace Prisma {
       is_Active: boolean
       body_html: string | null
       signed_contract_url: string | null
+      sellerId: string | null
+      commission_percentage: Prisma.Decimal | null
+      commission_start_date: Date | null
+      commission_end_date: Date | null
     }, ExtArgs["result"]["contract"]>
     composites: {}
   }
@@ -16419,6 +16668,8 @@ export namespace Prisma {
     invoices<T extends Contract$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Contract$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payableExpenses<T extends Contract$payableExpensesArgs<ExtArgs> = {}>(args?: Subset<T, Contract$payableExpensesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayableExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     proposals<T extends Contract$proposalsArgs<ExtArgs> = {}>(args?: Subset<T, Contract$proposalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommercialProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    seller<T extends Contract$sellerArgs<ExtArgs> = {}>(args?: Subset<T, Contract$sellerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    commissions<T extends Contract$commissionsArgs<ExtArgs> = {}>(args?: Subset<T, Contract$commissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16467,6 +16718,10 @@ export namespace Prisma {
     readonly is_Active: FieldRef<"Contract", 'Boolean'>
     readonly body_html: FieldRef<"Contract", 'String'>
     readonly signed_contract_url: FieldRef<"Contract", 'String'>
+    readonly sellerId: FieldRef<"Contract", 'String'>
+    readonly commission_percentage: FieldRef<"Contract", 'Decimal'>
+    readonly commission_start_date: FieldRef<"Contract", 'DateTime'>
+    readonly commission_end_date: FieldRef<"Contract", 'DateTime'>
   }
     
 
@@ -17004,6 +17259,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CommercialProposalScalarFieldEnum | CommercialProposalScalarFieldEnum[]
+  }
+
+  /**
+   * Contract.seller
+   */
+  export type Contract$sellerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Contract.commissions
+   */
+  export type Contract$commissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    where?: CommissionWhereInput
+    orderBy?: CommissionOrderByWithRelationInput | CommissionOrderByWithRelationInput[]
+    cursor?: CommissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommissionScalarFieldEnum | CommissionScalarFieldEnum[]
   }
 
   /**
@@ -18712,6 +19010,7 @@ export namespace Prisma {
     invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
     assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
     contract?: boolean | ContractDefaultArgs<ExtArgs>
+    commission?: boolean | MeasurementBulletin$commissionArgs<ExtArgs>
     _count?: boolean | MeasurementBulletinCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["measurementBulletin"]>
 
@@ -18796,6 +19095,7 @@ export namespace Prisma {
     invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
     assetMovement?: boolean | AssetMovementDefaultArgs<ExtArgs>
     contract?: boolean | ContractDefaultArgs<ExtArgs>
+    commission?: boolean | MeasurementBulletin$commissionArgs<ExtArgs>
     _count?: boolean | MeasurementBulletinCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MeasurementBulletinIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18816,6 +19116,7 @@ export namespace Prisma {
       invoice: Prisma.$InvoicePayload<ExtArgs> | null
       assetMovement: Prisma.$AssetMovementPayload<ExtArgs>
       contract: Prisma.$ContractPayload<ExtArgs>
+      commission: Prisma.$CommissionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19236,6 +19537,7 @@ export namespace Prisma {
     invoice<T extends MeasurementBulletin$invoiceArgs<ExtArgs> = {}>(args?: Subset<T, MeasurementBulletin$invoiceArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     assetMovement<T extends AssetMovementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetMovementDefaultArgs<ExtArgs>>): Prisma__AssetMovementClient<$Result.GetResult<Prisma.$AssetMovementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     contract<T extends ContractDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContractDefaultArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    commission<T extends MeasurementBulletin$commissionArgs<ExtArgs> = {}>(args?: Subset<T, MeasurementBulletin$commissionArgs<ExtArgs>>): Prisma__CommissionClient<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19721,6 +20023,25 @@ export namespace Prisma {
      */
     include?: InvoiceInclude<ExtArgs> | null
     where?: InvoiceWhereInput
+  }
+
+  /**
+   * MeasurementBulletin.commission
+   */
+  export type MeasurementBulletin$commissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    where?: CommissionWhereInput
   }
 
   /**
@@ -32070,6 +32391,1245 @@ export namespace Prisma {
 
 
   /**
+   * Model Commission
+   */
+
+  export type AggregateCommission = {
+    _count: CommissionCountAggregateOutputType | null
+    _avg: CommissionAvgAggregateOutputType | null
+    _sum: CommissionSumAggregateOutputType | null
+    _min: CommissionMinAggregateOutputType | null
+    _max: CommissionMaxAggregateOutputType | null
+  }
+
+  export type CommissionAvgAggregateOutputType = {
+    base_value: Decimal | null
+    commission_percentage: Decimal | null
+    commission_value: Decimal | null
+  }
+
+  export type CommissionSumAggregateOutputType = {
+    base_value: Decimal | null
+    commission_percentage: Decimal | null
+    commission_value: Decimal | null
+  }
+
+  export type CommissionMinAggregateOutputType = {
+    id: string | null
+    contractId: string | null
+    sellerId: string | null
+    measurementBulletinId: string | null
+    reference_month: Date | null
+    base_value: Decimal | null
+    commission_percentage: Decimal | null
+    commission_value: Decimal | null
+    notes: string | null
+    status: $Enums.CommissionStatus | null
+    paid_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CommissionMaxAggregateOutputType = {
+    id: string | null
+    contractId: string | null
+    sellerId: string | null
+    measurementBulletinId: string | null
+    reference_month: Date | null
+    base_value: Decimal | null
+    commission_percentage: Decimal | null
+    commission_value: Decimal | null
+    notes: string | null
+    status: $Enums.CommissionStatus | null
+    paid_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type CommissionCountAggregateOutputType = {
+    id: number
+    contractId: number
+    sellerId: number
+    measurementBulletinId: number
+    reference_month: number
+    base_value: number
+    commission_percentage: number
+    commission_value: number
+    notes: number
+    status: number
+    paid_at: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type CommissionAvgAggregateInputType = {
+    base_value?: true
+    commission_percentage?: true
+    commission_value?: true
+  }
+
+  export type CommissionSumAggregateInputType = {
+    base_value?: true
+    commission_percentage?: true
+    commission_value?: true
+  }
+
+  export type CommissionMinAggregateInputType = {
+    id?: true
+    contractId?: true
+    sellerId?: true
+    measurementBulletinId?: true
+    reference_month?: true
+    base_value?: true
+    commission_percentage?: true
+    commission_value?: true
+    notes?: true
+    status?: true
+    paid_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CommissionMaxAggregateInputType = {
+    id?: true
+    contractId?: true
+    sellerId?: true
+    measurementBulletinId?: true
+    reference_month?: true
+    base_value?: true
+    commission_percentage?: true
+    commission_value?: true
+    notes?: true
+    status?: true
+    paid_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type CommissionCountAggregateInputType = {
+    id?: true
+    contractId?: true
+    sellerId?: true
+    measurementBulletinId?: true
+    reference_month?: true
+    base_value?: true
+    commission_percentage?: true
+    commission_value?: true
+    notes?: true
+    status?: true
+    paid_at?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type CommissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Commission to aggregate.
+     */
+    where?: CommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Commissions to fetch.
+     */
+    orderBy?: CommissionOrderByWithRelationInput | CommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Commissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Commissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Commissions
+    **/
+    _count?: true | CommissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CommissionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommissionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommissionMaxAggregateInputType
+  }
+
+  export type GetCommissionAggregateType<T extends CommissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommission[P]>
+      : GetScalarType<T[P], AggregateCommission[P]>
+  }
+
+
+
+
+  export type CommissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommissionWhereInput
+    orderBy?: CommissionOrderByWithAggregationInput | CommissionOrderByWithAggregationInput[]
+    by: CommissionScalarFieldEnum[] | CommissionScalarFieldEnum
+    having?: CommissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommissionCountAggregateInputType | true
+    _avg?: CommissionAvgAggregateInputType
+    _sum?: CommissionSumAggregateInputType
+    _min?: CommissionMinAggregateInputType
+    _max?: CommissionMaxAggregateInputType
+  }
+
+  export type CommissionGroupByOutputType = {
+    id: string
+    contractId: string
+    sellerId: string
+    measurementBulletinId: string | null
+    reference_month: Date
+    base_value: Decimal
+    commission_percentage: Decimal
+    commission_value: Decimal
+    notes: string | null
+    status: $Enums.CommissionStatus
+    paid_at: Date | null
+    created_at: Date
+    updated_at: Date
+    _count: CommissionCountAggregateOutputType | null
+    _avg: CommissionAvgAggregateOutputType | null
+    _sum: CommissionSumAggregateOutputType | null
+    _min: CommissionMinAggregateOutputType | null
+    _max: CommissionMaxAggregateOutputType | null
+  }
+
+  type GetCommissionGroupByPayload<T extends CommissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommissionGroupByOutputType[P]>
+            : GetScalarType<T[P], CommissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contractId?: boolean
+    sellerId?: boolean
+    measurementBulletinId?: boolean
+    reference_month?: boolean
+    base_value?: boolean
+    commission_percentage?: boolean
+    commission_value?: boolean
+    notes?: boolean
+    status?: boolean
+    paid_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    seller?: boolean | UserDefaultArgs<ExtArgs>
+    measurementBulletin?: boolean | Commission$measurementBulletinArgs<ExtArgs>
+  }, ExtArgs["result"]["commission"]>
+
+  export type CommissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contractId?: boolean
+    sellerId?: boolean
+    measurementBulletinId?: boolean
+    reference_month?: boolean
+    base_value?: boolean
+    commission_percentage?: boolean
+    commission_value?: boolean
+    notes?: boolean
+    status?: boolean
+    paid_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    seller?: boolean | UserDefaultArgs<ExtArgs>
+    measurementBulletin?: boolean | Commission$measurementBulletinArgs<ExtArgs>
+  }, ExtArgs["result"]["commission"]>
+
+  export type CommissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    contractId?: boolean
+    sellerId?: boolean
+    measurementBulletinId?: boolean
+    reference_month?: boolean
+    base_value?: boolean
+    commission_percentage?: boolean
+    commission_value?: boolean
+    notes?: boolean
+    status?: boolean
+    paid_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    seller?: boolean | UserDefaultArgs<ExtArgs>
+    measurementBulletin?: boolean | Commission$measurementBulletinArgs<ExtArgs>
+  }, ExtArgs["result"]["commission"]>
+
+  export type CommissionSelectScalar = {
+    id?: boolean
+    contractId?: boolean
+    sellerId?: boolean
+    measurementBulletinId?: boolean
+    reference_month?: boolean
+    base_value?: boolean
+    commission_percentage?: boolean
+    commission_value?: boolean
+    notes?: boolean
+    status?: boolean
+    paid_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type CommissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "sellerId" | "measurementBulletinId" | "reference_month" | "base_value" | "commission_percentage" | "commission_value" | "notes" | "status" | "paid_at" | "created_at" | "updated_at", ExtArgs["result"]["commission"]>
+  export type CommissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    seller?: boolean | UserDefaultArgs<ExtArgs>
+    measurementBulletin?: boolean | Commission$measurementBulletinArgs<ExtArgs>
+  }
+  export type CommissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    seller?: boolean | UserDefaultArgs<ExtArgs>
+    measurementBulletin?: boolean | Commission$measurementBulletinArgs<ExtArgs>
+  }
+  export type CommissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contract?: boolean | ContractDefaultArgs<ExtArgs>
+    seller?: boolean | UserDefaultArgs<ExtArgs>
+    measurementBulletin?: boolean | Commission$measurementBulletinArgs<ExtArgs>
+  }
+
+  export type $CommissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Commission"
+    objects: {
+      contract: Prisma.$ContractPayload<ExtArgs>
+      seller: Prisma.$UserPayload<ExtArgs>
+      measurementBulletin: Prisma.$MeasurementBulletinPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      contractId: string
+      sellerId: string
+      measurementBulletinId: string | null
+      reference_month: Date
+      base_value: Prisma.Decimal
+      commission_percentage: Prisma.Decimal
+      commission_value: Prisma.Decimal
+      notes: string | null
+      status: $Enums.CommissionStatus
+      paid_at: Date | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["commission"]>
+    composites: {}
+  }
+
+  type CommissionGetPayload<S extends boolean | null | undefined | CommissionDefaultArgs> = $Result.GetResult<Prisma.$CommissionPayload, S>
+
+  type CommissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommissionCountAggregateInputType | true
+    }
+
+  export interface CommissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Commission'], meta: { name: 'Commission' } }
+    /**
+     * Find zero or one Commission that matches the filter.
+     * @param {CommissionFindUniqueArgs} args - Arguments to find a Commission
+     * @example
+     * // Get one Commission
+     * const commission = await prisma.commission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommissionFindUniqueArgs>(args: SelectSubset<T, CommissionFindUniqueArgs<ExtArgs>>): Prisma__CommissionClient<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Commission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommissionFindUniqueOrThrowArgs} args - Arguments to find a Commission
+     * @example
+     * // Get one Commission
+     * const commission = await prisma.commission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommissionFindUniqueOrThrowArgs>(args: SelectSubset<T, CommissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommissionClient<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Commission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommissionFindFirstArgs} args - Arguments to find a Commission
+     * @example
+     * // Get one Commission
+     * const commission = await prisma.commission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommissionFindFirstArgs>(args?: SelectSubset<T, CommissionFindFirstArgs<ExtArgs>>): Prisma__CommissionClient<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Commission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommissionFindFirstOrThrowArgs} args - Arguments to find a Commission
+     * @example
+     * // Get one Commission
+     * const commission = await prisma.commission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommissionFindFirstOrThrowArgs>(args?: SelectSubset<T, CommissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommissionClient<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Commissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Commissions
+     * const commissions = await prisma.commission.findMany()
+     * 
+     * // Get first 10 Commissions
+     * const commissions = await prisma.commission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const commissionWithIdOnly = await prisma.commission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommissionFindManyArgs>(args?: SelectSubset<T, CommissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Commission.
+     * @param {CommissionCreateArgs} args - Arguments to create a Commission.
+     * @example
+     * // Create one Commission
+     * const Commission = await prisma.commission.create({
+     *   data: {
+     *     // ... data to create a Commission
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommissionCreateArgs>(args: SelectSubset<T, CommissionCreateArgs<ExtArgs>>): Prisma__CommissionClient<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Commissions.
+     * @param {CommissionCreateManyArgs} args - Arguments to create many Commissions.
+     * @example
+     * // Create many Commissions
+     * const commission = await prisma.commission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommissionCreateManyArgs>(args?: SelectSubset<T, CommissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Commissions and returns the data saved in the database.
+     * @param {CommissionCreateManyAndReturnArgs} args - Arguments to create many Commissions.
+     * @example
+     * // Create many Commissions
+     * const commission = await prisma.commission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Commissions and only return the `id`
+     * const commissionWithIdOnly = await prisma.commission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommissionCreateManyAndReturnArgs>(args?: SelectSubset<T, CommissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Commission.
+     * @param {CommissionDeleteArgs} args - Arguments to delete one Commission.
+     * @example
+     * // Delete one Commission
+     * const Commission = await prisma.commission.delete({
+     *   where: {
+     *     // ... filter to delete one Commission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommissionDeleteArgs>(args: SelectSubset<T, CommissionDeleteArgs<ExtArgs>>): Prisma__CommissionClient<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Commission.
+     * @param {CommissionUpdateArgs} args - Arguments to update one Commission.
+     * @example
+     * // Update one Commission
+     * const commission = await prisma.commission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommissionUpdateArgs>(args: SelectSubset<T, CommissionUpdateArgs<ExtArgs>>): Prisma__CommissionClient<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Commissions.
+     * @param {CommissionDeleteManyArgs} args - Arguments to filter Commissions to delete.
+     * @example
+     * // Delete a few Commissions
+     * const { count } = await prisma.commission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommissionDeleteManyArgs>(args?: SelectSubset<T, CommissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Commissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Commissions
+     * const commission = await prisma.commission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommissionUpdateManyArgs>(args: SelectSubset<T, CommissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Commissions and returns the data updated in the database.
+     * @param {CommissionUpdateManyAndReturnArgs} args - Arguments to update many Commissions.
+     * @example
+     * // Update many Commissions
+     * const commission = await prisma.commission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Commissions and only return the `id`
+     * const commissionWithIdOnly = await prisma.commission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommissionUpdateManyAndReturnArgs>(args: SelectSubset<T, CommissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Commission.
+     * @param {CommissionUpsertArgs} args - Arguments to update or create a Commission.
+     * @example
+     * // Update or create a Commission
+     * const commission = await prisma.commission.upsert({
+     *   create: {
+     *     // ... data to create a Commission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Commission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommissionUpsertArgs>(args: SelectSubset<T, CommissionUpsertArgs<ExtArgs>>): Prisma__CommissionClient<$Result.GetResult<Prisma.$CommissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Commissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommissionCountArgs} args - Arguments to filter Commissions to count.
+     * @example
+     * // Count the number of Commissions
+     * const count = await prisma.commission.count({
+     *   where: {
+     *     // ... the filter for the Commissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommissionCountArgs>(
+      args?: Subset<T, CommissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Commission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommissionAggregateArgs>(args: Subset<T, CommissionAggregateArgs>): Prisma.PrismaPromise<GetCommissionAggregateType<T>>
+
+    /**
+     * Group by Commission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommissionGroupByArgs['orderBy'] }
+        : { orderBy?: CommissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Commission model
+   */
+  readonly fields: CommissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Commission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    contract<T extends ContractDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContractDefaultArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    seller<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    measurementBulletin<T extends Commission$measurementBulletinArgs<ExtArgs> = {}>(args?: Subset<T, Commission$measurementBulletinArgs<ExtArgs>>): Prisma__MeasurementBulletinClient<$Result.GetResult<Prisma.$MeasurementBulletinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Commission model
+   */
+  interface CommissionFieldRefs {
+    readonly id: FieldRef<"Commission", 'String'>
+    readonly contractId: FieldRef<"Commission", 'String'>
+    readonly sellerId: FieldRef<"Commission", 'String'>
+    readonly measurementBulletinId: FieldRef<"Commission", 'String'>
+    readonly reference_month: FieldRef<"Commission", 'DateTime'>
+    readonly base_value: FieldRef<"Commission", 'Decimal'>
+    readonly commission_percentage: FieldRef<"Commission", 'Decimal'>
+    readonly commission_value: FieldRef<"Commission", 'Decimal'>
+    readonly notes: FieldRef<"Commission", 'String'>
+    readonly status: FieldRef<"Commission", 'CommissionStatus'>
+    readonly paid_at: FieldRef<"Commission", 'DateTime'>
+    readonly created_at: FieldRef<"Commission", 'DateTime'>
+    readonly updated_at: FieldRef<"Commission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Commission findUnique
+   */
+  export type CommissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Commission to fetch.
+     */
+    where: CommissionWhereUniqueInput
+  }
+
+  /**
+   * Commission findUniqueOrThrow
+   */
+  export type CommissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Commission to fetch.
+     */
+    where: CommissionWhereUniqueInput
+  }
+
+  /**
+   * Commission findFirst
+   */
+  export type CommissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Commission to fetch.
+     */
+    where?: CommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Commissions to fetch.
+     */
+    orderBy?: CommissionOrderByWithRelationInput | CommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Commissions.
+     */
+    cursor?: CommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Commissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Commissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Commissions.
+     */
+    distinct?: CommissionScalarFieldEnum | CommissionScalarFieldEnum[]
+  }
+
+  /**
+   * Commission findFirstOrThrow
+   */
+  export type CommissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Commission to fetch.
+     */
+    where?: CommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Commissions to fetch.
+     */
+    orderBy?: CommissionOrderByWithRelationInput | CommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Commissions.
+     */
+    cursor?: CommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Commissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Commissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Commissions.
+     */
+    distinct?: CommissionScalarFieldEnum | CommissionScalarFieldEnum[]
+  }
+
+  /**
+   * Commission findMany
+   */
+  export type CommissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Commissions to fetch.
+     */
+    where?: CommissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Commissions to fetch.
+     */
+    orderBy?: CommissionOrderByWithRelationInput | CommissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Commissions.
+     */
+    cursor?: CommissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Commissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Commissions.
+     */
+    skip?: number
+    distinct?: CommissionScalarFieldEnum | CommissionScalarFieldEnum[]
+  }
+
+  /**
+   * Commission create
+   */
+  export type CommissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Commission.
+     */
+    data: XOR<CommissionCreateInput, CommissionUncheckedCreateInput>
+  }
+
+  /**
+   * Commission createMany
+   */
+  export type CommissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Commissions.
+     */
+    data: CommissionCreateManyInput | CommissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Commission createManyAndReturn
+   */
+  export type CommissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Commissions.
+     */
+    data: CommissionCreateManyInput | CommissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Commission update
+   */
+  export type CommissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Commission.
+     */
+    data: XOR<CommissionUpdateInput, CommissionUncheckedUpdateInput>
+    /**
+     * Choose, which Commission to update.
+     */
+    where: CommissionWhereUniqueInput
+  }
+
+  /**
+   * Commission updateMany
+   */
+  export type CommissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Commissions.
+     */
+    data: XOR<CommissionUpdateManyMutationInput, CommissionUncheckedUpdateManyInput>
+    /**
+     * Filter which Commissions to update
+     */
+    where?: CommissionWhereInput
+    /**
+     * Limit how many Commissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Commission updateManyAndReturn
+   */
+  export type CommissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * The data used to update Commissions.
+     */
+    data: XOR<CommissionUpdateManyMutationInput, CommissionUncheckedUpdateManyInput>
+    /**
+     * Filter which Commissions to update
+     */
+    where?: CommissionWhereInput
+    /**
+     * Limit how many Commissions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Commission upsert
+   */
+  export type CommissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Commission to update in case it exists.
+     */
+    where: CommissionWhereUniqueInput
+    /**
+     * In case the Commission found by the `where` argument doesn't exist, create a new Commission with this data.
+     */
+    create: XOR<CommissionCreateInput, CommissionUncheckedCreateInput>
+    /**
+     * In case the Commission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommissionUpdateInput, CommissionUncheckedUpdateInput>
+  }
+
+  /**
+   * Commission delete
+   */
+  export type CommissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+    /**
+     * Filter which Commission to delete.
+     */
+    where: CommissionWhereUniqueInput
+  }
+
+  /**
+   * Commission deleteMany
+   */
+  export type CommissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Commissions to delete
+     */
+    where?: CommissionWhereInput
+    /**
+     * Limit how many Commissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Commission.measurementBulletin
+   */
+  export type Commission$measurementBulletinArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MeasurementBulletin
+     */
+    select?: MeasurementBulletinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MeasurementBulletin
+     */
+    omit?: MeasurementBulletinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeasurementBulletinInclude<ExtArgs> | null
+    where?: MeasurementBulletinWhereInput
+  }
+
+  /**
+   * Commission without action
+   */
+  export type CommissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Commission
+     */
+    select?: CommissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Commission
+     */
+    omit?: CommissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommissionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model BankAccount
    */
 
@@ -39743,7 +41303,11 @@ export namespace Prisma {
     updated_at: 'updated_at',
     is_Active: 'is_Active',
     body_html: 'body_html',
-    signed_contract_url: 'signed_contract_url'
+    signed_contract_url: 'signed_contract_url',
+    sellerId: 'sellerId',
+    commission_percentage: 'commission_percentage',
+    commission_start_date: 'commission_start_date',
+    commission_end_date: 'commission_end_date'
   };
 
   export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
@@ -39984,6 +41548,25 @@ export namespace Prisma {
   };
 
   export type ProposalItemScalarFieldEnum = (typeof ProposalItemScalarFieldEnum)[keyof typeof ProposalItemScalarFieldEnum]
+
+
+  export const CommissionScalarFieldEnum: {
+    id: 'id',
+    contractId: 'contractId',
+    sellerId: 'sellerId',
+    measurementBulletinId: 'measurementBulletinId',
+    reference_month: 'reference_month',
+    base_value: 'base_value',
+    commission_percentage: 'commission_percentage',
+    commission_value: 'commission_value',
+    notes: 'notes',
+    status: 'status',
+    paid_at: 'paid_at',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type CommissionScalarFieldEnum = (typeof CommissionScalarFieldEnum)[keyof typeof CommissionScalarFieldEnum]
 
 
   export const BankAccountScalarFieldEnum: {
@@ -40382,6 +41965,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'CommissionStatus'
+   */
+  export type EnumCommissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommissionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommissionStatus[]'
+   */
+  export type ListEnumCommissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommissionStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'PaymentMethod'
    */
   export type EnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod'>
@@ -40470,6 +42067,8 @@ export namespace Prisma {
     is_Active?: BoolFilter<"User"> | boolean
     assignedMaintenances?: MaintenanceListRelationFilter
     commercialProposals?: CommercialProposalListRelationFilter
+    commissions?: CommissionListRelationFilter
+    sellerContracts?: ContractListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -40485,6 +42084,8 @@ export namespace Prisma {
     is_Active?: SortOrder
     assignedMaintenances?: MaintenanceOrderByRelationAggregateInput
     commercialProposals?: CommercialProposalOrderByRelationAggregateInput
+    commissions?: CommissionOrderByRelationAggregateInput
+    sellerContracts?: ContractOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -40503,6 +42104,8 @@ export namespace Prisma {
     is_Active?: BoolFilter<"User"> | boolean
     assignedMaintenances?: MaintenanceListRelationFilter
     commercialProposals?: CommercialProposalListRelationFilter
+    commissions?: CommissionListRelationFilter
+    sellerContracts?: ContractListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -41381,6 +42984,10 @@ export namespace Prisma {
     is_Active?: BoolFilter<"Contract"> | boolean
     body_html?: StringNullableFilter<"Contract"> | string | null
     signed_contract_url?: StringNullableFilter<"Contract"> | string | null
+    sellerId?: StringNullableFilter<"Contract"> | string | null
+    commission_percentage?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    commission_end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
     movements?: AssetMovementListRelationFilter
     client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     maintenances?: MaintenanceListRelationFilter
@@ -41388,6 +42995,8 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     payableExpenses?: PayableExpenseListRelationFilter
     proposals?: CommercialProposalListRelationFilter
+    seller?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    commissions?: CommissionListRelationFilter
   }
 
   export type ContractOrderByWithRelationInput = {
@@ -41410,6 +43019,10 @@ export namespace Prisma {
     is_Active?: SortOrder
     body_html?: SortOrderInput | SortOrder
     signed_contract_url?: SortOrderInput | SortOrder
+    sellerId?: SortOrderInput | SortOrder
+    commission_percentage?: SortOrderInput | SortOrder
+    commission_start_date?: SortOrderInput | SortOrder
+    commission_end_date?: SortOrderInput | SortOrder
     movements?: AssetMovementOrderByRelationAggregateInput
     client?: SupplierOrderByWithRelationInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
@@ -41417,6 +43030,8 @@ export namespace Prisma {
     invoices?: InvoiceOrderByRelationAggregateInput
     payableExpenses?: PayableExpenseOrderByRelationAggregateInput
     proposals?: CommercialProposalOrderByRelationAggregateInput
+    seller?: UserOrderByWithRelationInput
+    commissions?: CommissionOrderByRelationAggregateInput
   }
 
   export type ContractWhereUniqueInput = Prisma.AtLeast<{
@@ -41442,6 +43057,10 @@ export namespace Prisma {
     is_Active?: BoolFilter<"Contract"> | boolean
     body_html?: StringNullableFilter<"Contract"> | string | null
     signed_contract_url?: StringNullableFilter<"Contract"> | string | null
+    sellerId?: StringNullableFilter<"Contract"> | string | null
+    commission_percentage?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    commission_end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
     movements?: AssetMovementListRelationFilter
     client?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     maintenances?: MaintenanceListRelationFilter
@@ -41449,6 +43068,8 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     payableExpenses?: PayableExpenseListRelationFilter
     proposals?: CommercialProposalListRelationFilter
+    seller?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    commissions?: CommissionListRelationFilter
   }, "id" | "contract_number">
 
   export type ContractOrderByWithAggregationInput = {
@@ -41471,6 +43092,10 @@ export namespace Prisma {
     is_Active?: SortOrder
     body_html?: SortOrderInput | SortOrder
     signed_contract_url?: SortOrderInput | SortOrder
+    sellerId?: SortOrderInput | SortOrder
+    commission_percentage?: SortOrderInput | SortOrder
+    commission_start_date?: SortOrderInput | SortOrder
+    commission_end_date?: SortOrderInput | SortOrder
     _count?: ContractCountOrderByAggregateInput
     _avg?: ContractAvgOrderByAggregateInput
     _max?: ContractMaxOrderByAggregateInput
@@ -41501,6 +43126,10 @@ export namespace Prisma {
     is_Active?: BoolWithAggregatesFilter<"Contract"> | boolean
     body_html?: StringNullableWithAggregatesFilter<"Contract"> | string | null
     signed_contract_url?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    sellerId?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    commission_percentage?: DecimalNullableWithAggregatesFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: DateTimeNullableWithAggregatesFilter<"Contract"> | Date | string | null
+    commission_end_date?: DateTimeNullableWithAggregatesFilter<"Contract"> | Date | string | null
   }
 
   export type AssetMovementWhereInput = {
@@ -41669,6 +43298,7 @@ export namespace Prisma {
     invoice?: XOR<InvoiceNullableScalarRelationFilter, InvoiceWhereInput> | null
     assetMovement?: XOR<AssetMovementScalarRelationFilter, AssetMovementWhereInput>
     contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
+    commission?: XOR<CommissionNullableScalarRelationFilter, CommissionWhereInput> | null
   }
 
   export type MeasurementBulletinOrderByWithRelationInput = {
@@ -41696,6 +43326,7 @@ export namespace Prisma {
     invoice?: InvoiceOrderByWithRelationInput
     assetMovement?: AssetMovementOrderByWithRelationInput
     contract?: ContractOrderByWithRelationInput
+    commission?: CommissionOrderByWithRelationInput
   }
 
   export type MeasurementBulletinWhereUniqueInput = Prisma.AtLeast<{
@@ -41726,6 +43357,7 @@ export namespace Prisma {
     invoice?: XOR<InvoiceNullableScalarRelationFilter, InvoiceWhereInput> | null
     assetMovement?: XOR<AssetMovementScalarRelationFilter, AssetMovementWhereInput>
     contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
+    commission?: XOR<CommissionNullableScalarRelationFilter, CommissionWhereInput> | null
   }, "id">
 
   export type MeasurementBulletinOrderByWithAggregationInput = {
@@ -42771,6 +44403,109 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"ProposalItem"> | Date | string
   }
 
+  export type CommissionWhereInput = {
+    AND?: CommissionWhereInput | CommissionWhereInput[]
+    OR?: CommissionWhereInput[]
+    NOT?: CommissionWhereInput | CommissionWhereInput[]
+    id?: StringFilter<"Commission"> | string
+    contractId?: StringFilter<"Commission"> | string
+    sellerId?: StringFilter<"Commission"> | string
+    measurementBulletinId?: StringNullableFilter<"Commission"> | string | null
+    reference_month?: DateTimeFilter<"Commission"> | Date | string
+    base_value?: DecimalFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    notes?: StringNullableFilter<"Commission"> | string | null
+    status?: EnumCommissionStatusFilter<"Commission"> | $Enums.CommissionStatus
+    paid_at?: DateTimeNullableFilter<"Commission"> | Date | string | null
+    created_at?: DateTimeFilter<"Commission"> | Date | string
+    updated_at?: DateTimeFilter<"Commission"> | Date | string
+    contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
+    seller?: XOR<UserScalarRelationFilter, UserWhereInput>
+    measurementBulletin?: XOR<MeasurementBulletinNullableScalarRelationFilter, MeasurementBulletinWhereInput> | null
+  }
+
+  export type CommissionOrderByWithRelationInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    sellerId?: SortOrder
+    measurementBulletinId?: SortOrderInput | SortOrder
+    reference_month?: SortOrder
+    base_value?: SortOrder
+    commission_percentage?: SortOrder
+    commission_value?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    paid_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    contract?: ContractOrderByWithRelationInput
+    seller?: UserOrderByWithRelationInput
+    measurementBulletin?: MeasurementBulletinOrderByWithRelationInput
+  }
+
+  export type CommissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    measurementBulletinId?: string
+    AND?: CommissionWhereInput | CommissionWhereInput[]
+    OR?: CommissionWhereInput[]
+    NOT?: CommissionWhereInput | CommissionWhereInput[]
+    contractId?: StringFilter<"Commission"> | string
+    sellerId?: StringFilter<"Commission"> | string
+    reference_month?: DateTimeFilter<"Commission"> | Date | string
+    base_value?: DecimalFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    notes?: StringNullableFilter<"Commission"> | string | null
+    status?: EnumCommissionStatusFilter<"Commission"> | $Enums.CommissionStatus
+    paid_at?: DateTimeNullableFilter<"Commission"> | Date | string | null
+    created_at?: DateTimeFilter<"Commission"> | Date | string
+    updated_at?: DateTimeFilter<"Commission"> | Date | string
+    contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
+    seller?: XOR<UserScalarRelationFilter, UserWhereInput>
+    measurementBulletin?: XOR<MeasurementBulletinNullableScalarRelationFilter, MeasurementBulletinWhereInput> | null
+  }, "id" | "measurementBulletinId">
+
+  export type CommissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    sellerId?: SortOrder
+    measurementBulletinId?: SortOrderInput | SortOrder
+    reference_month?: SortOrder
+    base_value?: SortOrder
+    commission_percentage?: SortOrder
+    commission_value?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    paid_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: CommissionCountOrderByAggregateInput
+    _avg?: CommissionAvgOrderByAggregateInput
+    _max?: CommissionMaxOrderByAggregateInput
+    _min?: CommissionMinOrderByAggregateInput
+    _sum?: CommissionSumOrderByAggregateInput
+  }
+
+  export type CommissionScalarWhereWithAggregatesInput = {
+    AND?: CommissionScalarWhereWithAggregatesInput | CommissionScalarWhereWithAggregatesInput[]
+    OR?: CommissionScalarWhereWithAggregatesInput[]
+    NOT?: CommissionScalarWhereWithAggregatesInput | CommissionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Commission"> | string
+    contractId?: StringWithAggregatesFilter<"Commission"> | string
+    sellerId?: StringWithAggregatesFilter<"Commission"> | string
+    measurementBulletinId?: StringNullableWithAggregatesFilter<"Commission"> | string | null
+    reference_month?: DateTimeWithAggregatesFilter<"Commission"> | Date | string
+    base_value?: DecimalWithAggregatesFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalWithAggregatesFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalWithAggregatesFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    notes?: StringNullableWithAggregatesFilter<"Commission"> | string | null
+    status?: EnumCommissionStatusWithAggregatesFilter<"Commission"> | $Enums.CommissionStatus
+    paid_at?: DateTimeNullableWithAggregatesFilter<"Commission"> | Date | string | null
+    created_at?: DateTimeWithAggregatesFilter<"Commission"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Commission"> | Date | string
+  }
+
   export type BankAccountWhereInput = {
     AND?: BankAccountWhereInput | BankAccountWhereInput[]
     OR?: BankAccountWhereInput[]
@@ -43368,6 +45103,8 @@ export namespace Prisma {
     is_Active?: boolean
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigned_toInput
     commercialProposals?: CommercialProposalCreateNestedManyWithoutUserInput
+    commissions?: CommissionCreateNestedManyWithoutSellerInput
+    sellerContracts?: ContractCreateNestedManyWithoutSellerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -43383,6 +45120,8 @@ export namespace Prisma {
     is_Active?: boolean
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigned_toInput
     commercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutUserInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutSellerInput
+    sellerContracts?: ContractUncheckedCreateNestedManyWithoutSellerInput
   }
 
   export type UserUpdateInput = {
@@ -43398,6 +45137,8 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigned_toNestedInput
     commercialProposals?: CommercialProposalUpdateManyWithoutUserNestedInput
+    commissions?: CommissionUpdateManyWithoutSellerNestedInput
+    sellerContracts?: ContractUpdateManyWithoutSellerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -43413,6 +45154,8 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigned_toNestedInput
     commercialProposals?: CommercialProposalUncheckedUpdateManyWithoutUserNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutSellerNestedInput
+    sellerContracts?: ContractUncheckedUpdateManyWithoutSellerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -44424,6 +46167,9 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
@@ -44431,6 +46177,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+    seller?: UserCreateNestedOneWithoutSellerContractsInput
+    commissions?: CommissionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateInput = {
@@ -44453,12 +46201,17 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractUpdateInput = {
@@ -44480,6 +46233,9 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
@@ -44487,6 +46243,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+    seller?: UserUpdateOneWithoutSellerContractsNestedInput
+    commissions?: CommissionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateInput = {
@@ -44509,12 +46267,17 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractCreateManyInput = {
@@ -44537,6 +46300,10 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
   }
 
   export type ContractUpdateManyMutationInput = {
@@ -44558,6 +46325,9 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ContractUncheckedUpdateManyInput = {
@@ -44580,6 +46350,10 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AssetMovementCreateInput = {
@@ -44767,6 +46541,7 @@ export namespace Prisma {
     invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinsInput
     assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
     contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
+    commission?: CommissionCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinUncheckedCreateInput = {
@@ -44791,6 +46566,7 @@ export namespace Prisma {
     updated_at?: Date | string
     invoiceId?: string | null
     expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
+    commission?: CommissionUncheckedCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinUpdateInput = {
@@ -44815,6 +46591,7 @@ export namespace Prisma {
     invoice?: InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput
     assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
     contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    commission?: CommissionUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateInput = {
@@ -44839,6 +46616,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+    commission?: CommissionUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinCreateManyInput = {
@@ -46011,6 +47789,115 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CommissionCreateInput = {
+    id?: string
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutCommissionsInput
+    seller: UserCreateNestedOneWithoutCommissionsInput
+    measurementBulletin?: MeasurementBulletinCreateNestedOneWithoutCommissionInput
+  }
+
+  export type CommissionUncheckedCreateInput = {
+    id?: string
+    contractId: string
+    sellerId: string
+    measurementBulletinId?: string | null
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CommissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutCommissionsNestedInput
+    seller?: UserUpdateOneRequiredWithoutCommissionsNestedInput
+    measurementBulletin?: MeasurementBulletinUpdateOneWithoutCommissionNestedInput
+  }
+
+  export type CommissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: NullableStringFieldUpdateOperationsInput | string | null
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommissionCreateManyInput = {
+    id?: string
+    contractId: string
+    sellerId: string
+    measurementBulletinId?: string | null
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CommissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: NullableStringFieldUpdateOperationsInput | string | null
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BankAccountCreateInput = {
     id?: string
     name: string
@@ -46720,6 +48607,18 @@ export namespace Prisma {
     none?: CommercialProposalWhereInput
   }
 
+  export type CommissionListRelationFilter = {
+    every?: CommissionWhereInput
+    some?: CommissionWhereInput
+    none?: CommissionWhereInput
+  }
+
+  export type ContractListRelationFilter = {
+    every?: ContractWhereInput
+    some?: ContractWhereInput
+    none?: ContractWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -46730,6 +48629,14 @@ export namespace Prisma {
   }
 
   export type CommercialProposalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ContractOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -47265,20 +49172,10 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type ContractListRelationFilter = {
-    every?: ContractWhereInput
-    some?: ContractWhereInput
-    none?: ContractWhereInput
-  }
-
   export type PayableExpenseListRelationFilter = {
     every?: PayableExpenseWhereInput
     some?: PayableExpenseWhereInput
     none?: PayableExpenseWhereInput
-  }
-
-  export type ContractOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type PayableExpenseOrderByRelationAggregateInput = {
@@ -47672,11 +49569,16 @@ export namespace Prisma {
     is_Active?: SortOrder
     body_html?: SortOrder
     signed_contract_url?: SortOrder
+    sellerId?: SortOrder
+    commission_percentage?: SortOrder
+    commission_start_date?: SortOrder
+    commission_end_date?: SortOrder
   }
 
   export type ContractAvgOrderByAggregateInput = {
     total_value?: SortOrder
     billing_day?: SortOrder
+    commission_percentage?: SortOrder
   }
 
   export type ContractMaxOrderByAggregateInput = {
@@ -47699,6 +49601,10 @@ export namespace Prisma {
     is_Active?: SortOrder
     body_html?: SortOrder
     signed_contract_url?: SortOrder
+    sellerId?: SortOrder
+    commission_percentage?: SortOrder
+    commission_start_date?: SortOrder
+    commission_end_date?: SortOrder
   }
 
   export type ContractMinOrderByAggregateInput = {
@@ -47721,11 +49627,16 @@ export namespace Prisma {
     is_Active?: SortOrder
     body_html?: SortOrder
     signed_contract_url?: SortOrder
+    sellerId?: SortOrder
+    commission_percentage?: SortOrder
+    commission_start_date?: SortOrder
+    commission_end_date?: SortOrder
   }
 
   export type ContractSumOrderByAggregateInput = {
     total_value?: SortOrder
     billing_day?: SortOrder
+    commission_percentage?: SortOrder
   }
 
   export type EnumContractStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -47908,6 +49819,11 @@ export namespace Prisma {
   export type AssetMovementScalarRelationFilter = {
     is?: AssetMovementWhereInput
     isNot?: AssetMovementWhereInput
+  }
+
+  export type CommissionNullableScalarRelationFilter = {
+    is?: CommissionWhereInput | null
+    isNot?: CommissionWhereInput | null
   }
 
   export type BulletinExpenseOrderByRelationAggregateInput = {
@@ -48739,6 +50655,93 @@ export namespace Prisma {
     extra_hour_value?: SortOrder
   }
 
+  export type EnumCommissionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommissionStatus | EnumCommissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommissionStatusFilter<$PrismaModel> | $Enums.CommissionStatus
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type MeasurementBulletinNullableScalarRelationFilter = {
+    is?: MeasurementBulletinWhereInput | null
+    isNot?: MeasurementBulletinWhereInput | null
+  }
+
+  export type CommissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    sellerId?: SortOrder
+    measurementBulletinId?: SortOrder
+    reference_month?: SortOrder
+    base_value?: SortOrder
+    commission_percentage?: SortOrder
+    commission_value?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    paid_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CommissionAvgOrderByAggregateInput = {
+    base_value?: SortOrder
+    commission_percentage?: SortOrder
+    commission_value?: SortOrder
+  }
+
+  export type CommissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    sellerId?: SortOrder
+    measurementBulletinId?: SortOrder
+    reference_month?: SortOrder
+    base_value?: SortOrder
+    commission_percentage?: SortOrder
+    commission_value?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    paid_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CommissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    contractId?: SortOrder
+    sellerId?: SortOrder
+    measurementBulletinId?: SortOrder
+    reference_month?: SortOrder
+    base_value?: SortOrder
+    commission_percentage?: SortOrder
+    commission_value?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    paid_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type CommissionSumOrderByAggregateInput = {
+    base_value?: SortOrder
+    commission_percentage?: SortOrder
+    commission_value?: SortOrder
+  }
+
+  export type EnumCommissionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommissionStatus | EnumCommissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommissionStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommissionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommissionStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommissionStatusFilter<$PrismaModel>
+  }
+
   export type ExpenseInstallmentListRelationFilter = {
     every?: ExpenseInstallmentWhereInput
     some?: ExpenseInstallmentWhereInput
@@ -49199,6 +51202,20 @@ export namespace Prisma {
     connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
   }
 
+  export type CommissionCreateNestedManyWithoutSellerInput = {
+    create?: XOR<CommissionCreateWithoutSellerInput, CommissionUncheckedCreateWithoutSellerInput> | CommissionCreateWithoutSellerInput[] | CommissionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: CommissionCreateOrConnectWithoutSellerInput | CommissionCreateOrConnectWithoutSellerInput[]
+    createMany?: CommissionCreateManySellerInputEnvelope
+    connect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+  }
+
+  export type ContractCreateNestedManyWithoutSellerInput = {
+    create?: XOR<ContractCreateWithoutSellerInput, ContractUncheckedCreateWithoutSellerInput> | ContractCreateWithoutSellerInput[] | ContractUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutSellerInput | ContractCreateOrConnectWithoutSellerInput[]
+    createMany?: ContractCreateManySellerInputEnvelope
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+  }
+
   export type MaintenanceUncheckedCreateNestedManyWithoutAssigned_toInput = {
     create?: XOR<MaintenanceCreateWithoutAssigned_toInput, MaintenanceUncheckedCreateWithoutAssigned_toInput> | MaintenanceCreateWithoutAssigned_toInput[] | MaintenanceUncheckedCreateWithoutAssigned_toInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigned_toInput | MaintenanceCreateOrConnectWithoutAssigned_toInput[]
@@ -49211,6 +51228,20 @@ export namespace Prisma {
     connectOrCreate?: CommercialProposalCreateOrConnectWithoutUserInput | CommercialProposalCreateOrConnectWithoutUserInput[]
     createMany?: CommercialProposalCreateManyUserInputEnvelope
     connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+  }
+
+  export type CommissionUncheckedCreateNestedManyWithoutSellerInput = {
+    create?: XOR<CommissionCreateWithoutSellerInput, CommissionUncheckedCreateWithoutSellerInput> | CommissionCreateWithoutSellerInput[] | CommissionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: CommissionCreateOrConnectWithoutSellerInput | CommissionCreateOrConnectWithoutSellerInput[]
+    createMany?: CommissionCreateManySellerInputEnvelope
+    connect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+  }
+
+  export type ContractUncheckedCreateNestedManyWithoutSellerInput = {
+    create?: XOR<ContractCreateWithoutSellerInput, ContractUncheckedCreateWithoutSellerInput> | ContractCreateWithoutSellerInput[] | ContractUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutSellerInput | ContractCreateOrConnectWithoutSellerInput[]
+    createMany?: ContractCreateManySellerInputEnvelope
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -49261,6 +51292,34 @@ export namespace Prisma {
     deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
   }
 
+  export type CommissionUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<CommissionCreateWithoutSellerInput, CommissionUncheckedCreateWithoutSellerInput> | CommissionCreateWithoutSellerInput[] | CommissionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: CommissionCreateOrConnectWithoutSellerInput | CommissionCreateOrConnectWithoutSellerInput[]
+    upsert?: CommissionUpsertWithWhereUniqueWithoutSellerInput | CommissionUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: CommissionCreateManySellerInputEnvelope
+    set?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    disconnect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    delete?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    connect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    update?: CommissionUpdateWithWhereUniqueWithoutSellerInput | CommissionUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: CommissionUpdateManyWithWhereWithoutSellerInput | CommissionUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: CommissionScalarWhereInput | CommissionScalarWhereInput[]
+  }
+
+  export type ContractUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<ContractCreateWithoutSellerInput, ContractUncheckedCreateWithoutSellerInput> | ContractCreateWithoutSellerInput[] | ContractUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutSellerInput | ContractCreateOrConnectWithoutSellerInput[]
+    upsert?: ContractUpsertWithWhereUniqueWithoutSellerInput | ContractUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: ContractCreateManySellerInputEnvelope
+    set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    update?: ContractUpdateWithWhereUniqueWithoutSellerInput | ContractUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: ContractUpdateManyWithWhereWithoutSellerInput | ContractUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
+  }
+
   export type MaintenanceUncheckedUpdateManyWithoutAssigned_toNestedInput = {
     create?: XOR<MaintenanceCreateWithoutAssigned_toInput, MaintenanceUncheckedCreateWithoutAssigned_toInput> | MaintenanceCreateWithoutAssigned_toInput[] | MaintenanceUncheckedCreateWithoutAssigned_toInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAssigned_toInput | MaintenanceCreateOrConnectWithoutAssigned_toInput[]
@@ -49287,6 +51346,34 @@ export namespace Prisma {
     update?: CommercialProposalUpdateWithWhereUniqueWithoutUserInput | CommercialProposalUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommercialProposalUpdateManyWithWhereWithoutUserInput | CommercialProposalUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
+  }
+
+  export type CommissionUncheckedUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<CommissionCreateWithoutSellerInput, CommissionUncheckedCreateWithoutSellerInput> | CommissionCreateWithoutSellerInput[] | CommissionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: CommissionCreateOrConnectWithoutSellerInput | CommissionCreateOrConnectWithoutSellerInput[]
+    upsert?: CommissionUpsertWithWhereUniqueWithoutSellerInput | CommissionUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: CommissionCreateManySellerInputEnvelope
+    set?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    disconnect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    delete?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    connect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    update?: CommissionUpdateWithWhereUniqueWithoutSellerInput | CommissionUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: CommissionUpdateManyWithWhereWithoutSellerInput | CommissionUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: CommissionScalarWhereInput | CommissionScalarWhereInput[]
+  }
+
+  export type ContractUncheckedUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<ContractCreateWithoutSellerInput, ContractUncheckedCreateWithoutSellerInput> | ContractCreateWithoutSellerInput[] | ContractUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutSellerInput | ContractCreateOrConnectWithoutSellerInput[]
+    upsert?: ContractUpsertWithWhereUniqueWithoutSellerInput | ContractUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: ContractCreateManySellerInputEnvelope
+    set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    update?: ContractUpdateWithWhereUniqueWithoutSellerInput | ContractUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: ContractUpdateManyWithWhereWithoutSellerInput | ContractUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
   }
 
   export type AssetCreateNestedManyWithoutAssetCategoryInput = {
@@ -50206,6 +52293,19 @@ export namespace Prisma {
     connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
   }
 
+  export type UserCreateNestedOneWithoutSellerContractsInput = {
+    create?: XOR<UserCreateWithoutSellerContractsInput, UserUncheckedCreateWithoutSellerContractsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSellerContractsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CommissionCreateNestedManyWithoutContractInput = {
+    create?: XOR<CommissionCreateWithoutContractInput, CommissionUncheckedCreateWithoutContractInput> | CommissionCreateWithoutContractInput[] | CommissionUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: CommissionCreateOrConnectWithoutContractInput | CommissionCreateOrConnectWithoutContractInput[]
+    createMany?: CommissionCreateManyContractInputEnvelope
+    connect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+  }
+
   export type AssetMovementUncheckedCreateNestedManyWithoutContractInput = {
     create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
@@ -50246,6 +52346,13 @@ export namespace Prisma {
     connectOrCreate?: CommercialProposalCreateOrConnectWithoutContractInput | CommercialProposalCreateOrConnectWithoutContractInput[]
     createMany?: CommercialProposalCreateManyContractInputEnvelope
     connect?: CommercialProposalWhereUniqueInput | CommercialProposalWhereUniqueInput[]
+  }
+
+  export type CommissionUncheckedCreateNestedManyWithoutContractInput = {
+    create?: XOR<CommissionCreateWithoutContractInput, CommissionUncheckedCreateWithoutContractInput> | CommissionCreateWithoutContractInput[] | CommissionUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: CommissionCreateOrConnectWithoutContractInput | CommissionCreateOrConnectWithoutContractInput[]
+    createMany?: CommissionCreateManyContractInputEnvelope
+    connect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
   }
 
   export type EnumContractStatusFieldUpdateOperationsInput = {
@@ -50344,6 +52451,30 @@ export namespace Prisma {
     deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
   }
 
+  export type UserUpdateOneWithoutSellerContractsNestedInput = {
+    create?: XOR<UserCreateWithoutSellerContractsInput, UserUncheckedCreateWithoutSellerContractsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSellerContractsInput
+    upsert?: UserUpsertWithoutSellerContractsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSellerContractsInput, UserUpdateWithoutSellerContractsInput>, UserUncheckedUpdateWithoutSellerContractsInput>
+  }
+
+  export type CommissionUpdateManyWithoutContractNestedInput = {
+    create?: XOR<CommissionCreateWithoutContractInput, CommissionUncheckedCreateWithoutContractInput> | CommissionCreateWithoutContractInput[] | CommissionUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: CommissionCreateOrConnectWithoutContractInput | CommissionCreateOrConnectWithoutContractInput[]
+    upsert?: CommissionUpsertWithWhereUniqueWithoutContractInput | CommissionUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: CommissionCreateManyContractInputEnvelope
+    set?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    disconnect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    delete?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    connect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    update?: CommissionUpdateWithWhereUniqueWithoutContractInput | CommissionUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: CommissionUpdateManyWithWhereWithoutContractInput | CommissionUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: CommissionScalarWhereInput | CommissionScalarWhereInput[]
+  }
+
   export type AssetMovementUncheckedUpdateManyWithoutContractNestedInput = {
     create?: XOR<AssetMovementCreateWithoutContractInput, AssetMovementUncheckedCreateWithoutContractInput> | AssetMovementCreateWithoutContractInput[] | AssetMovementUncheckedCreateWithoutContractInput[]
     connectOrCreate?: AssetMovementCreateOrConnectWithoutContractInput | AssetMovementCreateOrConnectWithoutContractInput[]
@@ -50426,6 +52557,20 @@ export namespace Prisma {
     update?: CommercialProposalUpdateWithWhereUniqueWithoutContractInput | CommercialProposalUpdateWithWhereUniqueWithoutContractInput[]
     updateMany?: CommercialProposalUpdateManyWithWhereWithoutContractInput | CommercialProposalUpdateManyWithWhereWithoutContractInput[]
     deleteMany?: CommercialProposalScalarWhereInput | CommercialProposalScalarWhereInput[]
+  }
+
+  export type CommissionUncheckedUpdateManyWithoutContractNestedInput = {
+    create?: XOR<CommissionCreateWithoutContractInput, CommissionUncheckedCreateWithoutContractInput> | CommissionCreateWithoutContractInput[] | CommissionUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: CommissionCreateOrConnectWithoutContractInput | CommissionCreateOrConnectWithoutContractInput[]
+    upsert?: CommissionUpsertWithWhereUniqueWithoutContractInput | CommissionUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: CommissionCreateManyContractInputEnvelope
+    set?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    disconnect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    delete?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    connect?: CommissionWhereUniqueInput | CommissionWhereUniqueInput[]
+    update?: CommissionUpdateWithWhereUniqueWithoutContractInput | CommissionUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: CommissionUpdateManyWithWhereWithoutContractInput | CommissionUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: CommissionScalarWhereInput | CommissionScalarWhereInput[]
   }
 
   export type AssetCreateNestedOneWithoutMovementsInput = {
@@ -50539,11 +52684,23 @@ export namespace Prisma {
     connect?: ContractWhereUniqueInput
   }
 
+  export type CommissionCreateNestedOneWithoutMeasurementBulletinInput = {
+    create?: XOR<CommissionCreateWithoutMeasurementBulletinInput, CommissionUncheckedCreateWithoutMeasurementBulletinInput>
+    connectOrCreate?: CommissionCreateOrConnectWithoutMeasurementBulletinInput
+    connect?: CommissionWhereUniqueInput
+  }
+
   export type BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput = {
     create?: XOR<BulletinExpenseCreateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput> | BulletinExpenseCreateWithoutMeasurementBulletinInput[] | BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput[]
     connectOrCreate?: BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput | BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput[]
     createMany?: BulletinExpenseCreateManyMeasurementBulletinInputEnvelope
     connect?: BulletinExpenseWhereUniqueInput | BulletinExpenseWhereUniqueInput[]
+  }
+
+  export type CommissionUncheckedCreateNestedOneWithoutMeasurementBulletinInput = {
+    create?: XOR<CommissionCreateWithoutMeasurementBulletinInput, CommissionUncheckedCreateWithoutMeasurementBulletinInput>
+    connectOrCreate?: CommissionCreateOrConnectWithoutMeasurementBulletinInput
+    connect?: CommissionWhereUniqueInput
   }
 
   export type EnumMeasurementBulletinStatusFieldUpdateOperationsInput = {
@@ -50590,6 +52747,16 @@ export namespace Prisma {
     update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutMeasurementBulletinsInput, ContractUpdateWithoutMeasurementBulletinsInput>, ContractUncheckedUpdateWithoutMeasurementBulletinsInput>
   }
 
+  export type CommissionUpdateOneWithoutMeasurementBulletinNestedInput = {
+    create?: XOR<CommissionCreateWithoutMeasurementBulletinInput, CommissionUncheckedCreateWithoutMeasurementBulletinInput>
+    connectOrCreate?: CommissionCreateOrConnectWithoutMeasurementBulletinInput
+    upsert?: CommissionUpsertWithoutMeasurementBulletinInput
+    disconnect?: CommissionWhereInput | boolean
+    delete?: CommissionWhereInput | boolean
+    connect?: CommissionWhereUniqueInput
+    update?: XOR<XOR<CommissionUpdateToOneWithWhereWithoutMeasurementBulletinInput, CommissionUpdateWithoutMeasurementBulletinInput>, CommissionUncheckedUpdateWithoutMeasurementBulletinInput>
+  }
+
   export type BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput = {
     create?: XOR<BulletinExpenseCreateWithoutMeasurementBulletinInput, BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput> | BulletinExpenseCreateWithoutMeasurementBulletinInput[] | BulletinExpenseUncheckedCreateWithoutMeasurementBulletinInput[]
     connectOrCreate?: BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput | BulletinExpenseCreateOrConnectWithoutMeasurementBulletinInput[]
@@ -50602,6 +52769,16 @@ export namespace Prisma {
     update?: BulletinExpenseUpdateWithWhereUniqueWithoutMeasurementBulletinInput | BulletinExpenseUpdateWithWhereUniqueWithoutMeasurementBulletinInput[]
     updateMany?: BulletinExpenseUpdateManyWithWhereWithoutMeasurementBulletinInput | BulletinExpenseUpdateManyWithWhereWithoutMeasurementBulletinInput[]
     deleteMany?: BulletinExpenseScalarWhereInput | BulletinExpenseScalarWhereInput[]
+  }
+
+  export type CommissionUncheckedUpdateOneWithoutMeasurementBulletinNestedInput = {
+    create?: XOR<CommissionCreateWithoutMeasurementBulletinInput, CommissionUncheckedCreateWithoutMeasurementBulletinInput>
+    connectOrCreate?: CommissionCreateOrConnectWithoutMeasurementBulletinInput
+    upsert?: CommissionUpsertWithoutMeasurementBulletinInput
+    disconnect?: CommissionWhereInput | boolean
+    delete?: CommissionWhereInput | boolean
+    connect?: CommissionWhereUniqueInput
+    update?: XOR<XOR<CommissionUpdateToOneWithWhereWithoutMeasurementBulletinInput, CommissionUpdateWithoutMeasurementBulletinInput>, CommissionUncheckedUpdateWithoutMeasurementBulletinInput>
   }
 
   export type MeasurementBulletinCreateNestedManyWithoutInvoiceInput = {
@@ -51254,6 +53431,54 @@ export namespace Prisma {
     delete?: AssetCategoryWhereInput | boolean
     connect?: AssetCategoryWhereUniqueInput
     update?: XOR<XOR<AssetCategoryUpdateToOneWithWhereWithoutProposalItemsInput, AssetCategoryUpdateWithoutProposalItemsInput>, AssetCategoryUncheckedUpdateWithoutProposalItemsInput>
+  }
+
+  export type ContractCreateNestedOneWithoutCommissionsInput = {
+    create?: XOR<ContractCreateWithoutCommissionsInput, ContractUncheckedCreateWithoutCommissionsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutCommissionsInput
+    connect?: ContractWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCommissionsInput = {
+    create?: XOR<UserCreateWithoutCommissionsInput, UserUncheckedCreateWithoutCommissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommissionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MeasurementBulletinCreateNestedOneWithoutCommissionInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutCommissionInput, MeasurementBulletinUncheckedCreateWithoutCommissionInput>
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutCommissionInput
+    connect?: MeasurementBulletinWhereUniqueInput
+  }
+
+  export type EnumCommissionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CommissionStatus
+  }
+
+  export type ContractUpdateOneRequiredWithoutCommissionsNestedInput = {
+    create?: XOR<ContractCreateWithoutCommissionsInput, ContractUncheckedCreateWithoutCommissionsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutCommissionsInput
+    upsert?: ContractUpsertWithoutCommissionsInput
+    connect?: ContractWhereUniqueInput
+    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutCommissionsInput, ContractUpdateWithoutCommissionsInput>, ContractUncheckedUpdateWithoutCommissionsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCommissionsNestedInput = {
+    create?: XOR<UserCreateWithoutCommissionsInput, UserUncheckedCreateWithoutCommissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommissionsInput
+    upsert?: UserUpsertWithoutCommissionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommissionsInput, UserUpdateWithoutCommissionsInput>, UserUncheckedUpdateWithoutCommissionsInput>
+  }
+
+  export type MeasurementBulletinUpdateOneWithoutCommissionNestedInput = {
+    create?: XOR<MeasurementBulletinCreateWithoutCommissionInput, MeasurementBulletinUncheckedCreateWithoutCommissionInput>
+    connectOrCreate?: MeasurementBulletinCreateOrConnectWithoutCommissionInput
+    upsert?: MeasurementBulletinUpsertWithoutCommissionInput
+    disconnect?: MeasurementBulletinWhereInput | boolean
+    delete?: MeasurementBulletinWhereInput | boolean
+    connect?: MeasurementBulletinWhereUniqueInput
+    update?: XOR<XOR<MeasurementBulletinUpdateToOneWithWhereWithoutCommissionInput, MeasurementBulletinUpdateWithoutCommissionInput>, MeasurementBulletinUncheckedUpdateWithoutCommissionInput>
   }
 
   export type FinancialTransactionCreateNestedManyWithoutBankAccountInput = {
@@ -52287,6 +54512,23 @@ export namespace Prisma {
     _max?: NestedEnumProposalStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumCommissionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommissionStatus | EnumCommissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommissionStatusFilter<$PrismaModel> | $Enums.CommissionStatus
+  }
+
+  export type NestedEnumCommissionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommissionStatus | EnumCommissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommissionStatus[] | ListEnumCommissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommissionStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommissionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommissionStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommissionStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumPaymentMethodFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentMethod | EnumPaymentMethodFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentMethod[] | ListEnumPaymentMethodFieldRefInput<$PrismaModel>
@@ -52496,6 +54738,120 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CommissionCreateWithoutSellerInput = {
+    id?: string
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutCommissionsInput
+    measurementBulletin?: MeasurementBulletinCreateNestedOneWithoutCommissionInput
+  }
+
+  export type CommissionUncheckedCreateWithoutSellerInput = {
+    id?: string
+    contractId: string
+    measurementBulletinId?: string | null
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CommissionCreateOrConnectWithoutSellerInput = {
+    where: CommissionWhereUniqueInput
+    create: XOR<CommissionCreateWithoutSellerInput, CommissionUncheckedCreateWithoutSellerInput>
+  }
+
+  export type CommissionCreateManySellerInputEnvelope = {
+    data: CommissionCreateManySellerInput | CommissionCreateManySellerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContractCreateWithoutSellerInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    observations?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
+    movements?: AssetMovementCreateNestedManyWithoutContractInput
+    client: SupplierCreateNestedOneWithoutContractsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+    invoices?: InvoiceCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+    commissions?: CommissionCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractUncheckedCreateWithoutSellerInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    observations?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
+    movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractCreateOrConnectWithoutSellerInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutSellerInput, ContractUncheckedCreateWithoutSellerInput>
+  }
+
+  export type ContractCreateManySellerInputEnvelope = {
+    data: ContractCreateManySellerInput | ContractCreateManySellerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MaintenanceUpsertWithWhereUniqueWithoutAssigned_toInput = {
     where: MaintenanceWhereUniqueInput
     update: XOR<MaintenanceUpdateWithoutAssigned_toInput, MaintenanceUncheckedUpdateWithoutAssigned_toInput>
@@ -52583,6 +54939,86 @@ export namespace Prisma {
     is_active?: BoolFilter<"CommercialProposal"> | boolean
     contractId?: StringNullableFilter<"CommercialProposal"> | string | null
     userId?: StringNullableFilter<"CommercialProposal"> | string | null
+  }
+
+  export type CommissionUpsertWithWhereUniqueWithoutSellerInput = {
+    where: CommissionWhereUniqueInput
+    update: XOR<CommissionUpdateWithoutSellerInput, CommissionUncheckedUpdateWithoutSellerInput>
+    create: XOR<CommissionCreateWithoutSellerInput, CommissionUncheckedCreateWithoutSellerInput>
+  }
+
+  export type CommissionUpdateWithWhereUniqueWithoutSellerInput = {
+    where: CommissionWhereUniqueInput
+    data: XOR<CommissionUpdateWithoutSellerInput, CommissionUncheckedUpdateWithoutSellerInput>
+  }
+
+  export type CommissionUpdateManyWithWhereWithoutSellerInput = {
+    where: CommissionScalarWhereInput
+    data: XOR<CommissionUpdateManyMutationInput, CommissionUncheckedUpdateManyWithoutSellerInput>
+  }
+
+  export type CommissionScalarWhereInput = {
+    AND?: CommissionScalarWhereInput | CommissionScalarWhereInput[]
+    OR?: CommissionScalarWhereInput[]
+    NOT?: CommissionScalarWhereInput | CommissionScalarWhereInput[]
+    id?: StringFilter<"Commission"> | string
+    contractId?: StringFilter<"Commission"> | string
+    sellerId?: StringFilter<"Commission"> | string
+    measurementBulletinId?: StringNullableFilter<"Commission"> | string | null
+    reference_month?: DateTimeFilter<"Commission"> | Date | string
+    base_value?: DecimalFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFilter<"Commission"> | Decimal | DecimalJsLike | number | string
+    notes?: StringNullableFilter<"Commission"> | string | null
+    status?: EnumCommissionStatusFilter<"Commission"> | $Enums.CommissionStatus
+    paid_at?: DateTimeNullableFilter<"Commission"> | Date | string | null
+    created_at?: DateTimeFilter<"Commission"> | Date | string
+    updated_at?: DateTimeFilter<"Commission"> | Date | string
+  }
+
+  export type ContractUpsertWithWhereUniqueWithoutSellerInput = {
+    where: ContractWhereUniqueInput
+    update: XOR<ContractUpdateWithoutSellerInput, ContractUncheckedUpdateWithoutSellerInput>
+    create: XOR<ContractCreateWithoutSellerInput, ContractUncheckedCreateWithoutSellerInput>
+  }
+
+  export type ContractUpdateWithWhereUniqueWithoutSellerInput = {
+    where: ContractWhereUniqueInput
+    data: XOR<ContractUpdateWithoutSellerInput, ContractUncheckedUpdateWithoutSellerInput>
+  }
+
+  export type ContractUpdateManyWithWhereWithoutSellerInput = {
+    where: ContractScalarWhereInput
+    data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyWithoutSellerInput>
+  }
+
+  export type ContractScalarWhereInput = {
+    AND?: ContractScalarWhereInput | ContractScalarWhereInput[]
+    OR?: ContractScalarWhereInput[]
+    NOT?: ContractScalarWhereInput | ContractScalarWhereInput[]
+    id?: StringFilter<"Contract"> | string
+    contract_number?: StringFilter<"Contract"> | string
+    description?: StringNullableFilter<"Contract"> | string | null
+    clientId?: StringFilter<"Contract"> | string
+    responsible_name?: StringNullableFilter<"Contract"> | string | null
+    responsible_phone?: StringNullableFilter<"Contract"> | string | null
+    responsible_email?: StringNullableFilter<"Contract"> | string | null
+    start_date?: DateTimeFilter<"Contract"> | Date | string
+    end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
+    billing_day?: IntNullableFilter<"Contract"> | number | null
+    notes?: StringNullableFilter<"Contract"> | string | null
+    observations?: StringNullableFilter<"Contract"> | string | null
+    created_at?: DateTimeFilter<"Contract"> | Date | string
+    updated_at?: DateTimeFilter<"Contract"> | Date | string
+    is_Active?: BoolFilter<"Contract"> | boolean
+    body_html?: StringNullableFilter<"Contract"> | string | null
+    signed_contract_url?: StringNullableFilter<"Contract"> | string | null
+    sellerId?: StringNullableFilter<"Contract"> | string | null
+    commission_percentage?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    commission_end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
   }
 
   export type AssetCreateWithoutAssetCategoryInput = {
@@ -53585,12 +56021,17 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
     invoices?: InvoiceCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+    seller?: UserCreateNestedOneWithoutSellerContractsInput
+    commissions?: CommissionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutClientInput = {
@@ -53612,12 +56053,17 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutClientInput = {
@@ -53876,31 +56322,6 @@ export namespace Prisma {
     data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyWithoutClientInput>
   }
 
-  export type ContractScalarWhereInput = {
-    AND?: ContractScalarWhereInput | ContractScalarWhereInput[]
-    OR?: ContractScalarWhereInput[]
-    NOT?: ContractScalarWhereInput | ContractScalarWhereInput[]
-    id?: StringFilter<"Contract"> | string
-    contract_number?: StringFilter<"Contract"> | string
-    description?: StringNullableFilter<"Contract"> | string | null
-    clientId?: StringFilter<"Contract"> | string
-    responsible_name?: StringNullableFilter<"Contract"> | string | null
-    responsible_phone?: StringNullableFilter<"Contract"> | string | null
-    responsible_email?: StringNullableFilter<"Contract"> | string | null
-    start_date?: DateTimeFilter<"Contract"> | Date | string
-    end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
-    status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
-    total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
-    billing_day?: IntNullableFilter<"Contract"> | number | null
-    notes?: StringNullableFilter<"Contract"> | string | null
-    observations?: StringNullableFilter<"Contract"> | string | null
-    created_at?: DateTimeFilter<"Contract"> | Date | string
-    updated_at?: DateTimeFilter<"Contract"> | Date | string
-    is_Active?: BoolFilter<"Contract"> | boolean
-    body_html?: StringNullableFilter<"Contract"> | string | null
-    signed_contract_url?: StringNullableFilter<"Contract"> | string | null
-  }
-
   export type MaintenanceUpsertWithWhereUniqueWithoutSupplierInput = {
     where: MaintenanceWhereUniqueInput
     update: XOR<MaintenanceUpdateWithoutSupplierInput, MaintenanceUncheckedUpdateWithoutSupplierInput>
@@ -54110,6 +56531,8 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     commercialProposals?: CommercialProposalCreateNestedManyWithoutUserInput
+    commissions?: CommissionCreateNestedManyWithoutSellerInput
+    sellerContracts?: ContractCreateNestedManyWithoutSellerInput
   }
 
   export type UserUncheckedCreateWithoutAssignedMaintenancesInput = {
@@ -54124,6 +56547,8 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     commercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutUserInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutSellerInput
+    sellerContracts?: ContractUncheckedCreateNestedManyWithoutSellerInput
   }
 
   export type UserCreateOrConnectWithoutAssignedMaintenancesInput = {
@@ -54215,12 +56640,17 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
     invoices?: InvoiceCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+    seller?: UserCreateNestedOneWithoutSellerContractsInput
+    commissions?: CommissionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMaintenancesInput = {
@@ -54243,11 +56673,16 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMaintenancesInput = {
@@ -54439,6 +56874,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     commercialProposals?: CommercialProposalUpdateManyWithoutUserNestedInput
+    commissions?: CommissionUpdateManyWithoutSellerNestedInput
+    sellerContracts?: ContractUpdateManyWithoutSellerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedMaintenancesInput = {
@@ -54453,6 +56890,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     commercialProposals?: CommercialProposalUncheckedUpdateManyWithoutUserNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutSellerNestedInput
+    sellerContracts?: ContractUncheckedUpdateManyWithoutSellerNestedInput
   }
 
   export type AssetUpsertWithoutMaintenanceInput = {
@@ -54556,12 +56995,17 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+    seller?: UserUpdateOneWithoutSellerContractsNestedInput
+    commissions?: CommissionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMaintenancesInput = {
@@ -54584,11 +57028,16 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ServiceCategoryUpsertWithoutMaintenanceInput = {
@@ -54997,6 +57446,7 @@ export namespace Prisma {
     expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
     invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinsInput
     assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
+    commission?: CommissionCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinUncheckedCreateWithoutContractInput = {
@@ -55020,6 +57470,7 @@ export namespace Prisma {
     updated_at?: Date | string
     invoiceId?: string | null
     expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
+    commission?: CommissionUncheckedCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinCreateOrConnectWithoutContractInput = {
@@ -55197,6 +57648,83 @@ export namespace Prisma {
 
   export type CommercialProposalCreateManyContractInputEnvelope = {
     data: CommercialProposalCreateManyContractInput | CommercialProposalCreateManyContractInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutSellerContractsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    avatar?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigned_toInput
+    commercialProposals?: CommercialProposalCreateNestedManyWithoutUserInput
+    commissions?: CommissionCreateNestedManyWithoutSellerInput
+  }
+
+  export type UserUncheckedCreateWithoutSellerContractsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    avatar?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigned_toInput
+    commercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutUserInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutSellerInput
+  }
+
+  export type UserCreateOrConnectWithoutSellerContractsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSellerContractsInput, UserUncheckedCreateWithoutSellerContractsInput>
+  }
+
+  export type CommissionCreateWithoutContractInput = {
+    id?: string
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    seller: UserCreateNestedOneWithoutCommissionsInput
+    measurementBulletin?: MeasurementBulletinCreateNestedOneWithoutCommissionInput
+  }
+
+  export type CommissionUncheckedCreateWithoutContractInput = {
+    id?: string
+    sellerId: string
+    measurementBulletinId?: string | null
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CommissionCreateOrConnectWithoutContractInput = {
+    where: CommissionWhereUniqueInput
+    create: XOR<CommissionCreateWithoutContractInput, CommissionUncheckedCreateWithoutContractInput>
+  }
+
+  export type CommissionCreateManyContractInputEnvelope = {
+    data: CommissionCreateManyContractInput | CommissionCreateManyContractInput[]
     skipDuplicates?: boolean
   }
 
@@ -55399,6 +57927,65 @@ export namespace Prisma {
     data: XOR<CommercialProposalUpdateManyMutationInput, CommercialProposalUncheckedUpdateManyWithoutContractInput>
   }
 
+  export type UserUpsertWithoutSellerContractsInput = {
+    update: XOR<UserUpdateWithoutSellerContractsInput, UserUncheckedUpdateWithoutSellerContractsInput>
+    create: XOR<UserCreateWithoutSellerContractsInput, UserUncheckedCreateWithoutSellerContractsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSellerContractsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSellerContractsInput, UserUncheckedUpdateWithoutSellerContractsInput>
+  }
+
+  export type UserUpdateWithoutSellerContractsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigned_toNestedInput
+    commercialProposals?: CommercialProposalUpdateManyWithoutUserNestedInput
+    commissions?: CommissionUpdateManyWithoutSellerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSellerContractsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigned_toNestedInput
+    commercialProposals?: CommercialProposalUncheckedUpdateManyWithoutUserNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutSellerNestedInput
+  }
+
+  export type CommissionUpsertWithWhereUniqueWithoutContractInput = {
+    where: CommissionWhereUniqueInput
+    update: XOR<CommissionUpdateWithoutContractInput, CommissionUncheckedUpdateWithoutContractInput>
+    create: XOR<CommissionCreateWithoutContractInput, CommissionUncheckedCreateWithoutContractInput>
+  }
+
+  export type CommissionUpdateWithWhereUniqueWithoutContractInput = {
+    where: CommissionWhereUniqueInput
+    data: XOR<CommissionUpdateWithoutContractInput, CommissionUncheckedUpdateWithoutContractInput>
+  }
+
+  export type CommissionUpdateManyWithWhereWithoutContractInput = {
+    where: CommissionScalarWhereInput
+    data: XOR<CommissionUpdateManyMutationInput, CommissionUncheckedUpdateManyWithoutContractInput>
+  }
+
   export type AssetCreateWithoutMovementsInput = {
     id?: string
     brand: string
@@ -55483,12 +58070,17 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
     invoices?: InvoiceCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+    seller?: UserCreateNestedOneWithoutSellerContractsInput
+    commissions?: CommissionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMovementsInput = {
@@ -55511,11 +58103,16 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMovementsInput = {
@@ -55544,6 +58141,7 @@ export namespace Prisma {
     expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
     invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinsInput
     contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
+    commission?: CommissionCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinUncheckedCreateWithoutAssetMovementInput = {
@@ -55567,6 +58165,7 @@ export namespace Prisma {
     updated_at?: Date | string
     invoiceId?: string | null
     expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
+    commission?: CommissionUncheckedCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinCreateOrConnectWithoutAssetMovementInput = {
@@ -55680,12 +58279,17 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+    seller?: UserUpdateOneWithoutSellerContractsNestedInput
+    commissions?: CommissionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMovementsInput = {
@@ -55708,11 +58312,16 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type MeasurementBulletinUpsertWithWhereUniqueWithoutAssetMovementInput = {
@@ -55874,12 +58483,17 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     invoices?: InvoiceCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+    seller?: UserCreateNestedOneWithoutSellerContractsInput
+    commissions?: CommissionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutMeasurementBulletinsInput = {
@@ -55902,16 +58516,56 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutMeasurementBulletinsInput = {
     where: ContractWhereUniqueInput
     create: XOR<ContractCreateWithoutMeasurementBulletinsInput, ContractUncheckedCreateWithoutMeasurementBulletinsInput>
+  }
+
+  export type CommissionCreateWithoutMeasurementBulletinInput = {
+    id?: string
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    contract: ContractCreateNestedOneWithoutCommissionsInput
+    seller: UserCreateNestedOneWithoutCommissionsInput
+  }
+
+  export type CommissionUncheckedCreateWithoutMeasurementBulletinInput = {
+    id?: string
+    contractId: string
+    sellerId: string
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type CommissionCreateOrConnectWithoutMeasurementBulletinInput = {
+    where: CommissionWhereUniqueInput
+    create: XOR<CommissionCreateWithoutMeasurementBulletinInput, CommissionUncheckedCreateWithoutMeasurementBulletinInput>
   }
 
   export type BulletinExpenseUpsertWithWhereUniqueWithoutMeasurementBulletinInput = {
@@ -56080,12 +58734,17 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+    seller?: UserUpdateOneWithoutSellerContractsNestedInput
+    commissions?: CommissionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutMeasurementBulletinsInput = {
@@ -56108,11 +58767,57 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutContractNestedInput
+  }
+
+  export type CommissionUpsertWithoutMeasurementBulletinInput = {
+    update: XOR<CommissionUpdateWithoutMeasurementBulletinInput, CommissionUncheckedUpdateWithoutMeasurementBulletinInput>
+    create: XOR<CommissionCreateWithoutMeasurementBulletinInput, CommissionUncheckedCreateWithoutMeasurementBulletinInput>
+    where?: CommissionWhereInput
+  }
+
+  export type CommissionUpdateToOneWithWhereWithoutMeasurementBulletinInput = {
+    where?: CommissionWhereInput
+    data: XOR<CommissionUpdateWithoutMeasurementBulletinInput, CommissionUncheckedUpdateWithoutMeasurementBulletinInput>
+  }
+
+  export type CommissionUpdateWithoutMeasurementBulletinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutCommissionsNestedInput
+    seller?: UserUpdateOneRequiredWithoutCommissionsNestedInput
+  }
+
+  export type CommissionUncheckedUpdateWithoutMeasurementBulletinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MeasurementBulletinCreateWithoutInvoiceInput = {
@@ -56136,6 +58841,7 @@ export namespace Prisma {
     expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
     assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
     contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
+    commission?: CommissionCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinUncheckedCreateWithoutInvoiceInput = {
@@ -56159,6 +58865,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
+    commission?: CommissionUncheckedCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinCreateOrConnectWithoutInvoiceInput = {
@@ -56190,12 +58897,17 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+    seller?: UserCreateNestedOneWithoutSellerContractsInput
+    commissions?: CommissionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutInvoicesInput = {
@@ -56218,11 +58930,16 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutInvoicesInput = {
@@ -56377,12 +59094,17 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+    seller?: UserUpdateOneWithoutSellerContractsNestedInput
+    commissions?: CommissionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutInvoicesInput = {
@@ -56405,11 +59127,16 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ChartOfAccountUpsertWithoutInvoicesInput = {
@@ -56627,6 +59354,7 @@ export namespace Prisma {
     invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinsInput
     assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
     contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
+    commission?: CommissionCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinUncheckedCreateWithoutExpensesInput = {
@@ -56650,6 +59378,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     invoiceId?: string | null
+    commission?: CommissionUncheckedCreateNestedOneWithoutMeasurementBulletinInput
   }
 
   export type MeasurementBulletinCreateOrConnectWithoutExpensesInput = {
@@ -56689,6 +59418,7 @@ export namespace Prisma {
     invoice?: InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput
     assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
     contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    commission?: CommissionUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateWithoutExpensesInput = {
@@ -56712,6 +59442,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission?: CommissionUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type CommercialProposalCreateWithoutCompanySettingsInput = {
@@ -57661,12 +60392,17 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
     invoices?: InvoiceCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
+    seller?: UserCreateNestedOneWithoutSellerContractsInput
+    commissions?: CommissionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutProposalsInput = {
@@ -57689,11 +60425,16 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
     payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutProposalsInput = {
@@ -57713,6 +60454,8 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigned_toInput
+    commissions?: CommissionCreateNestedManyWithoutSellerInput
+    sellerContracts?: ContractCreateNestedManyWithoutSellerInput
   }
 
   export type UserUncheckedCreateWithoutCommercialProposalsInput = {
@@ -57727,6 +60470,8 @@ export namespace Prisma {
     updated_at?: Date | string
     is_Active?: boolean
     assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigned_toInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutSellerInput
+    sellerContracts?: ContractUncheckedCreateNestedManyWithoutSellerInput
   }
 
   export type UserCreateOrConnectWithoutCommercialProposalsInput = {
@@ -57910,12 +60655,17 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
+    seller?: UserUpdateOneWithoutSellerContractsNestedInput
+    commissions?: CommissionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutProposalsInput = {
@@ -57938,11 +60688,16 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type UserUpsertWithoutCommercialProposalsInput = {
@@ -57968,6 +60723,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     assignedMaintenances?: MaintenanceUpdateManyWithoutAssigned_toNestedInput
+    commissions?: CommissionUpdateManyWithoutSellerNestedInput
+    sellerContracts?: ContractUpdateManyWithoutSellerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommercialProposalsInput = {
@@ -57982,6 +60739,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigned_toNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutSellerNestedInput
+    sellerContracts?: ContractUncheckedUpdateManyWithoutSellerNestedInput
   }
 
   export type ProposalItemUpsertWithWhereUniqueWithoutCommercialProposalInput = {
@@ -58320,6 +61079,342 @@ export namespace Prisma {
     Asset?: AssetUncheckedUpdateManyWithoutAssetCategoryNestedInput
   }
 
+  export type ContractCreateWithoutCommissionsInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    observations?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
+    movements?: AssetMovementCreateNestedManyWithoutContractInput
+    client: SupplierCreateNestedOneWithoutContractsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
+    invoices?: InvoiceCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+    seller?: UserCreateNestedOneWithoutSellerContractsInput
+  }
+
+  export type ContractUncheckedCreateWithoutCommissionsInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    observations?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
+    movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
+    measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
+    payableExpenses?: PayableExpenseUncheckedCreateNestedManyWithoutContractInput
+    proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+  }
+
+  export type ContractCreateOrConnectWithoutCommissionsInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutCommissionsInput, ContractUncheckedCreateWithoutCommissionsInput>
+  }
+
+  export type UserCreateWithoutCommissionsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    avatar?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    assignedMaintenances?: MaintenanceCreateNestedManyWithoutAssigned_toInput
+    commercialProposals?: CommercialProposalCreateNestedManyWithoutUserInput
+    sellerContracts?: ContractCreateNestedManyWithoutSellerInput
+  }
+
+  export type UserUncheckedCreateWithoutCommissionsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    avatar?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    assignedMaintenances?: MaintenanceUncheckedCreateNestedManyWithoutAssigned_toInput
+    commercialProposals?: CommercialProposalUncheckedCreateNestedManyWithoutUserInput
+    sellerContracts?: ContractUncheckedCreateNestedManyWithoutSellerInput
+  }
+
+  export type UserCreateOrConnectWithoutCommissionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommissionsInput, UserUncheckedCreateWithoutCommissionsInput>
+  }
+
+  export type MeasurementBulletinCreateWithoutCommissionInput = {
+    id?: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    expenses?: BulletinExpenseCreateNestedManyWithoutMeasurementBulletinInput
+    invoice?: InvoiceCreateNestedOneWithoutMeasurementBulletinsInput
+    assetMovement: AssetMovementCreateNestedOneWithoutMeasurementBulletinsInput
+    contract: ContractCreateNestedOneWithoutMeasurementBulletinsInput
+  }
+
+  export type MeasurementBulletinUncheckedCreateWithoutCommissionInput = {
+    id?: string
+    contractId: string
+    assetMovementId: string
+    reference_start: Date | string
+    reference_end: Date | string
+    total_days: number
+    inactive_days: number
+    working_days: number
+    daily_rate: Decimal | DecimalJsLike | number | string
+    total_value: Decimal | DecimalJsLike | number | string
+    measured_quantity?: Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: string | null
+    current_horometer?: number | null
+    current_odometer?: number | null
+    status?: $Enums.MeasurementBulletinStatus
+    notes?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    invoiceId?: string | null
+    expenses?: BulletinExpenseUncheckedCreateNestedManyWithoutMeasurementBulletinInput
+  }
+
+  export type MeasurementBulletinCreateOrConnectWithoutCommissionInput = {
+    where: MeasurementBulletinWhereUniqueInput
+    create: XOR<MeasurementBulletinCreateWithoutCommissionInput, MeasurementBulletinUncheckedCreateWithoutCommissionInput>
+  }
+
+  export type ContractUpsertWithoutCommissionsInput = {
+    update: XOR<ContractUpdateWithoutCommissionsInput, ContractUncheckedUpdateWithoutCommissionsInput>
+    create: XOR<ContractCreateWithoutCommissionsInput, ContractUncheckedCreateWithoutCommissionsInput>
+    where?: ContractWhereInput
+  }
+
+  export type ContractUpdateToOneWithWhereWithoutCommissionsInput = {
+    where?: ContractWhereInput
+    data: XOR<ContractUpdateWithoutCommissionsInput, ContractUncheckedUpdateWithoutCommissionsInput>
+  }
+
+  export type ContractUpdateWithoutCommissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    movements?: AssetMovementUpdateManyWithoutContractNestedInput
+    client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+    invoices?: InvoiceUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+    seller?: UserUpdateOneWithoutSellerContractsNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutCommissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+  }
+
+  export type UserUpsertWithoutCommissionsInput = {
+    update: XOR<UserUpdateWithoutCommissionsInput, UserUncheckedUpdateWithoutCommissionsInput>
+    create: XOR<UserCreateWithoutCommissionsInput, UserUncheckedCreateWithoutCommissionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommissionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommissionsInput, UserUncheckedUpdateWithoutCommissionsInput>
+  }
+
+  export type UserUpdateWithoutCommissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assignedMaintenances?: MaintenanceUpdateManyWithoutAssigned_toNestedInput
+    commercialProposals?: CommercialProposalUpdateManyWithoutUserNestedInput
+    sellerContracts?: ContractUpdateManyWithoutSellerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    assignedMaintenances?: MaintenanceUncheckedUpdateManyWithoutAssigned_toNestedInput
+    commercialProposals?: CommercialProposalUncheckedUpdateManyWithoutUserNestedInput
+    sellerContracts?: ContractUncheckedUpdateManyWithoutSellerNestedInput
+  }
+
+  export type MeasurementBulletinUpsertWithoutCommissionInput = {
+    update: XOR<MeasurementBulletinUpdateWithoutCommissionInput, MeasurementBulletinUncheckedUpdateWithoutCommissionInput>
+    create: XOR<MeasurementBulletinCreateWithoutCommissionInput, MeasurementBulletinUncheckedCreateWithoutCommissionInput>
+    where?: MeasurementBulletinWhereInput
+  }
+
+  export type MeasurementBulletinUpdateToOneWithWhereWithoutCommissionInput = {
+    where?: MeasurementBulletinWhereInput
+    data: XOR<MeasurementBulletinUpdateWithoutCommissionInput, MeasurementBulletinUncheckedUpdateWithoutCommissionInput>
+  }
+
+  export type MeasurementBulletinUpdateWithoutCommissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
+    invoice?: InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput
+    assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+  }
+
+  export type MeasurementBulletinUncheckedUpdateWithoutCommissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    assetMovementId?: StringFieldUpdateOperationsInput | string
+    reference_start?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_days?: IntFieldUpdateOperationsInput | number
+    inactive_days?: IntFieldUpdateOperationsInput | number
+    working_days?: IntFieldUpdateOperationsInput | number
+    daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
+    current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    current_odometer?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumMeasurementBulletinStatusFieldUpdateOperationsInput | $Enums.MeasurementBulletinStatus
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+  }
+
   export type FinancialTransactionCreateWithoutBankAccountInput = {
     id?: string
     type: $Enums.TransactionType
@@ -58520,12 +61615,17 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementCreateNestedManyWithoutContractInput
     client: SupplierCreateNestedOneWithoutContractsInput
     maintenances?: MaintenanceCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinCreateNestedManyWithoutContractInput
     invoices?: InvoiceCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalCreateNestedManyWithoutContractInput
+    seller?: UserCreateNestedOneWithoutSellerContractsInput
+    commissions?: CommissionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutPayableExpensesInput = {
@@ -58548,11 +61648,16 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
     movements?: AssetMovementUncheckedCreateNestedManyWithoutContractInput
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutContractInput
     measurementBulletins?: MeasurementBulletinUncheckedCreateNestedManyWithoutContractInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutContractInput
     proposals?: CommercialProposalUncheckedCreateNestedManyWithoutContractInput
+    commissions?: CommissionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutPayableExpensesInput = {
@@ -58807,12 +61912,17 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+    seller?: UserUpdateOneWithoutSellerContractsNestedInput
+    commissions?: CommissionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutPayableExpensesInput = {
@@ -58835,11 +61945,16 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type SupplierUpsertWithoutPayableExpensesInput = {
@@ -59891,6 +63006,46 @@ export namespace Prisma {
     contractId?: string | null
   }
 
+  export type CommissionCreateManySellerInput = {
+    id?: string
+    contractId: string
+    measurementBulletinId?: string | null
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ContractCreateManySellerInput = {
+    id?: string
+    contract_number: string
+    description?: string | null
+    clientId: string
+    responsible_name?: string | null
+    responsible_phone?: string | null
+    responsible_email?: string | null
+    start_date: Date | string
+    end_date?: Date | string | null
+    status?: $Enums.ContractStatus
+    total_value?: Decimal | DecimalJsLike | number | string | null
+    billing_day?: number | null
+    notes?: string | null
+    observations?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_Active?: boolean
+    body_html?: string | null
+    signed_contract_url?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
+  }
+
   export type MaintenanceUpdateWithoutAssigned_toInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
@@ -60042,6 +63197,140 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     contractId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CommissionUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneRequiredWithoutCommissionsNestedInput
+    measurementBulletin?: MeasurementBulletinUpdateOneWithoutCommissionNestedInput
+  }
+
+  export type CommissionUncheckedUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: NullableStringFieldUpdateOperationsInput | string | null
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommissionUncheckedUpdateManyWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contractId?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: NullableStringFieldUpdateOperationsInput | string | null
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContractUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    movements?: AssetMovementUpdateManyWithoutContractNestedInput
+    client?: SupplierUpdateOneRequiredWithoutContractsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
+    invoices?: InvoiceUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
+    measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
+    payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
+    proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutContractNestedInput
+  }
+
+  export type ContractUncheckedUpdateManyWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contract_number?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: StringFieldUpdateOperationsInput | string
+    responsible_name?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    responsible_email?: NullableStringFieldUpdateOperationsInput | string | null
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    billing_day?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    observations?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_Active?: BoolFieldUpdateOperationsInput | boolean
+    body_html?: NullableStringFieldUpdateOperationsInput | string | null
+    signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AssetCreateManyAssetCategoryInput = {
@@ -60663,6 +63952,10 @@ export namespace Prisma {
     is_Active?: boolean
     body_html?: string | null
     signed_contract_url?: string | null
+    sellerId?: string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: Date | string | null
+    commission_end_date?: Date | string | null
   }
 
   export type MaintenanceCreateManySupplierInput = {
@@ -60773,12 +64066,17 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUpdateManyWithoutContractNestedInput
+    seller?: UserUpdateOneWithoutSellerContractsNestedInput
+    commissions?: CommissionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutClientInput = {
@@ -60800,12 +64098,17 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     movements?: AssetMovementUncheckedUpdateManyWithoutContractNestedInput
     maintenances?: MaintenanceUncheckedUpdateManyWithoutContractNestedInput
     measurementBulletins?: MeasurementBulletinUncheckedUpdateManyWithoutContractNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutContractNestedInput
     payableExpenses?: PayableExpenseUncheckedUpdateManyWithoutContractNestedInput
     proposals?: CommercialProposalUncheckedUpdateManyWithoutContractNestedInput
+    commissions?: CommissionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateManyWithoutClientInput = {
@@ -60827,6 +64130,10 @@ export namespace Prisma {
     is_Active?: BoolFieldUpdateOperationsInput | boolean
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     signed_contract_url?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    commission_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MaintenanceUpdateWithoutSupplierInput = {
@@ -61466,6 +64773,21 @@ export namespace Prisma {
     userId?: string | null
   }
 
+  export type CommissionCreateManyContractInput = {
+    id?: string
+    sellerId: string
+    measurementBulletinId?: string | null
+    reference_month: Date | string
+    base_value: Decimal | DecimalJsLike | number | string
+    commission_percentage: Decimal | DecimalJsLike | number | string
+    commission_value: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    status?: $Enums.CommissionStatus
+    paid_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type AssetMovementUpdateWithoutContractInput = {
     id?: StringFieldUpdateOperationsInput | string
     mobilization_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -61628,6 +64950,7 @@ export namespace Prisma {
     expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
     invoice?: InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput
     assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    commission?: CommissionUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateWithoutContractInput = {
@@ -61651,6 +64974,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+    commission?: CommissionUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateManyWithoutContractInput = {
@@ -61876,6 +65200,51 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type CommissionUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    seller?: UserUpdateOneRequiredWithoutCommissionsNestedInput
+    measurementBulletin?: MeasurementBulletinUpdateOneWithoutCommissionNestedInput
+  }
+
+  export type CommissionUncheckedUpdateWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: NullableStringFieldUpdateOperationsInput | string | null
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommissionUncheckedUpdateManyWithoutContractInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    measurementBulletinId?: NullableStringFieldUpdateOperationsInput | string | null
+    reference_month?: DateTimeFieldUpdateOperationsInput | Date | string
+    base_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    commission_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommissionStatusFieldUpdateOperationsInput | $Enums.CommissionStatus
+    paid_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MeasurementBulletinCreateManyAssetMovementInput = {
     id?: string
     contractId: string
@@ -61919,6 +65288,7 @@ export namespace Prisma {
     expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
     invoice?: InvoiceUpdateOneWithoutMeasurementBulletinsNestedInput
     contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    commission?: CommissionUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateWithoutAssetMovementInput = {
@@ -61942,6 +65312,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+    commission?: CommissionUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateManyWithoutAssetMovementInput = {
@@ -62074,6 +65445,7 @@ export namespace Prisma {
     expenses?: BulletinExpenseUpdateManyWithoutMeasurementBulletinNestedInput
     assetMovement?: AssetMovementUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
     contract?: ContractUpdateOneRequiredWithoutMeasurementBulletinsNestedInput
+    commission?: CommissionUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateWithoutInvoiceInput = {
@@ -62097,6 +65469,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     expenses?: BulletinExpenseUncheckedUpdateManyWithoutMeasurementBulletinNestedInput
+    commission?: CommissionUncheckedUpdateOneWithoutMeasurementBulletinNestedInput
   }
 
   export type MeasurementBulletinUncheckedUpdateManyWithoutInvoiceInput = {

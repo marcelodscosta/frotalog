@@ -23,6 +23,10 @@ interface UpdateContractRequest {
   is_Active?: boolean
   body_html?: string | null
   signed_contract_url?: string | null
+  sellerId?: string | null
+  commission_percentage?: number | null
+  commission_start_date?: Date | null
+  commission_end_date?: Date | null
 }
 
 interface UpdateContractResponse {

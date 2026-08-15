@@ -13,7 +13,12 @@ describe('Create Contract', () => {
   beforeEach(async () => {
     contractRepository = new InMemoryContractRepository()
     supplierRepository = new InMemorySupplierRepository()
-    sut = new CreateContractUseCase(contractRepository, supplierRepository)
+    sut = new CreateContractUseCase(
+      contractRepository, 
+      supplierRepository, 
+      {} as any, 
+      {} as any
+    )
 
     await supplierRepository.create({
       id: 'client-01',

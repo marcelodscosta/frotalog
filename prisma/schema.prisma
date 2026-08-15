@@ -22,6 +22,8 @@ model User {
   is_Active            Boolean              @default(true)
   assignedMaintenances Maintenance[]
   commercialProposals  CommercialProposal[]
+  commissions          Commission[]         @relation("SellerCommissions")
+  sellerContracts      Contract[]           @relation("ContractSeller")
 
   @@map("users")
 }
@@ -225,6 +227,13 @@ model Contract {
   is_Active            Boolean               @default(true)
   body_html            String?               @db.Text
   signed_contract_url  String?
+
+  // Comissão de vendas
+  sellerId              String?
+  commission_percentage Decimal?             @db.Decimal(5, 2)
+  commission_start_date DateTime?
+  commission_end_date   DateTime?
+
   movements            AssetMovement[]
   client               Supplier              @relation(fields: [clientId], references: [id])
   maintenances         Maintenance[]
@@ -232,6 +241,8 @@ model Contract {
   invoices             Invoice[]
   payableExpenses      PayableExpense[]
   proposals            CommercialProposal[]
+  seller               User?                 @relation("ContractSeller", fields: [sellerId], references: [id])
+  commissions          Commission[]
 
   @@map("contracts")
 }
@@ -291,6 +302,7 @@ model MeasurementBulletin {
   invoice       Invoice?                  @relation(fields: [invoiceId], references: [id])
   assetMovement AssetMovement             @relation(fields: [assetMovementId], references: [id])
   contract      Contract                  @relation(fields: [contractId], references: [id])
+  commission    Commission?
 
   @@map("measurement_bulletins")
 }
@@ -593,6 +605,34 @@ enum ProposalStatus {
   REJECTED
   CANCELLED
   CONVERTED
+}
+
+enum CommissionStatus {
+  PENDING
+  CONFIRMED
+  PAID
+}
+
+model Commission {
+  id                    String           @id @default(uuid())
+  contractId            String
+  sellerId              String
+  measurementBulletinId String?          @unique
+  reference_month       DateTime         // primeiro dia do mês de referência
+  base_value            Decimal          @db.Decimal(10, 2)
+  commission_percentage Decimal          @db.Decimal(5, 2)
+  commission_value      Decimal          @db.Decimal(10, 2)
+  notes                 String?
+  status                CommissionStatus @default(PENDING)
+  paid_at               DateTime?
+  created_at            DateTime         @default(now())
+  updated_at            DateTime         @updatedAt
+
+  contract            Contract             @relation(fields: [contractId], references: [id])
+  seller              User                 @relation("SellerCommissions", fields: [sellerId], references: [id])
+  measurementBulletin MeasurementBulletin? @relation(fields: [measurementBulletinId], references: [id])
+
+  @@map("commissions")
 }
 
 // ===========================

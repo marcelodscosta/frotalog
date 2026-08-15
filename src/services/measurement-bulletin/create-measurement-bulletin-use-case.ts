@@ -7,6 +7,7 @@ import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMo
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { IMaintenanceRepository } from '../../repositories/interfaces/IMaintenanceRepository'
 import { IMeasurementBulletinRepository } from '../../repositories/interfaces/IMeasurementBulletinRepository'
+import { ICommissionRepository } from '../../repositories/interfaces/ICommissionRepository'
 import { AppError } from '../errors/app-error'
 import { AssetMovimentNotFoundError } from '../errors/asset-moviment-not-found-error'
 import { ContractNotFoundError } from '../errors/contract-not-fount-error'
@@ -33,6 +34,7 @@ export class CreateMeasurementBulletinUseCase {
     private assetMovementRepository: IAssetMovementRepository,
     private contractRepository: IContractRepository,
     private maintenanceRepository: IMaintenanceRepository,
+    private commissionRepository: ICommissionRepository,
   ) {}
 
   async execute(
@@ -230,6 +232,9 @@ export class CreateMeasurementBulletinUseCase {
         current_odometer: data.current_odometer,
       })
 
+    // Auto-calcular comissão se o contrato tiver vendedor e percentual configurados
+    await this.tryCreateCommission(contract, measurementBulletin.id, totalValue, data.reference_start)
+
     return { measurementBulletin }
   }
 
@@ -242,7 +247,6 @@ export class CreateMeasurementBulletinUseCase {
     const startDay = start.getDate()
     if (startDay !== 1) return false
 
-    // Check they are in the same month and year
     if (
       start.getMonth() !== end.getMonth() ||
       start.getFullYear() !== end.getFullYear()
@@ -250,7 +254,6 @@ export class CreateMeasurementBulletinUseCase {
       return false
     }
 
-    // Check end is last day of the month
     const lastDay = new Date(
       end.getFullYear(),
       end.getMonth() + 1,
@@ -258,5 +261,46 @@ export class CreateMeasurementBulletinUseCase {
     ).getDate()
     
     return end.getDate() === lastDay
+  }
+
+  private async tryCreateCommission(
+    contract: any,
+    measurementBulletinId: string,
+    totalValue: number,
+    referenceStart: Date,
+  ): Promise<void> {
+    try {
+      if (!contract.sellerId || !contract.commission_percentage) return
+
+      const percentage = Number(contract.commission_percentage)
+      if (percentage <= 0) return
+
+      // Verificar se está dentro do período de comissão
+      const refDate = new Date(referenceStart)
+      if (contract.commission_start_date && refDate < new Date(contract.commission_start_date)) return
+      if (contract.commission_end_date && refDate > new Date(contract.commission_end_date)) return
+
+      // Primeiro dia do mês de referência
+      const referenceMonth = new Date(Date.UTC(
+        refDate.getUTCFullYear(),
+        refDate.getUTCMonth(),
+        1,
+      ))
+
+      const commissionValue = totalValue * (percentage / 100)
+
+      await this.commissionRepository.create({
+        contractId: contract.id,
+        sellerId: contract.sellerId,
+        measurementBulletinId,
+        reference_month: referenceMonth,
+        base_value: totalValue,
+        commission_percentage: percentage,
+        commission_value: commissionValue,
+      })
+    } catch (error) {
+      // Não propagar erro de comissão para não bloquear a criação do boletim
+      console.error('[Commission] Erro ao criar comissão automática:', error)
+    }
   }
 }

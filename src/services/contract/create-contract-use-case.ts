@@ -25,6 +25,10 @@ interface CreateContractRequest {
   signed_contract_url?: string | null
   proposalId?: string | null
   status?: ContractStatus
+  sellerId?: string | null
+  commission_percentage?: number | null
+  commission_start_date?: Date | null
+  commission_end_date?: Date | null
 }
 
 interface CreateContractResponse {
@@ -94,7 +98,14 @@ export class CreateContractUseCase {
       body_html: data.body_html,
       signed_contract_url: data.signed_contract_url,
       status: data.status,
+      sellerId: data.sellerId,
+      commission_percentage: data.commission_percentage,
+      commission_start_date: data.commission_start_date,
+      commission_end_date: data.commission_end_date,
     })
+
+    // Se houver uma proposta, vincula, atualiza o status e herda o vendedor
+    let sellerIdFromProposal = data.sellerId
 
     if (data.proposalId) {
       const proposal = await this.commercialProposalRepository.findById(data.proposalId)
@@ -106,10 +117,22 @@ export class CreateContractUseCase {
         throw new ProposalNotApprovedError()
       }
 
+      if (proposal.userId && !sellerIdFromProposal) {
+        sellerIdFromProposal = proposal.userId
+      }
+
       await this.commercialProposalRepository.updateProposal(data.proposalId, {
         contract: { connect: { id: contract.id } },
         status: 'CONVERTED' as any,
       })
+    }
+    
+    // Atualiza o contrato caso tenhamos o sellerId da proposta
+    if (sellerIdFromProposal && sellerIdFromProposal !== data.sellerId) {
+      await this.contractRepository.updateContract(contract.id, {
+        sellerId: sellerIdFromProposal
+      })
+      contract.sellerId = sellerIdFromProposal
     }
 
     return { contract }

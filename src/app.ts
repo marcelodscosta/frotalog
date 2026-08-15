@@ -71,6 +71,7 @@ app.register(fastifyStatic, {
 
 import { chatRoutes } from './http/controllers/chat/routes'
 import { aiRoutes } from './http/controllers/ai/routes'
+import { commissionRoutes } from './http/controllers/commission/routes'
 
 app.register(authRoutes)
 app.register(assetCategoryRoutes)
@@ -97,6 +98,7 @@ app.register(financeRoutes)
 app.register(assetDocumentRoutes)
 app.register(chatRoutes)
 app.register(aiRoutes)
+app.register(commissionRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   const requestId = request.id

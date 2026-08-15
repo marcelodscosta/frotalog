@@ -4,12 +4,14 @@ import { InMemoryAssetMovementRepository } from '../../../repositories/in-memory
 import { InMemoryContractRepository } from '../../../repositories/in-memory/in-memory-contract-repository'
 import { InMemoryMaintenanceRepository } from '../../../repositories/in-memory/in-memory-maintenance-repository'
 import { InMemoryMeasurementBulletinRepository } from '../../../repositories/in-memory/in-memory-measurement-bulletin-repository'
+import { InMemoryCommissionRepository } from '../../../repositories/in-memory/in-memory-commission-repository'
 import { CreateMeasurementBulletinUseCase } from '../../measurement-bulletin/create-measurement-bulletin-use-case'
 
 let measurementBulletinRepository: InMemoryMeasurementBulletinRepository
 let assetMovementRepository: InMemoryAssetMovementRepository
 let contractRepository: InMemoryContractRepository
 let maintenanceRepository: InMemoryMaintenanceRepository
+let commissionRepository: InMemoryCommissionRepository
 let sut: CreateMeasurementBulletinUseCase
 
 describe('Create Measurement Bulletin Use Case', () => {
@@ -18,12 +20,14 @@ describe('Create Measurement Bulletin Use Case', () => {
     assetMovementRepository = new InMemoryAssetMovementRepository()
     contractRepository = new InMemoryContractRepository()
     maintenanceRepository = new InMemoryMaintenanceRepository()
+    commissionRepository = new InMemoryCommissionRepository()
 
     sut = new CreateMeasurementBulletinUseCase(
       measurementBulletinRepository,
       assetMovementRepository,
       contractRepository,
       maintenanceRepository,
+      commissionRepository
     )
   })
 
@@ -87,5 +91,78 @@ describe('Create Measurement Bulletin Use Case', () => {
     
     // total value strictly equals working days (28) * exact rate (1392.857...)
     expect(Number(measurementBulletin.total_value)).toBe(39000)
+  })
+
+  it('should automatically create a commission if the contract has a seller and percentage configured', async () => {
+    await contractRepository.create({
+      id: 'contract-comission',
+      clientId: 'client-1',
+      contract_number: '1234',
+      start_date: new Date(),
+      sellerId: 'seller-1',
+      commission_percentage: new Prisma.Decimal('10.00'), // 10%
+    })
+
+    await assetMovementRepository.create({
+      id: 'movement-comission',
+      contractId: 'contract-comission',
+      assetId: 'asset-1',
+      rental_value: new Prisma.Decimal('10000'),
+      billing_cycle: 'MONTHLY',
+      calculation_rule: 'COMMERCIAL_30_DAYS',
+    })
+
+    const { measurementBulletin } = await sut.execute({
+      contractId: 'contract-comission',
+      assetMovementId: 'movement-comission',
+      reference_start: new Date('2026-03-01T03:00:00.000Z'),
+      reference_end: new Date('2026-03-31T03:00:00.000Z'),
+    })
+
+    expect(Number(measurementBulletin.total_value)).toBe(10000)
+
+    const commissions = commissionRepository.items
+    expect(commissions).toHaveLength(1)
+    expect(commissions[0].contractId).toBe('contract-comission')
+    expect(commissions[0].sellerId).toBe('seller-1')
+    expect(Number(commissions[0].commission_percentage)).toBe(10)
+    // 10% de 10000 = 1000
+    expect(Number(commissions[0].commission_value)).toBe(1000)
+    expect(commissions[0].measurementBulletinId).toBe(measurementBulletin.id)
+    expect(commissions[0].reference_month.getUTCMonth()).toBe(2) // March is 2 (0-indexed)
+  })
+
+  it('should NOT create a commission if measurement bulletin is outside commission validity dates', async () => {
+    await contractRepository.create({
+      id: 'contract-comission-expired',
+      clientId: 'client-1',
+      contract_number: '12345',
+      start_date: new Date('2025-01-01T00:00:00.000Z'),
+      sellerId: 'seller-1',
+      commission_percentage: new Prisma.Decimal('10.00'),
+      // commission valid only until end of 2025
+      commission_start_date: new Date('2025-01-01T00:00:00.000Z'),
+      commission_end_date: new Date('2025-12-31T23:59:59.000Z'),
+    })
+
+    await assetMovementRepository.create({
+      id: 'movement-comission-expired',
+      contractId: 'contract-comission-expired',
+      assetId: 'asset-1',
+      rental_value: new Prisma.Decimal('10000'),
+      billing_cycle: 'MONTHLY',
+      calculation_rule: 'COMMERCIAL_30_DAYS',
+    })
+
+    // Bulletin in 2026
+    await sut.execute({
+      contractId: 'contract-comission-expired',
+      assetMovementId: 'movement-comission-expired',
+      reference_start: new Date('2026-01-01T03:00:00.000Z'),
+      reference_end: new Date('2026-01-31T03:00:00.000Z'),
+    })
+
+    const commissions = commissionRepository.items
+    expect(commissions).toHaveLength(0) // No commission should be generated
   })
 })
