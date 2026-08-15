@@ -27,4 +27,17 @@ describe('Create Supplier', () => {
     })
     expect(supplier.id).toEqual(expect.any(String))
   })
+
+  it('Should create Supplier without CNPJ', async () => {
+    const { supplier } = await sut.execute({
+      company_name: 'Top Locações Ltda 2',
+      trading_name: 'Grupo TOP 2',
+      contact: 'Marcelo Costa',
+      email: 'financeiro2@topconstrucoes.com',
+      phone: '74981316568',
+      service_types: ['Locação de equipamentos', 'Locação de mão de obra'],
+    })
+    expect(supplier.id).toEqual(expect.any(String))
+    expect(supplier.cnpj).toBeNull()
+  })
 })

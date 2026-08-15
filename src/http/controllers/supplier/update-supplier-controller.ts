@@ -7,7 +7,7 @@ const updateBodySchema = z.object({
   company_name: z.string().min(3).optional(),
   trading_name: z.string().nullable().optional(),
   isClient: z.boolean().optional(),
-  cnpj: z.string().length(14).optional(),
+  cnpj: z.string().length(14).nullable().optional().or(z.literal("")).transform(v => v === "" ? null : v),
   email: z.email().optional(),
   phone: z.string().min(10).max(11).optional(),
   contact: z.string().min(5).optional(),

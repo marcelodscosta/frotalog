@@ -10918,7 +10918,7 @@ export namespace Prisma {
     id: string
     company_name: string
     trading_name: string | null
-    cnpj: string
+    cnpj: string | null
     email: string
     phone: string
     contact: string
@@ -11057,7 +11057,7 @@ export namespace Prisma {
       id: string
       company_name: string
       trading_name: string | null
-      cnpj: string
+      cnpj: string | null
       email: string
       phone: string
       contact: string
@@ -42554,7 +42554,7 @@ export namespace Prisma {
     id?: StringFilter<"Supplier"> | string
     company_name?: StringFilter<"Supplier"> | string
     trading_name?: StringNullableFilter<"Supplier"> | string | null
-    cnpj?: StringFilter<"Supplier"> | string
+    cnpj?: StringNullableFilter<"Supplier"> | string | null
     email?: StringFilter<"Supplier"> | string
     phone?: StringFilter<"Supplier"> | string
     contact?: StringFilter<"Supplier"> | string
@@ -42578,7 +42578,7 @@ export namespace Prisma {
     id?: SortOrder
     company_name?: SortOrder
     trading_name?: SortOrderInput | SortOrder
-    cnpj?: SortOrder
+    cnpj?: SortOrderInput | SortOrder
     email?: SortOrder
     phone?: SortOrder
     contact?: SortOrder
@@ -42629,7 +42629,7 @@ export namespace Prisma {
     id?: SortOrder
     company_name?: SortOrder
     trading_name?: SortOrderInput | SortOrder
-    cnpj?: SortOrder
+    cnpj?: SortOrderInput | SortOrder
     email?: SortOrder
     phone?: SortOrder
     contact?: SortOrder
@@ -42654,7 +42654,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Supplier"> | string
     company_name?: StringWithAggregatesFilter<"Supplier"> | string
     trading_name?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
-    cnpj?: StringWithAggregatesFilter<"Supplier"> | string
+    cnpj?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
     email?: StringWithAggregatesFilter<"Supplier"> | string
     phone?: StringWithAggregatesFilter<"Supplier"> | string
     contact?: StringWithAggregatesFilter<"Supplier"> | string
@@ -45678,7 +45678,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -45702,7 +45702,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -45726,7 +45726,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -45750,7 +45750,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -45774,7 +45774,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -45793,7 +45793,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -45812,7 +45812,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -56717,7 +56717,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -56740,7 +56740,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -57084,7 +57084,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -57107,7 +57107,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -57318,7 +57318,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -57341,7 +57341,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -57759,7 +57759,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -57782,7 +57782,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -59869,7 +59869,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -59892,7 +59892,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -60065,7 +60065,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -60088,7 +60088,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -60283,7 +60283,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -60306,7 +60306,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -60534,7 +60534,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -60557,7 +60557,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -61669,7 +61669,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -61692,7 +61692,7 @@ export namespace Prisma {
     id?: string
     company_name: string
     trading_name?: string | null
-    cnpj: string
+    cnpj?: string | null
     email: string
     phone: string
     contact: string
@@ -61972,7 +61972,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
@@ -61995,7 +61995,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     company_name?: StringFieldUpdateOperationsInput | string
     trading_name?: NullableStringFieldUpdateOperationsInput | string | null
-    cnpj?: StringFieldUpdateOperationsInput | string
+    cnpj?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string

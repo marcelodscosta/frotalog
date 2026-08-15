@@ -37,7 +37,7 @@ export class InMemorySupplierRepository implements ISupplierRepository {
       id: data.id ?? randomUUID(),
       company_name: data.company_name,
       trading_name: data.trading_name ?? null,
-      cnpj: data.cnpj,
+      cnpj: data.cnpj ?? null,
       email: data.email,
       phone: data.phone,
       contact: data.contact,

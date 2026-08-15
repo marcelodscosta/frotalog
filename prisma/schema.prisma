@@ -122,7 +122,7 @@ model Supplier {
   id                  String               @id @default(uuid())
   company_name        String
   trading_name        String?
-  cnpj                String               @unique
+  cnpj                String?              @unique
   email               String
   phone               String
   contact             String

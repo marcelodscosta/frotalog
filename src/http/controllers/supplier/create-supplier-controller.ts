@@ -6,7 +6,7 @@ const createSupplierSchema = z.object({
   company_name: z.string().min(3),
   trading_name: z.string().nullable().optional(),
 
-  cnpj: z.string().length(14),
+  cnpj: z.string().length(14).nullable().optional().or(z.literal("")).transform(v => v === "" ? null : v),
   email: z.email(),
   phone: z.string().min(10).max(11),
   contact: z.string().min(5),
