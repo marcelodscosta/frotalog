@@ -23,6 +23,7 @@ npx prisma migrate resolve --applied 20260217001327_add_bulletin_expenses 2>/dev
 
 # Recover if this migration was left in failed state (P3009 in production)
 npx prisma migrate resolve --rolled-back 20260308213440_create_checklist_tables 2>/dev/null || true
+npx prisma migrate resolve --rolled-back 20260815000000_add_commissions 2>/dev/null || true
 
 echo "==> Running pending migrations..."
 npx prisma migrate deploy
