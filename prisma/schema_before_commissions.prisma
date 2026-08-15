@@ -1,0 +1,771 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String               @id @default(uuid())
+  name                 String
+  email                String               @unique
+  phone                String?
+  password_hash        String
+  role                 Role                 @default(EMPLOYEE)
+  avatar               String?
+  created_at           DateTime             @default(now())
+  updated_at           DateTime             @updatedAt
+  is_Active            Boolean              @default(true)
+  assignedMaintenances Maintenance[]
+  commercialProposals  CommercialProposal[]
+
+  @@map("users")
+}
+
+model AssetCategory {
+  id            String         @id @default(uuid())
+  name          String         @unique
+  description   String?
+  type          AssetType
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+  is_Active     Boolean        @default(true)
+  Asset         Asset[]
+  ProposalItems ProposalItem[]
+
+  @@map("asset_categories")
+}
+
+model Asset {
+  id            String  @id @default(uuid())
+  brand         String
+  model         String
+  year          Int?
+  plate         String? @unique
+  serial_number String? @unique
+
+  // Usage Tracking
+  initial_horometer Float? @default(0)
+  current_horometer Float? @default(0)
+  initial_odometer  Float? @default(0)
+  current_odometer  Float? @default(0)
+
+  // Maintenance Settings
+  maintenance_frequency_hours Float? // e.g. every 250 hours
+  maintenance_frequency_km    Float? // e.g. every 10000 km
+
+  last_maintenance_date      DateTime?
+  last_maintenance_horometer Float?
+  last_maintenance_odometer  Float?
+  created_at                 DateTime        @default(now())
+  updated_at                 DateTime        @updatedAt
+  is_Active                  Boolean         @default(true)
+  assetCategoryId            String
+  documentsUrl               String?
+  ownership                  AssetOwnership  @default(OWN)
+  notes                      String?
+  Movements                  AssetMovement[]
+  assetCategory              AssetCategory   @relation(fields: [assetCategoryId], references: [id])
+  Maintenance                Maintenance[]
+  Readings                   AssetReading[]
+  Checklists                 Checklist[]
+  ProposalItems              ProposalItem[]
+  Documents                  AssetDocument[]
+
+  @@map("assets")
+}
+
+model AssetDocument {
+  id            String    @id @default(uuid())
+  assetId       String
+  document_type String
+  name          String
+  file_path     String?
+  filename      String?
+  mime_type     String?
+  file_size     Int?
+  issue_date    DateTime
+  due_date      DateTime?
+  no_expiration Boolean   @default(false)
+  notes         String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  asset Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@map("asset_documents")
+}
+
+model AssetReading {
+  id         String   @id @default(uuid())
+  assetId    String
+  date       DateTime
+  horometer  Float?
+  odometer   Float?
+  notes      String?
+  userId     String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  asset Asset @relation(fields: [assetId], references: [id])
+
+  @@map("asset_readings")
+}
+
+model Supplier {
+  id                  String               @id @default(uuid())
+  company_name        String
+  trading_name        String?
+  cnpj                String               @unique
+  email               String
+  phone               String
+  contact             String
+  address             String?
+  city                String?
+  state               String?
+  zip_code            String?
+  service_types       String[]
+  created_at          DateTime             @default(now())
+  updated_at          DateTime             @updatedAt
+  is_Active           Boolean              @default(true)
+  isClient            Boolean              @default(false) @map("is_client")
+  Contracts           Contract[]
+  Maintenance         Maintenance[]
+  Checklists          Checklist[]
+  CommercialProposals CommercialProposal[]
+  PayableExpenses     PayableExpense[]
+
+  @@map("suppliers")
+}
+
+model ServiceCategory {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  description String?
+  is_active   Boolean       @default(true)
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+  Maintenance Maintenance[]
+
+  @@map("service_categories")
+}
+
+model Maintenance {
+  id             String            @id @default(uuid())
+  assetId        String
+  supplierId     String?
+  type           MaintenanceType
+  description    String
+  scheduled_date DateTime
+  started_date   DateTime?
+  completed_date DateTime?
+  estimated_cost Decimal?          @db.Decimal(10, 2)
+  actual_cost    Decimal?          @db.Decimal(10, 2)
+  status         MaintenanceStatus @default(SCHEDULED)
+  notes          String?
+  created_at     DateTime          @default(now())
+  updated_at     DateTime          @updatedAt
+
+  // Usage at completion
+  horometer Float?
+  odometer  Float?
+
+  is_Active          Boolean               @default(true)
+  serviceCategoryId  String?
+  contractId         String?
+  equipment_inactive Boolean               @default(false)
+  documents          MaintenanceDocument[]
+  assignedToId       String?
+  assigned_to        User?                 @relation(fields: [assignedToId], references: [id])
+  asset              Asset                 @relation(fields: [assetId], references: [id])
+  contract           Contract?             @relation(fields: [contractId], references: [id])
+  serviceCategory    ServiceCategory?      @relation(fields: [serviceCategoryId], references: [id])
+  supplier           Supplier?             @relation(fields: [supplierId], references: [id])
+  payableExpenses    PayableExpense[]
+
+  @@map("maintenances")
+}
+
+model MaintenanceDocument {
+  id            String       @id @default(uuid())
+  filename      String
+  original_name String
+  file_path     String
+  file_size     Int
+  mime_type     String
+  description   String?
+  created_at    DateTime     @default(now())
+  maintenanceId String?
+  Maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id])
+
+  @@map("maintenance_documents")
+}
+
+model Contract {
+  id                   String                @id @default(uuid())
+  contract_number      String                @unique
+  description          String?
+  clientId             String
+  responsible_name     String?
+  responsible_phone    String?
+  responsible_email    String?
+  start_date           DateTime
+  end_date             DateTime?
+  status               ContractStatus        @default(DRAFT)
+  total_value          Decimal?              @db.Decimal(10, 2)
+  billing_day          Int?
+  notes                String?
+  observations         String?               @db.Text
+  created_at           DateTime              @default(now())
+  updated_at           DateTime              @updatedAt
+  is_Active            Boolean               @default(true)
+  body_html            String?               @db.Text
+  signed_contract_url  String?
+  movements            AssetMovement[]
+  client               Supplier              @relation(fields: [clientId], references: [id])
+  maintenances         Maintenance[]
+  measurementBulletins MeasurementBulletin[]
+  invoices             Invoice[]
+  payableExpenses      PayableExpense[]
+  proposals            CommercialProposal[]
+
+  @@map("contracts")
+}
+
+model AssetMovement {
+  id                           String                     @id @default(uuid())
+  contractId                   String
+  assetId                      String
+  mobilization_date            DateTime                   @default(now())
+  integration_date             DateTime?
+  demobilization_date          DateTime?
+  mobilization_checklist_url   String?
+  demobilization_checklist_url String?
+  rental_value                 Decimal                    @db.Decimal(10, 2)
+  billing_cycle                BillingCycle               @default(MONTHLY)
+  operator_name                String?
+  current_horometer            Float?
+  current_odometer             Float?
+  delivery_location            String?
+  freight_value                Decimal?                   @db.Decimal(10, 2)
+  calculation_rule             MeasurementCalculationRule @default(COMMERCIAL_30_DAYS)
+  notes                        String?
+  is_active                    Boolean                    @default(true)
+  created_at                   DateTime                   @default(now())
+  updated_at                   DateTime                   @updatedAt
+  asset                        Asset                      @relation(fields: [assetId], references: [id])
+  contract                     Contract                   @relation(fields: [contractId], references: [id])
+  measurementBulletins         MeasurementBulletin[]
+
+  @@map("asset_movements")
+}
+
+model MeasurementBulletin {
+  id                String   @id @default(uuid())
+  contractId        String
+  assetMovementId   String
+  reference_start   DateTime
+  reference_end     DateTime
+  total_days        Int
+  inactive_days     Int
+  working_days      Int
+  daily_rate        Decimal  @db.Decimal(10, 2)
+  total_value       Decimal  @db.Decimal(10, 2)
+  measured_quantity Decimal? @db.Decimal(10, 2)
+  measurement_unit  String?  @default("DAYS")
+
+  current_horometer Float?
+  current_odometer  Float?
+
+  status        MeasurementBulletinStatus @default(DRAFT)
+  notes         String?
+  is_active     Boolean                   @default(true)
+  created_at    DateTime                  @default(now())
+  updated_at    DateTime                  @updatedAt
+  invoiceId     String?
+  expenses      BulletinExpense[]
+  invoice       Invoice?                  @relation(fields: [invoiceId], references: [id])
+  assetMovement AssetMovement             @relation(fields: [assetMovementId], references: [id])
+  contract      Contract                  @relation(fields: [contractId], references: [id])
+
+  @@map("measurement_bulletins")
+}
+
+model Invoice {
+  id             String        @id @default(uuid())
+  invoice_number String?
+  total_value    Decimal       @db.Decimal(15, 2)
+  is_paid        Boolean       @default(false)
+  payment_date   DateTime?
+  issue_date     DateTime?
+  due_date       DateTime
+  notes          String?
+  status         InvoiceStatus @default(PENDING)
+  is_active      Boolean       @default(true)
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+
+  contractId       String?
+  chartOfAccountId String?
+
+  measurementBulletins MeasurementBulletin[]
+  contract             Contract?              @relation(fields: [contractId], references: [id])
+  chartOfAccount       ChartOfAccount?        @relation(fields: [chartOfAccountId], references: [id])
+  transactions         FinancialTransaction[]
+  documents            InvoiceDocument[]
+
+  @@map("invoices")
+}
+
+model InvoiceDocument {
+  id            String   @id @default(uuid())
+  invoiceId     String
+  filename      String
+  original_name String
+  file_path     String
+  file_size     Int
+  mime_type     String
+  document_type String?
+  description   String?
+  created_at    DateTime @default(now())
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@map("invoice_documents")
+}
+
+model BulletinExpense {
+  id                    String              @id @default(uuid())
+  measurementBulletinId String
+  description           String
+  unit_value            Decimal             @db.Decimal(10, 2)
+  total_value           Decimal             @db.Decimal(10, 2)
+  created_at            DateTime            @default(now())
+  updated_at            DateTime            @updatedAt
+  quantity              Decimal             @default(1) @db.Decimal(10, 2)
+  measurementBulletin   MeasurementBulletin @relation(fields: [measurementBulletinId], references: [id], onDelete: Cascade)
+
+  @@map("bulletin_expenses")
+}
+
+model CompanySettings {
+  id                    String               @id @default(uuid())
+  company_name          String
+  trading_name          String?
+  cnpj                  String?
+  address               String?
+  city                  String?
+  state                 String?
+  zip_code              String?
+  phone                 String?
+  email                 String?
+  logo_url              String?
+  invoice_start_number  Int                  @default(1)
+  proposal_start_number Int                  @default(1)
+  contract_start_number Int                  @default(1)
+  created_at            DateTime             @default(now())
+  updated_at            DateTime             @updatedAt
+  CommercialProposals   CommercialProposal[]
+
+  @@map("company_settings")
+}
+
+enum Role {
+  ADMIN
+  EMPLOYEE
+  FINANCEIRO
+  OPERACIONAL
+}
+
+enum AssetType {
+  VEHICLE
+  EQUIPMENT
+}
+
+enum AssetOwnership {
+  OWN
+  THIRD
+}
+
+enum MaintenanceStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum MaintenanceType {
+  PREVENTIVE
+  CORRECTIVE
+  EMERGENCY
+}
+
+enum ContractStatus {
+  DRAFT
+  ACTIVE
+  FINISHED
+  CANCELLED
+}
+
+enum BillingCycle {
+  DAILY
+  MONTHLY
+  WEEKLY
+  HOURLY
+  PER_UNIT
+}
+
+enum MeasurementBulletinStatus {
+  DRAFT
+  APPROVED
+  INVOICED
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum MeasurementCalculationRule {
+  COMMERCIAL_30_DAYS
+  CALENDAR_DAYS
+}
+
+enum ChecklistType {
+  MOBILIZATION
+  PERIODIC
+  DEMOBILIZATION
+}
+
+enum ChecklistStatus {
+  PENDING
+  REVIEWING
+  IN_PROGRESS
+  APPROVED
+  REJECTED
+}
+
+model ChecklistParameter {
+  id          String                  @id @default(uuid())
+  name        String
+  description String?
+  imageUrl    String?
+  is_active   Boolean                 @default(true)
+  created_at  DateTime                @default(now())
+  updated_at  DateTime                @updatedAt
+  items       ChecklistItemTemplate[]
+  checklists  Checklist[]
+
+  @@map("checklist_parameters")
+}
+
+model ChecklistItemTemplate {
+  id                   String             @id @default(uuid())
+  checklistParameterId String
+  description          String
+  order                Int                @default(0)
+  requiresPhoto        Boolean            @default(false)
+  is_active            Boolean            @default(true)
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
+  checklistParameter   ChecklistParameter @relation(fields: [checklistParameterId], references: [id], onDelete: Cascade)
+  answers              ChecklistAnswer[]
+
+  @@map("checklist_item_templates")
+}
+
+model Checklist {
+  id                   String             @id @default(uuid())
+  checklistParameterId String
+  assetId              String
+  type                 ChecklistType
+  status               ChecklistStatus    @default(PENDING)
+  magicLinkId          String             @unique @default(uuid())
+  rejectionNotes       String?
+  completedAt          DateTime?
+  reviewedAt           DateTime?
+  reviewedBy           String?
+  is_active            Boolean            @default(true)
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
+  supplierId           String?
+  horometer            Float?
+  odometer             Float?
+  meterPhotoUrl        String?
+  checklistParameter   ChecklistParameter @relation(fields: [checklistParameterId], references: [id])
+  asset                Asset              @relation(fields: [assetId], references: [id])
+  supplier             Supplier?          @relation(fields: [supplierId], references: [id])
+  answers              ChecklistAnswer[]
+
+  @@map("checklists")
+}
+
+model ChecklistAnswer {
+  id                      String                @id @default(uuid())
+  checklistId             String
+  checklistItemTemplateId String
+  conforms                Boolean?
+  notes                   String?
+  photoUrl                String?
+  created_at              DateTime              @default(now())
+  updated_at              DateTime              @updatedAt
+  checklist               Checklist             @relation(fields: [checklistId], references: [id], onDelete: Cascade)
+  checklistItemTemplate   ChecklistItemTemplate @relation(fields: [checklistItemTemplateId], references: [id])
+
+  @@map("checklist_answers")
+}
+
+model CommercialProposal {
+  id                String  @id @default(uuid())
+  proposal_number   String  @unique
+  companySettingsId String?
+  clientId          String
+  contact_name      String?
+  contact_phone     String?
+  contact_email     String?
+
+  mobilization_value   Decimal?  @db.Decimal(10, 2)
+  demobilization_value Decimal?  @db.Decimal(10, 2)
+  payment_conditions   String?
+  rental_period        String?
+  technical_notes      String?
+  observations         String?   @db.Text
+  validity_days        Int       @default(5)
+  discount_percentage  Decimal?  @db.Decimal(5, 2)
+  discount_value       Decimal?  @db.Decimal(10, 2)
+  follow_up_date       DateTime?
+
+  body_html String? @db.Text
+
+  status     ProposalStatus @default(DRAFT)
+  created_at DateTime       @default(now())
+  updated_at DateTime       @updatedAt
+  is_active  Boolean        @default(true)
+
+  contractId String? @unique
+
+  client          Supplier         @relation(fields: [clientId], references: [id])
+  companySettings CompanySettings? @relation(fields: [companySettingsId], references: [id])
+  contract        Contract?        @relation(fields: [contractId], references: [id])
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  items ProposalItem[]
+
+  @@map("commercial_proposals")
+}
+
+model ProposalItem {
+  id                   String  @id @default(uuid())
+  commercialProposalId String
+  assetId              String?
+  assetCategoryId      String?
+
+  description      String?
+  unit             String?  @default("UN")
+  quantity         Decimal  @default(1) @db.Decimal(10, 2)
+  monthly_value    Decimal  @db.Decimal(10, 2)
+  franchise_hours  Float?
+  extra_hour_value Decimal? @db.Decimal(10, 2)
+
+  notes      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  commercialProposal CommercialProposal @relation(fields: [commercialProposalId], references: [id], onDelete: Cascade)
+  asset              Asset?             @relation(fields: [assetId], references: [id])
+  assetCategory      AssetCategory?     @relation(fields: [assetCategoryId], references: [id])
+
+  @@map("proposal_items")
+}
+
+enum ProposalStatus {
+  DRAFT
+  SENT
+  APPROVED
+  REJECTED
+  CANCELLED
+  CONVERTED
+}
+
+// ===========================
+// Financial / Accounts Payable
+// ===========================
+
+model BankAccount {
+  id                    String                 @id @default(uuid())
+  name                  String
+  bank_name             String?
+  agency                String?
+  account_number        String?
+  balance               Decimal                @default(0) @db.Decimal(15, 2)
+  initial_balance       Decimal                @default(0) @db.Decimal(15, 2)
+  initial_balance_date  DateTime?
+  is_active             Boolean                @default(true)
+  created_at            DateTime               @default(now())
+  updated_at            DateTime               @updatedAt
+  transactions          FinancialTransaction[]
+  scheduledInstallments ExpenseInstallment[]   @relation("ScheduledAccount")
+
+  @@map("bank_accounts")
+}
+
+model PayableExpense {
+  id             String               @id @default(uuid())
+  maintenanceId  String?
+  contractId     String?
+  supplierId     String?
+  description    String
+  total_value    Decimal              @db.Decimal(15, 2)
+  payment_method PaymentMethod        @default(BOLETO)
+  status         PayableExpenseStatus @default(PENDING_MAINTENANCE_APPROVAL)
+
+  // Approval tracking
+  maintenance_approved_by String?
+  maintenance_approved_at DateTime?
+  finance_approved_by     String?
+  finance_approved_at     DateTime?
+  director_approved_by    String?
+  director_approved_at    DateTime?
+  rejection_notes         String?
+
+  is_active        Boolean  @default(true)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  chartOfAccountId String?
+
+  maintenance    Maintenance?         @relation(fields: [maintenanceId], references: [id])
+  contract       Contract?            @relation(fields: [contractId], references: [id])
+  supplier       Supplier?            @relation(fields: [supplierId], references: [id])
+  chartOfAccount ChartOfAccount?      @relation(fields: [chartOfAccountId], references: [id])
+  installments   ExpenseInstallment[]
+  documents      ExpenseDocument[]
+
+  @@map("payable_expenses")
+}
+
+model ExpenseInstallment {
+  id                     String            @id @default(uuid())
+  payableExpenseId       String
+  installment_number     Int
+  value                  Decimal           @db.Decimal(15, 2)
+  due_date               DateTime
+  barcode                String?
+  pix_key                String?
+  status                 InstallmentStatus @default(PENDING)
+  payment_date           DateTime?
+  created_at             DateTime          @default(now())
+  updated_at             DateTime          @updatedAt
+  scheduledBankAccountId String?
+
+  payableExpense       PayableExpense         @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
+  transactions         FinancialTransaction[]
+  scheduledBankAccount BankAccount?           @relation("ScheduledAccount", fields: [scheduledBankAccountId], references: [id])
+
+  @@map("expense_installments")
+}
+
+model ExpenseDocument {
+  id               String   @id @default(uuid())
+  payableExpenseId String
+  filename         String
+  original_name    String
+  file_path        String
+  file_size        Int
+  mime_type        String
+  document_type    String? // e.g. "BOLETO", "NOTA_FISCAL", "CONTRATO"
+  description      String?
+  created_at       DateTime @default(now())
+
+  payableExpense PayableExpense @relation(fields: [payableExpenseId], references: [id], onDelete: Cascade)
+
+  @@map("expense_documents")
+}
+
+model FinancialTransaction {
+  id                   String          @id @default(uuid())
+  bankAccountId        String
+  type                 TransactionType
+  amount               Decimal         @db.Decimal(15, 2)
+  date                 DateTime
+  description          String?
+  expenseInstallmentId String?
+  invoiceId            String?
+  receipt_url          String?
+  created_at           DateTime        @default(now())
+  updated_at           DateTime        @updatedAt
+
+  bankAccount        BankAccount         @relation(fields: [bankAccountId], references: [id])
+  expenseInstallment ExpenseInstallment? @relation(fields: [expenseInstallmentId], references: [id])
+  invoice            Invoice?            @relation(fields: [invoiceId], references: [id])
+
+  @@map("financial_transactions")
+}
+
+enum PayableExpenseStatus {
+  PENDING_MAINTENANCE_APPROVAL
+  PENDING_FINANCE_APPROVAL
+  PENDING_DIRECTOR_APPROVAL
+  APPROVED
+  PARTIALLY_PAID
+  PAID
+  REJECTED
+  CANCELLED
+}
+
+enum InstallmentStatus {
+  PENDING
+  SCHEDULED
+  PAID
+  CANCELLED
+}
+
+enum PaymentMethod {
+  BOLETO
+  PIX
+  TRANSFERENCIA
+  CHEQUE
+  DINHEIRO
+  CARTAO
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+// ===========================
+// Chart of Accounts
+// ===========================
+
+model ChartOfAccount {
+  id         String             @id @default(uuid())
+  code       String             @unique
+  name       String
+  type       ChartOfAccountType
+  parent_id  String?
+  is_active  Boolean            @default(true)
+  created_at DateTime           @default(now())
+  updated_at DateTime           @updatedAt
+
+  parent   ChartOfAccount?  @relation("ChartOfAccountHierarchy", fields: [parent_id], references: [id])
+  children ChartOfAccount[] @relation("ChartOfAccountHierarchy")
+  expenses PayableExpense[]
+  invoices Invoice[]
+
+  @@map("chart_of_accounts")
+}
+
+enum ChartOfAccountType {
+  REVENUE
+  EXPENSE
+  ASSET
+  LIABILITY
+}
