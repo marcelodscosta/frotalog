@@ -218,6 +218,14 @@ export const ContractStatus: {
 export type ContractStatus = (typeof ContractStatus)[keyof typeof ContractStatus]
 
 
+export const ContractType: {
+  NORMAL: 'NORMAL',
+  SIMPLE: 'SIMPLE'
+};
+
+export type ContractType = (typeof ContractType)[keyof typeof ContractType]
+
+
 export const BillingCycle: {
   DAILY: 'DAILY',
   MONTHLY: 'MONTHLY',
@@ -291,7 +299,8 @@ export type ProposalStatus = (typeof ProposalStatus)[keyof typeof ProposalStatus
 export const CommissionStatus: {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
-  PAID: 'PAID'
+  PAID: 'PAID',
+  CANCELLED: 'CANCELLED'
 };
 
 export type CommissionStatus = (typeof CommissionStatus)[keyof typeof CommissionStatus]
@@ -375,6 +384,10 @@ export const MaintenanceType: typeof $Enums.MaintenanceType
 export type ContractStatus = $Enums.ContractStatus
 
 export const ContractStatus: typeof $Enums.ContractStatus
+
+export type ContractType = $Enums.ContractType
+
+export const ContractType: typeof $Enums.ContractType
 
 export type BillingCycle = $Enums.BillingCycle
 
@@ -15799,6 +15812,7 @@ export namespace Prisma {
     start_date: Date | null
     end_date: Date | null
     status: $Enums.ContractStatus | null
+    type: $Enums.ContractType | null
     total_value: Decimal | null
     billing_day: number | null
     notes: string | null
@@ -15825,6 +15839,7 @@ export namespace Prisma {
     start_date: Date | null
     end_date: Date | null
     status: $Enums.ContractStatus | null
+    type: $Enums.ContractType | null
     total_value: Decimal | null
     billing_day: number | null
     notes: string | null
@@ -15851,6 +15866,7 @@ export namespace Prisma {
     start_date: number
     end_date: number
     status: number
+    type: number
     total_value: number
     billing_day: number
     notes: number
@@ -15891,6 +15907,7 @@ export namespace Prisma {
     start_date?: true
     end_date?: true
     status?: true
+    type?: true
     total_value?: true
     billing_day?: true
     notes?: true
@@ -15917,6 +15934,7 @@ export namespace Prisma {
     start_date?: true
     end_date?: true
     status?: true
+    type?: true
     total_value?: true
     billing_day?: true
     notes?: true
@@ -15943,6 +15961,7 @@ export namespace Prisma {
     start_date?: true
     end_date?: true
     status?: true
+    type?: true
     total_value?: true
     billing_day?: true
     notes?: true
@@ -16056,6 +16075,7 @@ export namespace Prisma {
     start_date: Date
     end_date: Date | null
     status: $Enums.ContractStatus
+    type: $Enums.ContractType
     total_value: Decimal | null
     billing_day: number | null
     notes: string | null
@@ -16101,6 +16121,7 @@ export namespace Prisma {
     start_date?: boolean
     end_date?: boolean
     status?: boolean
+    type?: boolean
     total_value?: boolean
     billing_day?: boolean
     notes?: boolean
@@ -16137,6 +16158,7 @@ export namespace Prisma {
     start_date?: boolean
     end_date?: boolean
     status?: boolean
+    type?: boolean
     total_value?: boolean
     billing_day?: boolean
     notes?: boolean
@@ -16165,6 +16187,7 @@ export namespace Prisma {
     start_date?: boolean
     end_date?: boolean
     status?: boolean
+    type?: boolean
     total_value?: boolean
     billing_day?: boolean
     notes?: boolean
@@ -16193,6 +16216,7 @@ export namespace Prisma {
     start_date?: boolean
     end_date?: boolean
     status?: boolean
+    type?: boolean
     total_value?: boolean
     billing_day?: boolean
     notes?: boolean
@@ -16208,7 +16232,7 @@ export namespace Prisma {
     commission_end_date?: boolean
   }
 
-  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contract_number" | "description" | "clientId" | "responsible_name" | "responsible_phone" | "responsible_email" | "start_date" | "end_date" | "status" | "total_value" | "billing_day" | "notes" | "observations" | "created_at" | "updated_at" | "is_Active" | "body_html" | "signed_contract_url" | "sellerId" | "commission_percentage" | "commission_start_date" | "commission_end_date", ExtArgs["result"]["contract"]>
+  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contract_number" | "description" | "clientId" | "responsible_name" | "responsible_phone" | "responsible_email" | "start_date" | "end_date" | "status" | "type" | "total_value" | "billing_day" | "notes" | "observations" | "created_at" | "updated_at" | "is_Active" | "body_html" | "signed_contract_url" | "sellerId" | "commission_percentage" | "commission_start_date" | "commission_end_date", ExtArgs["result"]["contract"]>
   export type ContractInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     movements?: boolean | Contract$movementsArgs<ExtArgs>
     client?: boolean | SupplierDefaultArgs<ExtArgs>
@@ -16254,6 +16278,7 @@ export namespace Prisma {
       start_date: Date
       end_date: Date | null
       status: $Enums.ContractStatus
+      type: $Enums.ContractType
       total_value: Prisma.Decimal | null
       billing_day: number | null
       notes: string | null
@@ -16709,6 +16734,7 @@ export namespace Prisma {
     readonly start_date: FieldRef<"Contract", 'DateTime'>
     readonly end_date: FieldRef<"Contract", 'DateTime'>
     readonly status: FieldRef<"Contract", 'ContractStatus'>
+    readonly type: FieldRef<"Contract", 'ContractType'>
     readonly total_value: FieldRef<"Contract", 'Decimal'>
     readonly billing_day: FieldRef<"Contract", 'Int'>
     readonly notes: FieldRef<"Contract", 'String'>
@@ -29680,6 +29706,7 @@ export namespace Prisma {
     validity_days: number | null
     discount_percentage: Decimal | null
     discount_value: Decimal | null
+    commission_percentage: Decimal | null
   }
 
   export type CommercialProposalSumAggregateOutputType = {
@@ -29688,6 +29715,7 @@ export namespace Prisma {
     validity_days: number | null
     discount_percentage: Decimal | null
     discount_value: Decimal | null
+    commission_percentage: Decimal | null
   }
 
   export type CommercialProposalMinAggregateOutputType = {
@@ -29708,6 +29736,7 @@ export namespace Prisma {
     discount_percentage: Decimal | null
     discount_value: Decimal | null
     follow_up_date: Date | null
+    commission_percentage: Decimal | null
     body_html: string | null
     status: $Enums.ProposalStatus | null
     created_at: Date | null
@@ -29735,6 +29764,7 @@ export namespace Prisma {
     discount_percentage: Decimal | null
     discount_value: Decimal | null
     follow_up_date: Date | null
+    commission_percentage: Decimal | null
     body_html: string | null
     status: $Enums.ProposalStatus | null
     created_at: Date | null
@@ -29762,6 +29792,7 @@ export namespace Prisma {
     discount_percentage: number
     discount_value: number
     follow_up_date: number
+    commission_percentage: number
     body_html: number
     status: number
     created_at: number
@@ -29779,6 +29810,7 @@ export namespace Prisma {
     validity_days?: true
     discount_percentage?: true
     discount_value?: true
+    commission_percentage?: true
   }
 
   export type CommercialProposalSumAggregateInputType = {
@@ -29787,6 +29819,7 @@ export namespace Prisma {
     validity_days?: true
     discount_percentage?: true
     discount_value?: true
+    commission_percentage?: true
   }
 
   export type CommercialProposalMinAggregateInputType = {
@@ -29807,6 +29840,7 @@ export namespace Prisma {
     discount_percentage?: true
     discount_value?: true
     follow_up_date?: true
+    commission_percentage?: true
     body_html?: true
     status?: true
     created_at?: true
@@ -29834,6 +29868,7 @@ export namespace Prisma {
     discount_percentage?: true
     discount_value?: true
     follow_up_date?: true
+    commission_percentage?: true
     body_html?: true
     status?: true
     created_at?: true
@@ -29861,6 +29896,7 @@ export namespace Prisma {
     discount_percentage?: true
     discount_value?: true
     follow_up_date?: true
+    commission_percentage?: true
     body_html?: true
     status?: true
     created_at?: true
@@ -29975,6 +30011,7 @@ export namespace Prisma {
     discount_percentage: Decimal | null
     discount_value: Decimal | null
     follow_up_date: Date | null
+    commission_percentage: Decimal | null
     body_html: string | null
     status: $Enums.ProposalStatus
     created_at: Date
@@ -30021,6 +30058,7 @@ export namespace Prisma {
     discount_percentage?: boolean
     discount_value?: boolean
     follow_up_date?: boolean
+    commission_percentage?: boolean
     body_html?: boolean
     status?: boolean
     created_at?: boolean
@@ -30054,6 +30092,7 @@ export namespace Prisma {
     discount_percentage?: boolean
     discount_value?: boolean
     follow_up_date?: boolean
+    commission_percentage?: boolean
     body_html?: boolean
     status?: boolean
     created_at?: boolean
@@ -30085,6 +30124,7 @@ export namespace Prisma {
     discount_percentage?: boolean
     discount_value?: boolean
     follow_up_date?: boolean
+    commission_percentage?: boolean
     body_html?: boolean
     status?: boolean
     created_at?: boolean
@@ -30116,6 +30156,7 @@ export namespace Prisma {
     discount_percentage?: boolean
     discount_value?: boolean
     follow_up_date?: boolean
+    commission_percentage?: boolean
     body_html?: boolean
     status?: boolean
     created_at?: boolean
@@ -30125,7 +30166,7 @@ export namespace Prisma {
     userId?: boolean
   }
 
-  export type CommercialProposalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "proposal_number" | "companySettingsId" | "clientId" | "contact_name" | "contact_phone" | "contact_email" | "mobilization_value" | "demobilization_value" | "payment_conditions" | "rental_period" | "technical_notes" | "observations" | "validity_days" | "discount_percentage" | "discount_value" | "follow_up_date" | "body_html" | "status" | "created_at" | "updated_at" | "is_active" | "contractId" | "userId", ExtArgs["result"]["commercialProposal"]>
+  export type CommercialProposalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "proposal_number" | "companySettingsId" | "clientId" | "contact_name" | "contact_phone" | "contact_email" | "mobilization_value" | "demobilization_value" | "payment_conditions" | "rental_period" | "technical_notes" | "observations" | "validity_days" | "discount_percentage" | "discount_value" | "follow_up_date" | "commission_percentage" | "body_html" | "status" | "created_at" | "updated_at" | "is_active" | "contractId" | "userId", ExtArgs["result"]["commercialProposal"]>
   export type CommercialProposalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     companySettings?: boolean | CommercialProposal$companySettingsArgs<ExtArgs>
@@ -30174,6 +30215,7 @@ export namespace Prisma {
       discount_percentage: Prisma.Decimal | null
       discount_value: Prisma.Decimal | null
       follow_up_date: Date | null
+      commission_percentage: Prisma.Decimal | null
       body_html: string | null
       status: $Enums.ProposalStatus
       created_at: Date
@@ -30626,6 +30668,7 @@ export namespace Prisma {
     readonly discount_percentage: FieldRef<"CommercialProposal", 'Decimal'>
     readonly discount_value: FieldRef<"CommercialProposal", 'Decimal'>
     readonly follow_up_date: FieldRef<"CommercialProposal", 'DateTime'>
+    readonly commission_percentage: FieldRef<"CommercialProposal", 'Decimal'>
     readonly body_html: FieldRef<"CommercialProposal", 'String'>
     readonly status: FieldRef<"CommercialProposal", 'ProposalStatus'>
     readonly created_at: FieldRef<"CommercialProposal", 'DateTime'>
@@ -41295,6 +41338,7 @@ export namespace Prisma {
     start_date: 'start_date',
     end_date: 'end_date',
     status: 'status',
+    type: 'type',
     total_value: 'total_value',
     billing_day: 'billing_day',
     notes: 'notes',
@@ -41519,6 +41563,7 @@ export namespace Prisma {
     discount_percentage: 'discount_percentage',
     discount_value: 'discount_value',
     follow_up_date: 'follow_up_date',
+    commission_percentage: 'commission_percentage',
     body_html: 'body_html',
     status: 'status',
     created_at: 'created_at',
@@ -41863,6 +41908,20 @@ export namespace Prisma {
    * Reference to a field of type 'ContractStatus[]'
    */
   export type ListEnumContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContractType'
+   */
+  export type EnumContractTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContractType[]'
+   */
+  export type ListEnumContractTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractType[]'>
     
 
 
@@ -42975,6 +43034,7 @@ export namespace Prisma {
     start_date?: DateTimeFilter<"Contract"> | Date | string
     end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
     status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    type?: EnumContractTypeFilter<"Contract"> | $Enums.ContractType
     total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
     billing_day?: IntNullableFilter<"Contract"> | number | null
     notes?: StringNullableFilter<"Contract"> | string | null
@@ -43010,6 +43070,7 @@ export namespace Prisma {
     start_date?: SortOrder
     end_date?: SortOrderInput | SortOrder
     status?: SortOrder
+    type?: SortOrder
     total_value?: SortOrderInput | SortOrder
     billing_day?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
@@ -43048,6 +43109,7 @@ export namespace Prisma {
     start_date?: DateTimeFilter<"Contract"> | Date | string
     end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
     status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    type?: EnumContractTypeFilter<"Contract"> | $Enums.ContractType
     total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
     billing_day?: IntNullableFilter<"Contract"> | number | null
     notes?: StringNullableFilter<"Contract"> | string | null
@@ -43083,6 +43145,7 @@ export namespace Prisma {
     start_date?: SortOrder
     end_date?: SortOrderInput | SortOrder
     status?: SortOrder
+    type?: SortOrder
     total_value?: SortOrderInput | SortOrder
     billing_day?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
@@ -43117,6 +43180,7 @@ export namespace Prisma {
     start_date?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
     end_date?: DateTimeNullableWithAggregatesFilter<"Contract"> | Date | string | null
     status?: EnumContractStatusWithAggregatesFilter<"Contract"> | $Enums.ContractStatus
+    type?: EnumContractTypeWithAggregatesFilter<"Contract"> | $Enums.ContractType
     total_value?: DecimalNullableWithAggregatesFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
     billing_day?: IntNullableWithAggregatesFilter<"Contract"> | number | null
     notes?: StringNullableWithAggregatesFilter<"Contract"> | string | null
@@ -44157,6 +44221,7 @@ export namespace Prisma {
     discount_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     discount_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: DateTimeNullableFilter<"CommercialProposal"> | Date | string | null
+    commission_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     body_html?: StringNullableFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
     created_at?: DateTimeFilter<"CommercialProposal"> | Date | string
@@ -44189,6 +44254,7 @@ export namespace Prisma {
     discount_percentage?: SortOrderInput | SortOrder
     discount_value?: SortOrderInput | SortOrder
     follow_up_date?: SortOrderInput | SortOrder
+    commission_percentage?: SortOrderInput | SortOrder
     body_html?: SortOrderInput | SortOrder
     status?: SortOrder
     created_at?: SortOrder
@@ -44225,6 +44291,7 @@ export namespace Prisma {
     discount_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     discount_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: DateTimeNullableFilter<"CommercialProposal"> | Date | string | null
+    commission_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     body_html?: StringNullableFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
     created_at?: DateTimeFilter<"CommercialProposal"> | Date | string
@@ -44256,6 +44323,7 @@ export namespace Prisma {
     discount_percentage?: SortOrderInput | SortOrder
     discount_value?: SortOrderInput | SortOrder
     follow_up_date?: SortOrderInput | SortOrder
+    commission_percentage?: SortOrderInput | SortOrder
     body_html?: SortOrderInput | SortOrder
     status?: SortOrder
     created_at?: SortOrder
@@ -44291,6 +44359,7 @@ export namespace Prisma {
     discount_percentage?: DecimalNullableWithAggregatesFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     discount_value?: DecimalNullableWithAggregatesFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: DateTimeNullableWithAggregatesFilter<"CommercialProposal"> | Date | string | null
+    commission_percentage?: DecimalNullableWithAggregatesFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     body_html?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusWithAggregatesFilter<"CommercialProposal"> | $Enums.ProposalStatus
     created_at?: DateTimeWithAggregatesFilter<"CommercialProposal"> | Date | string
@@ -46158,6 +46227,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -46192,6 +46262,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -46224,6 +46295,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46258,6 +46330,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46291,6 +46364,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -46316,6 +46390,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46341,6 +46416,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47507,6 +47583,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -47537,6 +47614,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -47563,6 +47641,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47593,6 +47672,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47621,6 +47701,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -47646,6 +47727,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47671,6 +47753,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -49524,6 +49607,13 @@ export namespace Prisma {
     not?: NestedEnumContractStatusFilter<$PrismaModel> | $Enums.ContractStatus
   }
 
+  export type EnumContractTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractType | EnumContractTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractType[] | ListEnumContractTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractType[] | ListEnumContractTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractTypeFilter<$PrismaModel> | $Enums.ContractType
+  }
+
   export type SupplierScalarRelationFilter = {
     is?: SupplierWhereInput
     isNot?: SupplierWhereInput
@@ -49560,6 +49650,7 @@ export namespace Prisma {
     start_date?: SortOrder
     end_date?: SortOrder
     status?: SortOrder
+    type?: SortOrder
     total_value?: SortOrder
     billing_day?: SortOrder
     notes?: SortOrder
@@ -49592,6 +49683,7 @@ export namespace Prisma {
     start_date?: SortOrder
     end_date?: SortOrder
     status?: SortOrder
+    type?: SortOrder
     total_value?: SortOrder
     billing_day?: SortOrder
     notes?: SortOrder
@@ -49618,6 +49710,7 @@ export namespace Prisma {
     start_date?: SortOrder
     end_date?: SortOrder
     status?: SortOrder
+    type?: SortOrder
     total_value?: SortOrder
     billing_day?: SortOrder
     notes?: SortOrder
@@ -49647,6 +49740,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumContractStatusFilter<$PrismaModel>
     _max?: NestedEnumContractStatusFilter<$PrismaModel>
+  }
+
+  export type EnumContractTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractType | EnumContractTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractType[] | ListEnumContractTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractType[] | ListEnumContractTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractTypeWithAggregatesFilter<$PrismaModel> | $Enums.ContractType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContractTypeFilter<$PrismaModel>
+    _max?: NestedEnumContractTypeFilter<$PrismaModel>
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -50489,6 +50592,7 @@ export namespace Prisma {
     discount_percentage?: SortOrder
     discount_value?: SortOrder
     follow_up_date?: SortOrder
+    commission_percentage?: SortOrder
     body_html?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
@@ -50504,6 +50608,7 @@ export namespace Prisma {
     validity_days?: SortOrder
     discount_percentage?: SortOrder
     discount_value?: SortOrder
+    commission_percentage?: SortOrder
   }
 
   export type CommercialProposalMaxOrderByAggregateInput = {
@@ -50524,6 +50629,7 @@ export namespace Prisma {
     discount_percentage?: SortOrder
     discount_value?: SortOrder
     follow_up_date?: SortOrder
+    commission_percentage?: SortOrder
     body_html?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
@@ -50551,6 +50657,7 @@ export namespace Prisma {
     discount_percentage?: SortOrder
     discount_value?: SortOrder
     follow_up_date?: SortOrder
+    commission_percentage?: SortOrder
     body_html?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
@@ -50566,6 +50673,7 @@ export namespace Prisma {
     validity_days?: SortOrder
     discount_percentage?: SortOrder
     discount_value?: SortOrder
+    commission_percentage?: SortOrder
   }
 
   export type EnumProposalStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -52357,6 +52465,10 @@ export namespace Prisma {
 
   export type EnumContractStatusFieldUpdateOperationsInput = {
     set?: $Enums.ContractStatus
+  }
+
+  export type EnumContractTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ContractType
   }
 
   export type AssetMovementUpdateManyWithoutContractNestedInput = {
@@ -54343,6 +54455,13 @@ export namespace Prisma {
     not?: NestedEnumContractStatusFilter<$PrismaModel> | $Enums.ContractStatus
   }
 
+  export type NestedEnumContractTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractType | EnumContractTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractType[] | ListEnumContractTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractType[] | ListEnumContractTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractTypeFilter<$PrismaModel> | $Enums.ContractType
+  }
+
   export type NestedEnumContractStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ContractStatus | EnumContractStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
@@ -54351,6 +54470,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumContractStatusFilter<$PrismaModel>
     _max?: NestedEnumContractStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumContractTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractType | EnumContractTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractType[] | ListEnumContractTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractType[] | ListEnumContractTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractTypeWithAggregatesFilter<$PrismaModel> | $Enums.ContractType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContractTypeFilter<$PrismaModel>
+    _max?: NestedEnumContractTypeFilter<$PrismaModel>
   }
 
   export type NestedDecimalFilter<$PrismaModel = never> = {
@@ -54690,6 +54819,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -54719,6 +54849,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -54788,6 +54919,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -54821,6 +54953,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -54932,6 +55065,7 @@ export namespace Prisma {
     discount_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     discount_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: DateTimeNullableFilter<"CommercialProposal"> | Date | string | null
+    commission_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     body_html?: StringNullableFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
     created_at?: DateTimeFilter<"CommercialProposal"> | Date | string
@@ -55006,6 +55140,7 @@ export namespace Prisma {
     start_date?: DateTimeFilter<"Contract"> | Date | string
     end_date?: DateTimeNullableFilter<"Contract"> | Date | string | null
     status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    type?: EnumContractTypeFilter<"Contract"> | $Enums.ContractType
     total_value?: DecimalNullableFilter<"Contract"> | Decimal | DecimalJsLike | number | string | null
     billing_day?: IntNullableFilter<"Contract"> | number | null
     notes?: StringNullableFilter<"Contract"> | string | null
@@ -56012,6 +56147,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -56044,6 +56180,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -56202,6 +56339,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -56230,6 +56368,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -56631,6 +56770,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -56664,6 +56804,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -56986,6 +57127,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57019,6 +57161,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57603,6 +57746,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -57632,6 +57776,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -58061,6 +58206,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -58094,6 +58240,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -58270,6 +58417,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58303,6 +58451,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58474,6 +58623,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -58507,6 +58657,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -58725,6 +58876,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58758,6 +58910,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58888,6 +59041,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -58921,6 +59075,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -59085,6 +59240,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59118,6 +59274,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59461,6 +59618,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -59489,6 +59647,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -60383,6 +60542,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -60416,6 +60576,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -60646,6 +60807,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60679,6 +60841,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60775,6 +60938,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -60804,6 +60968,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -60937,6 +61102,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -60966,6 +61132,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -61089,6 +61256,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -61122,6 +61290,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -61259,6 +61428,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61292,6 +61462,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61606,6 +61777,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -61639,6 +61811,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -61903,6 +62076,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61936,6 +62110,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62998,6 +63173,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -63032,6 +63208,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -63135,6 +63312,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63164,6 +63342,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63191,6 +63370,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63254,6 +63434,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63287,6 +63468,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63319,6 +63501,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63943,6 +64126,7 @@ export namespace Prisma {
     start_date: Date | string
     end_date?: Date | string | null
     status?: $Enums.ContractStatus
+    type?: $Enums.ContractType
     total_value?: Decimal | DecimalJsLike | number | string | null
     billing_day?: number | null
     notes?: string | null
@@ -64017,6 +64201,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -64057,6 +64242,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64089,6 +64275,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64121,6 +64308,7 @@ export namespace Prisma {
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    type?: EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
     total_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_day?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64284,6 +64472,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64312,6 +64501,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64339,6 +64529,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64765,6 +64956,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -65136,6 +65328,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65165,6 +65358,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65192,6 +65386,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65586,6 +65781,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
     created_at?: Date | string
@@ -65611,6 +65807,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65639,6 +65836,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65666,6 +65864,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

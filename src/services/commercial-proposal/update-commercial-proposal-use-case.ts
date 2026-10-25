@@ -28,6 +28,7 @@ interface UpdateCommercialProposalRequest {
   technical_notes?: string
   observations?: string
   validity_days?: number
+  commission_percentage?: number
   body_html?: string
   status?: string
   items?: UpdateProposalItem[]
@@ -56,6 +57,7 @@ export class UpdateCommercialProposalUseCase {
       technical_notes: data.technical_notes,
       observations: data.observations,
       validity_days: data.validity_days,
+      commission_percentage: data.commission_percentage,
       body_html: data.body_html,
       status: data.status as any,
       user: data.userId !== undefined

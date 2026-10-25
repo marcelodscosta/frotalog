@@ -1,10 +1,13 @@
 import { FastifyInstance } from 'fastify'
 import { listCommissions } from './list-commissions-controller'
 import { updateCommissionStatus } from './update-commission-status-controller'
-import { requireAdmin, requireEmployee } from '../../middleware/auth'
+import { updateCommission } from './update-commission-controller'
+import { requireAdmin, requireAuth } from '../../middleware/auth'
 
 export async function commissionRoutes(app: FastifyInstance) {
-  // Admin e Employee podem listar; somente Admin altera status
-  app.get('/commissions', { preHandler: requireEmployee() }, listCommissions)
+  // Qualquer usuário autenticado pode listar; vendedores só veem as próprias comissões.
+  // Somente Admin altera status ou informa o valor base do mês.
+  app.get('/commissions', { preHandler: requireAuth() }, listCommissions)
   app.patch('/commissions/:id/status', { preHandler: requireAdmin() }, updateCommissionStatus)
+  app.patch('/commissions/:id', { preHandler: requireAdmin() }, updateCommission)
 }

@@ -5,7 +5,7 @@ import { makeUpdateCommissionStatus } from '../../../services/factories/make-upd
 export async function updateCommissionStatus(request: FastifyRequest, reply: FastifyReply) {
   const paramsSchema = z.object({ id: z.string().uuid() })
   const bodySchema = z.object({
-    status: z.enum(['PENDING', 'CONFIRMED', 'PAID']),
+    status: z.enum(['PENDING', 'CONFIRMED', 'PAID', 'CANCELLED']),
     paid_at: z.string().optional(),
   })
 

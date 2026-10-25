@@ -23,6 +23,7 @@ export async function createContract(
     signed_contract_url: z.string().nullable().optional(),
     proposalId: z.string().uuid().nullable().optional(),
     status: z.enum(['DRAFT', 'ACTIVE', 'FINISHED', 'CANCELLED']).optional(),
+    type: z.enum(['NORMAL', 'SIMPLE']).optional().default('NORMAL'),
   })
 
   const data = createBodySchema.parse(request.body)

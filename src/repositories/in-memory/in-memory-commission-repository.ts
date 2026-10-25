@@ -44,6 +44,34 @@ export class InMemoryCommissionRepository implements ICommissionRepository {
     return item || null
   }
 
+  async findByContractAndMonth(contractId: string, referenceMonth: Date): Promise<Commission | null> {
+    const item = this.items.find(
+      (item) =>
+        item.contractId === contractId &&
+        item.reference_month.getTime() === referenceMonth.getTime(),
+    )
+    return item || null
+  }
+
+  async listByContract(contractId: string): Promise<Commission[]> {
+    return this.items.filter((item) => item.contractId === contractId)
+  }
+
+  async update(
+    id: string,
+    data: { base_value?: number; commission_value?: number; notes?: string | null },
+  ): Promise<Commission> {
+    const index = this.items.findIndex((item) => item.id === id)
+    if (index === -1) throw new Error('Not found')
+
+    const item = this.items[index]
+    if (data.base_value != null) item.base_value = new Prisma.Decimal(data.base_value)
+    if (data.commission_value != null) item.commission_value = new Prisma.Decimal(data.commission_value)
+    if (data.notes !== undefined) item.notes = data.notes
+
+    return item
+  }
+
   async search(filters: CommissionFilters): Promise<{
     items: Commission[]
     totalItems: number

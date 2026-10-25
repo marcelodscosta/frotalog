@@ -287,6 +287,10 @@ export class CreateMeasurementBulletinUseCase {
         1,
       ))
 
+      // Comissão recorrente do contrato já pode ter gerado a linha deste mês
+      const existing = await this.commissionRepository.findByContractAndMonth(contract.id, referenceMonth)
+      if (existing) return
+
       const commissionValue = totalValue * (percentage / 100)
 
       await this.commissionRepository.create({

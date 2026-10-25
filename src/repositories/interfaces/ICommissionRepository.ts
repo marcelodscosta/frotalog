@@ -24,12 +24,21 @@ export interface ICommissionRepository {
 
   findByMeasurementBulletin(measurementBulletinId: string): Promise<Commission | null>
 
+  findByContractAndMonth(contractId: string, referenceMonth: Date): Promise<Commission | null>
+
+  listByContract(contractId: string): Promise<Commission[]>
+
   search(filters: CommissionFilters): Promise<{
     items: Commission[]
     totalItems: number
     totalPages: number
     currentPage: number
   }>
+
+  update(
+    id: string,
+    data: { base_value?: number; commission_value?: number; notes?: string | null },
+  ): Promise<Commission>
 
   updateStatus(id: string, status: CommissionStatus, paid_at?: Date): Promise<Commission>
 

@@ -11,7 +11,9 @@ import { searchContracts } from './search-contracts-controller'
 import { getContractWithDetails } from './get-contract-with-details-controller'
 import { getActiveContractByAsset } from './get-active-contract-by-asset-controller'
 import { getContractFinancialSummary } from './get-contract-financial-summary-controller'
+import { listContractCommissions } from './list-contract-commissions-controller'
 import { uploadSignedContract } from './upload-signed-contract-controller'
+import { requireAuth } from '../../middleware/auth'
 
 export async function contractRoutes(app: FastifyInstance) {
   app.post('/contract', createContract)
@@ -25,6 +27,7 @@ export async function contractRoutes(app: FastifyInstance) {
   app.get('/contracts/search', searchContracts)
   app.get('/contract/:id/details', getContractWithDetails)
   app.get('/contract/:id/financials', getContractFinancialSummary)
+  app.get('/contract/:id/commissions', { preHandler: requireAuth() }, listContractCommissions)
   app.get('/contract/asset/:assetId', getActiveContractByAsset)
 
   app.patch('/contract/:id/delete', deleteContract)

@@ -33,6 +33,7 @@ export async function updateCommercialProposal(
     validity_days: z.number().int().optional(),
     discount_percentage: z.number().nonnegative().optional(),
     discount_value: z.number().nonnegative().optional(),
+    commission_percentage: z.number().nonnegative().optional(),
     follow_up_date: z.string().optional().nullable(),
     body_html: z.string().optional(),
     status: z.string().optional(),

@@ -218,6 +218,8 @@ model Contract {
   start_date           DateTime
   end_date             DateTime?
   status               ContractStatus        @default(DRAFT)
+  // Tipo do contrato: NORMAL (com cláusulas) ou SIMPLE (criação enxuta)
+  type                 ContractType          @default(NORMAL)
   total_value          Decimal?              @db.Decimal(10, 2)
   billing_day          Int?
   notes                String?
@@ -423,6 +425,11 @@ enum ContractStatus {
   CANCELLED
 }
 
+enum ContractType {
+  NORMAL
+  SIMPLE
+}
+
 enum BillingCycle {
   DAILY
   MONTHLY
@@ -553,6 +560,9 @@ model CommercialProposal {
   discount_value       Decimal?  @db.Decimal(10, 2)
   follow_up_date       DateTime?
 
+  // Comissão de vendas (herdada pelo contrato na conversão)
+  commission_percentage Decimal? @db.Decimal(5, 2)
+
   body_html String? @db.Text
 
   status     ProposalStatus @default(DRAFT)
@@ -611,6 +621,7 @@ enum CommissionStatus {
   PENDING
   CONFIRMED
   PAID
+  CANCELLED
 }
 
 model Commission {

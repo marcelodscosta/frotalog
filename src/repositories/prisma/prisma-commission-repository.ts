@@ -42,6 +42,37 @@ export class PrismaCommissionRepository implements ICommissionRepository {
     return prisma.commission.findUnique({ where: { measurementBulletinId } })
   }
 
+  async findByContractAndMonth(contractId: string, referenceMonth: Date): Promise<Commission | null> {
+    return prisma.commission.findFirst({
+      where: { contractId, reference_month: referenceMonth },
+    })
+  }
+
+  async listByContract(contractId: string): Promise<Commission[]> {
+    return prisma.commission.findMany({
+      where: { contractId },
+      include: {
+        seller: { select: { id: true, name: true, avatar: true } },
+        measurementBulletin: { select: { id: true, reference_start: true, reference_end: true, total_value: true } },
+      },
+      orderBy: { reference_month: 'asc' },
+    })
+  }
+
+  async update(
+    id: string,
+    data: { base_value?: number; commission_value?: number; notes?: string | null },
+  ): Promise<Commission> {
+    return prisma.commission.update({
+      where: { id },
+      data: {
+        ...(data.base_value != null && { base_value: new Prisma.Decimal(data.base_value.toFixed(2)) }),
+        ...(data.commission_value != null && { commission_value: new Prisma.Decimal(data.commission_value.toFixed(2)) }),
+        ...(data.notes !== undefined && { notes: data.notes }),
+      },
+    })
+  }
+
   async search(filters: CommissionFilters): Promise<{
     items: Commission[]
     totalItems: number
@@ -103,7 +134,8 @@ export class PrismaCommissionRepository implements ICommissionRepository {
     const where: Prisma.CommissionWhereInput = {}
     if (filters.sellerId) where.sellerId = filters.sellerId
     if (filters.contractId) where.contractId = filters.contractId
-    if (filters.status) where.status = filters.status
+    // Comissões canceladas não entram nos totais do resumo
+    where.status = filters.status ? filters.status : { not: 'CANCELLED' }
 
     if (filters.year || filters.month) {
       const year = filters.year ?? new Date().getFullYear()

@@ -29,6 +29,7 @@ interface CreateCommercialProposalRequest {
   validity_days?: number
   discount_percentage?: number
   discount_value?: number
+  commission_percentage?: number
   follow_up_date?: string | null
   body_html?: string
   userId?: string
@@ -75,6 +76,7 @@ export class CreateCommercialProposalUseCase {
       validity_days: data.validity_days,
       discount_percentage: data.discount_percentage,
       discount_value: data.discount_value,
+      commission_percentage: data.commission_percentage,
       follow_up_date: data.follow_up_date,
       body_html: data.body_html,
       userId: data.userId,

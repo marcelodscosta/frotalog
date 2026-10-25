@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { Contract, ContractStatus, Prisma } from '../../generated/prisma'
+import { Contract, ContractStatus, ContractType, Prisma } from '../../generated/prisma'
 import { IContractRepository } from '../interfaces/IContractRepository'
 import { PaginatedResult } from '../interfaces/IPaginatedResult'
 
@@ -18,6 +18,7 @@ export class InMemoryContractRepository implements IContractRepository {
       start_date: data.start_date instanceof Date ? data.start_date : new Date(data.start_date),
       end_date: data.end_date ? (data.end_date instanceof Date ? data.end_date : new Date(data.end_date)) : null,
       status: (data.status as ContractStatus) ?? 'DRAFT',
+      type: (data.type as ContractType) ?? 'NORMAL',
       total_value: data.total_value != null ? new Prisma.Decimal(data.total_value.toString()) : null,
       billing_day: data.billing_day ?? null,
       notes: data.notes ?? null,

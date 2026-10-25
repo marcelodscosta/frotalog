@@ -272,6 +272,7 @@ exports.Prisma.ContractScalarFieldEnum = {
   start_date: 'start_date',
   end_date: 'end_date',
   status: 'status',
+  type: 'type',
   total_value: 'total_value',
   billing_day: 'billing_day',
   notes: 'notes',
@@ -463,6 +464,7 @@ exports.Prisma.CommercialProposalScalarFieldEnum = {
   discount_percentage: 'discount_percentage',
   discount_value: 'discount_value',
   follow_up_date: 'follow_up_date',
+  commission_percentage: 'commission_percentage',
   body_html: 'body_html',
   status: 'status',
   created_at: 'created_at',
@@ -644,6 +646,11 @@ exports.ContractStatus = exports.$Enums.ContractStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.ContractType = exports.$Enums.ContractType = {
+  NORMAL: 'NORMAL',
+  SIMPLE: 'SIMPLE'
+};
+
 exports.BillingCycle = exports.$Enums.BillingCycle = {
   DAILY: 'DAILY',
   MONTHLY: 'MONTHLY',
@@ -696,7 +703,8 @@ exports.ProposalStatus = exports.$Enums.ProposalStatus = {
 exports.CommissionStatus = exports.$Enums.CommissionStatus = {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
-  PAID: 'PAID'
+  PAID: 'PAID',
+  CANCELLED: 'CANCELLED'
 };
 
 exports.PaymentMethod = exports.$Enums.PaymentMethod = {

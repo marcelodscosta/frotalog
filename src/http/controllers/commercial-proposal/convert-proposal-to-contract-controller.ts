@@ -7,9 +7,10 @@ export async function convertProposalToContract(request: FastifyRequest, reply: 
     proposalId: z.string().uuid(),
     contract_number: z.string(),
     start_date: z.coerce.date(),
+    type: z.enum(['NORMAL', 'SIMPLE']).optional().default('NORMAL'),
   })
 
-  const { proposalId, contract_number, start_date } = bodySchema.parse(request.body)
+  const { proposalId, contract_number, start_date, type } = bodySchema.parse(request.body)
 
   const convertProposalToContractUseCase = makeConvertProposalToContract()
 
@@ -17,6 +18,7 @@ export async function convertProposalToContract(request: FastifyRequest, reply: 
     proposalId,
     contract_number,
     start_date,
+    type,
   })
 
   return reply.status(201).send({ contract })
