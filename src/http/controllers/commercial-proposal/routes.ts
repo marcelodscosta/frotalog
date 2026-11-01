@@ -5,6 +5,7 @@ import { getCommercialProposal } from './get-commercial-proposal-controller'
 import { updateCommercialProposal } from './update-commercial-proposal-controller'
 import { convertProposalToContract } from './convert-proposal-to-contract-controller'
 import { updateProposalStatus } from './update-proposal-status-controller'
+import { linkProposalContract } from './link-proposal-contract-controller'
 import { fetchAllProposalsUnpaginated } from './fetch-all-proposals-unpaginated-controller'
 import { deleteCommercialProposal } from './delete-commercial-proposal-controller'
 import { getProposalsMetrics } from './get-proposals-metrics-controller'
@@ -18,6 +19,7 @@ export async function commercialProposalRoutes(app: FastifyInstance) {
   app.get('/proposals/:id', { preHandler: requireEmployee() }, getCommercialProposal)
   app.put('/proposals/:id', { preHandler: requireEmployee() }, updateCommercialProposal)
   app.patch('/proposals/:id/status', { preHandler: requireEmployee() }, updateProposalStatus)
+  app.patch('/proposals/:id/link-contract', { preHandler: requireEmployee() }, linkProposalContract)
   app.post('/proposals/convert', { preHandler: requireEmployee() }, convertProposalToContract)
   app.delete('/proposals/:id', { preHandler: requireEmployee() }, deleteCommercialProposal)
 }

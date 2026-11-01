@@ -2,6 +2,8 @@ import { Contract, ContractType } from '../../generated/prisma'
 import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
 import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { ICompanySettingsRepository } from '../../repositories/interfaces/ICompanySettingsRepository'
+import { ContractAlreadyExistsError } from '../errors/contract-already-exist-error'
+import { AppError } from '../errors/app-error'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 import { ProposalNotApprovedError } from '../errors/proposal-not-approved-error'
 import { buildSimpleContractHtml } from './simple-contract-template'
@@ -27,13 +29,34 @@ export class ConvertProposalToContractUseCase {
       throw new ResourceNotFoundError()
     }
 
-    if (proposal.status === 'CONVERTED') {
-       throw new Error('Esta proposta já foi convertida em contrato.')
+    const linkedContract = (proposal as any).contract as { id: string } | null
+
+    if (linkedContract) {
+      throw new AppError('Esta proposta já possui um contrato vinculado.', 400)
     }
 
-    if (proposal.status !== 'APPROVED') {
-       throw new ProposalNotApprovedError()
+    // Propostas antigas podem estar marcadas como CONVERTED sem contrato vinculado.
+    if (proposal.status !== 'APPROVED' && proposal.status !== 'CONVERTED') {
+      throw new ProposalNotApprovedError()
     }
+
+    const existingContract = await this.contractRepository.findByContractNumber(contract_number)
+    if (existingContract) {
+      throw new ContractAlreadyExistsError()
+    }
+
+    const details = proposal as any
+    const items: Array<{ quantity?: number | string; monthly_value?: number | string }> = details.items ?? []
+    const subtotal = items.reduce(
+      (total, item) => total + Number(item.quantity || 0) * Number(item.monthly_value || 0),
+      0,
+    )
+    const discountValue = Number(details.discount_value || 0)
+    const discountPercentage = Number(details.discount_percentage || 0)
+    const discount = discountValue > 0
+      ? Math.min(discountValue, subtotal)
+      : subtotal * (discountPercentage / 100)
+    const totalValue = Math.max(subtotal - discount, 0)
 
     // 1. Preparar o corpo do contrato com substituições se necessário
     let body_html = proposal.body_html
@@ -79,6 +102,7 @@ export class ConvertProposalToContractUseCase {
       start_date,
       status: 'ACTIVE',
       type,
+      total_value: totalValue,
       responsible_name: proposal.contact_name,
       responsible_phone: proposal.contact_phone,
       responsible_email: proposal.contact_email,

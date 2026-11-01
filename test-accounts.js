@@ -1,4 +1,10 @@
-const { PrismaClient } = require('./node_modules/@prisma/client');
-const prisma = new PrismaClient();
-prisma.chartOfAccount.findMany().then(res => { console.log("ChartOfAccount:", res); prisma.$disconnect(); });
-prisma.serviceCategory.findMany().then(res => { console.log("ServiceCategory:", res); prisma.$disconnect(); });
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const prisma_1 = require("./src/lib/prisma");
+async function check() {
+    const accounts = await prisma_1.prisma.chartOfAccount.findMany();
+    console.log("ChartOfAccount:", accounts);
+    const services = await prisma_1.prisma.serviceCategory.findMany();
+    console.log("ServiceCategory:", services);
+}
+check().finally(() => prisma_1.prisma.$disconnect());

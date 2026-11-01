@@ -149,6 +149,31 @@ describe('Asset Movement E2E', () => {
     expect(body.assetMovement.notes).toBe('Nota E2E')
   })
 
+  it('PATCH /asset-movements/:id - should finish the contract when the last movement is demobilized', async () => {
+    await prisma.contract.update({
+      where: { id: contractId },
+      data: { status: 'ACTIVE' },
+    })
+
+    const response = await app.inject({
+      method: 'PATCH',
+      url: `/asset-movements/${createdMovementId}`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      payload: {
+        demobilization_date: '2026-10-30T12:00:00.000Z',
+      },
+    })
+
+    expect(response.statusCode).toBe(200)
+
+    const contract = await prisma.contract.findUnique({
+      where: { id: contractId },
+    })
+    expect(contract?.status).toBe('FINISHED')
+  })
+
   it('GET /contracts/:contractId/asset-movements - should list movements by contract', async () => {
     const response = await app.inject({
       method: 'GET',

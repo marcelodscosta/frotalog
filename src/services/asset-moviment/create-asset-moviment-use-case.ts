@@ -6,6 +6,7 @@ import { AssetNotFoundError } from '../errors/asset-not-found-error'
 import { ContractNotFoundError } from '../errors/contract-not-fount-error'
 import { AssetAlreadyInContractError } from '../errors/asset-already-in-contract-error'
 import { AssetActiveInAnotherContractError } from '../errors/asset-active-in-another-contract-error'
+import { finishContractIfAllMovementsDemobilized } from './finish-contract-if-all-movements-demobilized'
 
 interface CreateAssetMovementRequest {
   contractId: string
@@ -23,6 +24,8 @@ interface CreateAssetMovementRequest {
   delivery_location?: string | null
   freight_value?: number | null
   calculation_rule?: MeasurementCalculationRule
+  service_executed?: boolean | null
+  final_value?: number | null
   notes?: string | null
 }
 
@@ -71,7 +74,17 @@ export class CreateAssetMovementUseCase {
       freight_value: data.freight_value
         ? new Prisma.Decimal(data.freight_value)
         : null,
+      final_value:
+        data.final_value != null
+          ? new Prisma.Decimal(data.final_value)
+          : null,
     })
+
+    await finishContractIfAllMovementsDemobilized(
+      assetMovement.contractId,
+      this.assetMovementRepository,
+      this.contractRepository,
+    )
 
     return { assetMovement }
   }

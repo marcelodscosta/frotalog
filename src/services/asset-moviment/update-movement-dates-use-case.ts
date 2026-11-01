@@ -1,6 +1,8 @@
 import { AssetMovement } from '../../generated/prisma'
 import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
+import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { AssetMovimentNotFoundError } from '../errors/asset-moviment-not-found-error'
+import { finishContractIfAllMovementsDemobilized } from './finish-contract-if-all-movements-demobilized'
 
 interface UpdateMovementDatesUseCaseRequest {
   id: string
@@ -13,7 +15,10 @@ interface UpdateMovementDatesUseCaseResponse {
 }
 
 export class UpdateMovementDatesUseCase {
-  constructor(private assetMovementRepository: IAssetMovementRepository) {}
+  constructor(
+    private assetMovementRepository: IAssetMovementRepository,
+    private contractRepository: IContractRepository,
+  ) {}
 
   async execute({
     id,
@@ -30,6 +35,12 @@ export class UpdateMovementDatesUseCase {
       id,
       integrationDate,
       demobilizationDate,
+    )
+
+    await finishContractIfAllMovementsDemobilized(
+      assetMovement.contractId,
+      this.assetMovementRepository,
+      this.contractRepository,
     )
 
     return { assetMovement }

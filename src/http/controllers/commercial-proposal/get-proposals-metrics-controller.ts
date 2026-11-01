@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { makeGetProposalsMetrics } from '../../../services/factories/make-get-proposals-metrics'
+import { rejectExpiredProposals } from '../../../services/commercial-proposal/reject-expired-proposals'
 
 export async function getProposalsMetrics(request: FastifyRequest, reply: FastifyReply) {
   const metricsParamsSchema = z.object({
@@ -12,6 +13,10 @@ export async function getProposalsMetrics(request: FastifyRequest, reply: Fastif
   })
 
   const { query, status, clientId, startDate, endDate } = metricsParamsSchema.parse(request.query)
+
+  await rejectExpiredProposals().catch((error) => {
+    request.log.error(error, 'Falha ao reprovar propostas vencidas')
+  })
 
   const getMetricsUseCase = makeGetProposalsMetrics()
 

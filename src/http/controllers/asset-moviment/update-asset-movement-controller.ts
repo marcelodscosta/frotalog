@@ -24,6 +24,8 @@ export async function updateAssetMovementController(
     delivery_location: z.string().nullable().optional(),
     freight_value: z.number().nonnegative().nullable().optional(),
     calculation_rule: z.enum(['COMMERCIAL_30_DAYS', 'CALENDAR_DAYS']).optional(),
+    service_executed: z.boolean().nullable().optional(),
+    final_value: z.number().nonnegative().nullable().optional(),
     notes: z.string().nullable().optional(),
     is_active: z.boolean().optional(),
   })

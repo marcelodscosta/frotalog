@@ -24,6 +24,9 @@ export interface ICommercialProposalRepository {
     client?: string
     status?: ProposalStatus
     page: number
+    pageSize?: number
+    startDate?: string
+    endDate?: string
   }): Promise<PaginatedResult<CommercialProposal>>
 
   updateStatus(id: string, status: ProposalStatus): Promise<CommercialProposal>
@@ -36,6 +39,8 @@ export interface ICommercialProposalRepository {
     proposal_number?: string
     client?: string
     status?: ProposalStatus
+    startDate?: string
+    endDate?: string
   }): Promise<{
     totalCount: number
     totalValue: number

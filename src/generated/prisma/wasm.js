@@ -305,6 +305,8 @@ exports.Prisma.AssetMovementScalarFieldEnum = {
   delivery_location: 'delivery_location',
   freight_value: 'freight_value',
   calculation_rule: 'calculation_rule',
+  service_executed: 'service_executed',
+  final_value: 'final_value',
   notes: 'notes',
   is_active: 'is_active',
   created_at: 'created_at',

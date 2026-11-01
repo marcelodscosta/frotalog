@@ -266,6 +266,8 @@ model AssetMovement {
   delivery_location            String?
   freight_value                Decimal?                   @db.Decimal(10, 2)
   calculation_rule             MeasurementCalculationRule @default(COMMERCIAL_30_DAYS)
+  service_executed             Boolean?
+  final_value                  Decimal?                   @db.Decimal(10, 2)
   notes                        String?
   is_active                    Boolean                    @default(true)
   created_at                   DateTime                   @default(now())

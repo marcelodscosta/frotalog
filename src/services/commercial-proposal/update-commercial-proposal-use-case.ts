@@ -1,5 +1,6 @@
 import { CommercialProposal, Prisma } from '../../generated/prisma'
 import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
+import { AppError } from '../errors/app-error'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 interface UpdateProposalItem {
@@ -28,6 +29,9 @@ interface UpdateCommercialProposalRequest {
   technical_notes?: string
   observations?: string
   validity_days?: number
+  discount_percentage?: number
+  discount_value?: number
+  follow_up_date?: string | null
   commission_percentage?: number
   body_html?: string
   status?: string
@@ -41,6 +45,14 @@ export class UpdateCommercialProposalUseCase {
     const proposal = await this.proposalRepository.findById(data.id)
     if (!proposal) {
       throw new ResourceNotFoundError()
+    }
+
+    if (data.status === 'CONVERTED' && proposal.status !== 'CONVERTED') {
+      throw new AppError('Use a ação "Gerar contrato" para converter uma proposta aprovada.', 400)
+    }
+
+    if (proposal.status === 'CONVERTED' && data.status && data.status !== 'CONVERTED') {
+      throw new AppError('Uma proposta convertida não pode ter o status alterado.', 400)
     }
 
     const inputData: Prisma.CommercialProposalUpdateInput = {
@@ -57,6 +69,13 @@ export class UpdateCommercialProposalUseCase {
       technical_notes: data.technical_notes,
       observations: data.observations,
       validity_days: data.validity_days,
+      discount_percentage: data.discount_percentage,
+      discount_value: data.discount_value,
+      follow_up_date: data.follow_up_date === undefined
+        ? undefined
+        : data.follow_up_date === null
+          ? null
+          : new Date(data.follow_up_date),
       commission_percentage: data.commission_percentage,
       body_html: data.body_html,
       status: data.status as any,

@@ -3,6 +3,7 @@ import { IContractRepository } from '../../repositories/interfaces/IContractRepo
 import { ISupplierRepository } from '../../repositories/interfaces/ISupplierRepository'
 import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
 import { ICompanySettingsRepository } from '../../repositories/interfaces/ICompanySettingsRepository'
+import { AppError } from '../errors/app-error'
 import { ClientNotFoundError } from '../errors/client-not-found-error'
 import { ContractAlreadyExistsError } from '../errors/contract-already-exist-error'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
@@ -83,26 +84,46 @@ export class CreateContractUseCase {
       }
     }
 
+    // Valida a proposta antes de criar o contrato para não deixar contrato órfão em caso de erro
+    let linkedProposal: Awaited<
+      ReturnType<ICommercialProposalRepository['getProposalWithDetails']>
+    > = null
+
+    if (data.proposalId) {
+      linkedProposal = await this.commercialProposalRepository.getProposalWithDetails(
+        data.proposalId,
+      )
+
+      if (!linkedProposal) {
+        throw new ResourceNotFoundError()
+      }
+
+      if (linkedProposal.contractId) {
+        throw new AppError('Esta proposta já possui um contrato vinculado.', 400)
+      }
+
+      // Propostas antigas podem estar marcadas como CONVERTED sem contrato vinculado.
+      if (linkedProposal.status !== 'APPROVED' && linkedProposal.status !== 'CONVERTED') {
+        throw new ProposalNotApprovedError()
+      }
+    }
+
     // Se houver uma proposta, vincula e atualiza o status
     let body_html = data.body_html
     const isSimple = data.type === 'SIMPLE'
 
     if (isSimple && !body_html) {
       const settings = await this.companySettingsRepository.findFirst()
-      let proposal = null
-      if (data.proposalId) {
-        proposal = await this.commercialProposalRepository.getProposalWithDetails(data.proposalId)
-      }
 
       body_html = buildSimpleContractHtml({
         contract_number,
         start_date: data.start_date,
         locador: settings as any,
         locatario: client as any,
-        items: proposal?.items as any[] || [],
-        payment_conditions: proposal?.payment_conditions || null,
-        rental_period: proposal?.rental_period || null,
-        observations: data.observations || proposal?.observations || null,
+        items: (linkedProposal as any)?.items as any[] || [],
+        payment_conditions: linkedProposal?.payment_conditions || null,
+        rental_period: linkedProposal?.rental_period || null,
+        observations: data.observations || linkedProposal?.observations || null,
       })
     }
 
@@ -133,25 +154,19 @@ export class CreateContractUseCase {
     let sellerIdFromProposal = data.sellerId
     let commissionPercentageFromProposal = data.commission_percentage
 
-    if (data.proposalId) {
-      const proposal = await this.commercialProposalRepository.findById(data.proposalId)
-      if (!proposal) {
-        throw new ResourceNotFoundError()
+    if (linkedProposal) {
+      if (linkedProposal.userId && !sellerIdFromProposal) {
+        sellerIdFromProposal = linkedProposal.userId
       }
 
-      if (proposal.status !== 'APPROVED') {
-        throw new ProposalNotApprovedError()
+      if (
+        linkedProposal.commission_percentage != null &&
+        commissionPercentageFromProposal == null
+      ) {
+        commissionPercentageFromProposal = Number(linkedProposal.commission_percentage)
       }
 
-      if (proposal.userId && !sellerIdFromProposal) {
-        sellerIdFromProposal = proposal.userId
-      }
-
-      if (proposal.commission_percentage != null && commissionPercentageFromProposal == null) {
-        commissionPercentageFromProposal = Number(proposal.commission_percentage)
-      }
-
-      await this.commercialProposalRepository.updateProposal(data.proposalId, {
+      await this.commercialProposalRepository.updateProposal(data.proposalId!, {
         contract: { connect: { id: contract.id } },
         status: 'CONVERTED' as any,
       })

@@ -1,6 +1,8 @@
 import { AssetMovement } from '../../generated/prisma'
 import { IAssetMovementRepository } from '../../repositories/interfaces/IAssetMovimentRepository'
+import { IContractRepository } from '../../repositories/interfaces/IContractRepository'
 import { AssetMovimentNotFoundError } from '../errors/asset-moviment-not-found-error'
+import { finishContractIfAllMovementsDemobilized } from './finish-contract-if-all-movements-demobilized'
 
 interface DeleteAssetMovementUseCaseRequest {
   id: string
@@ -11,7 +13,10 @@ interface DeleteAssetMovementUseCaseResponse {
 }
 
 export class DeleteAssetMovementUseCase {
-  constructor(private assetMovementRepository: IAssetMovementRepository) {}
+  constructor(
+    private assetMovementRepository: IAssetMovementRepository,
+    private contractRepository: IContractRepository,
+  ) {}
 
   async execute({
     id,
@@ -23,6 +28,12 @@ export class DeleteAssetMovementUseCase {
     }
 
     const assetMovement = await this.assetMovementRepository.deleteAssetMovement(id)
+
+    await finishContractIfAllMovementsDemobilized(
+      assetMovement.contractId,
+      this.assetMovementRepository,
+      this.contractRepository,
+    )
 
     return { assetMovement }
   }

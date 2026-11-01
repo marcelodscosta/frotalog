@@ -52,6 +52,29 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
           client: true,
           items: true,
           user: true,
+          contract: {
+            select: {
+              id: true,
+              contract_number: true,
+              status: true,
+              movements: {
+                where: { is_active: true },
+                orderBy: { mobilization_date: 'desc' },
+                select: {
+                  id: true,
+                  assetId: true,
+                  mobilization_date: true,
+                  integration_date: true,
+                  demobilization_date: true,
+                  service_executed: true,
+                  final_value: true,
+                  asset: {
+                    select: { id: true, plate: true, model: true, brand: true },
+                  },
+                },
+              },
+            },
+          },
         },
         orderBy: [
           { created_at: 'desc' }
@@ -93,7 +116,34 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
         where,
         skip,
         take: PAGE_SIZE,
-        include: { client: true, items: true, user: true },
+        include: {
+          client: true,
+          items: true,
+          user: true,
+          contract: {
+            select: {
+              id: true,
+              contract_number: true,
+              status: true,
+              movements: {
+                where: { is_active: true },
+                orderBy: { mobilization_date: 'desc' },
+                select: {
+                  id: true,
+                  assetId: true,
+                  mobilization_date: true,
+                  integration_date: true,
+                  demobilization_date: true,
+                  service_executed: true,
+                  final_value: true,
+                  asset: {
+                    select: { id: true, plate: true, model: true, brand: true },
+                  },
+                },
+              },
+            },
+          },
+        },
         orderBy: [
           { created_at: 'desc' }
         ],
@@ -185,7 +235,34 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
         where,
         skip,
         take: PAGE_SIZE,
-        include: { client: true, items: true, user: true },
+        include: {
+          client: true,
+          items: true,
+          user: true,
+          contract: {
+            select: {
+              id: true,
+              contract_number: true,
+              status: true,
+              movements: {
+                where: { is_active: true },
+                orderBy: { mobilization_date: 'desc' },
+                select: {
+                  id: true,
+                  assetId: true,
+                  mobilization_date: true,
+                  integration_date: true,
+                  demobilization_date: true,
+                  service_executed: true,
+                  final_value: true,
+                  asset: {
+                    select: { id: true, plate: true, model: true, brand: true },
+                  },
+                },
+              },
+            },
+          },
+        },
         orderBy: [
           { created_at: 'desc' }
         ],
@@ -219,6 +296,7 @@ export class PrismaCommercialProposalRepository implements ICommercialProposalRe
         client: true,
         user: true,
         companySettings: true,
+        contract: { select: { id: true, contract_number: true, status: true } },
         items: {
           include: {
             asset: true,

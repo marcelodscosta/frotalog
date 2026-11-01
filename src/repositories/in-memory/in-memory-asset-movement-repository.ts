@@ -52,6 +52,11 @@ export class InMemoryAssetMovementRepository
         : null,
       calculation_rule:
         data.calculation_rule ?? 'COMMERCIAL_30_DAYS',
+      service_executed: data.service_executed ?? null,
+      final_value:
+        data.final_value != null
+          ? new Prisma.Decimal(data.final_value.toString())
+          : null,
       notes: data.notes ?? null,
       is_active: data.is_active ?? true,
       created_at: new Date(),
@@ -72,6 +77,22 @@ export class InMemoryAssetMovementRepository
     const existing = this.items[index]
     const updated: AssetMovement = {
       ...existing,
+      mobilization_date:
+        data.mobilization_date instanceof Date
+          ? data.mobilization_date
+          : existing.mobilization_date,
+      integration_date:
+        data.integration_date === null
+          ? null
+          : data.integration_date instanceof Date
+            ? data.integration_date
+            : existing.integration_date,
+      demobilization_date:
+        data.demobilization_date === null
+          ? null
+          : data.demobilization_date instanceof Date
+            ? data.demobilization_date
+            : existing.demobilization_date,
       operator_name:
         data.operator_name !== undefined
           ? typeof data.operator_name === 'string'
@@ -94,6 +115,18 @@ export class InMemoryAssetMovementRepository
         typeof data.is_active === 'boolean'
           ? data.is_active
           : existing.is_active,
+      service_executed:
+        typeof data.service_executed === 'boolean'
+          ? data.service_executed
+          : data.service_executed === null
+            ? null
+            : existing.service_executed,
+      final_value:
+        data.final_value === null
+          ? null
+          : data.final_value !== undefined
+            ? new Prisma.Decimal((data.final_value as any).toString())
+            : existing.final_value,
       updated_at: new Date(),
     }
     this.items[index] = updated

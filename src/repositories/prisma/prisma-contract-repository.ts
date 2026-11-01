@@ -127,6 +127,22 @@ export class PrismaContractRepository implements IContractRepository {
       where: { is_Active: true },
       include: { 
         client: true,
+        movements: {
+          where: { is_active: true },
+          orderBy: { mobilization_date: 'desc' },
+          select: {
+            id: true,
+            assetId: true,
+            mobilization_date: true,
+            integration_date: true,
+            demobilization_date: true,
+            service_executed: true,
+            final_value: true,
+            asset: {
+              select: { id: true, plate: true, model: true, brand: true },
+            },
+          },
+        },
         measurementBulletins: {
           where: { is_active: true },
           select: {
