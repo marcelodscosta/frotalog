@@ -290,7 +290,8 @@ export const ProposalStatus: {
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED',
   CANCELLED: 'CANCELLED',
-  CONVERTED: 'CONVERTED'
+  CONVERTED: 'CONVERTED',
+  EXPIRED: 'EXPIRED'
 };
 
 export type ProposalStatus = (typeof ProposalStatus)[keyof typeof ProposalStatus]
@@ -17363,6 +17364,8 @@ export namespace Prisma {
 
   export type AssetMovementAvgAggregateOutputType = {
     rental_value: Decimal | null
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
     current_horometer: number | null
     current_odometer: number | null
     freight_value: Decimal | null
@@ -17371,6 +17374,8 @@ export namespace Prisma {
 
   export type AssetMovementSumAggregateOutputType = {
     rental_value: Decimal | null
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
     current_horometer: number | null
     current_odometer: number | null
     freight_value: Decimal | null
@@ -17387,6 +17392,8 @@ export namespace Prisma {
     mobilization_checklist_url: string | null
     demobilization_checklist_url: string | null
     rental_value: Decimal | null
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
     billing_cycle: $Enums.BillingCycle | null
     operator_name: string | null
     current_horometer: number | null
@@ -17412,6 +17419,8 @@ export namespace Prisma {
     mobilization_checklist_url: string | null
     demobilization_checklist_url: string | null
     rental_value: Decimal | null
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
     billing_cycle: $Enums.BillingCycle | null
     operator_name: string | null
     current_horometer: number | null
@@ -17437,6 +17446,8 @@ export namespace Prisma {
     mobilization_checklist_url: number
     demobilization_checklist_url: number
     rental_value: number
+    franchise_hours: number
+    extra_hour_value: number
     billing_cycle: number
     operator_name: number
     current_horometer: number
@@ -17456,6 +17467,8 @@ export namespace Prisma {
 
   export type AssetMovementAvgAggregateInputType = {
     rental_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
     current_horometer?: true
     current_odometer?: true
     freight_value?: true
@@ -17464,6 +17477,8 @@ export namespace Prisma {
 
   export type AssetMovementSumAggregateInputType = {
     rental_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
     current_horometer?: true
     current_odometer?: true
     freight_value?: true
@@ -17480,6 +17495,8 @@ export namespace Prisma {
     mobilization_checklist_url?: true
     demobilization_checklist_url?: true
     rental_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
     billing_cycle?: true
     operator_name?: true
     current_horometer?: true
@@ -17505,6 +17522,8 @@ export namespace Prisma {
     mobilization_checklist_url?: true
     demobilization_checklist_url?: true
     rental_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
     billing_cycle?: true
     operator_name?: true
     current_horometer?: true
@@ -17530,6 +17549,8 @@ export namespace Prisma {
     mobilization_checklist_url?: true
     demobilization_checklist_url?: true
     rental_value?: true
+    franchise_hours?: true
+    extra_hour_value?: true
     billing_cycle?: true
     operator_name?: true
     current_horometer?: true
@@ -17642,6 +17663,8 @@ export namespace Prisma {
     mobilization_checklist_url: string | null
     demobilization_checklist_url: string | null
     rental_value: Decimal
+    franchise_hours: number | null
+    extra_hour_value: Decimal | null
     billing_cycle: $Enums.BillingCycle
     operator_name: string | null
     current_horometer: number | null
@@ -17686,6 +17709,8 @@ export namespace Prisma {
     mobilization_checklist_url?: boolean
     demobilization_checklist_url?: boolean
     rental_value?: boolean
+    franchise_hours?: boolean
+    extra_hour_value?: boolean
     billing_cycle?: boolean
     operator_name?: boolean
     current_horometer?: boolean
@@ -17715,6 +17740,8 @@ export namespace Prisma {
     mobilization_checklist_url?: boolean
     demobilization_checklist_url?: boolean
     rental_value?: boolean
+    franchise_hours?: boolean
+    extra_hour_value?: boolean
     billing_cycle?: boolean
     operator_name?: boolean
     current_horometer?: boolean
@@ -17742,6 +17769,8 @@ export namespace Prisma {
     mobilization_checklist_url?: boolean
     demobilization_checklist_url?: boolean
     rental_value?: boolean
+    franchise_hours?: boolean
+    extra_hour_value?: boolean
     billing_cycle?: boolean
     operator_name?: boolean
     current_horometer?: boolean
@@ -17769,6 +17798,8 @@ export namespace Prisma {
     mobilization_checklist_url?: boolean
     demobilization_checklist_url?: boolean
     rental_value?: boolean
+    franchise_hours?: boolean
+    extra_hour_value?: boolean
     billing_cycle?: boolean
     operator_name?: boolean
     current_horometer?: boolean
@@ -17784,7 +17815,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type AssetMovementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetId" | "mobilization_date" | "integration_date" | "demobilization_date" | "mobilization_checklist_url" | "demobilization_checklist_url" | "rental_value" | "billing_cycle" | "operator_name" | "current_horometer" | "current_odometer" | "delivery_location" | "freight_value" | "calculation_rule" | "service_executed" | "final_value" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["assetMovement"]>
+  export type AssetMovementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetId" | "mobilization_date" | "integration_date" | "demobilization_date" | "mobilization_checklist_url" | "demobilization_checklist_url" | "rental_value" | "franchise_hours" | "extra_hour_value" | "billing_cycle" | "operator_name" | "current_horometer" | "current_odometer" | "delivery_location" | "freight_value" | "calculation_rule" | "service_executed" | "final_value" | "notes" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["assetMovement"]>
   export type AssetMovementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     contract?: boolean | ContractDefaultArgs<ExtArgs>
@@ -17817,6 +17848,8 @@ export namespace Prisma {
       mobilization_checklist_url: string | null
       demobilization_checklist_url: string | null
       rental_value: Prisma.Decimal
+      franchise_hours: number | null
+      extra_hour_value: Prisma.Decimal | null
       billing_cycle: $Enums.BillingCycle
       operator_name: string | null
       current_horometer: number | null
@@ -18265,6 +18298,8 @@ export namespace Prisma {
     readonly mobilization_checklist_url: FieldRef<"AssetMovement", 'String'>
     readonly demobilization_checklist_url: FieldRef<"AssetMovement", 'String'>
     readonly rental_value: FieldRef<"AssetMovement", 'Decimal'>
+    readonly franchise_hours: FieldRef<"AssetMovement", 'Float'>
+    readonly extra_hour_value: FieldRef<"AssetMovement", 'Decimal'>
     readonly billing_cycle: FieldRef<"AssetMovement", 'BillingCycle'>
     readonly operator_name: FieldRef<"AssetMovement", 'String'>
     readonly current_horometer: FieldRef<"AssetMovement", 'Float'>
@@ -18733,6 +18768,8 @@ export namespace Prisma {
     inactive_days: number | null
     working_days: number | null
     daily_rate: Decimal | null
+    rental_value_total: Decimal | null
+    expenses_total: Decimal | null
     total_value: Decimal | null
     measured_quantity: Decimal | null
     current_horometer: number | null
@@ -18744,6 +18781,8 @@ export namespace Prisma {
     inactive_days: number | null
     working_days: number | null
     daily_rate: Decimal | null
+    rental_value_total: Decimal | null
+    expenses_total: Decimal | null
     total_value: Decimal | null
     measured_quantity: Decimal | null
     current_horometer: number | null
@@ -18760,6 +18799,8 @@ export namespace Prisma {
     inactive_days: number | null
     working_days: number | null
     daily_rate: Decimal | null
+    rental_value_total: Decimal | null
+    expenses_total: Decimal | null
     total_value: Decimal | null
     measured_quantity: Decimal | null
     measurement_unit: string | null
@@ -18783,6 +18824,8 @@ export namespace Prisma {
     inactive_days: number | null
     working_days: number | null
     daily_rate: Decimal | null
+    rental_value_total: Decimal | null
+    expenses_total: Decimal | null
     total_value: Decimal | null
     measured_quantity: Decimal | null
     measurement_unit: string | null
@@ -18806,6 +18849,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: number
+    rental_value_total: number
+    expenses_total: number
     total_value: number
     measured_quantity: number
     measurement_unit: number
@@ -18826,6 +18871,8 @@ export namespace Prisma {
     inactive_days?: true
     working_days?: true
     daily_rate?: true
+    rental_value_total?: true
+    expenses_total?: true
     total_value?: true
     measured_quantity?: true
     current_horometer?: true
@@ -18837,6 +18884,8 @@ export namespace Prisma {
     inactive_days?: true
     working_days?: true
     daily_rate?: true
+    rental_value_total?: true
+    expenses_total?: true
     total_value?: true
     measured_quantity?: true
     current_horometer?: true
@@ -18853,6 +18902,8 @@ export namespace Prisma {
     inactive_days?: true
     working_days?: true
     daily_rate?: true
+    rental_value_total?: true
+    expenses_total?: true
     total_value?: true
     measured_quantity?: true
     measurement_unit?: true
@@ -18876,6 +18927,8 @@ export namespace Prisma {
     inactive_days?: true
     working_days?: true
     daily_rate?: true
+    rental_value_total?: true
+    expenses_total?: true
     total_value?: true
     measured_quantity?: true
     measurement_unit?: true
@@ -18899,6 +18952,8 @@ export namespace Prisma {
     inactive_days?: true
     working_days?: true
     daily_rate?: true
+    rental_value_total?: true
+    expenses_total?: true
     total_value?: true
     measured_quantity?: true
     measurement_unit?: true
@@ -19009,6 +19064,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal
+    rental_value_total: Decimal
+    expenses_total: Decimal
     total_value: Decimal
     measured_quantity: Decimal | null
     measurement_unit: string | null
@@ -19051,6 +19108,8 @@ export namespace Prisma {
     inactive_days?: boolean
     working_days?: boolean
     daily_rate?: boolean
+    rental_value_total?: boolean
+    expenses_total?: boolean
     total_value?: boolean
     measured_quantity?: boolean
     measurement_unit?: boolean
@@ -19080,6 +19139,8 @@ export namespace Prisma {
     inactive_days?: boolean
     working_days?: boolean
     daily_rate?: boolean
+    rental_value_total?: boolean
+    expenses_total?: boolean
     total_value?: boolean
     measured_quantity?: boolean
     measurement_unit?: boolean
@@ -19106,6 +19167,8 @@ export namespace Prisma {
     inactive_days?: boolean
     working_days?: boolean
     daily_rate?: boolean
+    rental_value_total?: boolean
+    expenses_total?: boolean
     total_value?: boolean
     measured_quantity?: boolean
     measurement_unit?: boolean
@@ -19132,6 +19195,8 @@ export namespace Prisma {
     inactive_days?: boolean
     working_days?: boolean
     daily_rate?: boolean
+    rental_value_total?: boolean
+    expenses_total?: boolean
     total_value?: boolean
     measured_quantity?: boolean
     measurement_unit?: boolean
@@ -19145,7 +19210,7 @@ export namespace Prisma {
     invoiceId?: boolean
   }
 
-  export type MeasurementBulletinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetMovementId" | "reference_start" | "reference_end" | "total_days" | "inactive_days" | "working_days" | "daily_rate" | "total_value" | "measured_quantity" | "measurement_unit" | "current_horometer" | "current_odometer" | "status" | "notes" | "is_active" | "created_at" | "updated_at" | "invoiceId", ExtArgs["result"]["measurementBulletin"]>
+  export type MeasurementBulletinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "assetMovementId" | "reference_start" | "reference_end" | "total_days" | "inactive_days" | "working_days" | "daily_rate" | "rental_value_total" | "expenses_total" | "total_value" | "measured_quantity" | "measurement_unit" | "current_horometer" | "current_odometer" | "status" | "notes" | "is_active" | "created_at" | "updated_at" | "invoiceId", ExtArgs["result"]["measurementBulletin"]>
   export type MeasurementBulletinInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     expenses?: boolean | MeasurementBulletin$expensesArgs<ExtArgs>
     invoice?: boolean | MeasurementBulletin$invoiceArgs<ExtArgs>
@@ -19184,6 +19249,8 @@ export namespace Prisma {
       inactive_days: number
       working_days: number
       daily_rate: Prisma.Decimal
+      rental_value_total: Prisma.Decimal
+      expenses_total: Prisma.Decimal
       total_value: Prisma.Decimal
       measured_quantity: Prisma.Decimal | null
       measurement_unit: string | null
@@ -19632,6 +19699,8 @@ export namespace Prisma {
     readonly inactive_days: FieldRef<"MeasurementBulletin", 'Int'>
     readonly working_days: FieldRef<"MeasurementBulletin", 'Int'>
     readonly daily_rate: FieldRef<"MeasurementBulletin", 'Decimal'>
+    readonly rental_value_total: FieldRef<"MeasurementBulletin", 'Decimal'>
+    readonly expenses_total: FieldRef<"MeasurementBulletin", 'Decimal'>
     readonly total_value: FieldRef<"MeasurementBulletin", 'Decimal'>
     readonly measured_quantity: FieldRef<"MeasurementBulletin", 'Decimal'>
     readonly measurement_unit: FieldRef<"MeasurementBulletin", 'String'>
@@ -20149,6 +20218,8 @@ export namespace Prisma {
     due_date: Date | null
     notes: string | null
     status: $Enums.InvoiceStatus | null
+    cancel_reason: string | null
+    cancelled_at: Date | null
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
@@ -20166,6 +20237,8 @@ export namespace Prisma {
     due_date: Date | null
     notes: string | null
     status: $Enums.InvoiceStatus | null
+    cancel_reason: string | null
+    cancelled_at: Date | null
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
@@ -20183,6 +20256,8 @@ export namespace Prisma {
     due_date: number
     notes: number
     status: number
+    cancel_reason: number
+    cancelled_at: number
     is_active: number
     created_at: number
     updated_at: number
@@ -20210,6 +20285,8 @@ export namespace Prisma {
     due_date?: true
     notes?: true
     status?: true
+    cancel_reason?: true
+    cancelled_at?: true
     is_active?: true
     created_at?: true
     updated_at?: true
@@ -20227,6 +20304,8 @@ export namespace Prisma {
     due_date?: true
     notes?: true
     status?: true
+    cancel_reason?: true
+    cancelled_at?: true
     is_active?: true
     created_at?: true
     updated_at?: true
@@ -20244,6 +20323,8 @@ export namespace Prisma {
     due_date?: true
     notes?: true
     status?: true
+    cancel_reason?: true
+    cancelled_at?: true
     is_active?: true
     created_at?: true
     updated_at?: true
@@ -20348,6 +20429,8 @@ export namespace Prisma {
     due_date: Date
     notes: string | null
     status: $Enums.InvoiceStatus
+    cancel_reason: string | null
+    cancelled_at: Date | null
     is_active: boolean
     created_at: Date
     updated_at: Date
@@ -20384,6 +20467,8 @@ export namespace Prisma {
     due_date?: boolean
     notes?: boolean
     status?: boolean
+    cancel_reason?: boolean
+    cancelled_at?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -20407,6 +20492,8 @@ export namespace Prisma {
     due_date?: boolean
     notes?: boolean
     status?: boolean
+    cancel_reason?: boolean
+    cancelled_at?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -20426,6 +20513,8 @@ export namespace Prisma {
     due_date?: boolean
     notes?: boolean
     status?: boolean
+    cancel_reason?: boolean
+    cancelled_at?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -20445,6 +20534,8 @@ export namespace Prisma {
     due_date?: boolean
     notes?: boolean
     status?: boolean
+    cancel_reason?: boolean
+    cancelled_at?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -20452,7 +20543,7 @@ export namespace Prisma {
     chartOfAccountId?: boolean
   }
 
-  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoice_number" | "total_value" | "is_paid" | "payment_date" | "issue_date" | "due_date" | "notes" | "status" | "is_active" | "created_at" | "updated_at" | "contractId" | "chartOfAccountId", ExtArgs["result"]["invoice"]>
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoice_number" | "total_value" | "is_paid" | "payment_date" | "issue_date" | "due_date" | "notes" | "status" | "cancel_reason" | "cancelled_at" | "is_active" | "created_at" | "updated_at" | "contractId" | "chartOfAccountId", ExtArgs["result"]["invoice"]>
   export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     measurementBulletins?: boolean | Invoice$measurementBulletinsArgs<ExtArgs>
     contract?: boolean | Invoice$contractArgs<ExtArgs>
@@ -20489,6 +20580,8 @@ export namespace Prisma {
       due_date: Date
       notes: string | null
       status: $Enums.InvoiceStatus
+      cancel_reason: string | null
+      cancelled_at: Date | null
       is_active: boolean
       created_at: Date
       updated_at: Date
@@ -20931,6 +21024,8 @@ export namespace Prisma {
     readonly due_date: FieldRef<"Invoice", 'DateTime'>
     readonly notes: FieldRef<"Invoice", 'String'>
     readonly status: FieldRef<"Invoice", 'InvoiceStatus'>
+    readonly cancel_reason: FieldRef<"Invoice", 'String'>
+    readonly cancelled_at: FieldRef<"Invoice", 'DateTime'>
     readonly is_active: FieldRef<"Invoice", 'Boolean'>
     readonly created_at: FieldRef<"Invoice", 'DateTime'>
     readonly updated_at: FieldRef<"Invoice", 'DateTime'>
@@ -29766,6 +29861,7 @@ export namespace Prisma {
     discount_percentage: Decimal | null
     discount_value: Decimal | null
     follow_up_date: Date | null
+    sent_at: Date | null
     commission_percentage: Decimal | null
     body_html: string | null
     status: $Enums.ProposalStatus | null
@@ -29794,6 +29890,7 @@ export namespace Prisma {
     discount_percentage: Decimal | null
     discount_value: Decimal | null
     follow_up_date: Date | null
+    sent_at: Date | null
     commission_percentage: Decimal | null
     body_html: string | null
     status: $Enums.ProposalStatus | null
@@ -29822,6 +29919,7 @@ export namespace Prisma {
     discount_percentage: number
     discount_value: number
     follow_up_date: number
+    sent_at: number
     commission_percentage: number
     body_html: number
     status: number
@@ -29870,6 +29968,7 @@ export namespace Prisma {
     discount_percentage?: true
     discount_value?: true
     follow_up_date?: true
+    sent_at?: true
     commission_percentage?: true
     body_html?: true
     status?: true
@@ -29898,6 +29997,7 @@ export namespace Prisma {
     discount_percentage?: true
     discount_value?: true
     follow_up_date?: true
+    sent_at?: true
     commission_percentage?: true
     body_html?: true
     status?: true
@@ -29926,6 +30026,7 @@ export namespace Prisma {
     discount_percentage?: true
     discount_value?: true
     follow_up_date?: true
+    sent_at?: true
     commission_percentage?: true
     body_html?: true
     status?: true
@@ -30041,6 +30142,7 @@ export namespace Prisma {
     discount_percentage: Decimal | null
     discount_value: Decimal | null
     follow_up_date: Date | null
+    sent_at: Date | null
     commission_percentage: Decimal | null
     body_html: string | null
     status: $Enums.ProposalStatus
@@ -30088,6 +30190,7 @@ export namespace Prisma {
     discount_percentage?: boolean
     discount_value?: boolean
     follow_up_date?: boolean
+    sent_at?: boolean
     commission_percentage?: boolean
     body_html?: boolean
     status?: boolean
@@ -30122,6 +30225,7 @@ export namespace Prisma {
     discount_percentage?: boolean
     discount_value?: boolean
     follow_up_date?: boolean
+    sent_at?: boolean
     commission_percentage?: boolean
     body_html?: boolean
     status?: boolean
@@ -30154,6 +30258,7 @@ export namespace Prisma {
     discount_percentage?: boolean
     discount_value?: boolean
     follow_up_date?: boolean
+    sent_at?: boolean
     commission_percentage?: boolean
     body_html?: boolean
     status?: boolean
@@ -30186,6 +30291,7 @@ export namespace Prisma {
     discount_percentage?: boolean
     discount_value?: boolean
     follow_up_date?: boolean
+    sent_at?: boolean
     commission_percentage?: boolean
     body_html?: boolean
     status?: boolean
@@ -30196,7 +30302,7 @@ export namespace Prisma {
     userId?: boolean
   }
 
-  export type CommercialProposalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "proposal_number" | "companySettingsId" | "clientId" | "contact_name" | "contact_phone" | "contact_email" | "mobilization_value" | "demobilization_value" | "payment_conditions" | "rental_period" | "technical_notes" | "observations" | "validity_days" | "discount_percentage" | "discount_value" | "follow_up_date" | "commission_percentage" | "body_html" | "status" | "created_at" | "updated_at" | "is_active" | "contractId" | "userId", ExtArgs["result"]["commercialProposal"]>
+  export type CommercialProposalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "proposal_number" | "companySettingsId" | "clientId" | "contact_name" | "contact_phone" | "contact_email" | "mobilization_value" | "demobilization_value" | "payment_conditions" | "rental_period" | "technical_notes" | "observations" | "validity_days" | "discount_percentage" | "discount_value" | "follow_up_date" | "sent_at" | "commission_percentage" | "body_html" | "status" | "created_at" | "updated_at" | "is_active" | "contractId" | "userId", ExtArgs["result"]["commercialProposal"]>
   export type CommercialProposalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     client?: boolean | SupplierDefaultArgs<ExtArgs>
     companySettings?: boolean | CommercialProposal$companySettingsArgs<ExtArgs>
@@ -30245,6 +30351,7 @@ export namespace Prisma {
       discount_percentage: Prisma.Decimal | null
       discount_value: Prisma.Decimal | null
       follow_up_date: Date | null
+      sent_at: Date | null
       commission_percentage: Prisma.Decimal | null
       body_html: string | null
       status: $Enums.ProposalStatus
@@ -30698,6 +30805,7 @@ export namespace Prisma {
     readonly discount_percentage: FieldRef<"CommercialProposal", 'Decimal'>
     readonly discount_value: FieldRef<"CommercialProposal", 'Decimal'>
     readonly follow_up_date: FieldRef<"CommercialProposal", 'DateTime'>
+    readonly sent_at: FieldRef<"CommercialProposal", 'DateTime'>
     readonly commission_percentage: FieldRef<"CommercialProposal", 'Decimal'>
     readonly body_html: FieldRef<"CommercialProposal", 'String'>
     readonly status: FieldRef<"CommercialProposal", 'ProposalStatus'>
@@ -41397,6 +41505,8 @@ export namespace Prisma {
     mobilization_checklist_url: 'mobilization_checklist_url',
     demobilization_checklist_url: 'demobilization_checklist_url',
     rental_value: 'rental_value',
+    franchise_hours: 'franchise_hours',
+    extra_hour_value: 'extra_hour_value',
     billing_cycle: 'billing_cycle',
     operator_name: 'operator_name',
     current_horometer: 'current_horometer',
@@ -41425,6 +41535,8 @@ export namespace Prisma {
     inactive_days: 'inactive_days',
     working_days: 'working_days',
     daily_rate: 'daily_rate',
+    rental_value_total: 'rental_value_total',
+    expenses_total: 'expenses_total',
     total_value: 'total_value',
     measured_quantity: 'measured_quantity',
     measurement_unit: 'measurement_unit',
@@ -41451,6 +41563,8 @@ export namespace Prisma {
     due_date: 'due_date',
     notes: 'notes',
     status: 'status',
+    cancel_reason: 'cancel_reason',
+    cancelled_at: 'cancelled_at',
     is_active: 'is_active',
     created_at: 'created_at',
     updated_at: 'updated_at',
@@ -41595,6 +41709,7 @@ export namespace Prisma {
     discount_percentage: 'discount_percentage',
     discount_value: 'discount_value',
     follow_up_date: 'follow_up_date',
+    sent_at: 'sent_at',
     commission_percentage: 'commission_percentage',
     body_html: 'body_html',
     status: 'status',
@@ -43241,6 +43356,8 @@ export namespace Prisma {
     mobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
     demobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
     rental_value?: DecimalFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string
+    franchise_hours?: FloatNullableFilter<"AssetMovement"> | number | null
+    extra_hour_value?: DecimalNullableFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFilter<"AssetMovement"> | $Enums.BillingCycle
     operator_name?: StringNullableFilter<"AssetMovement"> | string | null
     current_horometer?: FloatNullableFilter<"AssetMovement"> | number | null
@@ -43269,6 +43386,8 @@ export namespace Prisma {
     mobilization_checklist_url?: SortOrderInput | SortOrder
     demobilization_checklist_url?: SortOrderInput | SortOrder
     rental_value?: SortOrder
+    franchise_hours?: SortOrderInput | SortOrder
+    extra_hour_value?: SortOrderInput | SortOrder
     billing_cycle?: SortOrder
     operator_name?: SortOrderInput | SortOrder
     current_horometer?: SortOrderInput | SortOrder
@@ -43300,6 +43419,8 @@ export namespace Prisma {
     mobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
     demobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
     rental_value?: DecimalFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string
+    franchise_hours?: FloatNullableFilter<"AssetMovement"> | number | null
+    extra_hour_value?: DecimalNullableFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFilter<"AssetMovement"> | $Enums.BillingCycle
     operator_name?: StringNullableFilter<"AssetMovement"> | string | null
     current_horometer?: FloatNullableFilter<"AssetMovement"> | number | null
@@ -43328,6 +43449,8 @@ export namespace Prisma {
     mobilization_checklist_url?: SortOrderInput | SortOrder
     demobilization_checklist_url?: SortOrderInput | SortOrder
     rental_value?: SortOrder
+    franchise_hours?: SortOrderInput | SortOrder
+    extra_hour_value?: SortOrderInput | SortOrder
     billing_cycle?: SortOrder
     operator_name?: SortOrderInput | SortOrder
     current_horometer?: SortOrderInput | SortOrder
@@ -43361,6 +43484,8 @@ export namespace Prisma {
     mobilization_checklist_url?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
     demobilization_checklist_url?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
     rental_value?: DecimalWithAggregatesFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string
+    franchise_hours?: FloatNullableWithAggregatesFilter<"AssetMovement"> | number | null
+    extra_hour_value?: DecimalNullableWithAggregatesFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleWithAggregatesFilter<"AssetMovement"> | $Enums.BillingCycle
     operator_name?: StringNullableWithAggregatesFilter<"AssetMovement"> | string | null
     current_horometer?: FloatNullableWithAggregatesFilter<"AssetMovement"> | number | null
@@ -43389,6 +43514,8 @@ export namespace Prisma {
     inactive_days?: IntFilter<"MeasurementBulletin"> | number
     working_days?: IntFilter<"MeasurementBulletin"> | number
     daily_rate?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     measured_quantity?: DecimalNullableFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: StringNullableFilter<"MeasurementBulletin"> | string | null
@@ -43417,6 +43544,8 @@ export namespace Prisma {
     inactive_days?: SortOrder
     working_days?: SortOrder
     daily_rate?: SortOrder
+    rental_value_total?: SortOrder
+    expenses_total?: SortOrder
     total_value?: SortOrder
     measured_quantity?: SortOrderInput | SortOrder
     measurement_unit?: SortOrderInput | SortOrder
@@ -43448,6 +43577,8 @@ export namespace Prisma {
     inactive_days?: IntFilter<"MeasurementBulletin"> | number
     working_days?: IntFilter<"MeasurementBulletin"> | number
     daily_rate?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     measured_quantity?: DecimalNullableFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: StringNullableFilter<"MeasurementBulletin"> | string | null
@@ -43476,6 +43607,8 @@ export namespace Prisma {
     inactive_days?: SortOrder
     working_days?: SortOrder
     daily_rate?: SortOrder
+    rental_value_total?: SortOrder
+    expenses_total?: SortOrder
     total_value?: SortOrder
     measured_quantity?: SortOrderInput | SortOrder
     measurement_unit?: SortOrderInput | SortOrder
@@ -43507,6 +43640,8 @@ export namespace Prisma {
     inactive_days?: IntWithAggregatesFilter<"MeasurementBulletin"> | number
     working_days?: IntWithAggregatesFilter<"MeasurementBulletin"> | number
     daily_rate?: DecimalWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     measured_quantity?: DecimalNullableWithAggregatesFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: StringNullableWithAggregatesFilter<"MeasurementBulletin"> | string | null
@@ -43533,6 +43668,8 @@ export namespace Prisma {
     due_date?: DateTimeFilter<"Invoice"> | Date | string
     notes?: StringNullableFilter<"Invoice"> | string | null
     status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    cancel_reason?: StringNullableFilter<"Invoice"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"Invoice"> | Date | string | null
     is_active?: BoolFilter<"Invoice"> | boolean
     created_at?: DateTimeFilter<"Invoice"> | Date | string
     updated_at?: DateTimeFilter<"Invoice"> | Date | string
@@ -43555,6 +43692,8 @@ export namespace Prisma {
     due_date?: SortOrder
     notes?: SortOrderInput | SortOrder
     status?: SortOrder
+    cancel_reason?: SortOrderInput | SortOrder
+    cancelled_at?: SortOrderInput | SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -43580,6 +43719,8 @@ export namespace Prisma {
     due_date?: DateTimeFilter<"Invoice"> | Date | string
     notes?: StringNullableFilter<"Invoice"> | string | null
     status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    cancel_reason?: StringNullableFilter<"Invoice"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"Invoice"> | Date | string | null
     is_active?: BoolFilter<"Invoice"> | boolean
     created_at?: DateTimeFilter<"Invoice"> | Date | string
     updated_at?: DateTimeFilter<"Invoice"> | Date | string
@@ -43602,6 +43743,8 @@ export namespace Prisma {
     due_date?: SortOrder
     notes?: SortOrderInput | SortOrder
     status?: SortOrder
+    cancel_reason?: SortOrderInput | SortOrder
+    cancelled_at?: SortOrderInput | SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -43627,6 +43770,8 @@ export namespace Prisma {
     due_date?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
     notes?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
     status?: EnumInvoiceStatusWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus
+    cancel_reason?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    cancelled_at?: DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
     is_active?: BoolWithAggregatesFilter<"Invoice"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
@@ -44263,6 +44408,7 @@ export namespace Prisma {
     discount_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     discount_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: DateTimeNullableFilter<"CommercialProposal"> | Date | string | null
+    sent_at?: DateTimeNullableFilter<"CommercialProposal"> | Date | string | null
     commission_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     body_html?: StringNullableFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
@@ -44296,6 +44442,7 @@ export namespace Prisma {
     discount_percentage?: SortOrderInput | SortOrder
     discount_value?: SortOrderInput | SortOrder
     follow_up_date?: SortOrderInput | SortOrder
+    sent_at?: SortOrderInput | SortOrder
     commission_percentage?: SortOrderInput | SortOrder
     body_html?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -44333,6 +44480,7 @@ export namespace Prisma {
     discount_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     discount_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: DateTimeNullableFilter<"CommercialProposal"> | Date | string | null
+    sent_at?: DateTimeNullableFilter<"CommercialProposal"> | Date | string | null
     commission_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     body_html?: StringNullableFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
@@ -44365,6 +44513,7 @@ export namespace Prisma {
     discount_percentage?: SortOrderInput | SortOrder
     discount_value?: SortOrderInput | SortOrder
     follow_up_date?: SortOrderInput | SortOrder
+    sent_at?: SortOrderInput | SortOrder
     commission_percentage?: SortOrderInput | SortOrder
     body_html?: SortOrderInput | SortOrder
     status?: SortOrder
@@ -44401,6 +44550,7 @@ export namespace Prisma {
     discount_percentage?: DecimalNullableWithAggregatesFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     discount_value?: DecimalNullableWithAggregatesFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: DateTimeNullableWithAggregatesFilter<"CommercialProposal"> | Date | string | null
+    sent_at?: DateTimeNullableWithAggregatesFilter<"CommercialProposal"> | Date | string | null
     commission_percentage?: DecimalNullableWithAggregatesFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     body_html?: StringNullableWithAggregatesFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusWithAggregatesFilter<"CommercialProposal"> | $Enums.ProposalStatus
@@ -46482,6 +46632,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -46510,6 +46662,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -46534,6 +46688,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -46562,6 +46718,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -46588,6 +46746,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -46611,6 +46771,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -46636,6 +46798,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -46659,6 +46823,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -46686,6 +46852,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -46709,6 +46877,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46736,6 +46906,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46761,6 +46933,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -46782,6 +46956,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46804,6 +46980,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46827,6 +47005,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -46847,6 +47027,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -46867,6 +47049,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46887,6 +47071,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46907,6 +47093,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -46924,6 +47112,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46939,6 +47129,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47639,6 +47831,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -47670,6 +47863,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -47697,6 +47891,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -47728,6 +47923,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -47757,6 +47953,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -47783,6 +47980,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -47809,6 +48007,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -49853,6 +50052,8 @@ export namespace Prisma {
     mobilization_checklist_url?: SortOrder
     demobilization_checklist_url?: SortOrder
     rental_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
     billing_cycle?: SortOrder
     operator_name?: SortOrder
     current_horometer?: SortOrder
@@ -49870,6 +50071,8 @@ export namespace Prisma {
 
   export type AssetMovementAvgOrderByAggregateInput = {
     rental_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
     current_horometer?: SortOrder
     current_odometer?: SortOrder
     freight_value?: SortOrder
@@ -49886,6 +50089,8 @@ export namespace Prisma {
     mobilization_checklist_url?: SortOrder
     demobilization_checklist_url?: SortOrder
     rental_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
     billing_cycle?: SortOrder
     operator_name?: SortOrder
     current_horometer?: SortOrder
@@ -49911,6 +50116,8 @@ export namespace Prisma {
     mobilization_checklist_url?: SortOrder
     demobilization_checklist_url?: SortOrder
     rental_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
     billing_cycle?: SortOrder
     operator_name?: SortOrder
     current_horometer?: SortOrder
@@ -49928,6 +50135,8 @@ export namespace Prisma {
 
   export type AssetMovementSumOrderByAggregateInput = {
     rental_value?: SortOrder
+    franchise_hours?: SortOrder
+    extra_hour_value?: SortOrder
     current_horometer?: SortOrder
     current_odometer?: SortOrder
     freight_value?: SortOrder
@@ -50020,6 +50229,8 @@ export namespace Prisma {
     inactive_days?: SortOrder
     working_days?: SortOrder
     daily_rate?: SortOrder
+    rental_value_total?: SortOrder
+    expenses_total?: SortOrder
     total_value?: SortOrder
     measured_quantity?: SortOrder
     measurement_unit?: SortOrder
@@ -50038,6 +50249,8 @@ export namespace Prisma {
     inactive_days?: SortOrder
     working_days?: SortOrder
     daily_rate?: SortOrder
+    rental_value_total?: SortOrder
+    expenses_total?: SortOrder
     total_value?: SortOrder
     measured_quantity?: SortOrder
     current_horometer?: SortOrder
@@ -50054,6 +50267,8 @@ export namespace Prisma {
     inactive_days?: SortOrder
     working_days?: SortOrder
     daily_rate?: SortOrder
+    rental_value_total?: SortOrder
+    expenses_total?: SortOrder
     total_value?: SortOrder
     measured_quantity?: SortOrder
     measurement_unit?: SortOrder
@@ -50077,6 +50292,8 @@ export namespace Prisma {
     inactive_days?: SortOrder
     working_days?: SortOrder
     daily_rate?: SortOrder
+    rental_value_total?: SortOrder
+    expenses_total?: SortOrder
     total_value?: SortOrder
     measured_quantity?: SortOrder
     measurement_unit?: SortOrder
@@ -50095,6 +50312,8 @@ export namespace Prisma {
     inactive_days?: SortOrder
     working_days?: SortOrder
     daily_rate?: SortOrder
+    rental_value_total?: SortOrder
+    expenses_total?: SortOrder
     total_value?: SortOrder
     measured_quantity?: SortOrder
     current_horometer?: SortOrder
@@ -50153,6 +50372,8 @@ export namespace Prisma {
     due_date?: SortOrder
     notes?: SortOrder
     status?: SortOrder
+    cancel_reason?: SortOrder
+    cancelled_at?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -50174,6 +50395,8 @@ export namespace Prisma {
     due_date?: SortOrder
     notes?: SortOrder
     status?: SortOrder
+    cancel_reason?: SortOrder
+    cancelled_at?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -50191,6 +50414,8 @@ export namespace Prisma {
     due_date?: SortOrder
     notes?: SortOrder
     status?: SortOrder
+    cancel_reason?: SortOrder
+    cancelled_at?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -50656,6 +50881,7 @@ export namespace Prisma {
     discount_percentage?: SortOrder
     discount_value?: SortOrder
     follow_up_date?: SortOrder
+    sent_at?: SortOrder
     commission_percentage?: SortOrder
     body_html?: SortOrder
     status?: SortOrder
@@ -50693,6 +50919,7 @@ export namespace Prisma {
     discount_percentage?: SortOrder
     discount_value?: SortOrder
     follow_up_date?: SortOrder
+    sent_at?: SortOrder
     commission_percentage?: SortOrder
     body_html?: SortOrder
     status?: SortOrder
@@ -50721,6 +50948,7 @@ export namespace Prisma {
     discount_percentage?: SortOrder
     discount_value?: SortOrder
     follow_up_date?: SortOrder
+    sent_at?: SortOrder
     commission_percentage?: SortOrder
     body_html?: SortOrder
     status?: SortOrder
@@ -54883,6 +55111,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -54913,6 +55142,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -55129,6 +55359,7 @@ export namespace Prisma {
     discount_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     discount_value?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: DateTimeNullableFilter<"CommercialProposal"> | Date | string | null
+    sent_at?: DateTimeNullableFilter<"CommercialProposal"> | Date | string | null
     commission_percentage?: DecimalNullableFilter<"CommercialProposal"> | Decimal | DecimalJsLike | number | string | null
     body_html?: StringNullableFilter<"CommercialProposal"> | string | null
     status?: EnumProposalStatusFilter<"CommercialProposal"> | $Enums.ProposalStatus
@@ -55417,6 +55648,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -55443,6 +55676,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -55749,6 +55984,8 @@ export namespace Prisma {
     mobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
     demobilization_checklist_url?: StringNullableFilter<"AssetMovement"> | string | null
     rental_value?: DecimalFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string
+    franchise_hours?: FloatNullableFilter<"AssetMovement"> | number | null
+    extra_hour_value?: DecimalNullableFilter<"AssetMovement"> | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFilter<"AssetMovement"> | $Enums.BillingCycle
     operator_name?: StringNullableFilter<"AssetMovement"> | string | null
     current_horometer?: FloatNullableFilter<"AssetMovement"> | number | null
@@ -56409,6 +56646,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -56438,6 +56676,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -57479,6 +57718,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -57505,6 +57746,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -57650,6 +57893,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -57675,6 +57920,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -57710,6 +57957,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -57729,6 +57978,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -57820,6 +58071,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -57850,6 +58102,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -58065,6 +58318,8 @@ export namespace Prisma {
     inactive_days?: IntFilter<"MeasurementBulletin"> | number
     working_days?: IntFilter<"MeasurementBulletin"> | number
     daily_rate?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string
     measured_quantity?: DecimalNullableFilter<"MeasurementBulletin"> | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: StringNullableFilter<"MeasurementBulletin"> | string | null
@@ -58107,6 +58362,8 @@ export namespace Prisma {
     due_date?: DateTimeFilter<"Invoice"> | Date | string
     notes?: StringNullableFilter<"Invoice"> | string | null
     status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    cancel_reason?: StringNullableFilter<"Invoice"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"Invoice"> | Date | string | null
     is_active?: BoolFilter<"Invoice"> | boolean
     created_at?: DateTimeFilter<"Invoice"> | Date | string
     updated_at?: DateTimeFilter<"Invoice"> | Date | string
@@ -58349,6 +58606,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -58374,6 +58633,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -58603,6 +58864,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -58622,6 +58885,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -58644,6 +58909,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -58671,6 +58938,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -58848,6 +59117,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58867,6 +59138,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58895,6 +59168,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -58922,6 +59197,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -59063,6 +59340,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -59089,6 +59368,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -59490,6 +59771,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -59509,6 +59792,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -59544,6 +59829,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59563,6 +59850,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59580,6 +59869,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -59606,6 +59897,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -59644,6 +59937,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59670,6 +59965,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59700,6 +59997,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -59729,6 +60027,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -61020,6 +61319,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -61050,6 +61350,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -61184,6 +61485,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -61214,6 +61516,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -61444,6 +61747,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -61470,6 +61775,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -61628,6 +61935,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61654,6 +61963,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62780,6 +63091,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -62799,6 +63112,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -62916,6 +63231,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -62935,6 +63252,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63077,6 +63396,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -63096,6 +63417,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -63255,6 +63578,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -63394,6 +63718,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -63424,6 +63749,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -63452,6 +63778,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -63775,6 +64102,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -63882,6 +64211,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -63908,6 +64239,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -63933,6 +64266,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -64291,6 +64626,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -64562,6 +64898,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -64591,6 +64928,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -64619,6 +64957,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -64933,6 +65272,8 @@ export namespace Prisma {
     mobilization_checklist_url?: string | null
     demobilization_checklist_url?: string | null
     rental_value: Decimal | DecimalJsLike | number | string
+    franchise_hours?: number | null
+    extra_hour_value?: Decimal | DecimalJsLike | number | string | null
     billing_cycle?: $Enums.BillingCycle
     operator_name?: string | null
     current_horometer?: number | null
@@ -64980,6 +65321,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -65003,6 +65346,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -65048,6 +65393,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -65080,6 +65426,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -65106,6 +65454,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -65131,6 +65481,8 @@ export namespace Prisma {
     mobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     demobilization_checklist_url?: NullableStringFieldUpdateOperationsInput | string | null
     rental_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    franchise_hours?: NullableFloatFieldUpdateOperationsInput | number | null
+    extra_hour_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     billing_cycle?: EnumBillingCycleFieldUpdateOperationsInput | $Enums.BillingCycle
     operator_name?: NullableStringFieldUpdateOperationsInput | string | null
     current_horometer?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -65227,6 +65579,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65252,6 +65606,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65276,6 +65632,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65299,6 +65657,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65318,6 +65678,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65337,6 +65699,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65426,6 +65790,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -65456,6 +65821,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -65484,6 +65850,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -65547,6 +65914,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -65568,6 +65937,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65593,6 +65964,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65617,6 +65990,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65680,6 +66055,8 @@ export namespace Prisma {
     inactive_days: number
     working_days: number
     daily_rate: Decimal | DecimalJsLike | number | string
+    rental_value_total?: Decimal | DecimalJsLike | number | string
+    expenses_total?: Decimal | DecimalJsLike | number | string
     total_value: Decimal | DecimalJsLike | number | string
     measured_quantity?: Decimal | DecimalJsLike | number | string | null
     measurement_unit?: string | null
@@ -65725,6 +66102,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65751,6 +66130,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65775,6 +66156,8 @@ export namespace Prisma {
     inactive_days?: IntFieldUpdateOperationsInput | number
     working_days?: IntFieldUpdateOperationsInput | number
     daily_rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rental_value_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    expenses_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total_value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     measured_quantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     measurement_unit?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65879,6 +66262,7 @@ export namespace Prisma {
     discount_percentage?: Decimal | DecimalJsLike | number | string | null
     discount_value?: Decimal | DecimalJsLike | number | string | null
     follow_up_date?: Date | string | null
+    sent_at?: Date | string | null
     commission_percentage?: Decimal | DecimalJsLike | number | string | null
     body_html?: string | null
     status?: $Enums.ProposalStatus
@@ -65905,6 +66289,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -65934,6 +66319,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -65962,6 +66348,7 @@ export namespace Prisma {
     discount_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     follow_up_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sent_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     commission_percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     body_html?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
@@ -66541,6 +66928,8 @@ export namespace Prisma {
     due_date: Date | string
     notes?: string | null
     status?: $Enums.InvoiceStatus
+    cancel_reason?: string | null
+    cancelled_at?: Date | string | null
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -66660,6 +67049,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66679,6 +67070,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66698,6 +67091,8 @@ export namespace Prisma {
     due_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    cancel_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

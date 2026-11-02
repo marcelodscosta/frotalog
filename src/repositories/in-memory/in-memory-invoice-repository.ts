@@ -168,4 +168,17 @@ export class InMemoryInvoiceRepository implements IInvoiceRepository {
     }
     return this.items[index]
   }
+
+  async refund(id: string): Promise<Invoice> {
+    const index = this.items.findIndex((i) => i.id === id)
+    if (index === -1) throw new Error('Invoice not found')
+    this.items[index] = {
+      ...this.items[index],
+      status: 'PENDING',
+      is_paid: false,
+      payment_date: null,
+      updated_at: new Date(),
+    }
+    return this.items[index]
+  }
 }

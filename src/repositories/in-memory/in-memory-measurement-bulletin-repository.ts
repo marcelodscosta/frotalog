@@ -31,7 +31,18 @@ export class InMemoryMeasurementBulletinRepository
       inactive_days: data.inactive_days,
       working_days: data.working_days,
       daily_rate: new Prisma.Decimal(data.daily_rate.toString()),
+      rental_value_total: new Prisma.Decimal(
+        (data.rental_value_total ?? data.total_value).toString(),
+      ),
+      expenses_total: new Prisma.Decimal(
+        (data.expenses_total ?? 0).toString(),
+      ),
       total_value: new Prisma.Decimal(data.total_value.toString()),
+      measured_quantity:
+        data.measured_quantity != null
+          ? new Prisma.Decimal(data.measured_quantity.toString())
+          : null,
+      measurement_unit: data.measurement_unit ?? null,
       current_horometer: data.current_horometer ?? null,
       current_odometer: data.current_odometer ?? null,
       status:

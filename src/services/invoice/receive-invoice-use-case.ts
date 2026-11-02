@@ -1,4 +1,5 @@
 import { IInvoiceRepository } from '../../repositories/interfaces/IInvoiceRepository'
+import { AppError } from '../errors/app-error'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 interface ReceiveInvoiceUseCaseRequest {
@@ -23,8 +24,12 @@ export class ReceiveInvoiceUseCase {
       throw new ResourceNotFoundError()
     }
 
+    if (!invoice.is_active || invoice.status === 'CANCELLED') {
+      throw new AppError('Fatura cancelada não pode ser recebida.', 400)
+    }
+
     if (invoice.is_paid || invoice.status === 'PAID') {
-      throw new Error('Invoice is already paid')
+      throw new AppError('Fatura já foi recebida.', 400)
     }
 
     const updatedInvoice = await this.invoiceRepository.receive(invoiceId, {

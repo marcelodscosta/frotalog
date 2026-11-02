@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../lib/prisma'
 import { AppError } from '../../../services/errors/app-error'
+import { assertProposalTransition } from '../../../services/commercial-proposal/proposal-status-transitions'
 
 export async function updateProposalStatus(
   request: FastifyRequest,
@@ -12,7 +13,7 @@ export async function updateProposalStatus(
   })
 
   const updateStatusBodySchema = z.object({
-    status: z.enum(['DRAFT', 'SENT', 'APPROVED', 'REJECTED', 'CANCELLED', 'CONVERTED']),
+    status: z.enum(['DRAFT', 'SENT', 'APPROVED', 'REJECTED', 'CANCELLED', 'CONVERTED', 'EXPIRED']),
   })
 
   const { id } = updateStatusParamsSchema.parse(request.params)
@@ -35,9 +36,14 @@ export async function updateProposalStatus(
     throw new AppError('Uma proposta convertida não pode ter o status alterado.', 400)
   }
 
+  assertProposalTransition(current.status, status)
+
   const proposal = await prisma.commercialProposal.update({
     where: { id },
-    data: { status },
+    data: {
+      status,
+      ...(status === 'SENT' ? { sent_at: new Date() } : {}),
+    },
   })
 
   return reply.status(200).send({ proposal })

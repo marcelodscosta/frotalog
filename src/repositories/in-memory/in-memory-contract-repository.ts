@@ -250,12 +250,31 @@ export class InMemoryContractRepository implements IContractRepository {
     )
   }
 
-  public financialSummaryMockData: { totalBulletinsValue: number; totalMaintenanceCost: number; totalOtherExpenses: number } | null = null;
+  public financialSummaryMockData: {
+    totalBulletinsValue: number
+    totalMaintenanceCost: number
+    totalOtherExpenses: number
+    totalInvoicedValue?: number
+    totalReceivedValue?: number
+  } | null = null
 
-  async getFinancialSummary(contractId: string): Promise<{ totalBulletinsValue: number; totalMaintenanceCost: number; totalOtherExpenses: number } | null> {
+  async getFinancialSummary(contractId: string): Promise<{
+    totalMaintenanceCost: number
+    totalOtherExpenses: number
+    totalBulletinsValue: number
+    totalInvoicedValue: number
+    totalReceivedValue: number
+  } | null> {
     const contract = await this.findById(contractId)
     if (!contract) return null
-    return this.financialSummaryMockData
+    if (!this.financialSummaryMockData) return null
+    return {
+      totalMaintenanceCost: this.financialSummaryMockData.totalMaintenanceCost,
+      totalOtherExpenses: this.financialSummaryMockData.totalOtherExpenses,
+      totalBulletinsValue: this.financialSummaryMockData.totalBulletinsValue,
+      totalInvoicedValue: this.financialSummaryMockData.totalInvoicedValue ?? 0,
+      totalReceivedValue: this.financialSummaryMockData.totalReceivedValue ?? 0,
+    }
   }
 
   async countByYear(year: number): Promise<number> {

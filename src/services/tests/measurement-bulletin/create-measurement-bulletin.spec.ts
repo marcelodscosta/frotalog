@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Prisma } from '../../../generated/prisma'
 import { InMemoryAssetMovementRepository } from '../../../repositories/in-memory/in-memory-asset-movement-repository'
 import { InMemoryContractRepository } from '../../../repositories/in-memory/in-memory-contract-repository'
@@ -6,6 +6,21 @@ import { InMemoryMaintenanceRepository } from '../../../repositories/in-memory/i
 import { InMemoryMeasurementBulletinRepository } from '../../../repositories/in-memory/in-memory-measurement-bulletin-repository'
 import { InMemoryCommissionRepository } from '../../../repositories/in-memory/in-memory-commission-repository'
 import { CreateMeasurementBulletinUseCase } from '../../measurement-bulletin/create-measurement-bulletin-use-case'
+import { prisma } from '../../../lib/prisma'
+
+vi.mock('../../../lib/prisma', () => ({
+  prisma: {
+    commercialProposal: { findFirst: vi.fn() },
+    bulletinExpense: { findMany: vi.fn(), createMany: vi.fn() },
+    measurementBulletin: {
+      findUnique: vi.fn(),
+      findMany: vi.fn(),
+      update: vi.fn(),
+    },
+    contract: { findUnique: vi.fn() },
+    commission: { findFirst: vi.fn(), create: vi.fn(), update: vi.fn() },
+  },
+}))
 
 let measurementBulletinRepository: InMemoryMeasurementBulletinRepository
 let assetMovementRepository: InMemoryAssetMovementRepository
@@ -29,6 +44,15 @@ describe('Create Measurement Bulletin Use Case', () => {
       maintenanceRepository,
       commissionRepository
     )
+
+    vi.clearAllMocks()
+    vi.mocked(prisma.commercialProposal.findFirst).mockResolvedValue(null)
+    vi.mocked(prisma.bulletinExpense.findMany).mockResolvedValue([])
+    vi.mocked(prisma.bulletinExpense.createMany).mockResolvedValue({ count: 0 })
+    vi.mocked(prisma.measurementBulletin.findMany).mockResolvedValue([])
+    vi.mocked(prisma.contract.findUnique).mockResolvedValue(null)
+    vi.mocked(prisma.commission.findFirst).mockResolvedValue(null)
+    vi.mocked(prisma.commission.create).mockResolvedValue({} as any)
   })
 
   it('should calculate 30 commercial days for a full month in February', async () => {
@@ -37,6 +61,7 @@ describe('Create Measurement Bulletin Use Case', () => {
       clientId: 'client-1',
       contract_number: '123',
       start_date: new Date(),
+      status: 'ACTIVE',
     })
 
     await assetMovementRepository.create({
@@ -66,6 +91,7 @@ describe('Create Measurement Bulletin Use Case', () => {
       clientId: 'client-1',
       contract_number: '123',
       start_date: new Date(),
+      status: 'ACTIVE',
     })
 
     await assetMovementRepository.create({
@@ -99,6 +125,7 @@ describe('Create Measurement Bulletin Use Case', () => {
       clientId: 'client-1',
       contract_number: '1234',
       start_date: new Date(),
+      status: 'ACTIVE',
       sellerId: 'seller-1',
       commission_percentage: new Prisma.Decimal('10.00'), // 10%
     })
@@ -112,6 +139,17 @@ describe('Create Measurement Bulletin Use Case', () => {
       calculation_rule: 'COMMERCIAL_30_DAYS',
     })
 
+    vi.mocked(prisma.contract.findUnique).mockResolvedValue({
+      id: 'contract-comission',
+      sellerId: 'seller-1',
+      commission_percentage: new Prisma.Decimal('10.00'),
+      commission_start_date: null,
+      commission_end_date: null,
+    } as any)
+    vi.mocked(prisma.measurementBulletin.findMany).mockResolvedValue([
+      { id: 'bulletin-comission', total_value: new Prisma.Decimal('10000') },
+    ] as any)
+
     const { measurementBulletin } = await sut.execute({
       contractId: 'contract-comission',
       assetMovementId: 'movement-comission',
@@ -121,15 +159,23 @@ describe('Create Measurement Bulletin Use Case', () => {
 
     expect(Number(measurementBulletin.total_value)).toBe(10000)
 
-    const commissions = commissionRepository.items
-    expect(commissions).toHaveLength(1)
-    expect(commissions[0].contractId).toBe('contract-comission')
-    expect(commissions[0].sellerId).toBe('seller-1')
-    expect(Number(commissions[0].commission_percentage)).toBe(10)
-    // 10% de 10000 = 1000
-    expect(Number(commissions[0].commission_value)).toBe(1000)
-    expect(commissions[0].measurementBulletinId).toBe(measurementBulletin.id)
-    expect(commissions[0].reference_month.getUTCMonth()).toBe(2) // March is 2 (0-indexed)
+    expect(prisma.commission.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          contractId: 'contract-comission',
+          sellerId: 'seller-1',
+          measurementBulletinId: 'bulletin-comission',
+          base_value: 10000,
+          commission_percentage: 10,
+          commission_value: 1000,
+        }),
+      }),
+    )
+    const createArg = vi.mocked(prisma.commission.create).mock.calls[0][0] as any
+    expect(createArg.data.reference_month.getUTCMonth()).toBe(2) // March is 2 (0-indexed)
+
+    // Repositório em memória não é mais usado para comissão mensal
+    expect(commissionRepository.items).toHaveLength(0)
   })
 
   it('should NOT create a commission if measurement bulletin is outside commission validity dates', async () => {
@@ -138,6 +184,7 @@ describe('Create Measurement Bulletin Use Case', () => {
       clientId: 'client-1',
       contract_number: '12345',
       start_date: new Date('2025-01-01T00:00:00.000Z'),
+      status: 'ACTIVE',
       sellerId: 'seller-1',
       commission_percentage: new Prisma.Decimal('10.00'),
       // commission valid only until end of 2025
@@ -155,6 +202,17 @@ describe('Create Measurement Bulletin Use Case', () => {
     })
 
     // Bulletin in 2026
+    vi.mocked(prisma.contract.findUnique).mockResolvedValue({
+      id: 'contract-comission-expired',
+      sellerId: 'seller-1',
+      commission_percentage: new Prisma.Decimal('10.00'),
+      commission_start_date: new Date('2025-01-01T00:00:00.000Z'),
+      commission_end_date: new Date('2025-12-31T23:59:59.000Z'),
+    } as any)
+    vi.mocked(prisma.measurementBulletin.findMany).mockResolvedValue([
+      { id: 'bulletin-expired', total_value: new Prisma.Decimal('10000') },
+    ] as any)
+
     await sut.execute({
       contractId: 'contract-comission-expired',
       assetMovementId: 'movement-comission-expired',
@@ -162,7 +220,6 @@ describe('Create Measurement Bulletin Use Case', () => {
       reference_end: new Date('2026-01-31T03:00:00.000Z'),
     })
 
-    const commissions = commissionRepository.items
-    expect(commissions).toHaveLength(0) // No commission should be generated
+    expect(prisma.commission.create).not.toHaveBeenCalled()
   })
 })

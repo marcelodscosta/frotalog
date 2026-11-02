@@ -2,6 +2,8 @@ import { CommercialProposal, Prisma } from '../../generated/prisma'
 import { ICommercialProposalRepository } from '../../repositories/interfaces/ICommercialProposalRepository'
 import { AppError } from '../errors/app-error'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import { ProposalStatus } from '../../generated/prisma'
+import { assertProposalTransition } from './proposal-status-transitions'
 
 interface UpdateProposalItem {
   assetId?: string | null
@@ -11,6 +13,8 @@ interface UpdateProposalItem {
   quantity: number
   monthly_value: number
   franchise_hours?: number
+  extra_hour_value?: number | null
+  notes?: string | null
 }
 
 interface UpdateCommercialProposalRequest {
@@ -55,6 +59,10 @@ export class UpdateCommercialProposalUseCase {
       throw new AppError('Uma proposta convertida não pode ter o status alterado.', 400)
     }
 
+    if (data.status && data.status !== proposal.status) {
+      assertProposalTransition(proposal.status, data.status as ProposalStatus)
+    }
+
     const inputData: Prisma.CommercialProposalUpdateInput = {
       proposal_number: data.proposal_number,
       client: { connect: { id: data.clientId } },
@@ -79,6 +87,7 @@ export class UpdateCommercialProposalUseCase {
       commission_percentage: data.commission_percentage,
       body_html: data.body_html,
       status: data.status as any,
+      sent_at: data.status === 'SENT' ? new Date() : undefined,
       user: data.userId !== undefined
         ? (data.userId ? { connect: { id: data.userId } } : { disconnect: true })
         : undefined,
@@ -95,6 +104,8 @@ export class UpdateCommercialProposalUseCase {
           quantity: item.quantity,
           monthly_value: item.monthly_value,
           franchise_hours: item.franchise_hours,
+          extra_hour_value: item.extra_hour_value,
+          notes: item.notes,
         }))
       }
     }

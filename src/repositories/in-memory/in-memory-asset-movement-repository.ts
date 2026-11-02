@@ -41,6 +41,11 @@ export class InMemoryAssetMovementRepository
       rental_value: new Prisma.Decimal(
         data.rental_value.toString(),
       ),
+      franchise_hours: data.franchise_hours ?? null,
+      extra_hour_value:
+        data.extra_hour_value != null
+          ? new Prisma.Decimal(data.extra_hour_value.toString())
+          : null,
       billing_cycle:
         (data.billing_cycle as BillingCycle) ?? 'MONTHLY',
       operator_name: data.operator_name ?? null,

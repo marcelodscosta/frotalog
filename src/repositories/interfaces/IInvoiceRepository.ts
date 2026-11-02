@@ -31,6 +31,7 @@ export interface IInvoiceRepository {
     chartOfAccountId?: string
     amount: number
   }): Promise<Invoice>
+  refund(id: string): Promise<Invoice>
   update(id: string, data: Prisma.InvoiceUpdateInput): Promise<Invoice>
   delete(id: string): Promise<Invoice>
   findByIdWithDetails(id: string): Promise<Invoice | null>

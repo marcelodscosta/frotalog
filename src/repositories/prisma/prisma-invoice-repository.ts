@@ -257,4 +257,37 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
       return updatedInvoice
     })
   }
+
+  async refund(id: string): Promise<Invoice> {
+    return prisma.$transaction(async (tx) => {
+      const invoice = await tx.invoice.findUnique({
+        where: { id },
+        include: { transactions: true },
+      })
+
+      if (!invoice) {
+        throw new Error('Invoice not found')
+      }
+
+      // Estorna cada transação financeira e o saldo bancário correspondente
+      for (const transaction of invoice.transactions) {
+        await tx.bankAccount.update({
+          where: { id: transaction.bankAccountId },
+          data: { balance: { decrement: transaction.amount } },
+        })
+        await tx.financialTransaction.delete({
+          where: { id: transaction.id },
+        })
+      }
+
+      return tx.invoice.update({
+        where: { id },
+        data: {
+          is_paid: false,
+          payment_date: null,
+          status: 'PENDING',
+        },
+      })
+    })
+  }
 }

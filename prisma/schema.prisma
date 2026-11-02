@@ -259,6 +259,8 @@ model AssetMovement {
   mobilization_checklist_url   String?
   demobilization_checklist_url String?
   rental_value                 Decimal                    @db.Decimal(10, 2)
+  franchise_hours              Float?
+  extra_hour_value             Decimal?                   @db.Decimal(10, 2)
   billing_cycle                BillingCycle               @default(MONTHLY)
   operator_name                String?
   current_horometer            Float?
@@ -289,6 +291,8 @@ model MeasurementBulletin {
   inactive_days     Int
   working_days      Int
   daily_rate        Decimal  @db.Decimal(10, 2)
+  rental_value_total Decimal @default(0) @db.Decimal(10, 2)
+  expenses_total     Decimal @default(0) @db.Decimal(10, 2)
   total_value       Decimal  @db.Decimal(10, 2)
   measured_quantity Decimal? @db.Decimal(10, 2)
   measurement_unit  String?  @default("DAYS")
@@ -321,6 +325,8 @@ model Invoice {
   due_date       DateTime
   notes          String?
   status         InvoiceStatus @default(PENDING)
+  cancel_reason  String?
+  cancelled_at   DateTime?
   is_active      Boolean       @default(true)
   created_at     DateTime      @default(now())
   updated_at     DateTime      @updatedAt
@@ -561,6 +567,7 @@ model CommercialProposal {
   discount_percentage  Decimal?  @db.Decimal(5, 2)
   discount_value       Decimal?  @db.Decimal(10, 2)
   follow_up_date       DateTime?
+  sent_at              DateTime?
 
   // Comissão de vendas (herdada pelo contrato na conversão)
   commission_percentage Decimal? @db.Decimal(5, 2)
@@ -617,6 +624,7 @@ enum ProposalStatus {
   REJECTED
   CANCELLED
   CONVERTED
+  EXPIRED
 }
 
 enum CommissionStatus {

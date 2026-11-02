@@ -11,6 +11,8 @@ interface CreateProposalItem {
   quantity: number
   monthly_value: number
   franchise_hours?: number
+  extra_hour_value?: number | null
+  notes?: string | null
 }
 
 interface CreateCommercialProposalRequest {
@@ -92,6 +94,8 @@ export class CreateCommercialProposalUseCase {
           quantity: item.quantity,
           monthly_value: item.monthly_value,
           franchise_hours: item.franchise_hours,
+          extra_hour_value: item.extra_hour_value,
+          notes: item.notes,
         }))
       }
     }

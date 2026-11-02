@@ -11,6 +11,8 @@ import { ICommissionRepository } from '../../repositories/interfaces/ICommission
 import { AppError } from '../errors/app-error'
 import { AssetMovimentNotFoundError } from '../errors/asset-moviment-not-found-error'
 import { ContractNotFoundError } from '../errors/contract-not-fount-error'
+import { recalculateContractMonthCommission } from '../commission/recalculate-contract-month-commission'
+import { applyMovementChargesToBulletin } from './apply-movement-charges-to-bulletin'
 
 interface CreateMeasurementBulletinRequest {
   contractId: string
@@ -47,6 +49,18 @@ export class CreateMeasurementBulletinUseCase {
       data.assetMovementId,
     )
     if (!assetMovement) throw new AssetMovimentNotFoundError()
+
+    if (assetMovement.contractId !== data.contractId) {
+      throw new AppError('A movimentação informada não pertence a este contrato.', 400)
+    }
+
+    if (!contract.is_Active || contract.status === 'CANCELLED' || contract.status === 'DRAFT') {
+      throw new AppError('Não é possível medir um contrato cancelado, inativo ou em rascunho.', 400)
+    }
+
+    if (new Date(data.reference_end) < new Date(data.reference_start)) {
+      throw new AppError('A data final do período deve ser posterior à inicial.', 400)
+    }
 
     const startDate = new Date(data.reference_start)
     let endDate = new Date(data.reference_end)
@@ -180,12 +194,16 @@ export class CreateMeasurementBulletinUseCase {
     let dailyRate: number
     let workingUnits: number = workingDays
     let unitName: string = 'DAYS'
+    let hourlyOverage = 0
+    let hourlyFranchise = 0
 
     switch (assetMovement.billing_cycle) {
       case 'HOURLY':
         dailyRate = Number(assetMovement.rental_value)
         workingUnits = data.measured_quantity || 0
         unitName = 'HOURS'
+        hourlyFranchise = Number(assetMovement.franchise_hours || 0)
+        hourlyOverage = Math.max(0, workingUnits - hourlyFranchise)
         break
       case 'PER_UNIT':
         dailyRate = Number(assetMovement.rental_value)
@@ -206,13 +224,23 @@ export class CreateMeasurementBulletinUseCase {
         break
     }
 
-    // totalValue strictly matches workingUnits * dailyRate
-    const totalValue = dailyRate * workingUnits
+    const extraHourRate = Number(
+      assetMovement.extra_hour_value ?? assetMovement.rental_value,
+    )
+
+    // Locação: no HOURLY a franquia é o mínimo faturável e o excedente usa a hora extra
+    const totalValue =
+      assetMovement.billing_cycle === 'HOURLY'
+        ? Math.max(workingUnits, hourlyFranchise) * dailyRate -
+          hourlyOverage * dailyRate +
+          hourlyOverage * extraHourRate
+        : dailyRate * workingUnits
 
     // Round the dailyRate exactly like how it will be stored and shown to the user on PDF
     const roundedRate = Math.round(dailyRate * 100) / 100
+    const roundedRentalTotal = Math.round(totalValue * 100) / 100
 
-    const measurementBulletin =
+    let measurementBulletin =
       await this.measurementBulletinRepository.create({
         contractId: data.contractId,
         assetMovementId: data.assetMovementId,
@@ -222,7 +250,9 @@ export class CreateMeasurementBulletinUseCase {
         inactive_days: inactiveDays,
         working_days: workingDays,
         daily_rate: new Prisma.Decimal(roundedRate.toFixed(2)),
-        total_value: new Prisma.Decimal(totalValue.toFixed(2)),
+        rental_value_total: new Prisma.Decimal(roundedRentalTotal.toFixed(2)),
+        expenses_total: new Prisma.Decimal('0.00'),
+        total_value: new Prisma.Decimal(roundedRentalTotal.toFixed(2)),
         measured_quantity: data.measured_quantity
           ? new Prisma.Decimal(data.measured_quantity.toFixed(2))
           : null,
@@ -232,8 +262,26 @@ export class CreateMeasurementBulletinUseCase {
         current_odometer: data.current_odometer,
       })
 
-    // Auto-calcular comissão se o contrato tiver vendedor e percentual configurados
-    await this.tryCreateCommission(contract, measurementBulletin.id, totalValue, data.reference_start)
+    // Mobilização, frete e desmobilização entram como despesas do boletim do período
+    await applyMovementChargesToBulletin({
+      bulletinId: measurementBulletin.id,
+      contractId: data.contractId,
+      referenceStart: startDate,
+      referenceEnd: new Date(data.reference_end),
+      movement: {
+        mobilization_date: assetMovement.mobilization_date,
+        demobilization_date: assetMovement.demobilization_date,
+        freight_value: assetMovement.freight_value,
+      },
+    })
+
+    const refreshed = await this.measurementBulletinRepository.findById(
+      measurementBulletin.id,
+    )
+    if (refreshed) measurementBulletin = refreshed
+
+    // Comissão mensal do contrato = soma de todos os boletins do mês
+    await recalculateContractMonthCommission(data.contractId, data.reference_start)
 
     return { measurementBulletin }
   }
@@ -244,67 +292,20 @@ export class CreateMeasurementBulletinUseCase {
    * All full months are treated as 30 commercial days.
    */
   private isFullMonthPeriod(start: Date, end: Date): boolean {
-    const startDay = start.getDate()
-    if (startDay !== 1) return false
+    // Datas são tratadas em UTC, como no restante do cálculo
+    if (start.getUTCDate() !== 1) return false
 
     if (
-      start.getMonth() !== end.getMonth() ||
-      start.getFullYear() !== end.getFullYear()
+      start.getUTCMonth() !== end.getUTCMonth() ||
+      start.getUTCFullYear() !== end.getUTCFullYear()
     ) {
       return false
     }
 
     const lastDay = new Date(
-      end.getFullYear(),
-      end.getMonth() + 1,
-      0,
-    ).getDate()
-    
-    return end.getDate() === lastDay
-  }
+      Date.UTC(end.getUTCFullYear(), end.getUTCMonth() + 1, 0),
+    ).getUTCDate()
 
-  private async tryCreateCommission(
-    contract: any,
-    measurementBulletinId: string,
-    totalValue: number,
-    referenceStart: Date,
-  ): Promise<void> {
-    try {
-      if (!contract.sellerId || !contract.commission_percentage) return
-
-      const percentage = Number(contract.commission_percentage)
-      if (percentage <= 0) return
-
-      // Verificar se está dentro do período de comissão
-      const refDate = new Date(referenceStart)
-      if (contract.commission_start_date && refDate < new Date(contract.commission_start_date)) return
-      if (contract.commission_end_date && refDate > new Date(contract.commission_end_date)) return
-
-      // Primeiro dia do mês de referência
-      const referenceMonth = new Date(Date.UTC(
-        refDate.getUTCFullYear(),
-        refDate.getUTCMonth(),
-        1,
-      ))
-
-      // Comissão recorrente do contrato já pode ter gerado a linha deste mês
-      const existing = await this.commissionRepository.findByContractAndMonth(contract.id, referenceMonth)
-      if (existing) return
-
-      const commissionValue = totalValue * (percentage / 100)
-
-      await this.commissionRepository.create({
-        contractId: contract.id,
-        sellerId: contract.sellerId,
-        measurementBulletinId,
-        reference_month: referenceMonth,
-        base_value: totalValue,
-        commission_percentage: percentage,
-        commission_value: commissionValue,
-      })
-    } catch (error) {
-      // Não propagar erro de comissão para não bloquear a criação do boletim
-      console.error('[Commission] Erro ao criar comissão automática:', error)
-    }
+    return end.getUTCDate() === lastDay
   }
 }

@@ -14,6 +14,8 @@ export async function createCommercialProposal(
     quantity: z.number().positive(),
     monthly_value: z.number().nonnegative(),
     franchise_hours: z.number().nonnegative().optional(),
+    extra_hour_value: z.number().nonnegative().optional().nullable(),
+    notes: z.string().optional().nullable(),
   })
 
   const createBodySchema = z.object({

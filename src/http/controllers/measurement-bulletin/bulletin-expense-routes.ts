@@ -2,6 +2,8 @@ import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../lib/prisma'
 import { requireAuth } from '../../middleware/auth'
+import { recalculateContractMonthCommission } from '../../../services/commission/recalculate-contract-month-commission'
+import { recalculateBulletinTotals } from '../../../services/measurement-bulletin/recalculate-bulletin-totals'
 
 export async function bulletinExpenseRoutes(app: FastifyInstance) {
   app.addHook('preHandler', requireAuth())
@@ -32,24 +34,20 @@ export async function bulletinExpenseRoutes(app: FastifyInstance) {
       return reply.status(400).send({ message: 'Boletim faturado não pode ser alterado.' })
     }
 
-    // Create expense and update bulletin total_value
-    const [expense] = await prisma.$transaction([
-      prisma.bulletinExpense.create({
-        data: {
-          measurementBulletinId: bulletinId,
-          description: data.description,
-          quantity: data.quantity,
-          unit_value: data.unit_value,
-          total_value: data.total_value,
-        },
-      }),
-      prisma.measurementBulletin.update({
-        where: { id: bulletinId },
-        data: {
-          total_value: { increment: data.total_value },
-        },
-      }),
-    ])
+    // Create expense and recompute bulletin totals
+    const expense = await prisma.bulletinExpense.create({
+      data: {
+        measurementBulletinId: bulletinId,
+        description: data.description,
+        quantity: data.quantity,
+        unit_value: data.unit_value,
+        total_value: data.total_value,
+      },
+    })
+
+    await recalculateBulletinTotals(bulletinId)
+
+    await recalculateContractMonthCommission(bulletin.contractId, bulletin.reference_start)
 
     return reply.status(201).send({ expense })
   })
@@ -94,22 +92,18 @@ export async function bulletinExpenseRoutes(app: FastifyInstance) {
       where: { id: expenseId },
     })
 
-    if (!expense) {
+    if (!expense || expense.measurementBulletinId !== bulletinId) {
       return reply.status(404).send({ message: 'Despesa não encontrada.' })
     }
 
-    // Delete expense and update bulletin total_value
-    await prisma.$transaction([
-      prisma.bulletinExpense.delete({
-        where: { id: expenseId },
-      }),
-      prisma.measurementBulletin.update({
-        where: { id: bulletinId },
-        data: {
-          total_value: { decrement: expense.total_value },
-        },
-      }),
-    ])
+    // Delete expense and recompute bulletin totals
+    await prisma.bulletinExpense.delete({
+      where: { id: expenseId },
+    })
+
+    await recalculateBulletinTotals(bulletinId)
+
+    await recalculateContractMonthCommission(bulletin.contractId, bulletin.reference_start)
 
     return reply.status(204).send()
   })

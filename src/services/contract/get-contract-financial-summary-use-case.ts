@@ -7,6 +7,10 @@ export interface GetContractFinancialSummaryUseCaseRequest {
 
 export interface GetContractFinancialSummaryUseCaseResponse {
   financialSummary: {
+    contractedValue: number
+    measuredValue: number
+    invoicedValue: number
+    receivedValue: number
     totalMaintenanceCost: number
     totalOtherExpenses: number
     totalBulletinsValue: number
@@ -31,14 +35,20 @@ export class GetContractFinancialSummaryUseCase {
     const totalMaintenanceCost = summary?.totalMaintenanceCost || 0
     const totalOtherExpenses = summary?.totalOtherExpenses || 0
     const totalContractValue = contract.total_value ? Number(contract.total_value) : 0
-    const balance = totalContractValue - (totalMaintenanceCost + totalOtherExpenses)
+    const totalBulletinsValue = summary?.totalBulletinsValue || 0
+    const totalInvoicedValue = summary?.totalInvoicedValue || 0
+    const totalReceivedValue = summary?.totalReceivedValue || 0
 
     return {
       financialSummary: {
-        totalBulletinsValue: summary?.totalBulletinsValue || 0,
+        contractedValue: totalContractValue,
+        measuredValue: totalBulletinsValue,
+        invoicedValue: totalInvoicedValue,
+        receivedValue: totalReceivedValue,
+        totalBulletinsValue,
         totalMaintenanceCost,
         totalOtherExpenses,
-        balance: (summary?.totalBulletinsValue || 0) - (totalMaintenanceCost + totalOtherExpenses),
+        balance: totalBulletinsValue - (totalMaintenanceCost + totalOtherExpenses),
       },
     }
   }

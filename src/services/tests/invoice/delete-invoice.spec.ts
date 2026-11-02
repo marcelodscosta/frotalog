@@ -4,6 +4,7 @@ import { InMemoryInvoiceRepository } from '../../../repositories/in-memory/in-me
 import { InMemoryMeasurementBulletinRepository } from '../../../repositories/in-memory/in-memory-measurement-bulletin-repository'
 import { InMemoryBankAccountRepository } from '../../../repositories/in-memory/in-memory-bank-account-repository'
 import { ResourceNotFoundError } from '../../errors/resource-not-found-error'
+import { AppError } from '../../errors/app-error'
 import { prisma } from '../../../lib/prisma'
 
 // Mock prisma
@@ -53,7 +54,7 @@ describe('Delete Invoice', () => {
     })
   })
 
-  it('should delete an invoice and revert bulletin status to APPROVED', async () => {
+  it('should cancel an invoice and revert bulletin status to APPROVED', async () => {
     const invoice = await invoiceRepo.create({
       measurementBulletins: {
         connect: [{ id: 'bulletin-01' }]
@@ -72,20 +73,44 @@ describe('Delete Invoice', () => {
     } as any)
 
     // Mock the successful returns of the transaction operations
-    const invoiceUpdateSpy = vi.spyOn(prisma.invoice, 'update').mockResolvedValue({ ...invoice, is_active: false })
+    const invoiceUpdateSpy = vi.spyOn(prisma.invoice, 'update').mockResolvedValue({
+      ...invoice,
+      is_active: false,
+      status: 'CANCELLED',
+    } as any)
     const bulletinUpdateSpy = vi.spyOn(prisma.measurementBulletin, 'update').mockResolvedValue({} as any)
 
-    const result = await sut.execute(invoice.id)
+    const result = await sut.execute(invoice.id, 'Fatura emitida em duplicidade')
 
     expect(result.is_active).toBe(false)
     expect(invoiceUpdateSpy).toHaveBeenCalledWith(expect.objectContaining({
         where: { id: invoice.id },
-        data: { is_active: false }
+        data: expect.objectContaining({
+          is_active: false,
+          status: 'CANCELLED',
+          is_paid: false,
+          payment_date: null,
+          cancel_reason: 'Fatura emitida em duplicidade',
+          cancelled_at: expect.any(Date),
+        })
     }))
     expect(bulletinUpdateSpy).toHaveBeenCalledWith(expect.objectContaining({
         where: { id: 'bulletin-01' },
-        data: expect.objectContaining({ status: 'APPROVED' })
+        data: expect.objectContaining({ status: 'APPROVED', invoiceId: null })
     }))
+  })
+
+  it('should throw when invoice was already cancelled', async () => {
+    const invoice = await invoiceRepo.create({
+      invoice_number: 'FAT-000003',
+      issue_date: new Date('2026-02-01'),
+      due_date: new Date('2026-03-01'),
+      total_value: 15000,
+      is_active: false,
+      status: 'CANCELLED',
+    })
+
+    await expect(sut.execute(invoice.id)).rejects.toBeInstanceOf(AppError)
   })
 
   it('should throw when invoice does not exist', async () => {

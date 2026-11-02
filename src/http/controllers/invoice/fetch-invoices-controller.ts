@@ -1,6 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeFetchInvoices } from '../../../services/factories/make-fetch-invoices'
+import { markOverdueInvoices } from '../../../services/invoice/mark-overdue-invoices'
 
 export async function fetchInvoices(
   request: FastifyRequest,
@@ -17,6 +18,7 @@ export async function fetchInvoices(
   })
 
   const { page, status, contractId, assetId, month, year, search } = querySchema.parse(request.query)
+  await markOverdueInvoices().catch(() => undefined)
   const useCase = makeFetchInvoices()
   const { invoices } = await useCase.execute({ status, page, contractId, assetId, month, year, search })
 
@@ -29,6 +31,8 @@ export async function getInvoiceSummaryController(request: FastifyRequest, reply
     year: z.coerce.number().int().min(2020),
   })
   const { month, year } = querySchema.parse(request.query)
+
+  await markOverdueInvoices().catch(() => undefined)
 
   const { PrismaInvoiceRepository } = await import('../../../repositories/prisma/prisma-invoice-repository')
   const repo = new PrismaInvoiceRepository()

@@ -8,9 +8,9 @@ import { prisma } from '../../../lib/prisma'
 vi.mock('../../../lib/prisma', () => ({
   prisma: {
     $transaction: vi.fn(async (callback) => callback(prisma)),
+    $executeRaw: vi.fn(),
     invoice: {
-      findFirst: vi.fn(),
-      count: vi.fn(),
+      findMany: vi.fn(),
       create: vi.fn(),
     },
     measurementBulletin: {
@@ -33,16 +33,19 @@ describe('Create Invoice', () => {
     sut = new CreateInvoiceUseCase(invoiceRepo, bulletinRepo)
 
     vi.clearAllMocks()
-    
-    // Default mock setup for transaction methods
-    vi.spyOn(prisma.invoice, 'create').mockImplementation(async (args: any) => {
+
+    vi.spyOn(prisma.invoice, 'create').mockImplementation((async (args: any) => {
       return { id: 'new-invoice-id', ...args.data }
+    }) as any)
+    vi.spyOn(prisma.measurementBulletin, 'updateMany').mockResolvedValue({
+      count: 1,
     })
-    vi.spyOn(prisma.measurementBulletin, 'updateMany').mockResolvedValue({ count: 1 })
-    vi.spyOn(prisma.companySettings, 'findFirst').mockResolvedValue({ invoice_start_number: 1 } as any)
+    vi.spyOn(prisma.companySettings, 'findFirst').mockResolvedValue({
+      invoice_start_number: 1,
+    } as any)
   })
 
-  it('should auto-generate invoice number based on the highest invoice_number string', async () => {
+  it('should auto-generate invoice number based on the highest existing invoice_number', async () => {
     await bulletinRepo.create({
       id: 'bulletin-01',
       contractId: 'contract-01',
@@ -57,11 +60,9 @@ describe('Create Invoice', () => {
       status: 'APPROVED',
     })
 
-    // Mock findFirst to return an invoice with FAT-000005
-    const findFirstSpy = vi.spyOn(prisma.invoice, 'findFirst').mockResolvedValue({
-      id: 'invoice-01',
-      invoice_number: 'FAT-000005',
-    } as any)
+    const findManySpy = vi
+      .spyOn(prisma.invoice, 'findMany')
+      .mockResolvedValue([{ invoice_number: 'FAT-000005' }] as any)
 
     const result = await sut.execute({
       measurementBulletinIds: ['bulletin-01'],
@@ -69,17 +70,17 @@ describe('Create Invoice', () => {
       due_date: new Date(),
     })
 
-    // Verify findFirst was called with the correct parameters
-    expect(findFirstSpy).toHaveBeenCalledWith(expect.objectContaining({
-      where: { invoice_number: { not: null } },
-      orderBy: { invoice_number: 'desc' }
-    }))
-
-    // Verify the next number is FAT-000006
+    expect(findManySpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { invoice_number: { not: null } },
+        select: { invoice_number: true },
+      }),
+    )
+    expect(prisma.$executeRaw).toHaveBeenCalled()
     expect(result.invoice.invoice_number).toBe('FAT-000006')
   })
 
-  it('should not break the sequence if the last created invoice lacks an invoice_number', async () => {
+  it('should not break the sequence when there are gaps or non-numeric legacy numbers', async () => {
     await bulletinRepo.create({
       id: 'bulletin-02',
       contractId: 'contract-01',
@@ -94,12 +95,11 @@ describe('Create Invoice', () => {
       status: 'APPROVED',
     })
 
-    // Suppose the highest invoice number string in the DB is FAT-000008, 
-    // findFirst will correctly return it because of the 'not: null' and ordering
-    vi.spyOn(prisma.invoice, 'findFirst').mockResolvedValue({
-      id: 'invoice-03',
-      invoice_number: 'FAT-000008',
-    } as any)
+    vi.spyOn(prisma.invoice, 'findMany').mockResolvedValue([
+      { invoice_number: 'FAT-000008' },
+      { invoice_number: 'AVULSA-01' },
+      { invoice_number: null },
+    ] as any)
 
     const result = await sut.execute({
       measurementBulletinIds: ['bulletin-02'],
@@ -107,7 +107,36 @@ describe('Create Invoice', () => {
       due_date: new Date(),
     })
 
-    // Verify the next number is FAT-000009
     expect(result.invoice.invoice_number).toBe('FAT-000009')
+  })
+
+  it('should skip numbers already used when the sequence has duplicates', async () => {
+    await bulletinRepo.create({
+      id: 'bulletin-03',
+      contractId: 'contract-01',
+      assetMovementId: 'mov-01',
+      reference_start: new Date(),
+      reference_end: new Date(),
+      total_days: 30,
+      inactive_days: 0,
+      working_days: 30,
+      daily_rate: 100,
+      total_value: 3000,
+      status: 'APPROVED',
+    })
+
+    vi.spyOn(prisma.invoice, 'findMany').mockResolvedValue([
+      { invoice_number: 'FAT-000301' },
+      { invoice_number: 'FAT-000301' },
+      { invoice_number: 'FAT-000302' },
+    ] as any)
+
+    const result = await sut.execute({
+      measurementBulletinIds: ['bulletin-03'],
+      issue_date: new Date(),
+      due_date: new Date(),
+    })
+
+    expect(result.invoice.invoice_number).toBe('FAT-000303')
   })
 })

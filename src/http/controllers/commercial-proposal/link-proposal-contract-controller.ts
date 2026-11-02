@@ -20,7 +20,7 @@ export async function linkProposalContract(
 
   const proposal = await prisma.commercialProposal.findUnique({
     where: { id },
-    select: { id: true, is_active: true, contractId: true, proposal_number: true },
+    select: { id: true, is_active: true, contractId: true, proposal_number: true, status: true, clientId: true },
   })
 
   if (!proposal || !proposal.is_active) {
@@ -31,17 +31,26 @@ export async function linkProposalContract(
     throw new AppError('Esta proposta já possui um contrato vinculado.', 400)
   }
 
+  if (proposal.status !== 'APPROVED' && proposal.status !== 'CONVERTED') {
+    throw new AppError('Apenas propostas aprovadas podem ser vinculadas a um contrato.', 400)
+  }
+
   const contract = await prisma.contract.findUnique({
     where: { id: contractId },
-    select: { id: true, is_Active: true, contract_number: true },
+    select: { id: true, is_Active: true, contract_number: true, clientId: true },
   })
 
   if (!contract || !contract.is_Active) {
     throw new AppError('Contrato não encontrado.', 404)
   }
 
+  if (contract.clientId !== proposal.clientId) {
+    throw new AppError('O contrato pertence a outro cliente.', 400)
+  }
+
+  // contractId é @unique: considerar também propostas inativas para evitar erro P2002
   const existingLink = await prisma.commercialProposal.findFirst({
-    where: { contractId, is_active: true },
+    where: { contractId },
     select: { id: true },
   })
 

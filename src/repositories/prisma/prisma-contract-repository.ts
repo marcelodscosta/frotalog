@@ -422,6 +422,8 @@ export class PrismaContractRepository implements IContractRepository {
     totalMaintenanceCost: number; 
     totalOtherExpenses: number;
     totalBulletinsValue: number;
+    totalInvoicedValue: number;
+    totalReceivedValue: number;
   } | null> {
     const contract = await prisma.contract.findUnique({
       where: { id: contractId },
@@ -502,7 +504,26 @@ export class PrismaContractRepository implements IContractRepository {
       return acc + (Number(curr.total_value) || 0)
     }, 0)
 
-    return { totalMaintenanceCost, totalOtherExpenses, totalBulletinsValue }
+    const invoices = await prisma.invoice.findMany({
+      where: { contractId, is_active: true },
+      select: { total_value: true, is_paid: true },
+    })
+
+    const totalInvoicedValue = invoices.reduce(
+      (acc, invoice) => acc + (Number(invoice.total_value) || 0),
+      0,
+    )
+    const totalReceivedValue = invoices
+      .filter((invoice) => invoice.is_paid)
+      .reduce((acc, invoice) => acc + (Number(invoice.total_value) || 0), 0)
+
+    return {
+      totalMaintenanceCost,
+      totalOtherExpenses,
+      totalBulletinsValue,
+      totalInvoicedValue,
+      totalReceivedValue,
+    }
   }
 
   async countByYear(year: number): Promise<number> {

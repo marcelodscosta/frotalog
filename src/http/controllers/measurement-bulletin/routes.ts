@@ -5,11 +5,13 @@ import { fetchMeasurementBulletins } from './fetch-measurement-bulletins-control
 import { getMeasurementBulletin } from './get-measurement-bulletin-controller'
 import { updateMeasurementBulletin } from './update-measurement-bulletin-controller'
 import { deleteMeasurementBulletin } from './delete-measurement-bulletin-controller'
+import { createBatchMeasurementBulletins } from './create-batch-measurement-bulletins-controller'
 
 export async function measurementBulletinRoutes(app: FastifyInstance) {
   app.addHook('preHandler', requireAuth())
 
   app.post('/measurement-bulletins', createMeasurementBulletin)
+  app.post('/measurement-bulletins/batch', createBatchMeasurementBulletins)
   app.get('/measurement-bulletins', fetchMeasurementBulletins)
   app.get('/measurement-bulletins/:id', getMeasurementBulletin)
   app.patch('/measurement-bulletins/:id', updateMeasurementBulletin)

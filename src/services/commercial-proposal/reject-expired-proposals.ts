@@ -16,15 +16,16 @@ export async function rejectExpiredProposals(): Promise<number> {
   const candidates = await prisma.commercialProposal.findMany({
     where: {
       is_active: true,
-      status: { in: ['DRAFT', 'SENT'] },
+      status: 'SENT',
     },
-    select: { id: true, created_at: true, validity_days: true },
+    select: { id: true, created_at: true, sent_at: true, validity_days: true },
   })
 
   const expiredIds = candidates
     .filter((proposal) => {
       const validityDays = Number(proposal.validity_days || DEFAULT_VALIDITY_DAYS)
-      return addDaysAtStartOfDay(proposal.created_at, validityDays) < today
+      const sentAt = proposal.sent_at ?? proposal.created_at
+      return addDaysAtStartOfDay(sentAt, validityDays) < today
     })
     .map((proposal) => proposal.id)
 
@@ -32,7 +33,7 @@ export async function rejectExpiredProposals(): Promise<number> {
 
   const { count } = await prisma.commercialProposal.updateMany({
     where: { id: { in: expiredIds } },
-    data: { status: 'REJECTED' },
+    data: { status: 'EXPIRED' },
   })
 
   return count

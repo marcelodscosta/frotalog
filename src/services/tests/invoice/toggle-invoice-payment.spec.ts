@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { ToggleInvoicePaymentUseCase } from '../../invoice/toggle-invoice-payment-use-case'
 import { InMemoryInvoiceRepository } from '../../../repositories/in-memory/in-memory-invoice-repository'
 import { ResourceNotFoundError } from '../../errors/resource-not-found-error'
+import { AppError } from '../../errors/app-error'
 
 let repo: InMemoryInvoiceRepository
 let sut: ToggleInvoicePaymentUseCase
@@ -12,7 +13,7 @@ describe('Toggle Invoice Payment', () => {
     sut = new ToggleInvoicePaymentUseCase(repo)
   })
 
-  it('should mark invoice as paid', async () => {
+  it('should refuse to mark an unpaid invoice as paid without a bank account', async () => {
     const invoice = await repo.create({
       invoice_number: 'FAT-000001',
       issue_date: new Date('2026-02-01'),
@@ -21,14 +22,15 @@ describe('Toggle Invoice Payment', () => {
       is_paid: false,
       status: 'PENDING',
     })
-    const result = await sut.execute(invoice.id)
 
-    expect(result.invoice.is_paid).toBe(true)
-    expect(result.invoice.status).toBe('PAID')
-    expect(result.invoice.payment_date).toBeDefined()
+    await expect(sut.execute(invoice.id)).rejects.toBeInstanceOf(AppError)
+
+    const stored = await repo.findById(invoice.id)
+    expect(stored?.is_paid).toBe(false)
+    expect(stored?.status).toBe('PENDING')
   })
 
-  it('should mark invoice as unpaid (toggle back)', async () => {
+  it('should refund a paid invoice (toggle back)', async () => {
     const invoice = await repo.create({
       invoice_number: 'FAT-000001',
       issue_date: new Date('2026-02-01'),

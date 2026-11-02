@@ -4,6 +4,7 @@ import {
 } from '../../generated/prisma'
 import { IMeasurementBulletinRepository } from '../../repositories/interfaces/IMeasurementBulletinRepository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import { AppError } from '../errors/app-error'
 
 interface UpdateMeasurementBulletinRequest {
   id: string
@@ -16,6 +17,7 @@ interface UpdateMeasurementBulletinResponse {
 }
 
 import { prisma } from '../../lib/prisma'
+import { recalculateContractMonthCommission } from '../commission/recalculate-contract-month-commission'
 
 export class UpdateMeasurementBulletinUseCase {
   constructor(
@@ -27,6 +29,16 @@ export class UpdateMeasurementBulletinUseCase {
   ): Promise<UpdateMeasurementBulletinResponse> {
     const existing = await this.measurementBulletinRepository.findById(data.id)
     if (!existing) throw new ResourceNotFoundError()
+
+    const statusChanging = data.status !== undefined && data.status !== existing.status
+
+    if (statusChanging && existing.status === MeasurementBulletinStatus.INVOICED) {
+      throw new AppError('O status de um boletim faturado não pode ser alterado. Cancele a fatura primeiro.', 400)
+    }
+
+    if (statusChanging && data.status === MeasurementBulletinStatus.INVOICED) {
+      throw new AppError('O status "Faturado" é definido automaticamente ao gerar a fatura.', 400)
+    }
 
     const measurementBulletin =
       await this.measurementBulletinRepository.update(data.id, {
@@ -40,6 +52,14 @@ export class UpdateMeasurementBulletinUseCase {
       existing.status !== MeasurementBulletinStatus.APPROVED
     ) {
       await this.updateAssetCounters(measurementBulletin)
+    }
+
+    // A comissão mensal só considera boletins aprovados/faturados
+    if (statusChanging) {
+      await recalculateContractMonthCommission(
+        existing.contractId,
+        existing.reference_start,
+      )
     }
 
     return { measurementBulletin }

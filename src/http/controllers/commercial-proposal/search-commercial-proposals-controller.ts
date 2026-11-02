@@ -8,7 +8,7 @@ export async function searchCommercialProposals(request: FastifyRequest, reply: 
     page: z.coerce.number().min(1).default(1),
     pageSize: z.coerce.number().min(1).default(10),
     query: z.string().optional(),
-    status: z.enum(['DRAFT', 'SENT', 'APPROVED', 'REJECTED', 'CANCELLED', 'CONVERTED']).optional(),
+    status: z.enum(['DRAFT', 'SENT', 'APPROVED', 'REJECTED', 'CANCELLED', 'CONVERTED', 'EXPIRED']).optional(),
     clientId: z.string().optional(),
     startDate: z.string().optional(),
     endDate: z.string().optional(),

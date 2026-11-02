@@ -298,6 +298,8 @@ exports.Prisma.AssetMovementScalarFieldEnum = {
   mobilization_checklist_url: 'mobilization_checklist_url',
   demobilization_checklist_url: 'demobilization_checklist_url',
   rental_value: 'rental_value',
+  franchise_hours: 'franchise_hours',
+  extra_hour_value: 'extra_hour_value',
   billing_cycle: 'billing_cycle',
   operator_name: 'operator_name',
   current_horometer: 'current_horometer',
@@ -323,6 +325,8 @@ exports.Prisma.MeasurementBulletinScalarFieldEnum = {
   inactive_days: 'inactive_days',
   working_days: 'working_days',
   daily_rate: 'daily_rate',
+  rental_value_total: 'rental_value_total',
+  expenses_total: 'expenses_total',
   total_value: 'total_value',
   measured_quantity: 'measured_quantity',
   measurement_unit: 'measurement_unit',
@@ -346,6 +350,8 @@ exports.Prisma.InvoiceScalarFieldEnum = {
   due_date: 'due_date',
   notes: 'notes',
   status: 'status',
+  cancel_reason: 'cancel_reason',
+  cancelled_at: 'cancelled_at',
   is_active: 'is_active',
   created_at: 'created_at',
   updated_at: 'updated_at',
@@ -466,6 +472,7 @@ exports.Prisma.CommercialProposalScalarFieldEnum = {
   discount_percentage: 'discount_percentage',
   discount_value: 'discount_value',
   follow_up_date: 'follow_up_date',
+  sent_at: 'sent_at',
   commission_percentage: 'commission_percentage',
   body_html: 'body_html',
   status: 'status',
@@ -699,7 +706,8 @@ exports.ProposalStatus = exports.$Enums.ProposalStatus = {
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED',
   CANCELLED: 'CANCELLED',
-  CONVERTED: 'CONVERTED'
+  CONVERTED: 'CONVERTED',
+  EXPIRED: 'EXPIRED'
 };
 
 exports.CommissionStatus = exports.$Enums.CommissionStatus = {

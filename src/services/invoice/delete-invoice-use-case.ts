@@ -3,6 +3,7 @@ import { IInvoiceRepository } from '../../repositories/interfaces/IInvoiceReposi
 import { IMeasurementBulletinRepository } from '../../repositories/interfaces/IMeasurementBulletinRepository'
 import { IBankAccountRepository } from '../../repositories/interfaces/IBankAccountRepository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import { AppError } from '../errors/app-error'
 import { prisma } from '../../lib/prisma'
 
 export class DeleteInvoiceUseCase {
@@ -12,9 +13,12 @@ export class DeleteInvoiceUseCase {
     private bankAccountRepository: IBankAccountRepository,
   ) {}
 
-  async execute(id: string): Promise<Invoice> {
+  async execute(id: string, reason?: string): Promise<Invoice> {
     const existing = await this.invoiceRepository.findById(id)
     if (!existing) throw new ResourceNotFoundError()
+    if (!existing.is_active) {
+      throw new AppError('Esta fatura já foi cancelada.', 400)
+    }
 
     // Fetch details including measurement bulletins and financial transactions
     const invoiceWithDetails = await this.invoiceRepository.findByIdWithDetails(id)
@@ -53,10 +57,17 @@ export class DeleteInvoiceUseCase {
         )
       }
 
-      // 3. Perform soft delete on the invoice
+      // 3. Cancela a fatura mantendo a trilha de cancelamento
       return await tx.invoice.update({
         where: { id },
-        data: { is_active: false },
+        data: {
+          is_active: false,
+          status: 'CANCELLED',
+          is_paid: false,
+          payment_date: null,
+          cancel_reason: reason ?? null,
+          cancelled_at: new Date(),
+        },
       })
     })
   }
