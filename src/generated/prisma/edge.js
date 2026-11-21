@@ -770,7 +770,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/uer/Documents/Projetos/frotalog/src/generated/prisma",
+      "value": "/home/marcelo/Documentos/Projetos/Frotalog - Projeto Completo/frotalog/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -779,7 +779,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin",
+        "value": "debian-openssl-1.1.x",
         "native": true
       },
       {
@@ -788,12 +788,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/uer/Documents/Projetos/frotalog/prisma/schema.prisma",
+    "sourceFilePath": "/home/marcelo/Documentos/Projetos/Frotalog - Projeto Completo/frotalog/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.15.0",
@@ -802,7 +801,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
